@@ -1,0 +1,140 @@
+<div>
+        <div id="xnfy520-function-index-title">
+            系统配置
+        </div>
+
+    <div id="xnfy520-function-index-content">
+    <script>
+        $(function(){
+            $("#switch-change-1").live('click',function(){
+                $(".default-li").css("background","#546C83").css("color","white");
+                $(this).css("background","#95D0DE").css("color","#546C83");
+                $(".default-li-style").css("display","none");
+                $("#switch-change-1-sub").css("display","block");
+            });
+
+            $("#switch-change-2").live('click',function(){
+                $(".default-li").css("background","#546C83").css("color","white");
+                $(this).css("background","#95D0DE").css("color","#546C83");
+                $(".default-li-style").css("display","none");
+                $("#switch-change-2-sub").css("display","block");
+            });
+
+            $("#switch-change-3").live('click',function(){
+                $(".default-li").css("background","#546C83").css("color","white");
+                $(this).css("background","#95D0DE").css("color","#546C83");
+                $(".default-li-style").css("display","none");
+                $("#switch-change-3-sub").css("display","block");
+            });
+
+            $("#switch-change-4").live('click',function(){
+                $(".default-li").css("background","#546C83").css("color","white");
+                $(this).css("background","#95D0DE").css("color","#546C83");
+                $(".default-li-style").css("display","none");
+                $("#switch-change-4-sub").css("display","block");
+            });
+        });
+    </script>
+    <form action="javascript:;" method="post" id="systemset" name="system_set">
+        <input type="hidden" name="filename" value="siteconfig.inc.php" />
+        <ul style="height: 30px;">
+            <li id="switch-change-1" class="default-li" style="cursor: pointer;width: 100px;height: 30px;line-height: 30px;float: left;margin-left: 85px;background: #95D0DE;text-align: center;margin-right: 10px;font-weight: bold;color: #546C83;">基本信息</li>
+            <li id="switch-change-2" class="default-li" style="cursor:pointer;width: 100px;height: 30px;line-height: 30px;float: left;background: #546C83;text-align: center;font-weight: bold;margin-right: 10px;color: white;">联系方式</li>
+            <!--<li id="switch-change-3" class="default-li" style="cursor:pointer;width: 100px;height: 30px;line-height: 30px;float: left;background: #546C83;text-align: center;font-weight: bold;margin-right: 10px;color: white;">客户服务</li>-->
+            <!--<li id="switch-change-4" class="default-li" style="cursor:pointer;width: 100px;height: 30px;line-height: 30px;float: left;background: #546C83;text-align: center;font-weight: bold;margin-right: 10px;color: white;">特别关注</li>-->
+        </ul>
+        <ul id="switch-change-1-sub" class="default-li-style">
+            <li class="systemt-set-li">
+                <strong class="system-set-title">站点名称：</strong>
+                <textarea name="site_name"><{$Think.config.site_name}></textarea>
+            </li>
+
+            <li class="systemt-set-li"><strong class="system-set-title">关键字：</strong>
+                <textarea name="site_keywords"><{$Think.config.site_keywords}></textarea>
+            </li>
+
+            <li class="systemt-set-li"><strong class="system-set-title">网站描述：</strong>
+                <textarea name="site_description"><{$Think.config.site_description}></textarea>
+            </li>
+
+            <li class="systemt-set-li"><strong class="system-set-title">欢迎文字：</strong>
+                <textarea name="welcome_words"><{$Think.config.welcome_words}></textarea>
+            </li>
+
+            <li class="systemt-set-li"><strong class="system-set-title">公司名称：</strong>
+                <textarea name="company_name"><{$Think.config.company_name}></textarea>
+            </li>
+
+            <li class="systemt-set-li"><strong class="system-set-title">版权信息：</strong>
+                <textarea name="site_copyright"><{$Think.config.site_copyright}></textarea>
+                <span class="tips"></span>
+            </li>
+
+            <li class="systemt-set-li"><strong class="system-set-title">备案信息：</strong>
+                <textarea name="site_filing"><{$Think.config.site_filing}></textarea>
+                <span class="tips"></span>
+            </li>
+
+        </ul>
+
+        <ul id="switch-change-2-sub" class="default-li-style" style="display: none;">
+
+            <li class="systemt-set-li"><strong class="system-set-title">在线客服：</strong>
+                <textarea name="contact_online_service" style="width: 305px;"><{$Think.config.contact_online_service}></textarea>
+                <strong class="system-set-title">服务时间：</strong>
+                <textarea name="contact_online_service_time" style="width: 305px;"><{$Think.config.contact_online_service_time}></textarea>
+            </li>
+
+            <li class="systemt-set-li"><strong class="system-set-title">免费热线：</strong>
+                <textarea name="contact_free_hotline" style="width: 305px;"><{$Think.config.contact_free_hotline}></textarea>
+                <strong class="system-set-title">服务时间：</strong>
+                <textarea name="contact_free_hotline_time" style="width: 305px;"><{$Think.config.contact_free_hotline_time}></textarea>
+            </li>
+
+            <li class="systemt-set-li"><strong class="system-set-title">电话：</strong>
+                <textarea name="contact_phone" style="width: 305px;"><{$Think.config.contact_phone}></textarea>
+                <strong class="system-set-title">传真：</strong>
+                <textarea name="contact_fax" style="width: 305px;"><{$Think.config.contact_fax}></textarea>
+            </li>
+
+            <li class="systemt-set-li"><strong class="system-set-title">邮箱：</strong>
+                <textarea name="contact_email"><{$Think.config.contact_email}></textarea>
+                <span class="tips"></span>
+            </li>
+
+            <li class="systemt-set-li"><strong class="system-set-title">联系地址：</strong>
+                <textarea name="contact_address" style="width: 305px;"><{$Think.config.contact_address}></textarea>
+                <span class="tips"></span>
+                <strong class="system-set-title">邮编：</strong>
+                <textarea name="contact_zip" style="width: 305px;"><{$Think.config.contact_zip}></textarea>
+                <span class="tips"></span>
+            </li>
+
+            <li class="systemt-set-li"><strong class="system-set-title">新浪微博：</strong>
+                <textarea name="contact_sina_weibo" style="width: 305px;"><{$Think.config.contact_sina_weibo}></textarea>
+                <strong class="system-set-title">腾讯微博：</strong>
+                <textarea name="contact_tencent_weibo" style="width: 305px;"><{$Think.config.contact_tencent_weibo}></textarea>
+            </li>
+            <li class="systemt-set-li"><strong class="system-set-title">ＱＱ空间：</strong>
+                <textarea name="contact_qq_zone" style="width: 305px;"><{$Think.config.contact_qq_zone}></textarea>
+                <span class="tips"></span>
+            </li>
+
+        </ul>
+
+        <ul id="switch-change-3-sub" class="default-li-style" style="display: none;">
+
+        </ul>
+
+        <ul id="switch-change-4-sub" class="default-li-style" style="display: none;">
+
+        </ul>
+
+        <ul>
+            <li><strong class="system-set-title"></strong>
+                <input type="submit" value="修改" />
+            </li>
+        </ul>
+    </form>
+    </div>
+</div>

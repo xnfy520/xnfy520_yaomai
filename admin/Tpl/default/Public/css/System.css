@@ -1,0 +1,26 @@
+.systemt-set-li{
+    height: 55px;
+    line-height: 55px;
+    width: 100%;
+    min-width: 800px;
+    color: #5C5C5C;
+}
+
+.systemt-set-li:hover{
+    background: #d9eaf4;
+}
+
+.systemt-set-li textarea{
+    height: 40px;
+    margin-top: 5px;
+    width: 705px;
+    resize: none;
+}
+
+.system-set-title{
+    vertical-align: top;
+    display: inline-block;
+    width: 80px;
+    font-size: 1.5em;
+    text-align: right;
+}

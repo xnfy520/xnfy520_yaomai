@@ -1,0 +1,66 @@
+{__NOLAYOUT__}
+        <form action="javascript:;" method="post" name="Provinces-del" class="delete">
+            <table id="xnfy520-function-index-table">
+                <thead>
+                <tr>
+                    <th id="xnfy520-function-index-table-th-name">名称</th>
+                    <th id="xnfy520-function-index-table-th-enable">开启</th>
+                    <th id="xnfy520-function-index-table-th-sort">排序</th>
+                    <th id="xnfy520-function-index-table-th-description"></th>
+                    <th class="xnfy520-function-index-table-th-time">创建时间</th>
+                    <th class="xnfy520-function-index-table-th-time">修改时间</th>
+                    <th id="xnfy520-function-index-table-th-check-all">
+                        <input type="button" value="全选" />
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <empty name="list">
+                    <tr><td colspan="8" style="height:50px;">暂无数据</td></tr>
+                    <else/>
+                    <volist name="list" id="vo">
+                        <tr>
+                            <td class="xnfy520-function-index-table-td-name">
+                                   <span class="xnfy520-function-index-edit">
+                                       <gt name="vo.name|mb_strlen='utf-8'" value="20">
+                                           <span><{$vo.name|mb_substr=0,20,"utf-8"}>...</span>
+                                           <else/>
+                                           <span><{$vo.name}></span>
+                                       </gt>
+                                    </span>
+                            </td>
+                            <td class="xnfy520-function-index-table-td-enable">
+                                <eq name="vo.publish" value="1">
+                                    <span class="switchpublish" value="<{$vo.id}>" publish="<{$vo.publish}>">是</span>
+                                    <else/>
+                                    <span class="switchpublish" value="<{$vo.id}>" publish="<{$vo.publish}>">否</span>
+                                </eq>
+                            </td>
+                            <td class="xnfy520-function-index-table-td-sort"><span class="xnfy520-function-index-edit"><{$vo.sort}></span></td>
+                            <td>
+
+                            </td>
+                            <td><{$vo.create_date|date="Y-m-d H:i:s",###}></td>
+                            <td><empty name="vo.modify_date">-<else/><{$vo.modify_date|date="Y-m-d H:i:s",###}></empty></td>
+                            <td class="xnfy520-function-index-table-td-checkbox">
+                                <input class="xnfy520-function-index-table-check-this" type="checkbox" name="deleteid[]" value="<{$vo.id}>" this_pid="<{$vo.pid}>" />
+                            </td>
+                        </tr>
+                    </volist>
+                </empty>
+                </tbody>
+            </table>
+            <notempty name="list">
+                <div style="border:1px solid #ccc;height: 37px;">
+
+                    <div class="emit-fanye-box">
+                        <div class="emit-fanye-text">
+                            <{$fpage}>
+                        </div>
+                    </div>
+
+                    <span style="float: right;"><input type="submit" value="删除" /></span>
+
+                </div>
+            </notempty>
+        </form>

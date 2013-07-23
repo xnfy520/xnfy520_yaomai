@@ -1,0 +1,119 @@
+
+input{
+	margin:5px;
+	background:white;
+}
+
+.text-left{
+	text-indent: 20px;
+	text-align: left;
+}
+
+.SeasonsList-edit{
+	font-weight:bold;
+}
+
+/****列表页******/
+
+#SeasonsList-index{
+	width:100%;
+	margin:0 auto 5px;
+	height:auto;
+	text-align: center;
+}
+
+#SeasonsList-index .title{
+	width: 99%;
+	margin: 0 auto 5px;
+	font-size:17px;
+	font-weight:bold;
+	background:#D9E6FF;
+	height:35px;
+	line-height:35px;
+	text-align:center;
+}
+
+#SeasonsList-index .search{
+	clear: both;
+	background:#d9e6ff;
+	height: 35px;
+	position: relative;
+}
+
+#SeasonsList-index .content-centet{
+	width: 99%;
+	margin: 0 auto;
+}
+
+#SeasonsList-index .adds{
+	cursor: pointer;
+	background:#d9e6ff;
+	position: absolute;
+	right:0;
+	border-width: 0 0 0 7px;
+	border-style: solid;
+	border-color: white;
+	width:100px;
+	height:35px;
+	line-height: 35px;
+	z-index: 1;
+}
+
+#SeasonsList-index table{
+	width:100%;
+	margin:5px auto;
+	border-collapse:collapse;
+}
+
+#SeasonsList-index table th,#SeasonsList-index table td{
+	border:1px solid #ccc;
+}
+
+#SeasonsList-index thead{
+	background:#d9e6ff;
+}
+
+#SeasonsList-index table th{
+	height: 25px;
+	line-height: 25px;
+}
+
+#SeasonsList-index tbody td{
+	border-width:0 0 1px 0;
+}
+
+#SeasonsList-index .fpage{
+	height:30px;
+	line-height: 30px;
+}
+
+/****添加 修改相关********/
+#SeasonsList-add-edit{
+	background:white;
+	width:420px;
+	padding:10px 10px 30px 10px;
+	border:5px solid #ccc;
+}
+
+#SeasonsList-add-edit .title{
+	font-size:20px;
+	font-weight:bold;
+	background:#ccc;
+	height:30px;
+	margin:5px auto;
+	line-height:30px;
+	text-align:center;
+}
+
+#SeasonsList-add-edit table{
+	margin:0 auto;
+}
+
+#SeasonsList-add-edit .th-left{
+	text-align: left;
+}
+
+#SeasonsList-add-edit .th-left-top{
+	text-align: left;
+	vertical-align: top;
+}

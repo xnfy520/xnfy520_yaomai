@@ -1,0 +1,11 @@
+{__NOLAYOUT__}
+<input type="hidden" name="id" value="<{$Think.post.id}>" />
+<input type="hidden" name="roleid" value="<{$Think.post.rid}>" />
+<h1 style="text-align: center;font-size: 17px;">分配管理省份</h1>
+<ul style="margin: 0 auto;width: 400px;padding-left: 20px;padding-bottom: 10px;">
+    <li>
+        <volist name="Provincesinfo" id="vo_provin">
+            <eq name="vo_provin.status" value="1"><span style="width: 80px;display: inline-block;"><input type="checkbox" name="allow_provinces[]" checked="checked" value="<{$vo_provin.id}>" /><{$vo_provin.name}></span><else/><span style="width: 80px;display: inline-block;"><input type="checkbox" name="allow_provinces[]" value="<{$vo_provin.id}>" /><{$vo_provin.name}></span></eq>
+        </volist>
+    </li>
+</ul>

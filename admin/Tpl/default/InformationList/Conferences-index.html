@@ -1,0 +1,105 @@
+
+<div id="xnfy520-function-index">
+
+    <div id="xnfy520-function-index-title">
+        会议列表
+    </div>
+
+    <div id="xnfy520-function-index-search">
+
+        <span id="xnfy520-function-index-add">添 加</span>
+
+        <form action="__APP__/InformationList/index/cid/1" method="post" name="form_search"  style="line-height: 35px;">
+            关键字 <input type="text" name="key" /> 按&nbsp;
+            <select name="search">
+                <option value="2">名称</option>
+            </select>
+            <empty name="list">
+                <input type="submit" value="搜索" disabled="disabled" />
+                <else />
+                <input type="submit" value="搜索" />
+            </empty>
+        </form>
+
+    </div>
+
+    <div id="xnfy520-function-index-content">
+
+        <form action="javascript:;" method="post" name="InformationList-del" class="delete">
+            <table id="xnfy520-function-index-table">
+                <thead>
+                <tr>
+                    <th>名称</th>
+                    <th id="xnfy520-function-index-table-th-enable">开启</th>
+                    <th id="xnfy520-function-index-table-th-sort">排序</th>
+                    <th id="xnfy520-function-index-table-th-views">浏览</th>
+                    <th id="xnfy520-function-index-table-th-created">创建时间</th>
+                    <th id="xnfy520-function-index-table-th-check-all">
+                        <input type="button" value="全选" />
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <empty name="list">
+                    <tr><td colspan="7" style="height:50px;">暂无数据</td></tr>
+                    <else/>
+                    <volist name="list" id="vo">
+                        <tr>
+                            <td class="xnfy520-function-index-table-td-name">
+                                   <span class="xnfy520-function-index-edit">
+                                       <gt name="vo.name|mb_strlen='utf-8'" value="50">
+                                           <span title="<{$vo.name}>"><{$vo.name|mb_substr=0,50,"utf-8"}>...</span>
+                                           <else/>
+                                           <span><{$vo.name}></span>
+                                       </gt>
+                                    </span>
+                            </td>
+                            <!--<td class="xnfy520-function-index-table-td-by">-->
+                                <!--<a class="xnfy520-function-index-table-td-by-a" href="__APP__/InformationList/index/cid/<{$vo.InformationCategory.id}>"><{$vo.InformationCategory.name}></a>-->
+                            <!--</td>-->
+                            <td class="xnfy520-function-index-table-td-enable">
+                                <eq name="vo.id" value="1">
+                                    是
+                                    <else/>
+                                    <eq name="vo.publish" value="1">
+                                        <span class="switchpublish" value="<{$vo.id}>" publish="<{$vo.publish}>">是</span>
+                                        <else/>
+                                        <span class="switchpublish" value="<{$vo.id}>" publish="<{$vo.publish}>">否</span>
+                                    </eq>
+                                </eq>
+
+                            </td>
+                            <td class="xnfy520-function-index-table-td-sort"><span class="xnfy520-function-index-edit"><{$vo.sort}></span></td>
+                            <td class="xnfy520-function-index-table-td-views"><span class="xnfy520-function-index-edit"><{$vo.views}></span></td>
+                            <td class="xnfy520-function-index-table-td-created">
+                                <span class="xnfy520-function-index-edit"><{$vo.CreateDate|date="Y-m-d H:i:s",###}></span>
+                            </td>
+                            <td class="xnfy520-function-index-table-td-checkbox">
+                                <eq name="vo.id" value="1">
+                                        <input readonly="readonly" disabled="disabled" class="xnfy520-function-index-table-check-this" type="checkbox" name="deleteid[]" value="<{$vo.id}>" />
+                                    <else/>
+                                        <input class="xnfy520-function-index-table-check-this" type="checkbox" name="deleteid[]" value="<{$vo.id}>" />
+                                </eq>
+                            </td>
+                        </tr>
+                    </volist>
+                </empty>
+                </tbody>
+            </table>
+            <notempty name="list">
+                <div style="border:1px solid #ccc;height: 37px;">
+
+                    <div class="emit-fanye-box">
+                        <div class="emit-fanye-text">
+                            <{$fpage}>
+                        </div>
+                    </div>
+
+                    <span style="float: right;"><input type="submit" value="删除" /></span>
+
+                </div>
+            </notempty>
+        </form>
+
+    </div>
+</div>

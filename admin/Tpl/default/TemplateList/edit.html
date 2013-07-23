@@ -1,0 +1,98 @@
+
+<div id="TemplateList-add-edit">
+
+    <div id="xnfy520-function-index-title">
+        修改资讯
+    </div>
+
+    <form action="javascript:;" method="POST" name="TemplateList-edit">
+        <input type="hidden" name="id" value="<{$data.id}>" />
+
+        <ul style="margin-top: 10px;">
+            <li class="xnfy520-function-index-add-edit-ul-li">
+                <strong>名　　称：</strong><input type="text" maxlength="50" style="width: 592px;margin: 0 0 0 5px" name="name" value="<{$data.name}>" />
+                <span style="margin-left:15px;font-size: 12px;">(名称限字符1-50个)</span>
+            </li>
+            <li class="xnfy520-function-index-add-edit-ul-li">
+                <strong>标　　题：</strong><input type="text" maxlength="50" style="width: 592px;margin: 0 0 0 5px" name="title" value="<{$data.title}>" />
+                <span style="margin-left:15px;font-size: 12px;">(标题限字符1-50个)</span>
+            </li>
+            <li class="xnfy520-function-index-add-edit-ul-li">
+                    <span style="float: right;display: none;">
+                        <strong>发　　布：</strong>
+                        <select name="publish" style="width: 54px;padding: 2px">
+                            <eq name="data.publish" value="1">
+                                <option value="1" selected="selected">是</option>
+                                <option value="0">否</option>
+                                <else/>
+                                <option value="1">是</option>
+                                <option value="0" selected="selected">否</option>
+                            </eq>
+                        </select>　
+                        <strong>排　　序：</strong>
+                        <input title="值必须在0-255 (必填)" type="text" name="sort" value="<{$data.sort}>" style="text-align: center;width: 50px;" maxlength="3" />
+                    </span>
+                <strong>详　　情：</strong>
+                <span style="font-size: 12px;">(详情页内图片最大宽度为895px,字数不限字符。)</span>
+            </li>
+            <switch name="Think.get.id">
+                <case value="2">
+                    <li class="xnfy520-function-index-add-edit-ul-li">
+                        请使用特殊变量 %user_name% 代表当前用户 %change_url% 代码修改密码地址 %date%代表当前时间
+                    </li>
+                </case>
+                <case value="3">
+                    <li class="xnfy520-function-index-add-edit-ul-li">
+                        请使用特殊变量 %user_name% 代表当前用户 %date%代表当前时间
+                    </li>
+                </case>
+                <case value="4">
+                    <li class="xnfy520-function-index-add-edit-ul-li">
+                        请使用特殊变量 %user_name% 代表当前用户 %date%代表当前时间
+                    </li>
+                </case>
+                <case value="5">
+                    <li class="xnfy520-function-index-add-edit-ul-li">
+                        请使用特殊变量 %user_name% 代表当前用户 %order_infos% 代表订单详情 %date%代表当前时间
+                    </li>
+                </case>
+                <case value="6">
+                    <li class="xnfy520-function-index-add-edit-ul-li">
+                        请使用特殊变量 %user_name% 代表当前用户 %order_url% 代表订单页面 %date%代表当前时间
+                    </li>
+                </case>
+            </switch>
+            <li>
+                <textarea name="details" style="resize: none;position:absolute;visibility: hidden;"><{$data.details}></textarea>
+            </li>
+            <li>
+                <input style="margin-left: -2px;" type="submit" name="" value="修改" />
+            </li>
+        </ul>
+    </form>
+
+</div>
+
+<script type="text/javascript" src="__PUBLIC__/js/kindeditor/kindeditor-min.js"></script>
+<script>
+    var editor;
+    KindEditor.ready(function(K) {
+        editor = K.create('textarea[name="details"]', {
+            newlineTag : 'br',
+            resizeType : 1,
+            allowPreviewEmoticons : false,
+            allowImageUpload : true,
+            minHeight : 350,
+            width:800,
+            pasteType : 2,
+            filterMode : false,
+            items :  [
+                'source','justifyleft', 'justifycenter', 'justifyright','justifyfull', 'subscript','superscript', 'clearhtml', 'quickformat',
+                'formatblock', 'fontname', 'fontsize', 'forecolor', 'hilitecolor', 'bold','italic', 'underline', 'strikethrough',
+                'lineheight', 'removeformat','image', 'insertfile','emoticons', 'baidumap', 'link', 'unlink', 'selectall',  'fullscreen'
+            ]
+        });
+
+    });
+
+</script>

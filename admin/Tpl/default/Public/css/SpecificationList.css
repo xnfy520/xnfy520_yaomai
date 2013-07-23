@@ -1,0 +1,119 @@
+
+input{
+	margin:5px;
+	background:white;
+}
+
+.text-left{
+	text-indent: 20px;
+	text-align: left;
+}
+
+.SpecificationList-edit{
+	font-weight:bold;
+}
+
+/****列表页******/
+
+#SpecificationList-index{
+	width:100%;
+	margin:0 auto 5px;
+	height:auto;
+	text-align: center;
+}
+
+#SpecificationList-index .title{
+	width: 99%;
+	margin: 0 auto 5px;
+	font-size:17px;
+	font-weight:bold;
+	background:#D9E6FF;
+	height:35px;
+	line-height:35px;
+	text-align:center;
+}
+
+#SpecificationList-index .search{
+	clear: both;
+	background:#d9e6ff;
+	height: 35px;
+	position: relative;
+}
+
+#SpecificationList-index .content-centet{
+	width: 99%;
+	margin: 0 auto;
+}
+
+#SpecificationList-index .adds{
+	cursor: pointer;
+	background:#d9e6ff;
+	position: absolute;
+	right:0;
+	border-width: 0 0 0 7px;
+	border-style: solid;
+	border-color: white;
+	width:100px;
+	height:35px;
+	line-height: 35px;
+	z-index: 1;
+}
+
+#SpecificationList-index table{
+	width:100%;
+	margin:5px auto;
+	border-collapse:collapse;
+}
+
+#SpecificationList-index table th,#SpecificationList-index table td{
+	border:1px solid #ccc;
+}
+
+#SpecificationList-index thead{
+	background:#d9e6ff;
+}
+
+#SpecificationList-index table th{
+	height: 25px;
+	line-height: 25px;
+}
+
+#SpecificationList-index tbody td{
+	border-width:0 0 1px 0;
+}
+
+#SpecificationList-index .fpage{
+	height:30px;
+	line-height: 30px;
+}
+
+/****添加 修改相关********/
+#SpecificationList-add-edit{
+	background:white;
+	width:420px;
+	padding:10px 10px 30px 10px;
+	border:5px solid #ccc;
+}
+
+#SpecificationList-add-edit .title{
+	font-size:20px;
+	font-weight:bold;
+	background:#ccc;
+	height:30px;
+	margin:5px auto;
+	line-height:30px;
+	text-align:center;
+}
+
+#SpecificationList-add-edit table{
+	margin:0 auto;
+}
+
+#SpecificationList-add-edit .th-left{
+	text-align: left;
+}
+
+#SpecificationList-add-edit .th-left-top{
+	text-align: left;
+	vertical-align: top;
+}

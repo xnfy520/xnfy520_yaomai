@@ -1,0 +1,125 @@
+
+<div id="xnfy520-function-index">
+
+    <div id="xnfy520-function-index-title">
+        <{$Role_name.name}> 列表
+    </div>
+
+    <!--<div id="xnfy520-function-index-nav">-->
+        <!--<a href="__APP__/User/index">全部</a>-->
+        <!--<volist name="clist" id="voc">-->
+            <!--<a href="__APP__/User/index/rid/<{$voc.id}>"><{$voc.name}></a>-->
+        <!--</volist>-->
+    <!--</div>-->
+
+    <div id="xnfy520-function-index-search">
+
+        <span id="xnfy520-function-index-add">添 加</span>
+
+        <form action="__APP__/User/index<notempty name='Think.get.rid'>/rid/<{$Think.get.rid}></notempty>" method="post" name="form_search"  style="line-height: 35px;">
+            关键字 <input type="text" name="key" /> 按&nbsp;
+            <select name="search">
+                <option value="2">名称</option>
+            </select>
+            <empty name="list">
+                <input type="submit" value="搜索" disabled="disabled" />
+                <else />
+                <input type="submit" value="搜索" />
+            </empty>
+        </form>
+
+    </div>
+
+    <div id="xnfy520-function-index-content">
+
+        <form action="javascript:;" method="post" name="User-del" class="delete">
+            <table id="xnfy520-function-index-table">
+                <thead>
+                <tr>
+                    <th id="xnfy520-function-index-table-th-name">名称</th>
+                    <th id="xnfy520-function-index-table-th-email">邮箱</th>
+                    <th class="xnfy520-function-index-table-th-50">权限</th>
+                    <th class="xnfy520-function-index-table-th-50">启用</th>
+                    <!--<th class="xnfy520-function-index-table-th-50">审核</th>-->
+                    <th id="xnfy520-function-index-table-th-check-all">
+                        <notempty name="list">
+                            <input type="button" value="全选" />
+                        </notempty>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <empty name="list">
+                    <tr><td colspan="4" style="height:50px;">暂无数据</td></tr>
+                    <else/>
+                    <volist name="list" id="vo">
+                        <tr>
+                            <td class="xnfy520-function-index-table-td-name">
+                                   <span class="xnfy520-function-index-edit" id="index-edit-name">
+                                       <gt name="vo.username|mb_strlen='utf-8'" value="20">
+                                           <span><{$vo.username|mb_substr=0,20,"utf-8"}>...</span>
+                                           <else/>
+                                           <span><{$vo.username}></span>
+                                       </gt>
+                                    </span>
+                            </td>
+                            <td class="xnfy520-function-index-table-td-email">
+                                   <span class="xnfy520-function-index-edit">
+                                       <gt name="vo.email|mb_strlen='utf-8'" value="20">
+                                           <span><{$vo.email|mb_substr=0,20,"utf-8"}>...</span>
+                                           <else/>
+                                           <span><{$vo.email}></span>
+                                       </gt>
+                                    </span>
+                            </td>
+                            <td>
+                                <button type="button" class="Set-Permission" roleid="<{$vo.roleid}>" set_user="<{$vo.username}>" >设置</button>
+                            </td>
+                            <td class="xnfy520-function-index-table-td-enable">
+                                <eq name="vo.id" value="1">
+                                    -
+                                    <else/>
+                                    <eq name="vo.status" value="1">
+                                        <span class="switch_status" by="<{$vo.id}>" type="status" value="<{$vo.status}>">是</span>
+                                        <else/>
+                                        <span class="switch_status" by="<{$vo.id}>" type="status" value="<{$vo.status}>">否</span>
+                                    </eq>
+                                </eq>
+                                <span style="display: none;" data_on="确认关闭？" data_off="确认启用？"></span>
+                            </td>
+                            <!--<td class="xnfy520-function-index-table-td-enable">-->
+                                <!--<eq name="vo.id" value="1">-->
+                                    <!----->
+                                    <!--<else/>-->
+                                    <!--<eq name="vo.audit" value="1">-->
+                                        <!--<span class="switch_status" by="<{$vo.id}>" type="audit" value="<{$vo.audit}>">是</span>-->
+                                        <!--<else/>-->
+                                        <!--<span class="switch_status" by="<{$vo.id}>" type="audit" value="<{$vo.audit}>">否</span>-->
+                                    <!--</eq>-->
+                                <!--</eq>-->
+
+                            <!--</td>-->
+                            <!--<td><{$vo.regdate|date="Y-m-d H:i:s",###}></td>-->
+                            <!--<td><eq name="vo.logindate" value="0">-<else/><{$vo.logindate|date="Y-m-d H:i:s",###}></eq></td>-->
+                            <td class="xnfy520-function-index-table-td-checkbox">
+                                <eq name="vo.id" value="1">
+                                        <input style="display: none;" class="xnfy520-function-index-table-check-this" disabled="disabled" type="checkbox" name="deleteid[]" value="<{$vo.id}>" />
+                                    <else/>
+                                        <input class="xnfy520-function-index-table-check-this" type="checkbox" name="deleteid[]" value="<{$vo.id}>" />
+                                </eq>
+                            </td>
+                        </tr>
+                    </volist>
+                </empty>
+                </tbody>
+            </table>
+            <notempty name="list">
+                <div style="border:1px solid #ccc;height: 37px;line-height: 37px;">
+                            <{$fpage}>
+                    <span style="float: right;"><input type="submit" value="删除" /></span>
+                </div>
+            </notempty>
+        </form>
+
+    </div>
+</div>

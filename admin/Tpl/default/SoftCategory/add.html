@@ -1,0 +1,91 @@
+{__NOLAYOUT__}
+
+<div id="SoftCategory-add-edit">
+            <input type="hidden" name="image" />
+            <table>
+                <caption>添加软件功能分类</caption>
+                <tr class="table_tr">
+                    <th class="table_th"><span class="table_star">*</span> 分类名称：</th>
+                    <td><input type="text" name="name" maxlength="10" title="限1-10字符 (必填)" /></td>
+                </tr>
+                <tr class="table_tr"><th class="table_th"><span class="table_star">*</span> 启　　用：</th>
+                    <td>
+                        <span class="table_radio">
+                            <label><input type="radio" checked="checked" name="publish" value="1" />是</label>
+                            <label><input type="radio" name="publish" value="0" />否</label>
+                        </span>
+                        <span class="table_sort_span">
+                             <span class="table_sort_title"><span class="table_star">*</span> 排　　序：</span>
+                            <input class="table_sort_input" title="值必须在0-255 (必填)" type="text" name="sort" value="99" maxlength="3" />
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <th class="table_th table_th_adjust"><span class="table_star">*</span> 图　　标：
+                    </th>
+                    <td class="table_td">
+                        <button id="file_upload_button" type="button">上传</button>
+                        <span class="table_image_tip_size">请上传宽高为1：1的图片</span>
+                    </td>
+                </tr>
+                <tr id="table_tr_show_image_add"><th class="table_th"></th>
+                    <td>
+                        <span class="positioning_images">
+                            <img class="thumb_image" src="__PUBLIC__/images/default.jpg">
+                            <img class="delete_images" src="../Public/images/bullet_cross.png" />
+                        </span>
+                    </td>
+                </tr>
+                <tr><th class="table_th_top">描　　述：</th><td><textarea class="textarea" name="description" title="限1-255字符 (可为空)"></textarea></td></tr>
+            </table>
+</div>
+<script src="__PUBLIC__/js/ajaxupload.3.6.js" type="text/javascript"></script>
+<script>
+    $(function(){
+        var file_upload_button = $('#file_upload_button'), newinterval;
+        var newfileType = "image";
+        new AjaxUpload(file_upload_button,{
+            action: define_app_url+'/SoftCategory/uploads',
+            name: 'myfile',
+            onSubmit : function(file, ext){
+
+                if(newfileType == "image")
+                {
+                    if (ext && /^(jpg|png|jpeg|gif)$/.test(ext)){
+                        this.setData({
+                            'info': 'Document type for pictures'
+                        });
+                    } else {
+                        jBox.tip('非图像类型文件,请重新上传！', 'error',{ timeout: 1000});
+                        return false;
+                    }
+                }
+
+                this.disable();
+
+                $("#table_tr_show_image_add").fadeOut('slow');
+                $("#fancybox-close").css("display","none");
+                $("[type=submit]").attr("disabled","disabled");
+
+            },
+
+            onComplete: function(file, response){
+                this.enable();
+                var msg = JSON.parse(response);
+                if(msg.status){
+                    $("#fancybox-close").css("display","inline");
+                    $("[type=submit]").removeAttr("disabled");
+                    $(".thumb_image").attr('src', PUBLIC+"/Content/tmp/"+msg.filename);
+                    $("[name=image]").val(msg.filename);
+                    $("#table_tr_show_image_add").fadeIn('slow');
+                    jBox.tip('上传图片成功！', 'success',{ timeout: 1000});
+                }else{
+                    jBox.tip(msg.error, 'error',{ timeout: 1000});
+                    $("#fancybox-close").css("display","inline");
+                    $("[type=submit]").removeAttr("disabled");
+                }
+            }
+        });
+
+    });
+</script>

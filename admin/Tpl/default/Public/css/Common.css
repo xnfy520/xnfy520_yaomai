@@ -1,0 +1,851 @@
+/*****通用样式******/
+*{
+
+}
+
+html,body,div,p,span,a,strong,form,table,th,td,ul,li,ol,dl,dt,dd,h1,h2,h3,h4,h5,h6,fieldset,iframe,object,pre,img,b,i{
+    border: 0 none; margin: 0; outline: 0 none; padding: 0;
+}
+ul,ol,li{ list-style: none;}
+table{border-spacing: 0;}
+fieldset,img { border: 0 none;}
+h1, h2, h3, h4, h5, h6 {font-size: 100%;}
+body, table, input, textarea, button, select {font-family: "\5FAE\8F6F\96C5\9ED1";}
+html{ border: none 0;}
+html,body{width: 100%; height: 100%; background: #fff;}
+a{ color: #535353; text-decoration: none;}
+a:hover{
+    text-decoration:none;
+}
+input[type=submit],input[type=radio],input[type=button],input[type=checkbox],button{
+    cursor: pointer;
+}
+
+body{
+    font-size: 62.5%;
+}
+
+
+.xnfy520_page_title {
+    margin-top: 5px;min-width:60px;
+    float:left; border:1px solid #E4E4E4;
+    margin-left:5px;
+    line-height:25px; text-align:center;padding-top: 0;
+}
+.xnfy520_page_title span {color:#326382; height:25px; display:block;cursor: pointer; }
+.xnfy520_page_title span:hover{ background:#326382; color:#fff; }
+
+.xnfy520_page_list {
+    margin-top: 5px;min-width:25px;
+    float:left; border:1px solid #E4E4E4;
+    margin-left:5px;
+    line-height:25px; text-align:center;padding-top: 0;
+}
+.xnfy520_page_list span {
+    display:block;cursor: pointer;
+}
+.xnfy520_page_list span:hover {
+    background:#326382; color:#fff;
+}
+
+.xnfy520_current_page {
+    background:#326382;color:white;
+}
+
+        /* simple css-based tooltip */
+    .tooltip {
+	background-color:#000;
+	border:1px solid #fff;
+	padding:10px 15px;
+	display:none;
+	color:#fff;
+	text-align:left;
+	font-size:12px;
+	z-index: 99999;
+	/* outline radius for mozilla/firefox only */
+	-moz-box-shadow:0 0 10px #000;
+	-webkit-box-shadow:0 0 10px #000;
+}
+
+
+/*********************/
+
+#header{
+	background: #5B5B5B;
+	height:90px;
+	width:auto;
+}
+
+#nav{
+	background: #EFF3F6;
+	height:40px;
+}
+
+#nav .nav-top{
+	background:#FCB24F;
+	height:40px;
+	line-height: 40px;
+	width:150px;
+	margin-left: 15%;
+	text-align: center;
+	font-size: 20px;
+	color:white;
+	float: left;
+}
+
+#nav .nav-action{
+	background:#FCB24F;
+	height:40px;
+	line-height: 40px;
+	width:150px;
+	margin-left: 10px;
+	text-align: center;
+	font-size: 20px;
+	color:white;
+	float: left;
+}
+
+/*********通用消息样式***********/
+
+#message{
+	text-align: center;
+	vertical-align: bottom;
+	padding:20px 30px;
+	width:500px;
+	background:white;
+	margin:220px auto;
+}
+
+#message span.error, #message span.success{
+	color:black;
+	background:yellow;
+	font-size:20px;
+	margin:10px 0;
+}
+
+#message span.success{
+	background:#ccc;
+}
+
+/**********************************/
+
+/*********左侧菜单相关样式***************/
+#left{
+	background: #95D0DE;
+	width:200px;
+	float:left;
+}
+
+.menu ul{
+    margin: 0 auto;
+    width: 99%;
+}
+
+.menu ul li ul{
+    margin: 0 auto;
+    width: 190px;
+    padding: 2px;
+}
+
+.xnfy520_left_main_title{
+    text-align: center;
+    display:block;
+    color:#c61a69;
+    height:1.5em;
+    line-height: 1.5em;
+    font-size: 2em;
+    font-weight: bold;
+    margin-top: 2px;
+}
+
+.xnfy520_left_title{
+    text-align: left;
+    display:block;
+    color:#c61a69;
+    height:1.5em;
+    line-height: 1.5em;
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-top: 2px;
+    text-indent: 10px;
+}
+
+.menu ul li ul a{
+	display:block;
+	color:#000000;
+	font-size:1.2em;
+	height:20px;
+    line-height: 20px;;
+	background: #F0F3F5;
+    padding: 0.3em;
+    text-indent: 0.3em;
+    font-weight: bold;
+}
+
+.menu ul li ul li{
+    margin-bottom: 5px;
+}
+
+.menu ul li ul a.listadd{
+	font-weight: bold;
+	position: absolute;
+	top:1px;
+	right:3px;
+	z-index: 1;
+	width:40px;
+	background:white;
+	color:black;
+	text-indent: 0;
+	text-align: center;
+	margin:0;
+	padding:0;
+	height:30px;
+	line-height: 30px;
+}
+
+.menu ul li ul a.listadd:hover{
+	color:black;
+	background:#d9e6ff;
+}
+
+/*.menu ul li a:hover{*/
+	/*background: #5DB1E0;*/
+/*}*/
+
+.menu ul li ul a:hover{
+	background: #4698ca;
+}
+
+.menu ul li ul{
+	display:none;
+}
+/******************************/
+
+#content{
+margin: 0 auto;
+margin-left: 200px;
+padding:0 5px;
+}
+
+#footer{
+	background: #d9e6ff;
+	clear:both;
+	height:50px;
+}
+
+/**************************************/
+
+.admin_topbg {
+	background-image: url(../images/top-right.gif);
+	background-repeat: repeat-x;
+}
+
+.admin_txt {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #FFFFFF;
+	text-decoration: none;
+	height: 38px;
+	width: 100%;
+	line-height: 38px;
+}
+
+/*******************************************/
+.switchpublish,.switchrecommend,.switchspecialoffer,.switchonindex,.switchonshow,.switchhotsell,.switchstatus{
+	cursor: pointer;
+}
+
+.switch_status{
+    cursor: pointer;
+}
+
+/*-----------------------------------------------------------------------*/
+
+/****列表页面******/
+#xnfy520-function-index{
+    width:100%;
+    min-width: 800px;
+    margin:0 auto 5px;
+    height:auto;
+    text-align: center;
+}
+
+/****列表页-标题******/
+#xnfy520-function-index-title{
+    margin: 0 auto 0;
+    font-size:17px;
+    font-weight:bold;
+    background:#546C83;
+    height:35px;
+    line-height:35px;
+    text-align:center;
+    color:white;
+    min-width: 800px;
+    margin-bottom: 5px;
+}
+
+#xnfy520-function-index-nav,#xnfy520-function-index-nav-sub,#xnfy520-function-index-nav-subs{
+    display: inline-block;
+    width: 100%;
+}
+
+#xnfy520-function-index-nav a,#xnfy520-function-index-nav-sub a,#xnfy520-function-index-nav-subs a{
+    padding:10px 5px 10px 5px;
+    min-width:70px;
+    float:left;
+    background:#546C83;
+    margin-right: 5px;
+    color:white;
+    margin-bottom: 5px;
+}
+
+#xnfy520-function-index-nav a:hover,#xnfy520-function-index-nav-sub a:hover,#xnfy520-function-index-nav-subs a:hover{
+    background: #95D0DE;
+    color:black;
+}
+
+/****列表页-内容******/
+#xnfy520-function-index-content{
+    margin: 0 auto;
+}
+
+/****列表页-搜索******/
+#xnfy520-function-index-search{
+    background:#95D0DE;
+    height: 35px;
+    margin-top: -3px;
+}
+
+/****列表页-添加******/
+#xnfy520-function-index-add{
+    cursor: pointer;
+    position: absolute;
+    right:0;
+    border-width: 0 0 0 7px;
+    min-width:100px;
+    height:35px;
+    line-height: 35px;
+    color: #fff;
+    font-size: 2em;
+    font-weight: bold;
+    padding: 0 5px;
+    float: right;
+}
+
+.xnfy520-function-index-edit{
+    cursor: pointer;
+}
+
+
+/****列表页-表格******/
+#xnfy520-function-index-table{
+    width:100%;
+    margin:5px auto;
+    border-collapse:collapse;
+}
+
+/****列表页-表格-表头******/
+#xnfy520-function-index-table thead{
+    background:#d9e6ff;
+}
+
+/****列表页-表格-行******/
+#xnfy520-function-index-table tr{
+    height: 25px;
+    line-height: 25px;;
+    border:1px solid #ccc;
+}
+
+#xnfy520-function-index-table tbody tr:hover{
+    background-color: #d9eaf4;
+}
+
+/****列表页-表格-表头******/
+#xnfy520-function-index-table th{
+    height: 30px;
+    line-height: 30px;
+    font-size: 1.5em;;
+    border:1px solid #ccc;
+}
+
+/****列表页-表格-数据******/
+#xnfy520-function-index-table td{
+    border:1px solid #ccc;
+}
+
+/****列表页-表格-表头-名称******/
+#xnfy520-function-index-table-th-name{
+    width: 200px;
+}
+/****列表页-表格-表头-分类******/
+#xnfy520-function-index-table-th-by{
+    width: 200px;
+}
+
+/****列表页-表格-表头-登录时间******/
+#xnfy520-function-index-table-th-logintime{
+    width: 150px;
+    min-width: 150px;
+}
+
+/****列表页-表格-表头-注册时间******/
+#xnfy520-function-index-table-th-regtime{
+    width: 150px;
+    min-width: 150px;
+}
+/****列表页-表格-表头-分类子内容数量******/
+#xnfy520-function-index-table-th-number{
+    width: 50px;
+    min-width: 50px;
+}
+/****列表页-表格-表头-启用******/
+#xnfy520-function-index-table-th-enable{
+    width: 50px;
+    min-width: 50px;
+}
+/****列表页-表格-表头-状态******/
+#xnfy520-function-index-table-th-status{
+    width: 50px;
+    min-width: 50px;
+}
+/****列表页-表格-表头-推荐******/
+#xnfy520-function-index-table-th-recommend{
+    width: 50px;
+    min-width: 50px;
+}
+/****列表页-表格-表头-排序******/
+#xnfy520-function-index-table-th-sort{
+    width: 50px;
+    min-width: 50px;
+}
+/****列表页-表格-表头-邮箱******/
+#xnfy520-function-index-table-th-email{
+    width: 200px;
+    min-width: 200px;
+}
+
+/****列表页-表格-表头-浏览******/
+#xnfy520-function-index-table-th-views{
+    width: 100px;
+    min-width: 100px;
+}
+
+/****列表页-表格-表头-创建人******/
+#xnfy520-function-index-table-th-founder{
+    width: 150px;
+    min-width: 150px;
+}
+
+/****列表页-表格-表头-创建时间******/
+#xnfy520-function-index-table-th-created{
+    width: 150px;
+    min-width: 150px;
+}
+
+/****列表页-表格-表头-时间******/
+#xnfy520-function-index-table-th-time{
+    width: 150px;
+    min-width: 150px;
+}
+
+.xnfy520-function-index-table-th-time{
+    width: 150px;
+    min-width: 150px;
+}
+
+/****列表页-表格-表头-通用150******/
+.xnfy520-function-index-table-th-250{
+    width: 250px;
+    min-width: 250px;
+}
+
+/****列表页-表格-表头-通用150******/
+.xnfy520-function-index-table-th-200{
+    width: 200px;
+    min-width: 200px;
+}
+
+/****列表页-表格-表头-通用150******/
+.xnfy520-function-index-table-th-150{
+    width: 150px;
+    min-width: 150px;
+}
+
+/****列表页-表格-表头-通用100******/
+.xnfy520-function-index-table-th-100{
+    width: 100px;
+    min-width: 100px;
+}
+
+/****列表页-表格-表头-通用50******/
+.xnfy520-function-index-table-th-50{
+    width: 50px;
+    min-width: 50px;
+}
+
+
+/****列表页-表格-表头-链接******/
+#xnfy520-function-index-table-th-link{
+    width: 200px;
+    min-width: 200px;
+}
+/****列表页-表格-表头-全选******/
+#xnfy520-function-index-table-th-check-all{
+    width: 20px;
+    min-width: 20px;
+}
+
+/****列表页-表格-数据-名称******/
+.xnfy520-function-index-table-td-250{
+    text-indent: 20px;
+    text-align: left;
+    color:#5C5C5C;
+    font-weight:bold;
+}
+.xnfy520-function-index-table-td-250:hover{
+    background: #5C5C5C;
+    color: #fff;
+}
+
+/****列表页-表格-数据-名称******/
+.xnfy520-function-index-table-td-200{
+    text-indent: 20px;
+    text-align: left;
+    color:#5C5C5C;
+    font-weight:bold;
+}
+.xnfy520-function-index-table-td-200:hover{
+    background: #5C5C5C;
+    color: #fff;
+}
+
+
+/****列表页-表格-数据-名称******/
+.xnfy520-function-index-table-td-name{
+    text-indent: 20px;
+    text-align: left;
+    color:#5C5C5C;
+    font-weight:bold;
+    width: 200px;
+}
+.xnfy520-function-index-table-td-name:hover{
+    background: #5C5C5C;
+    color: #fff;
+}
+/****列表页-表格-数据-数量******/
+.xnfy520-function-index-table-td-enable{
+    width: 50px;
+    color:#5C5C5C;
+    font-weight:bold;
+}
+
+.xnfy520-function-index-table-td-enable:hover{
+    background: #5C5C5C;
+    color: #fff;;
+}
+
+/****列表页-表格-数据-名称******/
+.xnfy520-function-index-table-td-email{
+    text-indent: 20px;
+    text-align: left;
+    color:#5C5C5C;
+    font-weight:bold;
+}
+.xnfy520-function-index-table-td-email:hover{
+    background: #5C5C5C;
+    color: #fff;
+}
+
+/****列表页-表格-数据-启用******/
+.xnfy520-function-index-table-td-enable{
+    color:#5C5C5C;
+    font-weight:bold;
+}
+
+.xnfy520-function-index-table-td-enable:hover{
+    background: #5C5C5C;
+    color: #fff;;
+}
+/****列表页-表格-数据-状态******/
+.xnfy520-function-index-table-td-status{
+    color:#5C5C5C;
+    font-weight:bold;
+}
+
+.xnfy520-function-index-table-td-status:hover{
+    background: #5C5C5C;
+    color: #fff;;
+}
+/****列表页-表格-数据-推荐******/
+.xnfy520-function-index-table-td-recommend{
+    color:#5C5C5C;
+    font-weight:bold;
+}
+
+.xnfy520-function-index-table-td-recommend:hover{
+    background: #5C5C5C;
+    color: #fff;;
+}
+
+/****列表页-表格-数据-排序******/
+.xnfy520-function-index-table-td-sort{
+    color:#5C5C5C;
+    font-weight:bold;
+    width: 50px;
+}
+
+.xnfy520-function-index-table-td-sort:hover{
+    background: #5C5C5C;
+    color: #fff;;
+}
+
+/****列表页-表格-数据-排序******/
+.xnfy520-function-index-table-td-link{
+    color:#5C5C5C;
+    font-weight:bold;
+}
+
+.xnfy520-function-index-table-td-link:hover{
+    background: #5C5C5C;
+    color: #fff;;
+}
+
+/****列表页-表格-数据-浏览******/
+.xnfy520-function-index-table-td-views{
+    color:#5C5C5C;
+    font-weight:bold;
+}
+
+.xnfy520-function-index-table-td-views:hover{
+    background: #5C5C5C;
+    color: #fff;;
+}
+
+/****列表页-表格-数据-创建时间******/
+.xnfy520-function-index-table-td-created{
+    color:#5C5C5C;
+    font-weight:bold;
+}
+
+.xnfy520-function-index-table-td-created:hover{
+    background: #5C5C5C;
+    color: #fff;;
+}
+
+/****列表页-表格-数据-创建人******/
+.xnfy520-function-index-table-td-founder{
+    color:#5C5C5C;
+    font-weight:bold;
+}
+
+.xnfy520-function-index-table-td-founder:hover{
+    background: #5C5C5C;
+    color: #fff;;
+}
+
+/****列表页-表格-数据-描述******/
+.xnfy520-function-index-table-td-description{
+    text-indent: 20px;
+    text-align: left;
+}
+/****列表页-表格-数据-选择框******/
+.xnfy520-function-index-table-td-checkbox:hover{
+    background: #5C5C5C;
+    cursor: pointer;
+    border:5px dashed yellow;
+}
+
+/****列表页-表格-数据-50******/
+.xnfy520-function-index-table-td-50{
+    width: 50px;
+    color:#5C5C5C;
+    font-weight:bold;
+}
+
+.xnfy520-function-index-table-td-50:hover{
+    background: #5C5C5C;
+    color: #fff;;
+}
+
+/****列表页-表格-数据-50******/
+.xnfy520-function-index-table-td-ini-50{
+    width: 50px;
+}
+
+
+
+
+#file_upload_button{
+    cursor: pointer;
+    margin-left: -1px;
+}
+
+.xnfy520-function-index-add-edit-ul-li{
+    min-width: 800px;
+    width: 800px;
+    height: 32px;
+    line-height: 30px;
+    text-indent: 5px;
+}
+
+
+
+
+
+/****通用进度条******/
+.progress-bar {
+    background-color: #d9eaf4;
+    height: 25px;
+    line-height: 25px;
+    padding: 5px;
+    /*width: 300px;*/
+    /*margin: 0 0 20px 0;*/
+    /*-moz-border-radius: 5px;*/
+    /*-webkit-border-radius: 5px;*/
+    /*border-radius: 5px;*/
+    /*-moz-box-shadow: 0 1px 5px #000 inset, 0 1px 0 #444;*/
+    /*-webkit-box-shadow: 0 1px 5px #000 inset, 0 1px 0 #444;*/
+    /*box-shadow: 0 1px 5px #000 inset, 0 1px 0 #444;*/
+}
+
+.progress-bar span {
+    display: inline-block;
+    height: 100%;
+    background-color: #777;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, .5) inset;
+    -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, .5) inset;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, .5) inset;
+    -webkit-transition: width .4s ease-in-out;
+    -moz-transition: width .4s ease-in-out;
+    -ms-transition: width .4s ease-in-out;
+    -o-transition: width .4s ease-in-out;
+    transition: width .4s ease-in-out;
+}
+
+/*---------------------------*/
+
+.blue span {
+    background-color: #34c2e3;
+}
+
+.orange span {
+    background-color: #fecf23;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#fecf23), to(#fd9215));
+    background-image: -webkit-linear-gradient(top, #fecf23, #fd9215);
+    background-image: -moz-linear-gradient(top, #fecf23, #fd9215);
+    background-image: -ms-linear-gradient(top, #fecf23, #fd9215);
+    background-image: -o-linear-gradient(top, #fecf23, #fd9215);
+    background-image: linear-gradient(top, #fecf23, #fd9215);
+}
+
+.green span {
+    background-color: #a5df41;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#a5df41), to(#4ca916));
+    background-image: -webkit-linear-gradient(top, #a5df41, #4ca916);
+    background-image: -moz-linear-gradient(top, #a5df41, #4ca916);
+    background-image: -ms-linear-gradient(top, #a5df41, #4ca916);
+    background-image: -o-linear-gradient(top, #a5df41, #4ca916);
+    background-image: linear-gradient(top, #a5df41, #4ca916);
+}
+
+/*---------------------------*/
+
+.stripes span {
+    -webkit-background-size: 30px 30px;
+    -moz-background-size: 30px 30px;
+    background-size: 30px 30px;
+    background-image: -webkit-gradient(linear, left top, right bottom,
+    color-stop(.25, rgba(255, 255, 255, .15)), color-stop(.25, transparent),
+    color-stop(.5, transparent), color-stop(.5, rgba(255, 255, 255, .15)),
+    color-stop(.75, rgba(255, 255, 255, .15)), color-stop(.75, transparent),
+    to(transparent));
+    background-image: -webkit-linear-gradient(135deg, rgba(255, 255, 255, .15) 25%, transparent 25%,
+    transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%,
+    transparent 75%, transparent);
+    background-image: -moz-linear-gradient(135deg, rgba(255, 255, 255, .15) 25%, transparent 25%,
+    transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%,
+    transparent 75%, transparent);
+    background-image: -ms-linear-gradient(135deg, rgba(255, 255, 255, .15) 25%, transparent 25%,
+    transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%,
+    transparent 75%, transparent);
+    background-image: -o-linear-gradient(135deg, rgba(255, 255, 255, .15) 25%, transparent 25%,
+    transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%,
+    transparent 75%, transparent);
+    background-image: linear-gradient(135deg, rgba(255, 255, 255, .15) 25%, transparent 25%,
+    transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%,
+    transparent 75%, transparent);
+
+    -webkit-animation: animate-stripes 3s linear infinite;
+    -moz-animation: animate-stripes 3s linear infinite;
+}
+
+@-webkit-keyframes animate-stripes {
+			0% {background-position: 0 0;} 100% {background-position: 60px 0;}
+        }
+
+
+@-moz-keyframes animate-stripes {
+			0% {background-position: 0 0;} 100% {background-position: 60px 0;}
+        }
+
+/*---------------------------*/
+
+.shine span {
+    position: relative;
+}
+
+.shine span::after {
+    content: '';
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: #fff;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+
+    -webkit-animation: animate-shine 2s ease-out infinite;
+    -moz-animation: animate-shine 2s ease-out infinite;
+}
+
+@-webkit-keyframes animate-shine {
+			0% {opacity: 0; width: 0;}
+			50% {opacity: .5;}
+			100% {opacity: 0; width: 95%;}
+        }
+
+
+@-moz-keyframes animate-shine {
+			0% {opacity: 0; width: 0;}
+			50% {opacity: .5;}
+			100% {opacity: 0; width: 95%;}
+        }
+
+/*---------------------------*/
+
+.glow span {
+    -moz-box-shadow: 0 5px 5px rgba(255, 255, 255, .7) inset, 0 -5px 5px rgba(255, 255, 255, .7) inset;
+    -webkit-box-shadow: 0 5px 5px rgba(255, 255, 255, .7) inset, 0 -5px 5px rgba(255, 255, 255, .7) inset;
+    box-shadow: 0 5px 5px rgba(255, 255, 255, .7) inset, 0 -5px 5px rgba(255, 255, 255, .7) inset;
+
+    -webkit-animation: animate-glow 1s ease-out infinite;
+    -moz-animation: animate-glow 1s ease-out infinite;
+}
+
+@-webkit-keyframes animate-glow {
+		 0% { -webkit-box-shadow: 0 5px 5px rgba(255, 255, 255, .7) inset, 0 -5px 5px rgba(255, 255, 255, .7) inset;}
+		 50% { -webkit-box-shadow: 0 5px 5px rgba(255, 255, 255, .3) inset, 0 -5px 5px rgba(255, 255, 255, .3) inset;}
+		 100% { -webkit-box-shadow: 0 5px 5px rgba(255, 255, 255, .7) inset, 0 -5px 5px rgba(255, 255, 255, .7) inset;}
+		 }
+
+@-moz-keyframes animate-glow {
+		 0% { -moz-box-shadow: 0 5px 5px rgba(255, 255, 255, .7) inset, 0 -5px 5px rgba(255, 255, 255, .7) inset;}
+		 50% { -moz-box-shadow: 0 5px 5px rgba(255, 255, 255, .3) inset, 0 -5px 5px rgba(255, 255, 255, .3) inset;}
+		 100% { -moz-box-shadow: 0 5px 5px rgba(255, 255, 255, .7) inset, 0 -5px 5px rgba(255, 255, 255, .7) inset;}
+		 }

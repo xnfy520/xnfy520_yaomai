@@ -1,0 +1,133 @@
+{__NOLAYOUT__}
+<form action="javascript:;" method="post" name="OrderList-del" class="delete">
+    <table id="xnfy520-function-index-table">
+        <thead>
+        <tr>
+            <th class="xnfy520-function-index-table-th-100">订单号</th>
+            <th class="xnfy520-function-index-table-th-100">用户</th>
+            <th class="xnfy520-function-index-table-th-100">收货人</th>
+            <th class="xnfy520-function-index-table-th-50">订单总金额</th>
+            <th class="xnfy520-function-index-table-th-50">订单状态</th>
+            <th class="xnfy520-function-index-table-th-150">下单时间</th>
+            <th class="xnfy520-function-index-table-th-50">操作</th>
+            <th class="xnfy520-function-index-table-th-50">详单</th>
+            <th id="xnfy520-function-index-table-th-check-all" style="display: none;">
+                <input type="button" value="全选" />
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <empty name="list">
+            <tr><td colspan="8" style="height:50px;">暂无数据</td></tr>
+            <else/>
+            <volist name="list" id="vo">
+                <tr class="znxx">
+                    <td><{$vo.out_trade_no}></td>
+                    <td><{$vo.User.username}></td>
+                    <td><{$vo.address_info.name}></td>
+                    <td><{$vo.total_fee}></td>
+                    <td>
+                        <switch name="vo.trade_status" >
+                            <case value="WAIT_BUYER_PAY">待付款</case>
+                            <case value="WAIT_SELLER_SEND_GOODS">
+                                未发货
+                            </case>
+                            <case value="WAIT_BUYER_CONFIRM_GOODS">已发货</case>
+                            <case value="TRADE_FINISHED">已完结</case>
+                            <default />待付款
+                        </switch>
+                    </td>
+                    <td><{$vo.create_date|date="Y-m-d H:i:s",###}></td>
+                    <td>
+                        <switch name="vo.trade_status" >
+                            <case value="WAIT_BUYER_PAY">-</case>
+                            <case value="WAIT_SELLER_SEND_GOODS">
+                                <a target="_blank" href="https://lab.alipay.com/consume/queryTradeDetail.htm?actionName=SEND_GOODS&tradeNo=<{$vo.trade_no}>">发货</a>
+                            </case>
+                            <case value="WAIT_BUYER_CONFIRM_GOODS">-</case>
+                            <case value="TRADE_FINISHED">-</case>
+                            <default />-
+                        </switch>
+                    </td>
+                    <td><div style="color:#ec651a;cursor:pointer"  class="znxx03" status="1" >展开</div></td>
+                    <td class="xnfy520-function-index-table-td-checkbox" style="display: none;">
+                        <input class="xnfy520-function-index-table-check-this" type="checkbox" name="deleteid[]" value="<{$vo.id}>" />
+                    </td>
+                </tr>
+                <tr class="znxx01" style="display: none;border: none;">
+                    <td colspan="8" style="padding:1px; border:none;" class="none-background-color">
+                        <table width="100%" cellpadding="0" cellspacing="0" class="tab0001">
+                            <volist name="vo.commodify_list" id="vo_mo_ci">
+                                <tr style="line-height: 0;">
+                                    <td colspan="7" style="padding-top:0; border:none">
+                                        <div class="znxx_m" style="width:100%; padding:0;">
+                                            <table  width="100%" cellpadding="0" cellspacing="0" style="border-collapse: collapse;border:none">
+                                                <tr style="border:none;">
+                                                    <td width="100" align="center" style="border: none;">
+                                                        <a target="_blank" href="__ROOT__/Shops/<{$vo_mo_ci.merchant_no}>/details/<{$vo_mo_ci.id}>.html">
+                                                            <img src="__PUBLIC__/Content/CommodityList/cut_<{$vo_mo_ci.image}>" style="width:30px; height:30px; padding:3px; border:1px solid #ddd;position: relative;top: 4px;" />
+                                                        </a>
+                                                    </td>
+                                                    <td style="color:#ec651a;border: none;text-align: left;">
+                                                        <a target="_blank" href="__ROOT__/Shops/<{$vo_mo_ci.merchant_no}>/details/<{$vo_mo_ci.id}>.html">
+                                                            <{$vo_mo_ci.name}>　<empty name="vo_mo_ci.CommoditySpecification">[ <{$vo_mo_ci.default_specification}> ]<else/>[ <{$vo_mo_ci.CommoditySpecification.specification}> ]</empty>
+                                                        </a>
+                                                    </td>
+                                                    <td style="border: none;" width="150" align="center">商户：<a target="_blank" href="__ROOT__/Shops/<{$vo_mo_ci.merchant_no}>.html"><{$vo_mo_ci.merchant_name}></a></td>
+                                                    <td style="border: none;" width="150" align="center">状态：
+                                                        <eq name="vo_mo_ci.deliver_goods_status" value="1">
+                                                            商户已发货
+                                                            <else/>
+                                                            <span style="color: #ff0000;font-weight: bold;;">商户未发货</span>
+                                                        </eq>
+                                                    </td>
+                                                    <td style="border: none;" width="100" align="center">单价：&#165; <{$vo_mo_ci.current_price}></td>
+                                                    <td style="border: none;" width="100" align="center">数量： <{$vo_mo_ci.buy_quantity}></td>
+                                                    <td style="border: none;" width="150" align="center">小计：&#165; <{$vo_mo_ci.total_price}></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </volist>
+                            <tr>
+                                <td colspan="7" style="border: none;">
+                                    <notempty name="vo.gmt_payment">
+                                        付款时间：
+                                        <{$vo.gmt_payment}>　
+                                    </notempty>
+                                    收货人信息：
+                                    <strong>姓名</strong>：<{$vo.address_info.name}>　
+                                    <strong>地址</strong>：<{$vo.address_info.provinces}>　<{$vo.address_info.street}>　
+                                    <strong>邮编</strong>：<{$vo.address_info.zip}>　
+                                    <strong>手机</strong>：<{$vo.address_info.mobile}>
+                                    <notempty name="vo.address_info.phone">
+                                        　<strong>电话</strong>：<{$vo.address_info.pre_phone}>-<{$vo.address_info.phone}>
+                                    </notempty>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+
+            </volist>
+        </empty>
+        </tbody>
+    </table>
+    <notempty name="list">
+        <div style="border:1px solid #ccc;height: 37px;">
+
+            <div class="emit-fanye-box">
+                <div class="emit-fanye-text">
+                    <{$fpage}>
+                </div>
+            </div>
+        </div>
+    </notempty>
+</form>
+<style>
+    .none-background-color:hover{
+        background: white;
+    }
+
+</style>

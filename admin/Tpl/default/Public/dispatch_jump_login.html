@@ -1,0 +1,39 @@
+{__NOLAYOUT__}
+<!DOCTYPE html>
+<html>
+<head>
+<title>页面提示</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv='Refresh' content='<{$waitSecond}>;URL=<{$jumpUrl}>'>
+<style>
+html, body{margin:0; padding:0; border:0 none;font:14px Tahoma,Verdana;line-height:150%;background:white}
+a{text-decoration:none; color:#174B73; border-bottom:1px dashed gray}
+a:hover{color:#F60; border-bottom:1px dashed gray}
+div.message{margin:10% auto 0px auto;clear:both;padding:5px;border:1px solid silver; text-align:center; width:70%}
+span.wait{color:blue;font-weight:bold}
+span.error{color:red;font-weight:bold}
+span.success{color:blue;font-weight:bold}
+div.msg{margin:20px 0px}
+</style>
+</head>
+<body>
+
+
+<div class="message">
+	<div class="msg">
+	<present name="message" >
+	<span class="success"><{$msgTitle}><{$message}></span>
+	<else/>
+	<span class="error"><{$msgTitle}><{$error}></span>
+	</present>
+	</div>
+	<div class="tip">
+        <present name="closeWin">
+            The page will be in <span class = "wait"> < {$waitSecond} > </span> seconds to shut down,If don't want to wait for,Please click on the <a href="<{$jumpUrl}>">here</a> closed
+            <else/>
+            The page will be in <span class="wait"> <{$waitSecond}> </span> seconds to shut down,If don't want to wait for,Please click on the <a href="<{$jumpUrl}>">here</a> jump
+        </present>
+	</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,151 @@
+
+input{
+	margin:5px;
+	background:white;
+}
+
+.text-left{
+	text-indent: 20px;
+	text-align: left;
+}
+
+.Message-edit{
+	display:block;
+	font-weight:bold;
+}
+
+/****列表页******/
+
+#Message-index{
+	width:100%;
+	margin:0 auto 5px;
+	height:auto;
+	text-align: center;
+}
+
+#Message-index .title{
+	width: 99%;
+	margin: 0 auto 5px;
+	font-size:17px;
+	font-weight:bold;
+	background:#D9E6FF;
+	height:35px;
+	line-height:35px;
+	text-align:center;
+}
+
+#Message-index .content-centet{
+	width: 99%;
+	margin: 0 auto;
+}
+
+#Message-index .nav,#Message-index .cnav{
+	min-height:35px;
+	line-height:35px;
+	margin-bottom: 5px;
+	clear:both;
+}
+
+#Message-index .cnav{
+	background:#EFF3F6;
+}
+
+#Message-index .nav a,#Message-index .cnav a{
+	padding:0 5px 0 5px;
+	display:block;
+	min-width:70px;
+	float:left;
+	background:#d9e6ff;
+	margin:0 5px 5px 0;
+}
+
+#Message-index .cnav a{
+	background:#DDDDDD;
+}
+
+#Message-index .nav a:hover{
+	background:#ccc;
+}
+
+#Message-index .cnav a:hover{
+	background:white;
+}
+
+
+
+#Message-index .search{
+	clear: both;
+	background:#d9e6ff;
+	height: 35px;
+	position: relative;
+}
+
+#Message-index .adds{
+	cursor: pointer;
+	background:#d9e6ff;
+	position: absolute;
+	right:0;
+	border-width: 0 0 0 7px;
+	border-style: solid;
+	border-color: white;
+	width:100px;
+	height:35px;
+	line-height: 35px;
+	z-index: 1;
+}
+
+#Message-index table{
+	width:100%;
+	margin:5px auto;
+	border-collapse:collapse;
+}
+
+#Message-index tbody td{
+	border-width:0 0 1px 0;
+}
+
+#Message-index thead{
+	background:#d9e6ff;
+}
+
+#Message-index th,#Message-index td{
+	border:1px solid #ccc;
+}
+
+#Message-index .fpage{
+	height:30px;
+	line-height: 30px;
+}
+
+
+/****用户添加相关********/
+#Message-add-edit{
+	background:white;
+	padding:10px 10px 30px 10px;
+	border:5px solid #FEB2B2;
+}
+
+#Message-add-edit .img{
+	height:70px;
+	text-align:left;
+	padding:5px ;
+}
+
+#Message-add-edit .title{
+	font-size:20px;
+	font-weight:bold;
+	background:#FEB2B2;
+	height:30px;
+	margin:5px auto;
+	line-height:30px;
+	text-align:center;
+}
+
+#Message-add-edit table{
+	margin:0 auto;
+}
+
+#Message-add-edit table th{
+	text-align: right;
+	width: 80px;
+}

@@ -1,0 +1,114 @@
+
+<div id="xnfy520-function-index">
+
+    <div id="xnfy520-function-index-title">
+        广告列表
+    </div>
+
+    <div id="xnfy520-function-index-nav-sub">
+        <a href="__APP__/CommodityList/index/pid/<{$Think.get.pid}>">全部</a>
+        <volist name="clist" id="voc">
+            <a href="__APP__/CommodityList/index/pid/<{$Think.get.pid}>/cid/<{$voc.id}>"><{$voc.name}></a>
+        </volist>
+    </div>
+
+    <div id="xnfy520-function-index-search">
+
+        <!--<span id="xnfy520-function-index-add">添 加</span>-->
+
+        <form action="__APP__/CommodityList/index<notempty name='Think.get.pid'>/pid/<{$Think.get.pid}></notempty><notempty name='Think.get.cid'>/cid/<{$Think.get.cid}></notempty>" method="post" name="form_search"  style="line-height: 35px;">
+            关键字 <input type="text" name="key" /> 按&nbsp;
+            <select name="search">
+                <option value="2">名称</option>
+            </select>
+            <empty name="list">
+                <input type="submit" value="搜索" disabled="disabled" />
+                <else />
+                <input type="submit" value="搜索" />
+            </empty>
+        </form>
+
+    </div>
+
+    <div id="xnfy520-function-index-content">
+
+        <form action="javascript:;" method="post" name="AdvertList-del" class="delete">
+            <table id="xnfy520-function-index-table">
+                <thead>
+                <tr>
+                    <th id="xnfy520-function-index-table-th-name">标题</th>
+                    <th class="xnfy520-function-index-table-th-100">名称</th>
+                    <th class="xnfy520-function-index-table-th-50">上架</th>
+                    <th class="xnfy520-function-index-table-th-50">价格</th>
+                    <th class="xnfy520-function-index-table-th-50">库存</th>
+                    <th class="xnfy520-function-index-table-th-50">售出</th>
+                    <th class="xnfy520-function-index-table-th-50">查看</th>
+                    <th class="xnfy520-function-index-table-th-50">积分</th>
+                    <th class="xnfy520-function-index-table-th-100">商户</th>
+                    <th class="xnfy520-function-index-table-th-150">创建时间</th>
+                    <th id="xnfy520-function-index-table-th-check-all" style="display: none;">
+                        <input type="button" value="全选" />
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <empty name="list">
+                    <tr><td colspan="10" style="height:50px;">暂无数据</td></tr>
+                <else/>
+                    <volist name="list" id="vo">
+                        <tr>
+                            <td class="xnfy520-function-index-table-td-name">
+                                   <span class="xnfy520-function-index-edit">
+                                       <gt name="vo.name|mb_strlen='utf-8'" value="13">
+                                           <span title="<{$vo.name}>" style="cursor: pointer;" class="into-merchant-commodity" by_user="<{$vo.by_user}>" pid="<{$vo.pid}>" cid="<{$vo.cid}>" id="<{$vo.id}>"><{$vo.name|mb_substr=0,13,"utf-8"}>...</span>
+                                       <else/>
+                                           <span style="cursor: pointer;" class="into-merchant-commodity" by_user="<{$vo.by_user}>" pid="<{$vo.pid}>" cid="<{$vo.cid}>" id="<{$vo.id}>"><{$vo.name}></span>
+                                       </gt>
+                                    </span>
+                            </td>
+                            <td><{$vo.alias}></td>
+                            <td>
+                                <eq name="vo.enable" value="1">
+                                    <span>是</span>
+                                <else/>
+                                    <span>否</span>
+                                </eq>
+                            </td>
+                            <td>
+                                &#165;&nbsp;<{$vo.current_price}>
+                            </td>
+                            <td><{$vo.inventory}></td>
+                            <td><{$vo.work_off}></td>
+                            <td><{$vo.views}></td>
+                            <td><{$vo.integral}></td>
+                            <td>
+                                <span style="cursor: pointer;" class="into-merchant" by_user="<{$vo.by_user}>"><{$vo.User.username}></span>
+                            </td>
+                            <td>
+                                <{$vo.create_date|date="Y-m-d H:i:s",###}>
+                            </td>
+                            <td class="xnfy520-function-index-table-td-checkbox" style="display: none;">
+                                <input class="xnfy520-function-index-table-check-this" type="checkbox" name="deleteid[]" value="<{$vo.id}>" />
+                            </td>
+                        </tr>
+                    </volist>
+                </empty>
+                </tbody>
+            </table>
+            <notempty name="list">
+                <div style="border:1px solid #ccc;height: 37px;">
+
+                    <div class="emit-fanye-box">
+                        <div class="emit-fanye-text">
+                            <{$fpage}>
+                        </div>
+                    </div>
+
+                    <!--<span style="float: right;"><input type="submit" value="删除" /></span>-->
+
+                </div>
+            </notempty>
+        </form>
+
+    </div>
+</div>

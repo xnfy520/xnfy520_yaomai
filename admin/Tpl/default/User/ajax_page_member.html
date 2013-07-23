@@ -1,0 +1,99 @@
+{__NOLAYOUT__}
+
+    <div id="xnfy520-function-index-content">
+
+        <form action="javascript:;" method="post" name="User-del" class="delete">
+            <table id="xnfy520-function-index-table">
+                <thead>
+                <tr>
+                    <th id="xnfy520-function-index-table-th-name">名称</th>
+                    <th id="xnfy520-function-index-table-th-email">邮箱</th>
+                    <th class="xnfy520-function-index-table-th-50">站内信</th>
+                    <!--<th class="xnfy520-function-index-table-th-50">权限</th>-->
+                    <th class="xnfy520-function-index-table-th-50">启用</th>
+                    <!--<th class="xnfy520-function-index-table-th-50">审核</th>-->
+                    <th class="xnfy520-function-index-table-th-100">会员中心</th>
+                    <th id="xnfy520-function-index-table-th-check-all">
+                        <notempty name="list">
+                            <input type="button" value="全选" />
+                        </notempty>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <empty name="list">
+                    <tr><td colspan="5" style="height:50px;">暂无数据</td></tr>
+                    <else/>
+                    <volist name="list" id="vo">
+                        <tr>
+                            <td class="xnfy520-function-index-table-td-name">
+                                   <span class="xnfy520-function-index-edit" id="index-edit-name">
+                                       <gt name="vo.username|mb_strlen='utf-8'" value="20">
+                                           <span><{$vo.username|mb_substr=0,20,"utf-8"}>...</span>
+                                           <else/>
+                                           <span><{$vo.username}></span>
+                                       </gt>
+                                    </span>
+                            </td>
+                            <td class="xnfy520-function-index-table-td-email">
+                                   <span class="xnfy520-function-index-edit">
+                                       <gt name="vo.email|mb_strlen='utf-8'" value="20">
+                                           <span><{$vo.email|mb_substr=0,20,"utf-8"}>...</span>
+                                           <else/>
+                                           <span><{$vo.email}></span>
+                                       </gt>
+                                    </span>
+                            </td>
+                            <td>
+                                <button type="button" class="send_message" message_type="<{$instation_message_type.personal}>" addressee_id="<{$vo.id}>" messge_title="<{$vo.username}>">发送</button>
+                            </td>
+                            <!--<td>-->
+                                <!--&lt;!&ndash;<button type="button" class="Set-Permission" roleid="<{$vo.roleid}>">设置</button>&ndash;&gt;-->
+                            <!--</td>-->
+                            <td class="xnfy520-function-index-table-td-enable">
+                                <eq name="vo.id" value="1">
+                                    -
+                                    <else/>
+                                    <eq name="vo.status" value="1">
+                                        <span class="switch_status" by="<{$vo.id}>" type="status" value="<{$vo.status}>">是</span>
+                                        <else/>
+                                        <span class="switch_status" by="<{$vo.id}>" type="status" value="<{$vo.status}>">否</span>
+                                    </eq>
+                                </eq>
+                                <span style="display: none;" data_on="确认关闭？" data_off="确认启用？"></span>
+                            </td>
+                            <!--<td class="xnfy520-function-index-table-td-enable">-->
+                                <!--<eq name="vo.id" value="1">-->
+                                    <!----->
+                                    <!--<else/>-->
+                                    <!--<eq name="vo.audit" value="1">-->
+                                        <!--<span class="switch_status" by="<{$vo.id}>" type="audit" value="<{$vo.audit}>">是</span>-->
+                                        <!--<else/>-->
+                                        <!--<span class="switch_status" by="<{$vo.id}>" type="audit" value="<{$vo.audit}>">否</span>-->
+                                    <!--</eq>-->
+                                <!--</eq>-->
+
+                            <!--</td>-->
+                            <!--<td><{$vo.regdate|date="Y-m-d H:i:s",###}></td>-->
+                            <td><span style="cursor: pointer;" class="into-member" by_user="<{$vo.id}>" >个人中心</span></td>
+                            <td class="xnfy520-function-index-table-td-checkbox">
+                                <eq name="vo.id" value="1">
+                                        <input style="display: none;" class="xnfy520-function-index-table-check-this" disabled="disabled" type="checkbox" name="deleteid[]" value="<{$vo.id}>" />
+                                    <else/>
+                                        <input class="xnfy520-function-index-table-check-this" type="checkbox" name="deleteid[]" value="<{$vo.id}>" />
+                                </eq>
+                            </td>
+                        </tr>
+                    </volist>
+                </empty>
+                </tbody>
+            </table>
+            <notempty name="list">
+                <div style="border:1px solid #ccc;height: 37px;line-height: 37px;">
+                            <{$fpage}>
+                    <span style="float: right;"><input type="submit" value="删除" /></span>
+                </div>
+            </notempty>
+        </form>
+
+    </div>

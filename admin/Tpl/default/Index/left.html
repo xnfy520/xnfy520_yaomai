@@ -1,0 +1,130 @@
+<div id="left">
+    <div class="menu">
+        <ul>
+            <li class="xnfy520_left_main_title">后台管理</li>
+
+            <neq name="Userinfo.Role.level" value="$p_level">
+
+                <li>
+                    <a class="xnfy520_left_title" href="javascript:;">系统管理</a>
+                    <ul>
+
+                        <li>
+                            <a id="Left-System-configuration" class="top-action" href="__APP__/System/configuration">系统配置</a>
+                        </li>
+
+                        <li>
+                            <a  id="Left-SystemAnnouncement" class="top-action" href="__APP__/SystemAnnouncement/index">系统公告</a>
+                        </li>
+
+                        <li>
+                            <a  id="Left-LastUpdate" class="top-action" href="__APP__/LastUpdate/index">最新更新</a>
+                        </li>
+
+                        <li>
+                            <a  id="Left-Blogroll" class="top-action" href="__APP__/Blogroll/index">友情链接</a>
+                        </li>
+
+                        <li>
+                            <a  id="Left-OtherLinks" class="top-action" href="__APP__/OtherLinks/index">资质许可</a>
+                        </li>
+
+                    </ul>
+
+                </li>
+
+                <li>
+                    <a class="xnfy520_left_title" href="javascript:;">广告管理</a>
+
+                    <ul>
+                        <li><a  id="Left-AdvertCategory" class="top-action" href="__APP__/AdvertCategory/index">广告分类</a></li>
+                        <li><a  id="Left-AdvertList" class="top-action" href="__APP__/AdvertList/index">广告列表</a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a class="xnfy520_left_title" href="javascript:;">区域管理</a>
+
+                    <ul>
+
+                        <li><a  id="Left-Provinces" class="top-action" href="__APP__/Provinces/index">地域列表</a></li>
+
+                    </ul>
+                </li>
+</neq>
+                <li>
+                    <a class="xnfy520_left_title" href="javascript:;">用户管理</a>
+
+                    <ul>
+
+                        <li>
+                            <a  id="Left-Role" class="top-action" href="__APP__/Role/index">用户分组</a>
+                        </li>
+                        <hr />
+
+                        <volist name="Rolelist" id="vo_user_list">
+                                <li>
+                                    <a  id="Left-User-index-rid-<{$vo_user_list.id}>" class="top-action" href="__APP__/User/index/rid/<{$vo_user_list.id}>"><{$vo_user_list.name}></a>
+                                </li>
+                        </volist>
+
+                    </ul>
+                </li>
+
+                <li>
+
+                    <a class="xnfy520_left_title" href="javascript:;">商品管理</a>
+
+                    <ul>
+
+                        <li><a  id="Left-CommodityCategory" class="top-action" href="__APP__/CommodityCategory/index">商品分类</a></li>
+
+                    </ul>
+
+                </li>
+
+
+
+
+
+                <li>
+                    <a class="xnfy520_left_title" href="javascript:;">订单管理</a>
+                    <ul>
+
+                        <li>
+                            <a class="top-action" id="Left-OrderList-index" href="__APP__/OrderList/index">全部订单</a>
+                        </li>
+                    </ul>
+                </li>
+
+
+                <li>
+
+                    <a class="xnfy520_left_title" href="javascript:;">帮助中心</a>
+
+                    <ul>
+
+                        <li><a  id="Left-HelpCenterCategory" class="top-action" href="__APP__/HelpCenterCategory/index">帮助分类</a></li>
+                        <li><a  id="Left-HelpCenterInformation" class="top-action" href="__APP__/HelpCenterInformation/index">帮助信息</a></li>
+
+                    </ul>
+
+                </li>
+
+                <li>
+
+                    <a class="xnfy520_left_title" href="javascript:;">信息模板</a>
+
+                    <ul>
+
+                        <li><a  id="Left-TemplateList" class="top-action" href="__APP__/TemplateList/index">模板列表</a></li>
+
+                    </ul>
+
+                </li>
+
+
+
+        </ul>
+    </div>
+</div>

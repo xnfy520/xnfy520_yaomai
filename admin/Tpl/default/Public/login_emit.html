@@ -1,0 +1,46 @@
+{__NOLAYOUT__}
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link href="../Public/css/login.css" rel="stylesheet" type="text/css" />
+    <script src="__PUBLIC__/js/jquery-1.7.2.min.js"></script>
+    <script src="js/common.js"></script>
+</head>
+<body>
+<div class="background">
+
+    <div class="left">
+        <a href="http://www.whldcy.com"><img src="__PUBLIC__/images/ledian.jpg"></a>
+    </div>
+
+    <div class="right">
+        <form action="__APP__/Public/checklogin" method="post">
+            Administrator:<br />
+            <input type="text" class="text" name="username" /><br />
+            Password:<br />
+            <input type="password" class="text" name="password" /><br />
+            Verification Code:<br />
+            <input type="text" id="insertcode" name="verify" />
+            <img id="clickcode" src="__ROOT__/index.php/Public/verify" /><br />
+            <input type="submit" style="margin-top: 5px;" value="Log In" />
+        </form>
+    </div>
+
+</div>
+
+<script>
+
+    var PUBLIC = "__PUBLIC__";
+    var URL = "__URL__";
+    var APP = "__APP__";
+    var ROOT = "__ROOT__";
+    var ACTION = "__ACTION__";
+
+    var CSS = "../Public/css";
+    var JS = '../Public/js';
+    var SELF = '__SELF__';
+
+</script>
+</body>
+</html>

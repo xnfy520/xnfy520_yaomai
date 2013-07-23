@@ -1,0 +1,134 @@
+
+/****添加 修改相关********/
+#SystemAnnouncement-add-edit{
+    background:white;
+    padding:  0 10px 5px 10px;
+    color: #546C83;
+}
+
+#SystemAnnouncement-add-edit table caption{
+    font-size:20px;
+    font-weight:bold;
+    height:30px;
+    margin:0 auto;
+    line-height:30px;
+    text-align:center;
+}
+
+#SystemAnnouncement-add-edit table .table_tr{
+    height: 25px;
+    line-height:25px;
+}
+
+#SystemAnnouncement-add-edit table .table_th{
+    height: 25px;
+    line-height:25px;
+    text-align: right;
+    display: inline-block;
+    width: 100px;
+    font-size: 1.6em;
+}
+
+#SystemAnnouncement-add-edit table{
+    margin-top: 5px;
+}
+
+#SystemAnnouncement-add-edit .table_td{
+    width: 300px;
+    max-width: 300px;
+    min-width: 300px;
+}
+
+#SystemAnnouncement-add-edit{
+
+}
+
+#SystemAnnouncement-add-edit table .table_th_top{
+    height: 25px;
+    line-height:25px;
+    text-align: right;
+    display: inline-block;
+    width: 100px;
+    font-size: 1.6em;
+    vertical-align: top;
+}
+
+#SystemAnnouncement-add-edit table .table_star{
+    color: red;
+}
+
+#SystemAnnouncement-add-edit table input[type=text]{
+    width: 300px;
+    color:#546C83;
+}
+
+#SystemAnnouncement-add-edit table .table_radio{
+    position: relative;
+    top: 3px;
+}
+
+#SystemAnnouncement-add-edit table .table_sort_title{
+    font-size: 1.6em;
+    font-weight: bold;
+    position: relative;
+    top:2px;
+}
+
+#SystemAnnouncement-add-edit table .table_sort_input{
+    text-align: center;
+    position: relative;
+    width: 50px;
+    max-width: 50px;;
+}
+
+#SystemAnnouncement-add-edit table .table_sort_span{
+    float: right;
+}
+
+#SystemAnnouncement-add-edit table .table_select{
+    padding:2px 2px 2px 0;
+    width: 304px;
+    color:#546C83;
+}
+
+#SystemAnnouncement-add-edit table .table_radio label{
+    cursor:pointer;
+}
+
+#SystemAnnouncement-add-edit table .textarea{
+    resize: none;
+    width: 298px;
+    height: 100px;
+    margin-top: 3px;
+    color:#546C83;
+}
+
+#SystemAnnouncement-add-edit table .table_image_tip_size{
+    color:red;
+    font-weight: bold;
+}
+
+#table_tr_show_image_add{
+    display: none;
+}
+
+#SystemAnnouncement-add-edit table .thumb_image{
+    max-width: 300px;
+    max-height: 150px;
+    margin-top: 3px;
+    padding: 1px;
+    border: 1px dashed #ccc;;
+}
+
+#SystemAnnouncement-add-edit table .table_th_adjust{
+    position: relative;
+    top: 2px;
+}
+
+#SystemAnnouncement-add-edit table .positioning_image{
+    position: relative;
+}
+
+#SystemAnnouncement-add-edit table .delete_image{
+    position: absolute;right:2px;bottom:5px;cursor: pointer;display: none;
+}
