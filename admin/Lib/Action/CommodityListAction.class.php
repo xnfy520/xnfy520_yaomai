@@ -56,21 +56,19 @@ class CommodityListAction extends CommonAction{
 
 	function ajax_page_index(){
 
-		if($Userinfo = $this->check_is_admin()){
+			if($Userinfo = $this->check_is_admin()){
 
-			if(isset($_GET['pid']) && !empty($_GET['pid'])){
+				$CommodityCategory = M('CommodityCategory');
+				$CommodityCategoryinfo = $CommodityCategory->order('sort')->select();
+				$this->assign('clist',$CommodityCategoryinfo);
 
 				import("ORG.Util.emit_ajax_page");
 				$CommodityList = D('CommodityList');
 
-				$datas['pid'] = $_GET['pid'];
-
-				if(isset($_GET['cid']) && !empty($_GET['cid'])){
-					$datas['cid'] = $_GET['cid'];
+				if(isset($_GET['pid']) && !empty($_GET['pid'])){
+					$datas['pid'] = $_GET['pid'];
 				}
-
-				$datas['by_user'] = $Userinfo['id'];
-
+				
 				if(isset($_POST['search'])){
 					if(!empty($_POST['key'])){
 						switch($_POST['search']){
@@ -102,9 +100,6 @@ class CommodityListAction extends CommonAction{
 				$this->assign('fpage',$page->fpage(array(1,2,4,5,6,7,8)));
 
 				$this->display();
-			}else{
-				$this->redirect('/Index/index');
-			}
 		}else{
 			$this->redirect('Public/login');
 		}
@@ -139,8 +134,6 @@ class CommodityListAction extends CommonAction{
 				$cinfo = $CommodityCategory->select();
 				$this->assign('clist',$cinfo);
 
-				$CommoditySubclass = M('CommoditySubclass');
-
 				$datas['pid'] = $_GET['pid'];
 				$datas['id'] = $_GET['id'];
 
@@ -165,9 +158,8 @@ class CommodityListAction extends CommonAction{
 
 				$this->assign('data', $data);
 
-
-
 				$map['lid'] = $_GET['id'];
+				$map['by'] = 1;
 
 				$CommodityImages = M('CommodityImages');
 				$ciinfo = $CommodityImages->where($map)->order('id')->select();
@@ -225,8 +217,8 @@ class CommodityListAction extends CommonAction{
 
 					if(!empty($_POST['image_more'])){
 						$CommodityImages = M('CommodityImages');
-						$images_datas['pid'] = $_POST['pid'];
 						$images_datas['lid'] = $insertid;
+						$images_datas['by'] = 1;
 						for($i=0; $i<count($_POST['image_more']); $i++){
 							copy($tmpdir.'thumb_'.$_POST['image_more'][$i], $srcimagesdir.'thumb_'.$_POST['image_more'][$i]);
 							copy($tmpdir.'cut_'.$_POST['image_more'][$i], $srcimagesdir.'cut_'.$_POST['image_more'][$i]);
@@ -238,7 +230,7 @@ class CommodityListAction extends CommonAction{
 					$this->ajaxReturn(0,"新增成功！",1);
 
 				}else{
-					echo $CommodityList->getLastSql();
+
 					$this->ajaxReturn(0,"新增错误！",0);
 
 				}
@@ -322,18 +314,24 @@ class CommodityListAction extends CommonAction{
 						$parameter_data[]=array($_POST['parameter_key'][$i]=>$_POST['parameter_value'][$i]);
 					}
 					$data['p1'] = json_encode($parameter_data);
+				}else{
+					$data['p1'] = null;
 				}
 				if(!empty($_POST['parameter_key2'])){
 					for($i=0; $i<count($_POST['parameter_key2']); $i++){
 						$parameter_data2[]=array($_POST['parameter_key2'][$i]=>$_POST['parameter_value2'][$i]);
 					}
 					$data['p2'] = json_encode($parameter_data2);
+				}else{
+					$data['p2'] = null;
 				}
 				if(!empty($_POST['parameter_key3'])){
 					for($i=0; $i<count($_POST['parameter_key3']); $i++){
 						$parameter_data3[]=array($_POST['parameter_key3'][$i]=>$_POST['parameter_value3'][$i]);
 					}
 					$data['p3'] = json_encode($parameter_data3);
+				}else{
+					$data['p3'] = null;
 				}
 				if($this->checkData($orginfo,$data)){
 					$data['modify_date'] = time();
@@ -380,14 +378,9 @@ class CommodityListAction extends CommonAction{
 				unlink($srcdir.'cut_'.$data['image']);
 				unlink($srcdir.'thumb_'.$data['image']);
 
-				$maps['pid'] = $data['pid'];
+
 				$maps['lid'] = $data['id'];
-
-				$CommoditySpecification = M('CommoditySpecification');
-				$CommoditySpecification->where($maps)->delete();
-
-				$CommodityParameter = M('CommodityParameter');
-				$CommodityParameter->where($maps)->delete();
+				$maps['by'] = 1;
 
 				$CommodityImages = M('CommodityImages');
 				$ciinfos = $CommodityImages->where($maps)->select();
@@ -395,7 +388,7 @@ class CommodityListAction extends CommonAction{
 				for($s=0; $s<count($ciinfos); $s++){
 					unlink($srcimagedir.'cut_'.$ciinfos[$s]['image']);
 					unlink($srcimagedir.'thumb_'.$ciinfos[$s]['image']);
-					$CommodityImages->delete($ciinfos[$s]['id']);
+					$CommodityImages->where('by=1')->delete($ciinfos[$s]['id']);
 				}
 
 				$num = $CommodityList->delete($_POST['deleteid'][$i]);
@@ -440,8 +433,8 @@ class CommodityListAction extends CommonAction{
 
 	function add_image(){
 		if(!empty($_POST['pid']) && !empty($_POST['id']) && !empty($_POST['image'])){
-			$map['pid'] = $_POST['pid'];
 			$map['lid'] = $_POST['id'];
+			$map['by'] = 1;
 			$map['image'] = $_POST['image'];
 			$CommodityImages = M('CommodityImages');
 			if($CommodityImages->add($map)){
@@ -461,8 +454,8 @@ class CommodityListAction extends CommonAction{
 	function delete_image(){
 		if(isset($_POST['id']) && !empty($_POST['id'])){
 			$CommodityImages = M('CommodityImages');
-			$data = $CommodityImages->find($_POST['id']);
-			if($CommodityImages->delete($_POST['id'])){
+			$data = $CommodityImages->where('by=1')->find($_POST['id']);
+			if($CommodityImages->where('by=1')->delete($_POST['id'])){
 				$srcdir = './Public/Content/CommodityImages/';
 				unlink($srcdir.'cut_'.$data['image']);
 				unlink($srcdir.'thumb_'.$data['image']);

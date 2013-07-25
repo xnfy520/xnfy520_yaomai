@@ -1,5 +1,5 @@
 
-<div id="HomeGrownProduct-add-edit">
+<div id="CommodityList-add-edit">
 
     <div id="xnfy520-function-index-title">
         添加商品
@@ -8,7 +8,6 @@
 
     <form action="javascript:;" method="POST" name="CommodityList-add">
         <input type="hidden" name="image" />
-        <input type="hidden" name="pid" value="<{$Think.get.pid}>" />
         <ul style="margin-top: 10px;">
             <li class="xnfy520-function-index-add-edit-ul-li">
                 <strong>标　　题：</strong><input type="text" maxlength="50" style="width: 720px;margin: 0 0 0 5px;text-indent: 5px;padding: 2px;" name="name" />　
@@ -41,11 +40,11 @@
             </li>
             <li class="xnfy520-function-index-add-edit-ul-li" style="margin-top: 3px;">
                 <strong>售　　价：</strong>
-                    <input type="text" name="price" value="0" style="width: 47px;text-align: center;height: 18px;" maxlength="8" />　
+                    <input type="text" name="price" value="0.00" style="width: 47px;text-align: center;height: 18px;" maxlength="8" />　
                 <strong>排　　序：</strong>
                 <input title="值必须在0-255 (必填)" type="text" name="sort" value="99" style="width: 49px;text-align: center;height: 18px;" maxlength="3" />　
                 <strong>商品体积：</strong>
-                <input type="text" name="" value="" style="width: 47px;text-align: center;height: 18px;" maxlength="3" />
+                <input type="text" name="measure" value="0.00" style="width: 47px;text-align: center;height: 18px;" maxlength="8" />
             </li>
             <li class="xnfy520-function-index-add-edit-ul-li" style="margin-top: 5px;height: 50px;background: #d6fffa;padding: 5px 0;">
                   <span class="positioning_images" style="float: left;position: relative;margin-left: 8px;width: 50px;height: 50px;display: block;padding-right: 16px;border-right: 1px dashed blue;">

@@ -160,7 +160,7 @@ class CommodityCategoryAction extends CommonAction{
 			$CommodityCategory = D('CommodityCategory');
 			for($i=0; $i<count($_POST['deleteid']); $i++){
 				$data = $CommodityCategory->relation(true)->find($_POST['deleteid'][$i]);
-				if(empty($data['HelpCenterInformation'])){
+				if(empty($data['CommodityList'])){
 					$num = $CommodityCategory->delete($_POST['deleteid'][$i]);
 				}else{
 					$this->ajaxReturn(0,'[ '.$data['name'].' ] 分类下还有内容,不能被删除',0);

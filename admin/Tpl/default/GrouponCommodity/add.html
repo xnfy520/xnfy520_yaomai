@@ -1,0 +1,110 @@
+
+<div id="GrouponCommodity-add-edit">
+
+    <div id="xnfy520-function-index-title">
+        添加商品
+    </div>
+
+    <form action="javascript:;" method="POST" name="GrouponCommodity-add">
+        <input type="hidden" name="image" />
+        <ul style="margin-top: 10px;">
+            <li class="xnfy520-function-index-add-edit-ul-li">
+                <strong>标　　题：</strong><input type="text" maxlength="50" style="width: 720px;margin: 0 0 0 5px;text-indent: 5px;padding: 2px;" name="name" />　
+            </li>
+            <li class="xnfy520-function-index-add-edit-ul-li" style="margin-top: 2px;">
+                <strong>所属分类：</strong>
+                <select name="pid" style="padding: 2px;margin-left: 0;min-width:50px">
+                    <volist name="clist" id="volist">
+                        <notempty name="Think.get.pid">
+                            <eq name="volist.id" value="$Think.get.pid">
+                                <option selected="selected" value="<{$volist.id}>"><{$volist.name}></option>
+                                <else/>
+                                <option value="<{$volist.id}>"><{$volist.name}></option>
+                            </eq>
+                            <else/>
+                            <option value="<{$volist.id}>"><{$volist.name}></option>
+                        </notempty>
+                    </volist>
+                </select>　
+                <strong>上　　架：</strong>
+                <select name="enable" style="width: 53px;padding: 2px">
+                    <option value="1" selected="selected">是</option>
+                    <option value="0">否</option>
+                </select>　
+                <strong>推　　荐：</strong>
+                <select name="recommend" style="width: 53px;padding: 2px">
+                    <option value="1">是</option>
+                    <option value="0" selected="selected">否</option>
+                </select>
+            </li>
+            <li class="xnfy520-function-index-add-edit-ul-li" style="margin-top: 3px;">
+                <strong>原　　价：</strong>
+                    <input type="text" name="org_price" value="0.00" style="width: 47px;text-align: center;height: 18px;" maxlength="8" />　
+                <strong>现　　价：</strong>
+                    <input type="text" name="price" value="0.00" style="width: 47px;text-align: center;height: 18px;" maxlength="8" />　
+                <strong>截止日期：</strong>
+                <input type="text" name="expiration_date" class="Wdate" type="text" onfocus="WdatePicker({minDate:'%y-%M-{%d+1}'})" readonly="readonly" style="width: 100px;height: 18px;text-indent:5px" />　
+                <strong>排　　序：</strong>
+                <input title="值必须在0-255 (必填)" type="text" name="sort" value="99" style="width: 49px;text-align: center;height: 18px;" maxlength="3" />　
+                <strong>商品体积：</strong>
+                <input type="text" name="measure" value="0.00" style="width: 47px;text-align: center;height: 18px;" maxlength="8" />
+            </li>
+            <li class="xnfy520-function-index-add-edit-ul-li" style="margin-top: 5px;height: 50px;background: #d6fffa;padding: 5px 0;">
+                  <span class="positioning_images" style="float: left;position: relative;margin-left: 8px;width: 50px;height: 50px;display: block;padding-right: 16px;border-right: 1px dashed blue;">
+                        <img class="thumb_image"
+                             style="width:50px;height:50px;cursor: pointer;margin-right: 5px;"
+                             flag="0"
+                             src="__PUBLIC__/images/default.jpg" />
+                        <img class="delete_images" src="../Public/images/bullet_cross.png" style="position: absolute;right: 12px;top:1px;cursor: pointer;display: none;" />
+                    </span>
+            </li>
+            <style type="text/css">
+                .switch_textarea{
+                    width:100px;
+                    padding: 5px 10px;
+                    background-color: #ccc;
+                    cursor:pointer;
+                }
+            </style>
+            <li style="height: 25px;line-height: 25px;margin-bottom: 2px;">
+                <span class="switch_textarea" style="background: #546C83;color:white;">详情</span>
+                 <button id="file_upload_button" type="button" style="cursor: pointer;padding:5px 2px;margin-left:4px">封面上传</button>　
+                <span style="font-size: 12px;">( 封面请上传高宽比例为1：1的图片 )</span>
+            </li>
+            <li class="texli" style="margin-bottom: 10px;">
+                 <textarea class="details" name="details" style="resize: none;position:absolute;visibility: hidden;float: left;"></textarea>
+            </li>
+            <li>
+                <input style="margin-left:0;" type="submit" name="" value="添加" />
+            </li>
+        </ul>
+    </form>
+    </div>
+
+<script src="__PUBLIC__/js/ajaxupload.3.6.js" type="text/javascript"></script>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/kindeditor/kindeditor-min.js"></script>
+<script>
+    var editor;
+    KindEditor.ready(function(K) {
+        editor = K.create('.details', {
+            newlineTag : 'br',
+            resizeType : 1,
+            allowPreviewEmoticons : false,
+            allowImageUpload : true,
+            width:796,
+            height:300,
+            pasteType : 2,
+            filterMode : false,
+            items :  [
+                'source','justifyleft', 'justifycenter', 'justifyright','justifyfull', 
+                'insertorderedlist','insertunorderedlist',
+                'clearhtml', 'quickformat',
+                'forecolor', 'hilitecolor', 'bold','italic', 'underline', 'strikethrough',
+                'removeformat','emoticons', 'link', 'unlink', 'selectall',  'fullscreen'
+            ]
+        });
+
+    });
+
+</script>

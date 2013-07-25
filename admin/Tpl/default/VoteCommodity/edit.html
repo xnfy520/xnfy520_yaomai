@@ -1,0 +1,232 @@
+
+<div id="VoteCommodity-add-edit">
+
+    <div id="xnfy520-function-index-title">
+        修改商品
+    </div>
+
+    <form action="javascript:;" method="POST" name="VoteCommodity-edit">
+        <input type="hidden" name="image" value="<{$data.image}>" />
+        <input type="hidden" name="id" value="<{$data.id}>" />
+        <ul style="margin-top: 10px;">
+            <li class="xnfy520-function-index-add-edit-ul-li">
+                <strong>标　　题：</strong><input type="text" maxlength="50" style="width: 720px;margin: 0 0 0 5px;text-indent: 5px;padding: 2px;" name="name" value="<{$data.name}>" />　
+            </li>
+            <li class="xnfy520-function-index-add-edit-ul-li" style="margin-top: 2px;">
+                <strong>上　　架：</strong>
+                <select name="enable" style="width: 56px;padding: 2px">
+                    <eq name="data.enable" value="1">
+                        <option value="1" selected="selected">是</option>
+                        <option value="0">否</option>
+                        <else/>
+                        <option value="1">是</option>
+                        <option value="0" selected="selected">否</option>
+                    </eq>
+                </select>　
+                <strong>推　荐：</strong>
+                <select name="recommend" style="width: 56px;padding: 2px">
+                    <eq name="data.recommend" value="1">
+                        <option value="1" selected="selected">是</option>
+                        <option value="0">否</option>
+                    <else/>
+                        <option value="1">是</option>
+                        <option value="0" selected="selected">否</option>
+                    </eq>
+                </select>
+            </li>
+            <li class="xnfy520-function-index-add-edit-ul-li" style="margin-top: 3px;">
+                <strong>售　　价：</strong>
+                <input type="text" name="price" value="<{$data.price|default='0.00'}>" style="width: 48px;text-align: center;height: 18px;" maxlength="8" />　
+                <strong>订　金：</strong>
+                <input type="text" name="subscription" value="<{$data.subscription|default='0.00'}>" style="width: 47px;text-align: center;height: 18px;" maxlength="10" />　
+                <strong>预订基数：</strong>
+                <input type="text" name="subscribe" value="<{$data.subscribe}>" style="width: 47px;text-align: center;height: 18px;" maxlength="10" />　
+                <strong>截止日期：</strong>
+                <input type="text" name="expiration_date" value="<{$data.expiration_date|default=''|date="Y-m-d",###}>" class="Wdate" type="text" onfocus="WdatePicker({minDate:'%y-%M-{%d+1}'})" readonly="readonly" style="width: 90px;height: 18px;text-indent:5px" />　
+                <strong>排　序：</strong>
+                <input title="值必须在0-255 (必填)" type="text" name="sort"  value="<{$data.sort|default=0}>" style="width: 50px;text-align: center;height: 18px;" maxlength="3" />　
+                <strong>体　积：</strong>
+                <input type="text" name="measure"  value="<{$data.measure|default=0.00}>" style="width: 50px;text-align: center;height: 18px;" maxlength="8" />
+            </li>
+            <li class="xnfy520-function-index-add-edit-ul-li" style="margin-top: 5px;height: 50px;background: #d6fffa;padding: 5px 0;">
+
+                  <span class="positioning_images" style="float: left;position: relative;margin-left: 8px;width: 50px;height: 50px;display: block;padding-right: 16px;border-right: 1px dashed blue;">
+                        <img class="thumb_image"
+                             style="width:50px;height:50px;cursor: pointer;margin-right: 5px;"
+                             flag="1"
+                             info='{"width":<{$data.width}>,"height":<{$data.height}>,"type":"<{$data.type}>"}'
+                             src="__PUBLIC__/Content/VoteCommodity/cut_<{$data.image}>" />
+                        <img class="delete_images" src="../Public/images/bullet_cross.png" style="position: absolute;right: 12px;top:1px;cursor: pointer;display: none;" />
+                    </span>
+
+                    <span style="margin-left: 7px;float: left;" id="insert_more_image">
+                         <!--<span class="positioning_images_list" style="float: left;position: relative;width: 50px;height: 50px;display: block;padding-right: 16px;">-->
+                            <!--<img class="thumb_image_list"-->
+                                 <!--style="width:50px;height:50px;cursor: pointer;margin-right: 5px;"-->
+                                 <!--flag="0"-->
+                                 <!--src="__PUBLIC__/images/default.jpg" />-->
+                            <!--<img class="delete_images_list" src="../Public/images/bullet_cross.png" style="position: absolute;right: 12px;top:1px;cursor: pointer;display: none;" />-->
+                        <!--</span>-->
+                        <volist name="ciinfo" id="vociinfo">
+                            <span class="positioning_images_list"
+                                style="float: left;position: relative;width: 50px;height: 50px;display: block;padding-right: 16px;">
+                                <img class="thumb_image_list"
+                                style="width:50px;height:50px;cursor: pointer;margin-right: 5px;" info='{"width":<{$vociinfo.width}>,"height":<{$vociinfo.height}>,"type":"<{$vociinfo.type}>"}' flag="1"
+                                src="__PUBLIC__/Content/CommodityImages/cut_<{$vociinfo.image}>" />
+                                <img delete_id="<{$vociinfo.id}>" class="delete_images_list" src="__PUBLIC__/images/bullet_cross.png" style="position: absolute;right: 12px;top:1px;cursor: pointer;display: none;" />
+                                <input type="hidden" class="image_more" name="image_more[]" value="<{$vociinfo.image}>" />
+                            </span>
+                        </volist>
+                    </span>
+            </li>
+            <li class="xnfy520-function-index-add-edit-ul-li" style="margin-top: 3px;background: #d6fffa;">
+                <button id="file_upload_button" type="button" style="cursor: pointer;padding:5px 2px;margin-left:4px">封面上传</button>　
+                <button id="file_upload_button_more" type="button" style="cursor: pointer;padding:5px 2px">图片上传</button>　
+                <span style="font-size: 12px;">( 封面或商品请上传高宽比例为1：1的图片，商品图片最多为10张 )</span>
+            </li>
+            <style type="text/css">
+                .switch_textarea{
+                    width:100px;
+                    padding: 5px 10px;
+                    background-color: #ccc;
+                    cursor:pointer;
+                }
+            </style>
+            <li style="height: 25px;line-height: 25px;margin-bottom: 2px;">
+                <span class="switch_textarea" style="background: #546C83;color:white;">描述</span>
+                <span class="switch_textarea">简介</span>
+                <button type="button" style="margin: 0;padding:5px 2px" id="Parameter">送货和退货</button>
+                <button type="button" style="margin: 0;padding:5px 2px" id="Parameter2">产品尺寸</button>
+                <button type="button" style="margin: 0;padding:5px 2px" id="Parameter3">产品详细信息</button>
+ 
+                <select id="stylist_id" name="stylist_id" style="padding:4px 2px" sid="<{$data.stylist_id}>" ssay="<{$data.stylist_say}>">
+                    <option value="0">选择设计师</option>
+                    <volist name="stylist" id="vo_s">
+                        <eq name="vo_s.id" value="$data.stylist_id">
+                            <option value="<{$vo_s.id}>" selected="selected"><{$vo_s.name}></option>
+                        <else/>
+                            <option value="<{$vo_s.id}>"><{$vo_s.name}></option>
+                        </eq>
+                    </volist>
+                </select>
+                <span class="stylist_say" style="display:none">
+                    <input type="text" maxlength="50" style="width: 385px;margin: 0 0 0 5px;text-indent: 5px;padding: 2px;" name="stylist_say" value="<{$data.stylist_say}>" />　
+                </span>
+            </li>
+            <li class="texli" style="margin-bottom: 10px;">
+                 <textarea class="description" name="description" style="resize: none;position:absolute;visibility: hidden;float: left;"><{$data.description}></textarea>
+            </li>
+            <li class="texli" style="margin-bottom: 10px;display: none;">
+                <textarea class="textareas" name="details" style="resize: none;position:absolute;visibility: hidden;float: left;"><{$data.details}></textarea>
+            </li>
+            <li>
+                <input style="margin-left: 0;" type="submit" name="" value="修改" />
+            </li>
+        </ul>
+        <ul id="wait-insert-parameter" style="display:none">
+            <volist name="data.p1" id="vo_p1">
+                <li>
+                    参数名：<input type="text" style="width: 100px;text-align: center;" name="parameter_key[]" maxlength="10" value="<{$vo_p1|key}>" />　
+                    参数值：<input type="text" style="width: 100px;text-align: center;" name="parameter_value[]" maxlength="100" value="<{$vo_p1|current}>" />　
+                    <img class="delete_parameter" src="../Public/images/bullet_cross.png" style="cursor: pointer;position: relative;top:3px" />
+                </li>
+            </volist>
+        </ul>
+         <ul id="wait-insert-parameter2" style="display:none">
+            <volist name="data.p2" id="vo_p2">
+                <li>
+                    参数名：<input type="text" style="width: 100px;text-align: center;" name="parameter_key2[]" maxlength="10" value="<{$vo_p2|key}>" />　
+                    参数值：<input type="text" style="width: 100px;text-align: center;" name="parameter_value2[]" maxlength="100" value="<{$vo_p2|current}>" />　
+                    <img class="delete_parameter2" src="../Public/images/bullet_cross.png" style="cursor: pointer;position: relative;top:3px" />
+                </li>
+            </volist>
+        </ul>
+         <ul id="wait-insert-parameter3" style="display:none">
+            <volist name="data.p3" id="vo_p3">
+                <li>
+                    参数名：<input type="text" style="width: 100px;text-align: center;" name="parameter_key3[]" maxlength="10" value="<{$vo_p3|key}>" />　
+                    参数值：<input type="text" style="width: 100px;text-align: center;" name="parameter_value3[]" maxlength="100" value="<{$vo_p3|current}>" />　
+                    <img class="delete_parameter3" src="../Public/images/bullet_cross.png" style="cursor: pointer;position: relative;top:3px" />
+                </li>
+            </volist>
+        </ul>
+    </form>
+    </div>
+
+<script src="__PUBLIC__/js/ajaxupload.3.6.js" type="text/javascript"></script>
+<script type="text/javascript" src="__PUBLIC__/js/kindeditor/kindeditor-min.js"></script>
+<script>
+    var editor;
+    KindEditor.ready(function(K) {
+        editor = K.create('.description', {
+            newlineTag : 'br',
+            resizeType : 1,
+            allowPreviewEmoticons : false,
+            allowImageUpload : true,
+            width:796,
+            height:300,
+            pasteType : 2,
+            filterMode : false,
+            items :  [
+                'source','justifyleft', 'justifycenter', 'justifyright','justifyfull', 
+                'insertorderedlist','insertunorderedlist',
+                'clearhtml', 'quickformat',
+                'forecolor', 'hilitecolor', 'bold','italic', 'underline', 'strikethrough',
+                'removeformat','emoticons', 'link', 'unlink', 'selectall',  'fullscreen'
+            ]
+        });
+        editor2 = K.create('.textareas', {
+            newlineTag : 'br',
+            resizeType : 1,
+            allowPreviewEmoticons : false,
+            allowImageUpload : true,
+            width:796,
+            height:300,
+            pasteType : 2,
+            filterMode : false,
+            items :  [
+                'source','justifyleft', 'justifycenter', 'justifyright','justifyfull', 
+                'insertorderedlist','insertunorderedlist',
+                'clearhtml', 'quickformat',
+                'forecolor', 'hilitecolor', 'bold','italic', 'underline', 'strikethrough',
+                'removeformat','emoticons', 'link', 'unlink', 'selectall',  'fullscreen'
+            ]
+        });
+
+    });
+
+</script>
+<script type="text/javascript">
+    $(function(){
+        $(".switch_textarea").live('click',function(){
+            self = $(this);
+
+            $(".switch_textarea").css("background","#ccc").css("color","#C61A69");
+            self.css("background","#546C83").css("color","white");
+
+            $(".texli").css("display","none");
+
+            $(".texli:eq("+self.index()+")").css("display","block");
+
+        });
+
+        if($("[name=stylist_id]").val()!=0){
+            $(".stylist_say").css('display','inline-block');
+        }
+
+        $("[name=stylist_id]").change(function(){
+            console.log($(this).val());
+            console.log($(this).attr('sid'));
+            if($(this).val()!=$(this).attr('sid')){
+                $("[name=stylist_say]").val('');
+            }else{
+                $("[name=stylist_say]").val($(this).attr('ssay'));
+            }
+            if($(this).val()!=0){
+                $(this).next().css('display','inline-block');
+            }else{
+                $(this).next().css('display','none');
+            }
+        });
+    });
+</script>

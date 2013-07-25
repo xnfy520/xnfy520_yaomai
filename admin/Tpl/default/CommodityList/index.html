@@ -15,9 +15,10 @@
 
         <span id="xnfy520-function-index-add"><a href="__APP__/CommodityList/add<notempty name='Think.get.pid'>/pid/<{$Think.get.pid}></notempty>">添 加</a></span>
 
-        <form action="__APP__/CommodityList/index/pid/<{$Think.get.pid}>" method="post" name="form_search"  style="line-height: 35px;">
+        <form action="__APP__/CommodityList/index<notempty name='Think.get.pid'>/pid/<{$Think.get.pid}></notempty>" method="post" name="form_search"  style="line-height: 35px;">
             关键字 <input type="text" name="key" /> 按&nbsp;
             <select name="search">
+                <option value="1">ID</option>
                 <option value="2">标题</option>
             </select>
             <empty name="list">

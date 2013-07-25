@@ -1,0 +1,117 @@
+<div id="xnfy520-function-index">
+
+    <div id="xnfy520-function-index-title">
+        <{$cinfo.name}> 商品列表
+    </div>
+
+    <div id="xnfy520-function-index-nav">
+        <a href="__APP__/GrouponCommodity/index">全部</a>
+        <volist name="clist" id="voc">
+            <a href="__APP__/GrouponCommodity/index/pid/<{$voc.id}>"><{$voc.name}></a>
+        </volist>
+    </div>
+
+    <div id="xnfy520-function-index-search">
+
+        <span id="xnfy520-function-index-add"><a href="__APP__/GrouponCommodity/add<notempty name='Think.get.pid'>/pid/<{$Think.get.pid}></notempty>">添 加</a></span>
+
+        <form action="__APP__/GrouponCommodity/index<notempty name='Think.get.pid'>/pid/<{$Think.get.pid}></notempty>" method="post" name="form_search"  style="line-height: 35px;">
+            关键字 <input type="text" name="key" /> 按&nbsp;
+            <select name="search">
+                <option value="1">ID</option>
+                <option value="2">标题</option>
+            </select>
+            <empty name="list">
+                <input type="submit" value="搜索" disabled="disabled" />
+                <else />
+                <input type="submit" value="搜索" />
+            </empty>
+        </form>
+
+    </div>
+
+    <div id="xnfy520-function-index-content">
+
+        <form action="javascript:;" method="post" name="GrouponCommodity-del" class="delete">
+            <table id="xnfy520-function-index-table">
+                <thead>
+                <tr>
+                    <th class="xnfy520-function-index-table-th-50">#</th>
+                    <th id="xnfy520-function-index-table-th-name">商品名称</th>
+                    <th class="xnfy520-function-index-table-th-50">上架</th>
+                    <th class="xnfy520-function-index-table-th-50">推荐</th>
+                    <th class="xnfy520-function-index-table-th-50">排序</th>
+                    <th class="xnfy520-function-index-table-th-50">浏览</th>
+                    <th class="xnfy520-function-index-table-th-50">原价</th>
+                    <th class="xnfy520-function-index-table-th-50">现价</th>
+                    <th class="xnfy520-function-index-table-th-time">截止日期</th>
+                    <th id="xnfy520-function-index-table-th-check-all">
+                        <input type="button" value="全选" />
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <empty name="list">
+                    <tr><td colspan="11" style="height:50px;">暂无数据</td></tr>
+                    <else/>
+                    <volist name="list" id="vo">
+                        <tr>
+                            <td>
+                               <span><{$vo.id}></span>
+                            </td>
+                            <td class="xnfy520-function-index-table-td-name">
+                                   <span class="xnfy520-function-index-edit">
+                                       <gt name="vo.name|mb_strlen='utf-8'" value="15">
+                                           <span title="<{$vo.name}>"><{$vo.name|mb_substr=0,15,"utf-8"}>...</span>
+                                           <else/>
+                                           <span><{$vo.name}></span>
+                                       </gt>
+                                    </span>
+                            </td>
+                            <td class="xnfy520-function-index-table-td-hover">
+                                <eq name="vo.enable" value="1">
+                                    <span class="switch_status" by="<{$vo.id}>" type="enable" value="<{$vo.enable}>">是</span>
+                                    <else/>
+                                    <span class="switch_status" by="<{$vo.id}>" type="enable" value="<{$vo.enable}>">否</span>
+                                </eq>
+                                <span style="display: none;" data_on="确认下架此商品？" data_off="确认上架此商品？"></span>
+                            </td>
+                            <td class="xnfy520-function-index-table-td-hover">
+                                <eq name="vo.recommend" value="1">
+                                    <span class="switch_status" by="<{$vo.id}>" type="recommend" value="<{$vo.recommend}>">是</span>
+                                    <else/>
+                                    <span class="switch_status" by="<{$vo.id}>" type="recommend" value="<{$vo.recommend}>">否</span>
+                                </eq>
+                                <span style="display: none;" data_on="确认取消推荐此商品？" data_off="确认推荐此商品？"></span>
+                            </td>
+                            <td>
+                                <{$vo.sort}>
+                            </td>
+                            <td>
+                                <{$vo.views}>
+                            </td>
+                            <td>
+                                &#165; <{$vo.org_price}>
+                            </td>
+                            <td>
+                                &#165; <{$vo.price}>
+                            </td>
+                            <td><{$vo.expiration_date|date="Y-m-d",###}></td>
+                            <td class="xnfy520-function-index-table-td-checkbox">
+                                <input class="xnfy520-function-index-table-check-this" type="checkbox" pid="<{$vo.pid}>" cid="<{$vo.cid}>" name="deleteid[]" value="<{$vo.id}>" />
+                            </td>
+                        </tr>
+                    </volist>
+                </empty>
+                </tbody>
+            </table>
+            <notempty name="list">
+                <div style="border:1px solid #ccc;height: 37px;line-height: 37px;">
+                    <{$fpage}>
+                    <span style="float: right;"><input type="submit" value="删除" /></span>
+                </div>
+            </notempty>
+        </form>
+
+    </div>
+</div>

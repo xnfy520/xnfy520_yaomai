@@ -37,7 +37,7 @@ $(function(){
 
     //AJAX添加
     $("[name=CommodityList-add]").live('submit', function() {
-     //   $("[name=CommodityList-add]").find("[type=submit]").attr('disabled','disabled');
+        $("[name=CommodityList-add]").find("[type=submit]").attr('disabled','disabled');
         var data = $(this).serializeArray();
         var name = $("[name=name]");
         var price = $("[name=price]");
@@ -61,7 +61,7 @@ $(function(){
             return false;
         }
         else{
-        //   jBox.tip("正在处理...", 'loading');
+           jBox.tip("正在处理...", 'loading');
             $.ajax({
                 url: define_app_url+'/CommodityList/ajax_insert',
                 data: data,
@@ -80,7 +80,7 @@ $(function(){
                         },500);
                     }else{
                         jBox.tip(msg.info, 'error',{ timeout: 1000,closed: function () {
-                         //   $("[name=CommodityList-add]").find("[type=submit]").removeAttr('disabled');
+                            $("[name=CommodityList-add]").find("[type=submit]").removeAttr('disabled');
                              }});
                     }
                 }
@@ -104,15 +104,15 @@ $(function(){
             return false;
         }
         else if(price.val()==='' || price.val()<=0 || price.val()[0]==0 || isNaN(price.val())){
-            jBox.tip('请填写商品售价', 'error',{ timeout: 1000,closed: function () { $("[name=CommodityList-add]").find("[type=submit]").removeAttr('disabled'); }});
+            jBox.tip('请填写商品售价', 'error',{ timeout: 1000,closed: function () { $("[name=CommodityList-edit]").find("[type=submit]").removeAttr('disabled'); }});
             return false;
         }
         else if(image.val()===''){
-            jBox.tip('商品封面，不能为空', 'error',{ timeout: 1000,closed: function () { $("[name=CommodityList-add]").find("[type=submit]").removeAttr('disabled'); }});
+            jBox.tip('商品封面，不能为空', 'error',{ timeout: 1000,closed: function () { $("[name=CommodityList-edit]").find("[type=submit]").removeAttr('disabled'); }});
             return false;
         }
         else if(more_image<=0){
-            jBox.tip('商品图片至少上传一张', 'error',{ timeout: 1000,closed: function () { $("[name=CommodityList-add]").find("[type=submit]").removeAttr('disabled'); }});
+            jBox.tip('商品图片至少上传一张', 'error',{ timeout: 1000,closed: function () { $("[name=CommodityList-edit]").find("[type=submit]").removeAttr('disabled'); }});
             return false;
         }
         else{
@@ -821,8 +821,8 @@ $(function(){
 
                 var str = JSON.stringify(msg.thumb_image_info);
 
-                var pid = $("#HomeGrownProduct-add-edit").find("[name=pid]").val();
-                var id = $("#HomeGrownProduct-add-edit").find("[name=id]").val();
+                var pid = $("#CommodityList-add-edit").find("[name=pid]").val();
+                var id = $("#CommodityList-add-edit").find("[name=id]").val();
 
                 if(pid && id){
 

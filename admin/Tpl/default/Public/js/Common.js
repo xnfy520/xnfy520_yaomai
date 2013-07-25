@@ -78,7 +78,9 @@ $(function(){
     var sd = [
                 'System','SystemAnnouncement','LastUpdate','Blogroll','OtherLinks',
                 'AdvertCategory','AdvertList','Provinces','Role',
-                'CommodityCategory','CommodityList','OrderList',
+                'CommodityCategory','CommodityList','VoteCommodity',
+                'GrouponCategory','GrouponCommodity',
+                'OrderList',
                 'HelpCenterCategory','HelpCenterInformation',
                 'TemplateList','Stylist'
     ];

@@ -18,15 +18,15 @@
         array('modify_date', 'time', 2, 'function'), //修改时间
     );
 
-	// protected $_link = array(
+	protected $_link = array(
 
-	// 	'HelpCenterInformation'=>array(
-	// 		'mapping_type'=>HAS_MANY,
-	// 		'mapping_name'=>'HelpCenterInformation',
-	// 		'class_name'=>'HelpCenterInformation',
-	// 		'foreign_key'=>'pid',
-	// 	),
+		'CommondityList'=>array(
+			'mapping_type'=>HAS_MANY,
+			'mapping_name'=>'CommodityList',
+			'class_name'=>'CommodityList',
+			'foreign_key'=>'pid',
+		),
 
-	// );
+	);
 
 }
