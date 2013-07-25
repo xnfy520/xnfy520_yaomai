@@ -64,21 +64,45 @@ $(function(){
         $("#left").height($("#content").css("height"));
     });
 
-    if(define_action_name=='index' || define_action_name=='add' || define_action_name=='edit'){
-        if(define_module_name=='IntegralGiftList' || define_module_name =='IntegralExchangeLogs'){
-            var current = define_module_name;
-        }else if(define_module_name=='OrderList'){
-            var current = define_module_name+'-'+define_action_name;
-        }else{
-            var current = define_module_name+((define_pid!='' && define_pid!=0) ? '-'+define_action_name+'-pid-'+define_pid : '')+((define_cid!='' && define_cid!=0) ? '-'+define_action_name+'-cid-'+define_cid : '')+((define_rid!='' && define_rid!=0) ? '-'+define_action_name+'-rid-'+define_rid : '');
-        }
+    // if(define_action_name=='index' || define_action_name=='add' || define_action_name=='edit'){
+    //     if(define_module_name=='IntegralGiftList' || define_module_name =='IntegralExchangeLogs'){
+    //         var current = define_module_name;
+    //     }else if(define_module_name=='OrderList'){
+    //         var current = define_module_name+'-'+define_action_name;
+    //     }else{
+    //         var current = define_module_name+((define_pid!='' && define_pid!=0) ? '-'+define_action_name+'-pid-'+define_pid : '')+((define_cid!='' && define_cid!=0) ? '-'+define_action_name+'-cid-'+define_cid : '')+((define_rid!='' && define_rid!=0) ? '-'+define_action_name+'-rid-'+define_rid : '');
+    //     }
+    // }else{
+    //     var current = define_module_name+'-'+define_action_name;
+    // }
+    var sd = [
+                'System','SystemAnnouncement','LastUpdate','Blogroll','OtherLinks',
+                'AdvertCategory','AdvertList','Provinces','Role',
+                'CommodityCategory','CommodityList','OrderList',
+                'HelpCenterCategory','HelpCenterInformation',
+                'TemplateList','Stylist'
+    ];
+    if(define_module_name=='User'){
+        $("#Left-Role").css("background","#4698CA").css("color","#fff").parents('ul').css("display","block");
     }else{
-        var current = define_module_name+'-'+define_action_name;
+        for(var i in sd){
+            if(sd[i]==define_module_name){
+                $("#Left-"+sd[i]).css("background","#4698CA").css("color","#fff").parents('ul').css("display","block");
+                break;
+            }
+        }
     }
 
+// var md = define_module_name;
+// switch(define_module_name){
+//     case 'User':
+//         md = 'Role';
+//         break;
+//     default:
+//         md = define_module_name;
+// }
 
-
-    $("#Left-"+current).css("background","#4698CA").css("color","#fff").parents('ul').css("display","block");
+// var current = md;
 
     $("[name=username]").live('keyup',function(){
         if(this.value!=this.value.toLowerCase()){

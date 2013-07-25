@@ -10,7 +10,7 @@
                     <ul>
 
                         <li>
-                            <a id="Left-System-configuration" class="top-action" href="__APP__/System/configuration">系统配置</a>
+                            <a id="Left-System" class="top-action" href="__APP__/System/configuration">系统配置</a>
                         </li>
 
                         <li>
@@ -27,6 +27,10 @@
 
                         <li>
                             <a  id="Left-OtherLinks" class="top-action" href="__APP__/OtherLinks/index">资质许可</a>
+                        </li>
+                        
+                        <li>
+                            <a  id="Left-Stylist" class="top-action" href="__APP__/Stylist/index">设计师</a>
                         </li>
 
                     </ul>
@@ -64,7 +68,7 @@
 
                         <volist name="Rolelist" id="vo_user_list">
                                 <li>
-                                    <a  id="Left-User-index-rid-<{$vo_user_list.id}>" class="top-action" href="__APP__/User/index/rid/<{$vo_user_list.id}>"><{$vo_user_list.name}></a>
+                                    <a class="top-action" href="__APP__/User/index/rid/<{$vo_user_list.id}>"><{$vo_user_list.name}></a>
                                 </li>
                         </volist>
 
@@ -77,22 +81,46 @@
 
                     <ul>
 
-                        <li><a  id="Left-CommodityCategory" class="top-action" href="__APP__/CommodityCategory/index">商品分类</a></li>
+                        <li><a id="Left-CommodityCategory" class="top-action" href="__APP__/CommodityCategory/index">商品分类</a></li>
+
+                        <li><a id="Left-CommodityList" class="top-action" href="__APP__/CommodityList/index">商品列表</a></li>
 
                     </ul>
 
                 </li>
 
+                <li>
 
+                    <a class="xnfy520_left_title" href="javascript:;">投票管理</a>
 
+                    <ul>
 
+                        <li><a id="Left-MainCategory" class="top-action" href="__APP__/MainCategory/index">投票列表</a></li>
+
+                    </ul>
+
+                </li>
+
+                <li>
+
+                    <a class="xnfy520_left_title" href="javascript:;">团购管理</a>
+
+                    <ul>
+
+                        <li><a id="Left-MainCategory" class="top-action" href="__APP__/MainCategory/index">团购分类</a></li>
+
+                        <li><a id="Left-MainCategory" class="top-action" href="__APP__/MainCategory/index">团购列表</a></li>
+
+                    </ul>
+
+                </li>
 
                 <li>
                     <a class="xnfy520_left_title" href="javascript:;">订单管理</a>
                     <ul>
 
                         <li>
-                            <a class="top-action" id="Left-OrderList-index" href="__APP__/OrderList/index">全部订单</a>
+                            <a class="top-action" id="Left-OrderList" href="__APP__/OrderList/index">全部订单</a>
                         </li>
                     </ul>
                 </li>

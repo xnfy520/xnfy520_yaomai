@@ -34,16 +34,6 @@
                         <option value="0" selected="selected">否</option>
                     </eq>
                 </select>　　
-                <strong>推　　荐：</strong>
-                <select name="recommend" style="width: 54px;padding: 2px">
-                    <eq name="data.recommend" value="1">
-                        <option value="1" selected="selected">是</option>
-                        <option value="0">否</option>
-                        <else/>
-                        <option value="1">是</option>
-                        <option value="0" selected="selected">否</option>
-                    </eq>
-                </select>　　
                 <strong>排　　序：</strong>
                 <input title="值必须在0-255 (必填)" type="text" name="sort" value="<{$data.sort}>" style="text-align: center;width: 50px;" maxlength="3" />
             </li>

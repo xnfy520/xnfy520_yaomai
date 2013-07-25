@@ -163,7 +163,7 @@ class HelpCenterCategoryAction extends CommonAction{
 				if(empty($data['HelpCenterInformation'])){
 					$num = $HelpCenterCategory->delete($_POST['deleteid'][$i]);
 				}else{
-					$this->ajaxReturn(0,'[ '.$data['name'].' ] 分类下还有资讯,不能被删除',0);
+					$this->ajaxReturn(0,'[ '.$data['name'].' ] 分类下还有内容,不能被删除',0);
 				}
 			}
 			if($num>0){

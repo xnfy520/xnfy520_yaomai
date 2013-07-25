@@ -108,6 +108,9 @@
     font-weight: bold;
 }
 
+#table_tr_show_image_add{
+    display: none;
+}
 
 #CommodityCategory-add-edit table .thumb_image{
     max-width: 300px;
@@ -115,6 +118,11 @@
     margin-top: 3px;
     padding: 1px;
     border: 1px dashed #ccc;;
+}
+
+#CommodityCategory-add-edit table .table_th_adjust{
+    position: relative;
+    top: 2px;
 }
 
 #CommodityCategory-add-edit table .positioning_image{

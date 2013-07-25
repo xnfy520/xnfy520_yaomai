@@ -5,7 +5,6 @@
         <tr>
             <th id="xnfy520-function-index-table-th-name" colspan="2">名称</th>
             <th id="xnfy520-function-index-table-th-enable">开启</th>
-            <th class="xnfy520-function-index-table-th-50">推荐</th>
             <th id="xnfy520-function-index-table-th-sort">排序</th>
             <th id="xnfy520-function-index-table-th-description">描述</th>
             <th id="xnfy520-function-index-table-th-check-all">
@@ -15,7 +14,7 @@
         </thead>
         <tbody>
         <empty name="list">
-            <tr><td colspan="7" style="height:50px;">暂无数据</td></tr>
+            <tr><td colspan="6" style="height:50px;">暂无数据</td></tr>
             <else/>
             <volist name="list" id="vo">
                 <tr>
@@ -38,14 +37,6 @@
                             <span class="switch_status" by="<{$vo.id}>" type="publish" value="<{$vo.publish}>">否</span>
                         </eq>
                         <span style="display: none;" data_on="确认关闭？" data_off="确认启用？"></span>
-                    </td>
-                    <td class="xnfy520-function-index-table-td-enable">
-                        <eq name="vo.recommend" value="1">
-                            <span class="switch_status" by="<{$vo.id}>" type="recommend" value="<{$vo.recommend}>">是</span>
-                            <else/>
-                            <span class="switch_status" by="<{$vo.id}>" type="recommend" value="<{$vo.recommend}>">否</span>
-                        </eq>
-                        <span style="display: none;" data_on="确认取消推荐？" data_off="确认推荐？"></span>
                     </td>
                     <td class="xnfy520-function-index-table-td-sort"><span class="xnfy520-function-index-edit"><{$vo.sort}></span></td>
                     <td class="xnfy520-function-index-table-td-description">

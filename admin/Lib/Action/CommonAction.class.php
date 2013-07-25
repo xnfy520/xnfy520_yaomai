@@ -6,6 +6,8 @@
 
 			header("Content-Type:text/html;Charset=utf-8;");
 
+			import('chrome');
+
 			if (C('USER_AUTH_ON') && !in_array(MODULE_NAME, explode(',', C('NOT_AUTH_MODULE')))) {
 				import('ORG.Util.RBAC');
 				if (!RBAC::AccessDecision()) {

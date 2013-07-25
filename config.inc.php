@@ -114,60 +114,37 @@
 		/*** User 已使用***/
 		'USER_GROUP'=>array(
 			'root'=>array(
-				'name'=>'超级管理',
+				'name'=>'管理员',
 				'level'=>0,
 				'description'=>'可管理网站所有功能'
 			),
-			'admin'=>array(
-				'name'=>'网站管理',
-				'level'=>1,
-				'description'=>'可管理网站所有功能'
-			),
-			'province'=>array(
-				'name'=>'省级管理',
-				'level'=>2,
-				'description'=>'可管理指定省级下所有商户，用户'
-			),
-			'city'=>array(
-				'name'=>'市级管理',
-				'level'=>3,
-				'description'=>'可管理指定市级下所有用户'
-			),
-			'merchant'=>array(
-				'name'=>'商户会员',
-				'level'=>4,
-				'description'=>'可管理指定市级下所有用户'
-			),
+			// 'admin'=>array(
+			// 	'name'=>'网站管理',
+			// 	'level'=>1,
+			// 	'description'=>'可管理网站所有功能'
+			// ),
+			// 'province'=>array(
+			// 	'name'=>'省级管理',
+			// 	'level'=>2,
+			// 	'description'=>'可管理指定省级下所有商户，用户'
+			// ),
+			// 'city'=>array(
+			// 	'name'=>'市级管理',
+			// 	'level'=>3,
+			// 	'description'=>'可管理指定市级下所有用户'
+			// ),
+			// 'merchant'=>array(
+			// 	'name'=>'商户会员',
+			// 	'level'=>4,
+			// 	'description'=>'可管理指定市级下所有用户'
+			// ),
 			'member'=>array(
-				'name'=>'普通会员',
+				'name'=>'会员',
 				'level'=>5,
-				'description'=>'可管理指定市级下所有用户'
+				'description'=>''
 			)
 		),
 
-		/*** 产品分类 已使用***/
-		'Commodity_Category'=>array(
-			'home_grown_product'=>array(
-				'name'=>'乡味',
-				'function'=>'home_grown_product',
-				'description'=>''
-			),
-			'season_when'=>array(
-				'name'=>'时季',
-				'function'=>'season_when',
-				'description'=>''
-			),
-			'artware'=>array(
-				'name'=>'工艺品',
-				'function'=>'artware',
-				'description'=>''
-			),
-			'plants_and_trees'=>array(
-				'name'=>'花草树木',
-				'function'=>'plants_and_trees',
-				'description'=>''
-			)
-		),
 		/*** 广告 已使用***/
 		'Advert_Category'=>array(
 			'index_wheel_sowing_advert'=>array(

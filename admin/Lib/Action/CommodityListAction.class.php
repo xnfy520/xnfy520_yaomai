@@ -3,12 +3,12 @@
 class CommodityListAction extends CommonAction{
 
 	function index(){
-		if($this->check_is_admin()){
-			if(isset($_GET['pid']) && !empty($_GET['pid'])){
 
-				$CommoditySubclass = M('CommoditySubclass');
-				$list = $CommoditySubclass->where('pid='.$_GET['pid'])->order('sort')->select();
-				$this->assign('clist', $list);
+		if($Userinfo = $this->check_is_admin()){
+
+				$CommodityCategory = M('CommodityCategory');
+				$CommodityCategoryinfo = $CommodityCategory->order('sort')->select();
+				$this->assign('clist',$CommodityCategoryinfo);
 
 				import("ORG.Util.emit_ajax_page");
 				$CommodityList = D('CommodityList');
@@ -16,10 +16,60 @@ class CommodityListAction extends CommonAction{
 				if(isset($_GET['pid']) && !empty($_GET['pid'])){
 					$datas['pid'] = $_GET['pid'];
 				}
+				
+				if(isset($_POST['search'])){
+					if(!empty($_POST['key'])){
+						switch($_POST['search']){
+							case 1 :
+								$datas['id'] = $_POST['key'];
+								break;
+							case 2:
+								$datas['name'] = array("like","%{$_POST['key']}%");
+								break;
+							case 3 :
+								$datas['alias'] = array('like',"%{$_POST['key']}%");
+								break;
+						}
+						$count = $CommodityList->where($datas)->count();
+						$page = new page($count,15);
+						$list = $CommodityList->where($datas)->limit($page->setlimit())->order('sort,id desc')->select();
+
+					}else{
+						$this->redirect('/CommodityList/index/pid/'.$_GET['pid']);
+					}
+				}else{
+					$count = $CommodityList->where($datas)->count();
+					$page = new page($count,15);
+					$list = $CommodityList->where($datas)->limit($page->setlimit())->order('sort,id desc')->select();
+				}
+
+				$this->assign('list',$list);
+
+				$this->assign('fpage',$page->fpage(array(1,2,4,5,6,7,8)));
+
+				$this->display();
+		}else{
+			$this->redirect('Public/login');
+		}
+
+	}
+
+	function ajax_page_index(){
+
+		if($Userinfo = $this->check_is_admin()){
+
+			if(isset($_GET['pid']) && !empty($_GET['pid'])){
+
+				import("ORG.Util.emit_ajax_page");
+				$CommodityList = D('CommodityList');
+
+				$datas['pid'] = $_GET['pid'];
 
 				if(isset($_GET['cid']) && !empty($_GET['cid'])){
 					$datas['cid'] = $_GET['cid'];
 				}
+
+				$datas['by_user'] = $Userinfo['id'];
 
 				if(isset($_POST['search'])){
 					if(!empty($_POST['key'])){
@@ -30,18 +80,21 @@ class CommodityListAction extends CommonAction{
 							case 2:
 								$datas['name'] = array("like","%{$_POST['key']}%");
 								break;
+							case 3 :
+								$datas['alias'] = array('like',"%{$_POST['key']}%");
+								break;
 						}
 						$count = $CommodityList->where($datas)->count();
 						$page = new page($count,15);
-						$list = $CommodityList->relation(true)->where($datas)->limit($page->setlimit())->order('sort')->select();
+						$list = $CommodityList->where($datas)->limit($page->setlimit())->order('sort,id desc')->select();
+
 					}else{
-						$this->error("搜索内容不能为空！", __APP__.'/CommodityList/index');
+						$this->redirect('/CommodityList/index/pid/'.$_GET['pid']);
 					}
 				}else{
-					$datas['id'] = array('neq', 0);
 					$count = $CommodityList->where($datas)->count();
 					$page = new page($count,15);
-					$list = $CommodityList->relation(true)->where($datas)->limit($page->setlimit())->order('sort')->select();
+					$list = $CommodityList->where($datas)->limit($page->setlimit())->order('sort,id desc')->select();
 				}
 
 				$this->assign('list',$list);
@@ -53,58 +106,401 @@ class CommodityListAction extends CommonAction{
 				$this->redirect('/Index/index');
 			}
 		}else{
-			$this->redirect('/Public/login');
+			$this->redirect('Public/login');
 		}
+	}
 
+	function add(){
+
+		$CommodityCategory = M('CommodityCategory');
+		$cinfo = $CommodityCategory->select();
+		$this->assign('clist',$cinfo);
+
+		$Stylist = M('Stylist');
+		$stylist = $Stylist->where('publish=1')->order('sort,id')->select();
+		$this->assign('stylist',$stylist);
+
+		$this->display();
 
 	}
 
-	function ajax_page_index(){
-		if($this->check_is_admin()){
-			if(isset($_GET['pid']) && !empty($_GET['pid'])){
+	function edit(){
+
+		if($Userinfo = $this->check_is_admin()){
+
+			if(!empty($_GET['pid']) && !empty($_GET['id'])){
+
+				$Stylist = M('Stylist');
+				$stylist = $Stylist->where('publish=1')->order('sort,id')->select();
+				$this->assign('stylist',$stylist);
+
+				$CommodityCategory = M('CommodityCategory');
+
+				$cinfo = $CommodityCategory->select();
+				$this->assign('clist',$cinfo);
 
 				$CommoditySubclass = M('CommoditySubclass');
-				$list = $CommoditySubclass->where('pid='.$_GET['pid'])->order('sort')->select();
-				$this->assign('clist', $list);
 
-				import("ORG.Util.emit_ajax_page");
-				$CommodityList = D('CommodityList');
+				$datas['pid'] = $_GET['pid'];
+				$datas['id'] = $_GET['id'];
 
-				if(isset($_GET['pid']) && !empty($_GET['pid'])){
-					$datas['pid'] = $_GET['pid'];
+				$CommodityList = M('CommodityList');
+
+				$data = $CommodityList->where($datas)->find();
+				if(!empty($data['p1'])){
+					$data['p1'] = json_decode($data['p1'],true);
+				}
+				if(!empty($data['p2'])){
+					$data['p2'] = json_decode($data['p2'],true);
+				}
+				if(!empty($data['p3'])){
+					$data['p3'] = json_decode($data['p3'],true);
 				}
 
-				if(isset($_GET['cid']) && !empty($_GET['cid'])){
-					$datas['cid'] = $_GET['cid'];
+				if(!empty($data['image'])){
+					$srcdir = './Public/Content/CommodityList/';
+					$imageinfo = GetImageInfo($srcdir.'thumb_'.$data['image']);
+					$data = array_merge($data,$imageinfo);
 				}
 
-				if(isset($_POST['search'])){
-					if(!empty($_POST['key'])){
-						switch($_POST['search']){
-							case 1 :
-								$datas['id'] = $_POST['key'];
-								break;
-							case 2:
-								$datas['name'] = array("like","%{$_POST['key']}%");
-								break;
-						}
-						$count = $CommodityList->where($datas)->count();
-						$page = new page($count,15);
-						$list = $CommodityList->relation(true)->where($datas)->limit($page->setlimit())->order('sort')->select();
-					}
-				}else{
-					$datas['id'] = array('neq', 0);
-					$count = $CommodityList->where($datas)->count();
-					$page = new page($count,15);
-					$list = $CommodityList->relation(true)->where($datas)->limit($page->setlimit())->order('sort')->select();
+				$this->assign('data', $data);
+
+
+
+				$map['lid'] = $_GET['id'];
+
+				$CommodityImages = M('CommodityImages');
+				$ciinfo = $CommodityImages->where($map)->order('id')->select();
+				for($i=0; $i<count($ciinfo); $i++){
+					$imageinfo = GetImageInfo("./Public/Content/CommodityImages/thumb_".$ciinfo[$i]['image']);
+					$ciinfo[$i] = array_merge($ciinfo[$i],$imageinfo);
 				}
-
-				$this->assign('list',$list);
-
-				$this->assign('fpage',$page->fpage(array(1,2,4,5,6,7,8)));
+				$this->assign('ciinfo',$ciinfo);
 
 				$this->display();
+
+			}else{
+				$this->redirect('/CommodityList/index/pid/'.$_GET['pid']);
 			}
+		}else{
+			$this->redirect('Public/login');
+		}
+	}
+
+	function ajax_insert(){
+
+		if($Userinfo = $this->check_is_admin()){
+			$CommodityList = D('CommodityList');
+
+			$tmpdir = './Public/Content/tmp/';
+			$srcdir = './Public/Content/CommodityList/';
+			$srcimagesdir = './Public/Content/CommodityImages/';
+			if($data = $CommodityList->create()){
+				$data['no'] = strrev(time());
+				$data['create_date']  = time();
+				if(!empty($_POST['parameter_key'])){
+					for($i=0; $i<count($_POST['parameter_key']); $i++){
+						$parameter_data[]=array($_POST['parameter_key'][$i]=>$_POST['parameter_value'][$i]);
+					}
+					$data['p1'] = json_encode($parameter_data);
+				}
+				if(!empty($_POST['parameter_key2'])){
+					for($i=0; $i<count($_POST['parameter_key2']); $i++){
+						$parameter_data2[]=array($_POST['parameter_key2'][$i]=>$_POST['parameter_value2'][$i]);
+					}
+					$data['p2'] = json_encode($parameter_data2);
+				}
+				if(!empty($_POST['parameter_key3'])){
+					for($i=0; $i<count($_POST['parameter_key3']); $i++){
+						$parameter_data3[]=array($_POST['parameter_key3'][$i]=>$_POST['parameter_value3'][$i]);
+					}
+					$data['p3'] = json_encode($parameter_data3);
+				}
+				if($insertid = $CommodityList->add($data)){
+
+					if(!empty($_POST['image'])){
+						copy($tmpdir.'thumb_'.$_POST['image'], $srcdir.'thumb_'.$_POST['image']);
+						copy($tmpdir.'cut_'.$_POST['image'], $srcdir.'cut_'.$_POST['image']);
+					}
+
+					if(!empty($_POST['image_more'])){
+						$CommodityImages = M('CommodityImages');
+						$images_datas['pid'] = $_POST['pid'];
+						$images_datas['lid'] = $insertid;
+						for($i=0; $i<count($_POST['image_more']); $i++){
+							copy($tmpdir.'thumb_'.$_POST['image_more'][$i], $srcimagesdir.'thumb_'.$_POST['image_more'][$i]);
+							copy($tmpdir.'cut_'.$_POST['image_more'][$i], $srcimagesdir.'cut_'.$_POST['image_more'][$i]);
+							$images_datas['image'] = $_POST['image_more'][$i];
+							$CommodityImages->add($images_datas);
+						}
+					}
+
+					$this->ajaxReturn(0,"新增成功！",1);
+
+				}else{
+					echo $CommodityList->getLastSql();
+					$this->ajaxReturn(0,"新增错误！",0);
+
+				}
+			}else{
+				$this->ajaxReturn(0,$CommodityList->getError(),0);
+			}
+		}else{
+			$this->redirect('Public/login');
+		}
+	}
+
+	function checkData($orgdata,$data){
+
+		$flag = false;
+
+		if(count($orgdata)==count($data)){
+
+			unset($data['modify_date']);
+			unset($orgdata['modify_date']);
+			foreach($data as $key=>$value){
+				foreach($orgdata as $k=>$v){
+					if($key==$k){
+						if($data[$key]==$orgdata[$k]){
+							continue;
+						}else{
+							$flag = true;
+						}
+					}
+				}
+			}
+
+		}else{
+			$flag = true;
+		}
+
+		return $flag;
+	}
+
+	function checkMoreData($orgdata,$data){
+
+		$flag = false;
+
+		if(count($orgdata)==count($data)){
+
+			foreach($data as $key=>$value){
+
+				foreach($orgdata as $k=>$v){
+					if($key==$k){
+						if($data[$key]==$orgdata[$k]){
+							continue;
+						}else{
+							$flag = true;
+						}
+					}
+				}
+			}
+
+		}else{
+
+			$flag = true;
+
+		}
+
+		return $flag;
+
+	}
+
+	function ajax_edit(){
+		if(!empty($_POST['pid']) && !empty($_POST['id'])){
+			$CommodityList = D('CommodityList');
+
+			if($data = $CommodityList->create()){
+				$flag = 0;
+				$orginfo = $CommodityList->where('pid='.$_POST['pid'])->find($_POST['id']);
+				unset($orginfo['create_date']);
+				unset($orginfo['modify_date']);
+				unset($orginfo['no']);
+				unset($orginfo['views']);
+				if(!empty($_POST['parameter_key'])){
+					for($i=0; $i<count($_POST['parameter_key']); $i++){
+						$parameter_data[]=array($_POST['parameter_key'][$i]=>$_POST['parameter_value'][$i]);
+					}
+					$data['p1'] = json_encode($parameter_data);
+				}
+				if(!empty($_POST['parameter_key2'])){
+					for($i=0; $i<count($_POST['parameter_key2']); $i++){
+						$parameter_data2[]=array($_POST['parameter_key2'][$i]=>$_POST['parameter_value2'][$i]);
+					}
+					$data['p2'] = json_encode($parameter_data2);
+				}
+				if(!empty($_POST['parameter_key3'])){
+					for($i=0; $i<count($_POST['parameter_key3']); $i++){
+						$parameter_data3[]=array($_POST['parameter_key3'][$i]=>$_POST['parameter_value3'][$i]);
+					}
+					$data['p3'] = json_encode($parameter_data3);
+				}
+				if($this->checkData($orginfo,$data)){
+					$data['modify_date'] = time();
+					$CommodityList->save($data);
+
+					if($_POST['image']!=$orginfo['image']){
+						$tmpdir = './Public/Content/tmp/';
+						$srcdir = './Public/Content/CommodityList/';
+						copy($tmpdir.'thumb_'.$_POST['image'], $srcdir.'thumb_'.$_POST['image']);
+						copy($tmpdir.'cut_'.$_POST['image'], $srcdir.'cut_'.$_POST['image']);
+						unlink($srcdir.'thumb_'.$orginfo['image']);
+					//	unlink($srcdir.'cut_'.$orginfo['image']); 不删除此图片
+					}
+
+					$flag+=1;
+
+				}
+
+				if($flag){
+					$this->ajaxReturn(0,'修改数据成功',1);
+				}else{
+					$this->ajaxReturn(0,'没有数据被修改',0);
+				}
+
+			}else{
+				$this->ajaxReturn(0,$CommodityList->getError(),0);
+			}
+		}else{
+			$this->ajaxReturn(0,"异常操作",0);
+		}
+	}
+
+	function ajax_del(){
+		if(!empty($_POST['deleteid'])){
+			$CommodityList = D('CommodityList');
+
+			$srcdir = './Public/Content/CommodityList/';
+			$srcimagedir = './Public/Content/CommodityImages/';
+
+			for($i=0; $i<count($_POST['deleteid']); $i++){
+
+				$data = $CommodityList->find($_POST['deleteid'][$i]);
+
+				unlink($srcdir.'cut_'.$data['image']);
+				unlink($srcdir.'thumb_'.$data['image']);
+
+				$maps['pid'] = $data['pid'];
+				$maps['lid'] = $data['id'];
+
+				$CommoditySpecification = M('CommoditySpecification');
+				$CommoditySpecification->where($maps)->delete();
+
+				$CommodityParameter = M('CommodityParameter');
+				$CommodityParameter->where($maps)->delete();
+
+				$CommodityImages = M('CommodityImages');
+				$ciinfos = $CommodityImages->where($maps)->select();
+
+				for($s=0; $s<count($ciinfos); $s++){
+					unlink($srcimagedir.'cut_'.$ciinfos[$s]['image']);
+					unlink($srcimagedir.'thumb_'.$ciinfos[$s]['image']);
+					$CommodityImages->delete($ciinfos[$s]['id']);
+				}
+
+				$num = $CommodityList->delete($_POST['deleteid'][$i]);
+			}
+			if($num>0){
+				$this->ajaxReturn(0,'删除成功',1);
+			}else{
+				$this->ajaxReturn(0,'删除失败',0);
+			}
+		}else{
+			$this->ajaxReturn(0,'请选选择要删除的数据',0);
+		}
+	}
+
+	function ajax_switch_status(){
+		if(!empty($_POST['by']) && !empty($_POST['type']) && isset($_POST['value'])){
+
+			$CommodityList = M('CommodityList');
+
+			if($_POST['value']){
+
+				$data[$_POST['type']] = 0;
+				$data['modify_date'] = time();
+
+				$CommodityList->where('id='.$_POST['by'])->setField($data);
+				$this->ajaxReturn(0,'修改成功',1);
+
+
+			}else{
+
+				$data[$_POST['type']] = 1;
+				$data['modify_date'] = time();
+
+				$CommodityList->where('id='.$_POST['by'])->setField($data);
+				$this->ajaxReturn(1,'修改成功',1);
+
+			}
+
+		}
+
+	}
+
+	function add_image(){
+		if(!empty($_POST['pid']) && !empty($_POST['id']) && !empty($_POST['image'])){
+			$map['pid'] = $_POST['pid'];
+			$map['lid'] = $_POST['id'];
+			$map['image'] = $_POST['image'];
+			$CommodityImages = M('CommodityImages');
+			if($CommodityImages->add($map)){
+				$tmpdir = './Public/Content/tmp/';
+				$srcdir = './Public/Content/CommodityImages/';
+				copy($tmpdir.'thumb_'.$_POST['image'], $srcdir.'thumb_'.$_POST['image']);
+				copy($tmpdir.'cut_'.$_POST['image'], $srcdir.'cut_'.$_POST['image']);
+				$this->ajaxReturn(0,"上传图片成功",1);
+			}else{
+				$this->ajaxReturn(0,"上传图片失败",0);
+			}
+		}else{
+			$this->ajaxReturn(0,"异常操作",0);
+		}
+	}
+
+	function delete_image(){
+		if(isset($_POST['id']) && !empty($_POST['id'])){
+			$CommodityImages = M('CommodityImages');
+			$data = $CommodityImages->find($_POST['id']);
+			if($CommodityImages->delete($_POST['id'])){
+				$srcdir = './Public/Content/CommodityImages/';
+				unlink($srcdir.'cut_'.$data['image']);
+				unlink($srcdir.'thumb_'.$data['image']);
+				$this->ajaxReturn(0,"删除成功",1);
+			}else{
+				$this->ajaxReturn(0,"删除失败",0);
+			}
+		}else{
+			$this->ajaxReturn(0,"异常操作",0);
+		}
+	}
+
+	public function uploads(){
+
+		import("ORG.Net.emit_upload");
+		import("ORG.Util.emit_image");
+		$upload = new upload(array("filepath"=>"./Public/Content/tmp","allowtype"=>array('gif','png','jpg','jpeg','JPG','JPEG','PNG','GIF'),"israndname"=>true,"maxsize"=>20000000000));
+		if($upload->uploadfiles('myfile')){
+
+			$src = "./Public/Content/tmp/";
+			$img = new image($src);
+			$imgname =  $upload->getnewname();
+			copy($src.$imgname,$src.'thumb_'.$imgname);
+
+			if($cutimg = $img->cut($imgname,'cut_')){
+				$thumb = $img->thumb('thumb_'.$imgname,800,800);
+				$cut = $img->thumb($cutimg, 400, 400);
+			}
+
+			$response['image_name'] = $upload->getnewname();
+			$response['status'] = 1;
+			$response['cut_image'] = $cut;
+			$response['thumb_image'] = $thumb;
+			$response['thumb_image_info'] = GetImageInfo("./Public/Content/tmp/".$thumb);
+
+			echo json_encode($response);
+		}else{
+			echo json_encode(array('error'=>$upload->geterrormsg(),'status'=>0));
 		}
 
 	}

@@ -1,14 +1,12 @@
 {__NOLAYOUT__}
-<form action="javascript:;" method="post" name="Role-del" class="delete">
+<form action="javascript:;" method="post" name="CommodityCategory-del" class="delete">
     <table id="xnfy520-function-index-table">
         <thead>
         <tr>
             <th id="xnfy520-function-index-table-th-name" colspan="2">名称</th>
-            <th id="xnfy520-function-index-table-th-enable">启用</th>
-            <th id="xnfy520-function-index-table-th-50">排序</th>
+            <th id="xnfy520-function-index-table-th-enable">开启</th>
+            <th id="xnfy520-function-index-table-th-sort">排序</th>
             <th id="xnfy520-function-index-table-th-description">描述</th>
-            <th class="xnfy520-function-index-table-th-time">创建时间</th>
-            <th class="xnfy520-function-index-table-th-time">修改时间</th>
             <th id="xnfy520-function-index-table-th-check-all">
                 <input type="button" value="全选" />
             </th>
@@ -16,58 +14,42 @@
         </thead>
         <tbody>
         <empty name="list">
-            <tr><td colspan="8" style="height:50px;">暂无数据</td></tr>
+            <tr><td colspan="6" style="height:50px;">暂无数据</td></tr>
             <else/>
             <volist name="list" id="vo">
                 <tr>
                     <td class="xnfy520-function-index-table-td-name">
                                    <span class="xnfy520-function-index-edit">
                                        <gt name="vo.name|mb_strlen='utf-8'" value="20">
-                                           <span title="<{$vo.name}>"><{$vo.name|mb_substr=0,20,"utf-8"}>...</span>
+                                           <span><{$vo.name|mb_substr=0,20,"utf-8"}>...</span>
                                            <else/>
                                            <span><{$vo.name}></span>
                                        </gt>
-
                                     </span>
                     </td>
-                    <td class="xnfy520-function-index-table-td-ini-50" title="<{$vo['roleuser']|count}>人">
-                        <{$vo['roleuser']|count}>
+                    <td class="xnfy520-function-index-table-td-ini-50" title="<{$vo['HelpCenterInformation']|count}> 个信息">
+                        <{$vo['HelpCenterInformation']|count}>
                     </td>
                     <td class="xnfy520-function-index-table-td-enable">
-                        <eq name="vo.level" value="0">
-                            -
+                        <eq name="vo.publish" value="1">
+                            <span class="switch_status" by="<{$vo.id}>" type="publish" value="<{$vo.publish}>">是</span>
                             <else/>
-                            <eq name="vo.publish" value="1">
-                                <span class="switchpublish" value="<{$vo.id}>" publish="<{$vo.publish}>">是</span>
-                                <else/>
-                                <span class="switchpublish" value="<{$vo.id}>" publish="<{$vo.publish}>">否</span>
-                            </eq>
+                            <span class="switch_status" by="<{$vo.id}>" type="publish" value="<{$vo.publish}>">否</span>
                         </eq>
-
+                        <span style="display: none;" data_on="确认关闭？" data_off="确认启用？"></span>
                     </td>
-                    <td class="xnfy520-function-index-table-td-sort">
-                                <span class="xnfy520-function-index-edit">
-                                    <{$vo.sort}>
-                                </span>
-                    </td>
-
+                    <td class="xnfy520-function-index-table-td-sort"><span class="xnfy520-function-index-edit"><{$vo.sort}></span></td>
                     <td class="xnfy520-function-index-table-td-description">
-                       <span class="xnfy520-function-index-edit">
-                           <gt name="vo.description|mb_strlen='utf-8'" value="30">
-                               <{$vo.description|mb_substr=0,30,"utf-8"}>...
-                               <else/>
-                               <{$vo.description}>
-                           </gt>
-                       </span>
+                                   <span class="xnfy520-function-index-edit">
+                                       <gt name="vo.description|mb_strlen='utf-8'" value="30">
+                                           <{$vo.description|mb_substr=0,30,"utf-8"}>...
+                                           <else/>
+                                           <{$vo.description}>
+                                       </gt>
+                                   </span>
                     </td>
-                    <td><{$vo.create_date|date="Y-m-d H:i:s",###}></td>
-                    <td><empty name="vo.modify_date">-<else/><{$vo.modify_date|date="Y-m-d H:i:s",###}></empty></td>
                     <td class="xnfy520-function-index-table-td-checkbox">
-                        <eq name="vo.level" value="0">
-                            <input style="display: none;" disabled="disabled" class="xnfy520-function-index-table-check-this" type="checkbox" name="deleteid[]" value="<{$vo.id}>" />
-                            <else/>
-                            <input class="xnfy520-function-index-table-check-this" type="checkbox" name="deleteid[]" value="<{$vo.id}>" />
-                        </eq>
+                        <input class="xnfy520-function-index-table-check-this" type="checkbox" name="deleteid[]" value="<{$vo.id}>" />
                     </td>
                 </tr>
             </volist>

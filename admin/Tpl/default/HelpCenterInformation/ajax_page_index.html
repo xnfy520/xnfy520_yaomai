@@ -5,7 +5,6 @@
         <tr>
             <th>名称</th>
             <th class="xnfy520-function-index-table-th-50">开启</th>
-            <th class="xnfy520-function-index-table-th-50">推荐</th>
             <th class="xnfy520-function-index-table-th-50">排序</th>
             <th class="xnfy520-function-index-table-th-50">浏览</th>
             <th class="xnfy520-function-index-table-th-150">创建时间</th>
@@ -36,14 +35,6 @@
                             <span class="switch_status" by="<{$vo.id}>" type="publish" value="<{$vo.publish}>">否</span>
                         </eq>
                         <span style="display: none;" data_on="确认关闭？" data_off="确认启用？"></span>
-                    </td>
-                    <td class="xnfy520-function-index-table-td-sort">
-                        <eq name="vo.recommend" value="1">
-                            <span class="switch_status" by="<{$vo.id}>" type="recommend" value="<{$vo.recommend}>">是</span>
-                            <else/>
-                            <span class="switch_status" by="<{$vo.id}>" type="recommend" value="<{$vo.recommend}>">否</span>
-                        </eq>
-                        <span style="display: none;" data_on="确认取消推荐？" data_off="确认推荐？"></span>
                     </td>
                     <td class="xnfy520-function-index-table-td-sort"><span class="xnfy520-function-index-edit"><{$vo.sort}></span></td>
                     <td>

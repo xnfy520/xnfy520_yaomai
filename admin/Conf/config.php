@@ -8,8 +8,6 @@
 
 		'DEFAULT_THEME'=>'default', //默认模板主题目录
 
-//		SHOW_PAGE_TRACE'=>true, //显示页面trace(踪迹)信息
-
 		'TOKEN_ON'=>false,  // 是否开启令牌验证
 
 		'LAYOUT_ON'=>true, //是否启用布局

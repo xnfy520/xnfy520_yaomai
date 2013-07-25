@@ -13,19 +13,13 @@ $(function(){
         $(".tooltip").fadeOut();
     });
 
-
-    $("[name=function]").live('change',function(){
-        var text = $("[name=function]").find("option:selected").text();
-        $("[name=name]").val(text);
-    });
-
     //添加数据
     $("#xnfy520-function-index-add").live('click',function(){
         var add_submit = function (v, h, f) {
             if (v == 'ok') {
                 jBox.tip("正在处理...", 'loading');
                 $.ajax({
-                    url: define_app_url+'/CommodityCategory/ajax_insert',
+                    url: define_app_url+'/CommodityCategory/ajaxinsert',
                     data: f,
                     type:'POST',
                     success: function(data){
@@ -43,25 +37,16 @@ $(function(){
         };
 
         jBox("get:"+define_app_url+"/CommodityCategory/add",{
-            width:420,
+            width:423,
             title: '',
-            top: '30%',
-            draggable: true,
+            top: '20%',
+       //     draggable: true,
             opacity: 0.01,
             persistent: true,
             showIcon: false,
             showSpeed: 'slow',
             bottomText: '带 <span style="color: red;font-weight:bold;">*</span> 为必填',
             buttons: { '添加': 'ok','取消':'cancel'},
-            loaded: function (h) {
-                var Commodity_Category = $("#CommodityCategory-add-edit [name=function]");
-                if(Commodity_Category.val()==null || Commodity_Category.val()==''){
-                    jBox.close();
-                    jBox.tip("没有可添加分类！", 'error',{timeout: 1000});
-                }else{
-                    $("#CommodityCategory-add-edit [name=name]").val(Commodity_Category.find("option:selected").text());
-                }
-            },
             submit:add_submit
         });
 
@@ -75,7 +60,7 @@ $(function(){
                 if (v == 'ok') {
                     jBox.tip("正在处理...", 'loading');
                     $.ajax({
-                        url: define_app_url+'/CommodityCategory/ajax_edit',
+                        url: define_app_url+'/CommodityCategory/ajaxedit',
                         data: f,
                         type:'POST',
                         success: function(data){
@@ -95,7 +80,7 @@ $(function(){
             jBox("get:"+define_app_url+"/CommodityCategory/edit/id/"+value,{
                 width:420,
                 title: '',
-                top: '30%',
+                top: '20%',
                 draggable: true,
                 opacity: 0.01,
                 persistent: true,
@@ -126,10 +111,10 @@ $(function(){
             var submit = function (v, h, f) {
                 if (v == 'ok'){
                     jBox.tip("正在处理...", 'loading');
-                    $("[name=CommodityCategory-del]").find("[type=submit]").attr('disabled','disabled');
+                    $("[type=submit]").attr('disabled','disabled');
                     window.setTimeout(function () {
                         $.ajax({
-                            url: define_app_url+'/CommodityCategory/ajax_del',
+                            url: define_app_url+'/CommodityCategory/ajaxdel',
                             data: data,
                             type:'POST',
                             success: function(data){
@@ -137,7 +122,7 @@ $(function(){
                                 if(msg.status==1){
                                     jBox.tip(msg.info, 'success',{ timeout: 1000,closed: function () { window.location=define_self_url }});
                                 }else{
-                                    jBox.tip(msg.info, 'error',{ timeout: 1000,closed: function () { $("[name=CommodityCategory-del]").find("[type=submit]").removeAttr('disabled'); }});
+                                    jBox.tip(msg.info, 'error',{ timeout: 1000,closed: function () { $("[type=submit]").removeAttr('disabled'); }});
                                 }
                             }
                         });
@@ -191,32 +176,6 @@ $(function(){
         }else{
             jBox.confirm(tip.attr("data_on"), "提示", submit,{top: '40%'});
         }
-    });
-
-
-    $(".delete_image").live("click",function(){
-        var self = $(this);
-        var submit = function (v, h, f) {
-            if (v == 'ok'){
-                jBox.tip("正在处理...", 'loading');
-                self.parents(".thumb_image_tr").fadeOut("slow");
-                self.next().val('');
-                jBox.tip('删除图片成功！', 'success',{ timeout: 1000,closed: function () {}});
-            }
-            return true; //close
-        };
-        jBox.confirm("确认删除该图片?", "提示", submit,{top: '40%'});
-    });
-
-
-    $(".positioning_image").live('mouseover',function(){
-        var self = $(this);
-        self.find(".delete_image").css("display","block");
-    });
-
-    $(".positioning_image").live('mouseout',function(){
-        var self = $(this);
-        self.find(".delete_image").css("display","none");
     });
 
 });
