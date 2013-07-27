@@ -20,10 +20,10 @@
 
 	protected $_link = array(
 
-		'CommondityList'=>array(
+		'CommoditySubclass'=>array(
 			'mapping_type'=>HAS_MANY,
-			'mapping_name'=>'CommodityList',
-			'class_name'=>'CommodityList',
+			'mapping_name'=>'CommoditySubclass',
+			'class_name'=>'CommoditySubclass',
 			'foreign_key'=>'pid',
 		),
 

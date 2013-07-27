@@ -48,6 +48,13 @@
 			'county_level' => 3,
 		),
 
+		/*** Address 已使用***/
+		'address_level'=>array(
+			'province_level' => 1,
+			'city_level' => 2,
+			'county_level' => 3,
+		),
+
 		/*** InstationMessage 站内信类型**/
 		'instation_message_type'=>array(
 			'personal'=>1,

@@ -13,8 +13,9 @@
                 <strong>标　　题：</strong><input type="text" maxlength="50" style="width: 720px;margin: 0 0 0 5px;text-indent: 5px;padding: 2px;" name="name" />　
             </li>
             <li class="xnfy520-function-index-add-edit-ul-li" style="margin-top: 2px;">
-                <strong>所属分类：</strong>
+                <strong>所属大类：</strong>
                 <select name="pid" style="padding: 2px;margin-left: 0;min-width:50px">
+                    <option value="">请选择所属大类</option>
                     <volist name="clist" id="volist">
                         <notempty name="Think.get.pid">
                             <eq name="volist.id" value="$Think.get.pid">
@@ -26,6 +27,23 @@
                             <option value="<{$volist.id}>"><{$volist.name}></option>
                         </notempty>
                     </volist>
+                </select>　
+                <strong>所属子类：</strong>
+                <select name="cid" style="padding: 2px;margin-left: 0;min-width:50px">
+                    <option value="">请选择所属子类</option>
+                    <notempty name="Think.get.pid">
+                            <volist name="cclist" id="voclist">
+                                <notempty name="Think.get.cid">
+                                    <eq name="voclist.id" value="$Think.get.cid">
+                                        <option selected="selected" value="<{$voclist.id}>"><{$voclist.name}></option>
+                                    <else/>
+                                        <option value="<{$voclist.id}>"><{$voclist.name}></option>
+                                    </eq>
+                                    <else/>
+                                        <option value="<{$voclist.id}>"><{$voclist.name}></option>
+                                </notempty>
+                            </volist>
+                        </notempty>
                 </select>　
                 <strong>上　　架：</strong>
                 <select name="enable" style="width: 53px;padding: 2px">
@@ -78,8 +96,8 @@
                 }
             </style>
             <li style="height: 25px;line-height: 25px;margin-bottom: 2px;">
-                <span class="switch_textarea" style="background: #546C83;color:white;">描述</span>
-                <span class="switch_textarea">简介</span>
+                <!-- <span class="switch_textarea" style="background: #546C83;color:white;">描述</span> -->
+                <span class="switch_textarea" style="background: #546C83;color:white;">简介</span>
                 <button type="button" style="margin: 0;padding:5px 2px" id="Parameter">送货和退货</button>
                 <button type="button" style="margin: 0;padding:5px 2px" id="Parameter2">产品尺寸</button>
                 <button type="button" style="margin: 0;padding:5px 2px" id="Parameter3">产品详细信息</button>
@@ -95,10 +113,10 @@
                 </span>
             </li>
             <li class="texli" style="margin-bottom: 10px;">
-                 <textarea class="description" name="description" style="resize: none;position:absolute;visibility: hidden;float: left;"></textarea>
+                <textarea class="textareas" name="details" style="resize: none;position:absolute;visibility: hidden;float: left;"></textarea>
             </li>
             <li class="texli" style="margin-bottom: 10px;display: none;">
-                <textarea class="textareas" name="details" style="resize: none;position:absolute;visibility: hidden;float: left;"></textarea>
+                 <textarea class="description" name="description" style="resize: none;position:absolute;visibility: hidden;float: left;"></textarea>
             </li>
            <!--  <li class="xnfy520-function-index-add-edit-ul-li" style="margin-bottom: 3px;">
                 <strong>详　　情：</strong>

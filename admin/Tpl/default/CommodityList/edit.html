@@ -24,6 +24,16 @@
                         </eq>
                     </volist>
                 </select>　
+                <strong>所属子类：</strong>
+                <select name="cid" style="padding: 2px;margin-left: 0;min-width:50px">
+                    <volist name="con" id="cons">
+                        <eq name="data.cid" value="$cons.id">
+                            <option selected="selected" value="<{$cons.id}>"><{$cons.name}></option>
+                            <else/>
+                            <option value="<{$cons.id}>"><{$cons.name}></option>
+                        </eq>
+                    </volist>
+                </select>　
                 <strong>上　　架：</strong>
                 <select name="enable" style="width: 56px;padding: 2px">
                     <eq name="data.enable" value="1">
@@ -99,8 +109,8 @@
                 }
             </style>
             <li style="height: 25px;line-height: 25px;margin-bottom: 2px;">
-                <span class="switch_textarea" style="background: #546C83;color:white;">描述</span>
-                <span class="switch_textarea">简介</span>
+                <!-- <span class="switch_textarea" style="background: #546C83;color:white;">描述</span> -->
+                <span class="switch_textarea" style="background: #546C83;color:white;">简介</span>
                 <button type="button" style="margin: 0;padding:5px 2px" id="Parameter">送货和退货</button>
                 <button type="button" style="margin: 0;padding:5px 2px" id="Parameter2">产品尺寸</button>
                 <button type="button" style="margin: 0;padding:5px 2px" id="Parameter3">产品详细信息</button>
@@ -120,10 +130,10 @@
                 </span>
             </li>
             <li class="texli" style="margin-bottom: 10px;">
-                 <textarea class="description" name="description" style="resize: none;position:absolute;visibility: hidden;float: left;"><{$data.description}></textarea>
+                <textarea class="textareas" name="details" style="resize: none;position:absolute;visibility: hidden;float: left;"><{$data.details}></textarea>
             </li>
             <li class="texli" style="margin-bottom: 10px;display: none;">
-                <textarea class="textareas" name="details" style="resize: none;position:absolute;visibility: hidden;float: left;"><{$data.details}></textarea>
+                 <textarea class="description" name="description" style="resize: none;position:absolute;visibility: hidden;float: left;"><{$data.description}></textarea>
             </li>
             <li>
                 <input style="margin-left: 0;" type="submit" name="" value="修改" />

@@ -15,6 +15,13 @@ class CommodityListAction extends CommonAction{
 
 				if(isset($_GET['pid']) && !empty($_GET['pid'])){
 					$datas['pid'] = $_GET['pid'];
+					$CommoditySubclass = M('CommoditySubclass');
+					$CommoditySubclassinfo = $CommoditySubclass->where($datas)->order('sort')->select();
+					$this->assign('cclist',$CommoditySubclassinfo);
+				}
+
+				if(isset($_GET['cid']) && !empty($_GET['cid'])){
+					$datas['cid'] = $_GET['cid'];
 				}
 				
 				if(isset($_POST['search'])){
@@ -67,6 +74,13 @@ class CommodityListAction extends CommonAction{
 
 				if(isset($_GET['pid']) && !empty($_GET['pid'])){
 					$datas['pid'] = $_GET['pid'];
+					$CommoditySubclass = M('CommoditySubclass');
+					$CommoditySubclassinfo = $CommoditySubclass->where($datas)->order('sort')->select();
+					$this->assign('cclist',$CommoditySubclassinfo);
+				}
+
+				if(isset($_GET['cid']) && !empty($_GET['cid'])){
+					$datas['cid'] = $_GET['cid'];
 				}
 				
 				if(isset($_POST['search'])){
@@ -111,6 +125,13 @@ class CommodityListAction extends CommonAction{
 		$cinfo = $CommodityCategory->select();
 		$this->assign('clist',$cinfo);
 
+		if(isset($_GET['pid']) && !empty($_GET['pid'])){
+			$fcp['pid'] = $_GET['pid'];
+			$CommoditySubclass = M('CommoditySubclass');
+			$CommoditySubclassinfo = $CommoditySubclass->where($fcp)->order('sort')->select();
+			$this->assign('cclist',$CommoditySubclassinfo);
+		}
+
 		$Stylist = M('Stylist');
 		$stylist = $Stylist->where('publish=1')->order('sort,id')->select();
 		$this->assign('stylist',$stylist);
@@ -140,6 +161,12 @@ class CommodityListAction extends CommonAction{
 				$CommodityList = M('CommodityList');
 
 				$data = $CommodityList->where($datas)->find();
+
+				$CommoditySubclass = M('CommoditySubclass');
+
+				$con = $CommoditySubclass->field('id,name')->where('pid='.$data['pid'])->select();
+				$this->assign('con',$con);
+
 				if(!empty($data['p1'])){
 					$data['p1'] = json_decode($data['p1'],true);
 				}
@@ -333,6 +360,7 @@ class CommodityListAction extends CommonAction{
 				}else{
 					$data['p3'] = null;
 				}
+
 				if($this->checkData($orginfo,$data)){
 					$data['modify_date'] = time();
 					$CommodityList->save($data);
@@ -370,6 +398,7 @@ class CommodityListAction extends CommonAction{
 
 			$srcdir = './Public/Content/CommodityList/';
 			$srcimagedir = './Public/Content/CommodityImages/';
+			$srcdimagedir = './Public/Content/CommodityDetails/';
 
 			for($i=0; $i<count($_POST['deleteid']); $i++){
 
@@ -389,6 +418,17 @@ class CommodityListAction extends CommonAction{
 					unlink($srcimagedir.'cut_'.$ciinfos[$s]['image']);
 					unlink($srcimagedir.'thumb_'.$ciinfos[$s]['image']);
 					$CommodityImages->where('by=1')->delete($ciinfos[$s]['id']);
+				}
+
+				$CommodityDetails = M('CommodityDetails');
+				$cdinfos = $CommodityDetails->where('did='.$data['id'])->select();
+
+				if(count($cdinfos)>0){
+					for($k=0; $k<count($cdinfos); $k++){
+						unlink($srcdimagedir.$cdinfos[$k]['image']);
+						unlink($srcdimagedir.'thumb_'.$cdinfos[$k]['image']);
+						$CommodityDetails->where('did='.$data['id'])->delete($cdinfos[$k]['id']);
+					}
 				}
 
 				$num = $CommodityList->delete($_POST['deleteid'][$i]);
@@ -496,6 +536,16 @@ class CommodityListAction extends CommonAction{
 			echo json_encode(array('error'=>$upload->geterrormsg(),'status'=>0));
 		}
 
+	}
+
+	function returndata(){
+		$CommoditySubclass = M('CommoditySubclass');
+		$list = $CommoditySubclass->field('id,name')->where('pid='.$_POST['pid'])->select();
+		$data = array();
+		foreach($list as $key=>$value){
+			$data[] = $value;
+		}
+		echo json_encode($data);
 	}
 
 }

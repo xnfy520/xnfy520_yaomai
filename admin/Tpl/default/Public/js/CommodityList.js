@@ -13,6 +13,19 @@ $(function(){
         $(".tooltip").fadeOut();
     });
 
+    $("[name=pid]").live('change',function(){
+        self = $(this);
+        value = self.val();
+        $.post(define_app_url+'/CommodityList/returndata', {pid: value}, function(data){
+            var obj = JSON.parse(data);
+            var cid = $("[name=cid]");
+            cid.html("");
+            $('<option value="">请选择所属子类</option>').appendTo(cid);
+            for(var i=0; i<obj.length; i++){
+                $('<option value="'+obj[i].id+'">'+obj[i].name+'</option>').appendTo(cid);
+            }
+        });
+    });
 
 
 //    //添加数据
@@ -39,6 +52,8 @@ $(function(){
     $("[name=CommodityList-add]").live('submit', function() {
         $("[name=CommodityList-add]").find("[type=submit]").attr('disabled','disabled');
         var data = $(this).serializeArray();
+        var pid = $("[name=pid]");
+        var cid = $("[name=cid]");
         var name = $("[name=name]");
         var price = $("[name=price]");
         var image = $("[name=image]");
@@ -46,6 +61,10 @@ $(function(){
 
         if(name.val()===''){
             jBox.tip('商品名称不能为空', 'error',{ timeout: 1000,closed: function () { $("[name=CommodityList-add]").find("[type=submit]").removeAttr('disabled'); }});
+            return false;
+        }
+        else if(pid.val()===''||cid.val()===''){
+            jBox.tip('请选择商品分类', 'error',{ timeout: 1000,closed: function () { $("[name=CommodityList-add]").find("[type=submit]").removeAttr('disabled'); }});
             return false;
         }
         else if(price.val()==='' || price.val()<=0 || price.val()[0]==0 || isNaN(price.val())){
@@ -93,14 +112,24 @@ $(function(){
     $("[name=CommodityList-edit]").live('submit',function(){
         $("[name=CommodityList-edit]").find("[type=submit]").attr('disabled','disabled');
         var data = $(this).serializeArray();
+        var name = $("[name=name]");
         var pid = $("[name=pid]");
+        var cid = $("[name=cid]");
         var id = $("[name=id]");
         var price = $("[name=price]");
         var image = $("[name=image]");
         var more_image = $("[name='image_more[]']").length;
 
-        if(pid.val()==='' && id.val()===''){
+        if(id.val()===''){
             jBox.tip('异常操作', 'error',{ timeout: 1000,closed: function () { $("[name=CommodityList-edit]").find("[type=submit]").removeAttr('disabled'); }});
+            return false;
+        }
+        else if(name.val()===''){
+            jBox.tip('商品名称不能为空', 'error',{ timeout: 1000,closed: function () { $("[name=CommodityList-edit]").find("[type=submit]").removeAttr('disabled'); }});
+            return false;
+        }
+        else if(pid.val()===''||cid.val()===''){
+            jBox.tip('请选择商品分类', 'error',{ timeout: 1000,closed: function () { $("[name=CommodityList-edit]").find("[type=submit]").removeAttr('disabled'); }});
             return false;
         }
         else if(price.val()==='' || price.val()<=0 || price.val()[0]==0 || isNaN(price.val())){

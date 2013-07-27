@@ -5,6 +5,7 @@
                 <tr>
                     <th class="xnfy520-function-index-table-th-50">#</th>
                     <th id="xnfy520-function-index-table-th-name">商品名称</th>
+                    <th class="xnfy520-function-index-table-th-50">描述</th>
                     <th class="xnfy520-function-index-table-th-50">上架</th>
                     <th class="xnfy520-function-index-table-th-50">推荐</th>
                     <th class="xnfy520-function-index-table-th-50">排序</th>
@@ -18,7 +19,7 @@
                 </thead>
                 <tbody>
                 <empty name="list">
-                    <tr><td colspan="10" style="height:50px;">暂无数据</td></tr>
+                    <tr><td colspan="11" style="height:50px;">暂无数据</td></tr>
                     <else/>
                     <volist name="list" id="vo">
                         <tr>
@@ -34,6 +35,7 @@
                                        </gt>
                                     </span>
                             </td>
+                            <td><a href="__APP__/CommodityDetails/index/did/<{$vo.id}>">查看</a></td>
                             <td class="xnfy520-function-index-table-td-hover">
                                 <eq name="vo.enable" value="1">
                                     <span class="switch_status" by="<{$vo.id}>" type="enable" value="<{$vo.enable}>">是</span>

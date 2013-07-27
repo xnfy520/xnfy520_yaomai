@@ -77,8 +77,10 @@ $(function(){
     // }
     var sd = [
                 'System','SystemAnnouncement','LastUpdate','Blogroll','OtherLinks',
-                'AdvertCategory','AdvertList','Provinces','Role',
-                'CommodityCategory','CommodityList','VoteCommodity',
+                'AdvertCategory','AdvertList',
+                'Address','Provinces','Role',
+                'CommodityCategory','CommoditySubclass','CommodityList',
+                'VoteCommodity',
                 'GrouponCategory','GrouponCommodity',
                 'OrderList',
                 'HelpCenterCategory','HelpCenterInformation',
@@ -86,6 +88,10 @@ $(function(){
     ];
     if(define_module_name=='User'){
         $("#Left-Role").css("background","#4698CA").css("color","#fff").parents('ul').css("display","block");
+    }else if(define_module_name=='CommodityDetails'){
+        $("#Left-CommodityList").css("background","#4698CA").css("color","#fff").parents('ul').css("display","block");
+    }else if(define_module_name=='VoteDetails'){
+        $("#Left-VoteCommodity").css("background","#4698CA").css("color","#fff").parents('ul').css("display","block");
     }else{
         for(var i in sd){
             if(sd[i]==define_module_name){
@@ -185,7 +191,7 @@ $(function(){
     $("#xnfy520-function-index").delegate(".xnfy520_get_this_value","click",function(){
         var v = $(this).attr('value');
         if(v!=''){
-            if(define_module_name=='Provinces'){
+            if(define_module_name=='Provinces' || define_module_name=='Address'){
                 var level = $("#this_form_datas").attr("level");
                 if(define_pid!=0 && define_pid!=''){
                     $("#xnfy520-function-index-content").load(define_app_url+'/'+define_module_name+'/ajax_page_'+define_action_name+'/page/'+v+'/pid/'+define_pid);
@@ -244,11 +250,12 @@ $(function(){
         if(a.attr('href')==define_self_url){
             a.css("background","#95D0DE").css("color","black");
         }else if(define_pid){
-            var str = new RegExp("/pid/"+define_pid);
-            if(str.test(a.attr('href'))){
-                $("#xnfy520-function-index-nav a").css("background","#546C83").css("color","white");
-                a.css("background","#95D0DE").css("color","black");
-            }
+            // var str = new RegExp("pid/"+define_pid);
+            // if(str.test(a.attr('href'))){
+            //     alert(str);
+            //     $("#xnfy520-function-index-nav a").css("background","#546C83").css("color","white");
+            //     $(this).css("background","#95D0DE").css("color","black");
+            // }
         }
     });
 

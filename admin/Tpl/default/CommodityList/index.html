@@ -11,9 +11,20 @@
         </volist>
     </div>
 
+    <notempty name="Think.get.pid">
+        <div id="xnfy520-function-index-nav-sub" style="margin-top: -3px;">
+            <a href="__APP__/CommodityList/index<notempty name='Think.get.pid'>/pid/<{$Think.get.pid}></notempty>">全部</a>
+            <div style="margin-left: 85px;">
+                <volist name="cclist" id="vocc">
+                    <a href="__APP__/CommodityList/index<notempty name='Think.get.pid'>/pid/<{$Think.get.pid}></notempty>/cid/<{$vocc.id}>"><{$vocc.name}></a>
+                </volist>
+            </div>
+        </div>
+    </notempty>
+
     <div id="xnfy520-function-index-search">
 
-        <span id="xnfy520-function-index-add"><a href="__APP__/CommodityList/add<notempty name='Think.get.pid'>/pid/<{$Think.get.pid}></notempty>">添 加</a></span>
+        <span id="xnfy520-function-index-add"><a href="__APP__/CommodityList/add<notempty name='Think.get.pid'>/pid/<{$Think.get.pid}></notempty><notempty name='Think.get.cid'>/cid/<{$Think.get.cid}></notempty>">添 加</a></span>
 
         <form action="__APP__/CommodityList/index<notempty name='Think.get.pid'>/pid/<{$Think.get.pid}></notempty>" method="post" name="form_search"  style="line-height: 35px;">
             关键字 <input type="text" name="key" /> 按&nbsp;
@@ -38,6 +49,7 @@
                 <tr>
                     <th class="xnfy520-function-index-table-th-50">#</th>
                     <th id="xnfy520-function-index-table-th-name">商品名称</th>
+                    <th class="xnfy520-function-index-table-th-50">描述</th>
                     <th class="xnfy520-function-index-table-th-50">上架</th>
                     <th class="xnfy520-function-index-table-th-50">推荐</th>
                     <th class="xnfy520-function-index-table-th-50">排序</th>
@@ -51,7 +63,7 @@
                 </thead>
                 <tbody>
                 <empty name="list">
-                    <tr><td colspan="10" style="height:50px;">暂无数据</td></tr>
+                    <tr><td colspan="11" style="height:50px;">暂无数据</td></tr>
                     <else/>
                     <volist name="list" id="vo">
                         <tr>
@@ -67,6 +79,7 @@
                                        </gt>
                                     </span>
                             </td>
+                            <td><a href="__APP__/CommodityDetails/index/did/<{$vo.id}>">查看</a></td>
                             <td class="xnfy520-function-index-table-td-hover">
                                 <eq name="vo.enable" value="1">
                                     <span class="switch_status" by="<{$vo.id}>" type="enable" value="<{$vo.enable}>">是</span>

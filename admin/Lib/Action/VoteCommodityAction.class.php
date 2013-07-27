@@ -348,6 +348,7 @@ class VoteCommodityAction extends CommonAction{
 
 			$srcdir = './Public/Content/VoteCommodity/';
 			$srcimagedir = './Public/Content/CommodityImages/';
+			$srcdimagedir = './Public/Content/VoteDetails/';
 
 			for($i=0; $i<count($_POST['deleteid']); $i++){
 
@@ -367,6 +368,17 @@ class VoteCommodityAction extends CommonAction{
 					unlink($srcimagedir.'cut_'.$ciinfos[$s]['image']);
 					unlink($srcimagedir.'thumb_'.$ciinfos[$s]['image']);
 					$CommodityImages->where('by=2')->delete($ciinfos[$s]['id']);
+				}
+
+				$VoteDetails = M('VoteDetails');
+				$cdinfos = $VoteDetails->where('did='.$data['id'])->select();
+
+				if(count($cdinfos)>0){
+					for($k=0; $k<count($cdinfos); $k++){
+						unlink($srcdimagedir.$cdinfos[$k]['image']);
+						unlink($srcdimagedir.'thumb_'.$cdinfos[$k]['image']);
+						$VoteDetails->where('did='.$data['id'])->delete($cdinfos[$k]['id']);
+					}
 				}
 
 				$num = $VoteCommodity->delete($_POST['deleteid'][$i]);
