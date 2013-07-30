@@ -1,0 +1,17 @@
+<div style="height: 250px;">
+    <img src="__PUBLIC__/Content/Merchant/<{$Merchantinfo.banner}>" style="width: 960px; height: 250px; margin: 0; padding: 0;;" />
+</div>
+<div class="shop_nav" style="position:relative; margin-top:-30px ;">
+    <ul id="shop-header-navs">
+        <li class="shop_nav02" id="shop-nav-index"><a href="__APP__/Shops/<{$merchant_no}>.html">商铺首页</a></li>
+        <li class="shop_nav02" id="shop-nav-information"><a href="__APP__/Shops/<{$merchant_no}>/information.html">商家介绍</a></li>
+        <li class="shop_nav02" id="shop-nav-products"><a href="__APP__/Shops/<{$merchant_no}>/products.html">全部商品</a></li>
+        <li class="shop_nav02" id="shop-nav-evaluate"><a href="__APP__/Shops/<{$merchant_no}>/evaluate.html">商品评价</a></li>
+        <li class="shop_nav02" id="shop-nav-consult"><a href="__APP__/Shops/<{$merchant_no}>/consult.html">购买咨询</a></li>
+        <div style="clear:both"></div>
+    </ul>
+</div>
+<div class="shop_sc" style="position:relative; margin-top:-30px ;">
+    <input type="button" value="收藏本店" class="shop_btn01" id="favorites_merchant" merchant_no="<{$merchant_no}>" user_id="<{$Userinfo.id}>" />
+</div>
+<div style="clear:both"></div>

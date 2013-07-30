@@ -1,0 +1,24 @@
+<volist name="ccinfos" id="voccinfos">
+    <notempty name="voccinfos.CommodityConsult">
+        <div class="pj01">
+            <h4>
+                <div class="h4_l"><{$voccinfos.User.nickname}></div>
+                <div class="h4_r">咨询时间：<span style="color:#c01c22;"><{$voccinfos.create_date|date="Y-m-d",###}></span></div>
+                <div style="clear:both"></div>
+            </h4>
+            <h3>咨询问题：<{$voccinfos.message}></h3>
+
+            <div class="shop_hf" style="margin-top:10px;">
+                <strong>回复：</strong><{$voccinfos.CommodityConsult.message}>
+            </div>
+        </div><!------->
+    </notempty>
+</volist>
+
+<notempty name="ccinfos">
+    <div style="height: 40px;line-height: 40px;margin-top: 15px;">
+                                <span style="float: right;margin-right: 10px;">
+                                <{$c_fpage}>
+                                </span>
+    </div>
+</notempty>

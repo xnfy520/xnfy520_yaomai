@@ -1,0 +1,74 @@
+<div class="ftrq_r_t">
+    <{$folk_custom[1]}>
+</div><!---->
+<div class="ftrq_m_r_m" style="padding-top: 5px;">
+    <ul style="min-height: 100px;">
+        <notempty name="Custom">
+            <volist name="Custom" id="voCustom">
+                <li>
+                    <div class="li_l01"><a href="__APP__/LocalConditionsAndCustoms/details/pid/<{$voCustom.pid}>/cid/<{$voCustom.cid}>/id/<{$voCustom.id}>">
+                        <gt name="voCustom.name|mb_strlen='utf-8'" value="18">
+                            <span title="<{$voCustom.name}>"><{$voCustom.name|mb_substr=0,18,"utf-8"}>...</span>
+                            <else/>
+                            <span><{$voCustom.name}></span>
+                        </gt>
+                    </a> </div>
+                    <div class="li_r"><{$voCustom.create_date|date="Y-m-d",###}></div>
+                    <div style="clear:both"></div>
+                </li>
+            </volist>
+            <else/>
+            <li style="color: #666;;">无内容</li>
+        </notempty>
+        <div style="clear:both"></div>
+    </ul>
+</div>
+<script>
+    $(function(){
+        $(".ftrq_m_r_m li:odd").css("float","right")
+        $(".ftrq_m_r_m li:odd").css("padding-left","30px")
+        $(".ftrq_m_r_m li:even").css("float","left")
+        $(".ftrq_m_r_m li:even").css("padding-right","30px")
+        $(".ftrq_m_r_m li").eq(8).css("border-bottom-width","1px")
+        $(".ftrq_m_r_m li").eq(8).css("border-bottom-style","dashed")
+        $(".ftrq_m_r_m li").eq(8).css("border-bottom-color","#dddddd")
+        $(".ftrq_m_r_m li").eq(9).css("border-bottom-width","1px")
+        $(".ftrq_m_r_m li").eq(9).css("border-bottom-style","dashed")
+        $(".ftrq_m_r_m li").eq(9).css("border-bottom-color","#dddddd")
+        $(".ftrq_m_r_m li").eq(8).css("padding-bottom","8px")
+        $(".ftrq_m_r_m li").eq(9).css("padding-bottom","8px")
+        $(".ftrq_m_r_m li").eq(10).css("padding-top","8px")
+        $(".ftrq_m_r_m li").eq(10).css("background-position","left 19px")
+        $(".ftrq_m_r_m li").eq(11).css("padding-top","8px")
+
+        $(".ftrq_m_r_m li").eq(18).css("border-bottom-width","1px")
+        $(".ftrq_m_r_m li").eq(18).css("border-bottom-style","dashed")
+        $(".ftrq_m_r_m li").eq(18).css("border-bottom-color","#dddddd")
+        $(".ftrq_m_r_m li").eq(19).css("border-bottom-width","1px")
+        $(".ftrq_m_r_m li").eq(19).css("border-bottom-style","dashed")
+        $(".ftrq_m_r_m li").eq(19).css("border-bottom-color","#dddddd")
+        $(".ftrq_m_r_m li").eq(18).css("padding-bottom","8px")
+        $(".ftrq_m_r_m li").eq(19).css("padding-bottom","8px")
+        $(".ftrq_m_r_m li").eq(20).css("padding-top","8px")
+        $(".ftrq_m_r_m li").eq(21).css("padding-top","8px")
+
+        $(".ftrq_m_r_m li").eq(28).css("border-bottom-width","1px")
+        $(".ftrq_m_r_m li").eq(28).css("border-bottom-style","dashed")
+        $(".ftrq_m_r_m li").eq(28).css("border-bottom-color","#dddddd")
+        $(".ftrq_m_r_m li").eq(29).css("border-bottom-width","1px")
+        $(".ftrq_m_r_m li").eq(29).css("border-bottom-style","dashed")
+        $(".ftrq_m_r_m li").eq(29).css("border-bottom-color","#dddddd")
+        $(".ftrq_m_r_m li").eq(28).css("padding-bottom","8px")
+        $(".ftrq_m_r_m li").eq(29).css("padding-bottom","8px")
+        $(".ftrq_m_r_m li").eq(30).css("padding-top","8px")
+        $(".ftrq_m_r_m li").eq(31).css("padding-top","8px")
+
+    })
+</script>
+<notempty name="Custom">
+    <div>
+            <span style="float: right;">
+            <{$c_fpage}>
+            </span>
+    </div>
+</notempty>

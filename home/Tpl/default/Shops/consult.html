@@ -1,0 +1,76 @@
+<layout name='layout'/>
+<!--<link href="../Public/css/style.css" rel="stylesheet" type="text/css" />-->
+<div style="clear:both"></div>
+
+<div id="main">
+
+    <include file="Index:nav" />
+
+    <div class="cent">
+
+        <div class="shop_t">
+            <include file="Shops:header" />
+        </div>
+        <!-----shop_t end------->
+
+        <div class="shop_m">
+            <include file="Shops:left" />
+            <!-----shop_l end------->
+
+
+            <div class="shop_r">
+
+            <div class="shop_r01" style="margin-top:0">
+                <div class="shop_r01_t">
+                    购买咨询
+                </div><!----->
+                <div class="shop_r01_m" id="shop-consult-list">
+                    <empty name="ccinfos">
+                        <p style="text-indent: 10px;padding-top: 15px;color:#666;">
+                            暂无咨询信息
+                        </p>
+                    <else/>
+                        <volist name="ccinfos" id="voccinfos">
+                            <div class="pj">
+
+                                <h3>咨询商品：<a href="__APP__/Shops/<{$voccinfos.by_merchant}>/details/<{$voccinfos.by_commodity}>.html"><{$voccinfos.CommodityList.name}></a> </h3>
+
+                                <h4>
+                                    <div class="h4_l"><{$voccinfos.User.nickname}></div>
+                                    <div class="h4_r">咨询时间：<span style="color:#c01c22;"><{$voccinfos.create_date|date="Y-m-d",###}></span></div>
+                                    <div style="clear:both"></div>
+                                </h4>
+
+                                <p><{$voccinfos.message}></p>
+                                <notempty name="voccinfos.CommodityConsult">
+                                    <div class="shop_hf">
+                                        <strong>回复：</strong><{$voccinfos.CommodityConsult.message}>
+                                    </div>
+                                </notempty>
+
+                            </div>
+                        </volist>
+                    </empty>
+
+
+                    <notempty name="ccinfos">
+                        <div style="height: 40px;line-height: 40px;margin-top: 15px;">
+                            <span style="float: right;margin-right: 10px;">
+                                <{$fpage}>
+                            </span>
+                        </div>
+                    </notempty>
+
+                    <div style="clear:both"></div>
+                </div><!------>
+
+
+            </div><!----shop_r01 end--->
+
+
+
+
+        </div><!-----shop_r end------->
+
+        <div style="clear:both"></div>
+    </div><!-----shop_m end------->

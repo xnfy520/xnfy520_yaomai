@@ -1,0 +1,47 @@
+<volist name="CommodityEvaluateinfo_all" id="vo_ce_info_all">
+    <div class="pj">
+        <h3>所购商品：
+            <a href="__APP__/Shops/<{$vo_ce_info_all.CommodityInfo.merchant_no}>/details/<{$vo_ce_info_all.CommodityInfo.id}>.html">
+                <{$vo_ce_info_all.CommodityInfo.name}>　
+                <empty name="vo_ce_info_all.CommodityInfo.CommoditySpecification">
+                    [ <{$vo_ce_info_all.CommodityInfo.default_specification}> ]
+                    <else/>
+                    [ <{$vo_ce_info_all.CommodityInfo.CommoditySpecification.specification}> ]
+                </empty>
+            </a>
+        </h3>
+        <h4>
+            <div class="h4_l"><{$vo_ce_info_all.User.nickname}></div>
+            <div class="h4_c">
+                <switch name="vo_ce_info_all.star" >
+
+                    <case value="1">差评</case>
+
+                    <case value="2">差评</case>
+
+                    <case value="3">中评</case>
+
+                    <case value="4">好评</case>
+
+                    <case value="5">好评</case>
+
+                    <default />好评
+
+                </switch>
+            </div>
+            <div class="h4_r">评价时间：<span style="color:#c01c22;"><{$vo_ce_info_all.modify_date|date="Y-m-d H:i:s",###}></span></div>
+            <div style="clear:both"></div>
+        </h4>
+        <p><{$vo_ce_info_all.message}></p>
+    </div>
+</volist>
+
+<notempty name="CommodityEvaluateinfo_all">
+    <div style="height: 40px;line-height: 40px;margin-right: 10px;">
+                            <span style="float: right;">
+                                <{$fpage_all}>
+                            </span>
+    </div>
+</notempty>
+
+<div style="clear:both"></div>

@@ -1,0 +1,6 @@
+<ul id="integral-area-category-match">
+    <li class="jf02"><a href="__APP__/IntegralArea/index<notempty name='Think.get.cid'>/cid/<{$Think.get.cid}></notempty>">全部产品（<{$count}>）</a></li>
+    <volist name="IntegralGiftCategoryinfo" id="vo_igci">
+        <li class="jf02"><a href="__APP__/IntegralArea/index/pid/<{$vo_igci.id}><notempty name='Think.get.cid'>/cid/<{$Think.get.cid}></notempty>"><{$vo_igci.name}>（<{$vo_igci['IntegralGiftList']|count}>）</a></li>
+    </volist>
+</ul>

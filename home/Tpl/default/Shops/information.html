@@ -1,0 +1,41 @@
+<layout name='layout'/>
+<!--<link href="../Public/css/style.css" rel="stylesheet" type="text/css" />-->
+<div style="clear:both"></div>
+
+<div id="main">
+
+<include file="Index:nav" />
+
+<div class="cent">
+
+<div class="shop_t">
+    <include file="Shops:header" />
+</div>
+    <!-----shop_t end------->
+
+<div class="shop_m">
+    <include file="Shops:left" />
+    <!-----shop_l end------->
+
+
+    <div class="shop_r">
+
+
+        <div class="shop_r01" style="margin-top:0">
+            <div class="shop_r01_t">
+                商家介绍
+            </div>
+
+            <!----->
+            <div class="shop_r01_m" style="padding: 5px;">
+                <{$Merchantinfo.details}>
+            </div>
+            <!------>
+
+        </div><!----shop_r01 end--->
+
+
+    </div><!-----shop_r end------->
+
+<div style="clear:both"></div>
+</div><!-----shop_m end------->

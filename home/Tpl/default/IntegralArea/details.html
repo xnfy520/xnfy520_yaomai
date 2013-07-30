@@ -1,0 +1,59 @@
+<layout name='layout' />
+<!--<link href="../Public/css/style.css" rel="stylesheet" type="text/css" />-->
+<div style="clear:both"></div>
+
+<div id="main">
+    <include file="Index:nav" />
+    <div class="cent">
+
+        <div class="jf_top" style="margin-top:15px;">
+            <div class="jf_top_l">首页 > 积分商城</div>
+            <!--<div class="jf_top_r">-->
+                <!--礼品查询：<select name="" class="se02">-->
+                <!--<option>积分范围</option>-->
+            <!--</select>-->
+                <!--礼品查询：<select name="" class="se02">-->
+                <!--<option>礼品分类</option>-->
+            <!--</select>-->
+                <!--<input type="image" src="../Public/images/btn0201.png" class="btn002" />-->
+            <!--</div>-->
+            <!--<div style="clear:both"></div>-->
+        </div><!---->
+        <div class="jf_m">
+            <div class="jf_l">
+
+                <include file="IntegralArea:left" />
+
+            </div>
+            <div class="jf_r">
+
+                <include file="IntegralArea:top" />
+
+                <div class="jf_r_m" style="padding-top:10px; padding-bottom:20px;">
+
+                    <div class="jfdh01">
+                        <div class="jfdh01_l">
+                            <img src="__PUBLIC__/Content/IntegralGiftList/cut_<{$IntegralGiftListinfo.image}>" />
+                        </div>
+                        <div class="jfdh01_r">
+                            <h3><{$IntegralGiftListinfo.name}></h3>
+                            <p>
+                                剩余数量：<span id="inventory"><{$IntegralGiftListinfo.inventory}></span><br />
+                                已兑换数量：<span id="exchange"><{$IntegralGiftListinfo.exchange}></span><br />
+                                兑换限制：<eq name="IntegralGiftListinfo.exchange_restriction" value="0">无兑换次数限制<else/><{$IntegralGiftListinfo.exchange_restriction}></eq><br />
+                                使用积分：<{$IntegralGiftListinfo.need_integral}> 积分
+                            </p>
+                            <input type="image" src="../Public/images/btn0301.png" class="immediately_exchange" value="<{$IntegralGiftListinfo.id}>"  style="margin-top:8px;cursor: pointer;"/>
+                        </div>
+                        <div style="clear:both"></div>
+                    </div><!--jfdh01--->
+
+                    <div class="jfdh02">
+                        <{$IntegralGiftListinfo.details}>
+                    </div>
+
+                </div><!---jf_r_m---->
+            </div>
+
+            <div style="clear:both"></div>
+        </div>

@@ -1,0 +1,212 @@
+<layout name='layout'/>
+<!--<link href="../Public/css/style.css" rel="stylesheet" type="text/css" />-->
+<div style="clear:both"></div>
+
+<div id="main">
+
+<include file="Index:nav" />
+
+<div class="cent">
+
+<div class="shop_t">
+    <include file="Shops:header" />
+</div>
+<!-----shop_t end------->
+
+<div class="shop_m">
+<include file="Shops:left" />
+<!-----shop_l end------->
+
+<script type="text/javascript" src="../Public/js/banner.js"></script>
+<div class="shop_r">
+<div class="shop_ban">
+    <div class="wrapper">
+        <div id="focus">
+            <ul>
+                <volist name="MerchantAdvertinfo" id="vomainfo">
+                    <li>
+                        <div><img src="__PUBLIC__/Content/MerchantAdvert/<{$vomainfo.image}>" alt="" /></div>
+                    </li>
+                </volist>
+            </ul>
+        </div>
+    </div>
+</div><!------>
+
+<div class="shop_notice" >
+    <div class="shop_notice_t">
+        <ul>
+            <li>商铺公告</li>
+            <li>促销信息</li>
+            <div style="clear:both"></div>
+        </ul>
+    </div>
+    <div class="shop_notice_m" style=" height: 147px; overflow: hidden;padding-top: 5px;"><{$Merchantinfo.notice}></div>
+    <div class="shop_notice_m01" style=" height: 147px; overflow: hidden;padding-top: 5px;"><{$Merchantinfo.promotion}></div>
+</div>
+<div style="clear:both"></div>
+
+<script>
+    $(function(){
+        $(".shop_notice_t li").addClass("shop_n_02")
+        $(".shop_notice_t li").eq(0).removeClass("shop_n_02")
+        $(".shop_notice_t li").eq(0).addClass("shop_n_01")
+        $(".shop_notice_t li").eq(0).click(function(){
+            $(".shop_notice_t li").removeClass("shop_n_01");
+            $(".shop_notice_t li").addClass("shop_n_02")
+            $(this).removeClass("shop_n_02");
+            $(this).addClass("shop_n_01");
+            $(".shop_notice_m").css("display","block")
+            $(".shop_notice_m01").css("display","none")
+        })
+        $(".shop_notice_t li").eq(1).click(function(){
+            $(".shop_notice_t li").removeClass("shop_n_01");
+            $(".shop_notice_t li").addClass("shop_n_02")
+            $(this).removeClass("shop_n_02");
+            $(this).addClass("shop_n_01");
+            $(".shop_notice_m").css("display","none")
+            $(".shop_notice_m01").css("display","block")
+        })
+    })
+</script>
+
+
+<div class="shop_r01">
+    <div class="shop_r01_t">
+        店主推荐
+    </div><!----->
+    <div class="shop_r01_m">
+        <volist name="recommend_list" id="vorelist">
+            <div class="pro02_m_01 shop_zs01">
+                <a href="__APP__/Shops/<{$Merchantinfo.no}>/details/<{$vorelist.id}>.html"><img src="__PUBLIC__/Content/CommodityList/cut_<{$vorelist.image}>" /></a>
+                <h3> <a href="__APP__/Shops/<{$Merchantinfo.no}>/details/<{$vorelist.id}>.html">
+                    <gt name="vorelist.name|mb_strlen='utf-8'" value="28">
+                        <span title="<{$vorelist.name}>"><{$vorelist.name|mb_substr=0,28,"utf-8"}>...</span>
+                        <else/>
+                        <span><{$vorelist.name}></span>
+                    </gt>
+                </a></h3>
+                <h4>原价：&#165; <del><{$vorelist.original_cost}></del></h4>
+                <h5>现价：&#165; <span style="color:#BE1D22"><{$vorelist.current_price}></span></h5>
+            </div>
+        </volist>
+        <div style="clear:both"></div>
+    </div><!------>
+
+</div><!----shop_r01 end--->
+
+
+<div class="shop_r01">
+    <div class="shop_r02_t">
+        <div class="shop_r01_t01">
+            <ul>
+                <li>全部商品</li>
+                <li class="px01">按销量</li>
+                <li class="px01">按价格</li>
+                <li class="px01">按时间</li>
+                <div style="clear:both"></div>
+            </ul>
+        </div>
+        <div class="more01">
+            <a href="__APP__/Shops/69877664/products.html">更多>></a>
+        </div>
+        <div style="clear:both"></div>
+    </div><!----->
+    <div class="shop_r01_m001">
+
+        <volist name="sales_volume_list" id="vosvlist">
+            <div class="pro02_m_01 shop_zs01">
+                <a href="__APP__/Shops/<{$Merchantinfo.no}>/details/<{$vosvlist.id}>.html"><img src="__PUBLIC__/Content/CommodityList/cut_<{$vosvlist.image}>" /></a>
+                <h3> <a href="__APP__/Shops/<{$Merchantinfo.no}>/details/<{$vosvlist.id}>.html">
+                    <gt name="vosvlist.name|mb_strlen='utf-8'" value="28">
+                        <span title="<{$vosvlist.name}>"><{$vosvlist.name|mb_substr=0,28,"utf-8"}>...</span>
+                        <else/>
+                        <span><{$vosvlist.name}></span>
+                    </gt>
+                </a></h3>
+                <h4>原价：&#165; <del><{$vosvlist.original_cost}></del></h4>
+                <h5>现价：&#165; <span style="color:#BE1D22"><{$vosvlist.current_price}></span></h5>
+            </div>
+        </volist>
+
+        <div style="clear:both"></div>
+    </div><!------>
+
+    <div class="shop_r01_m001">
+
+        <volist name="current_price_list" id="vocplist">
+            <div class="pro02_m_01 shop_zs01">
+                <a href="__APP__/Shops/<{$Merchantinfo.no}>/details/<{$vocplist.id}>.html"><img src="__PUBLIC__/Content/CommodityList/cut_<{$vocplist.image}>" /></a>
+                <h3> <a href="__APP__/Shops/<{$Merchantinfo.no}>/details/<{$vocplist.id}>.html">
+                    <gt name="vocplist.name|mb_strlen='utf-8'" value="28">
+                        <span title="<{$vocplist.name}>"><{$vocplist.name|mb_substr=0,28,"utf-8"}>...</span>
+                        <else/>
+                        <span><{$vocplist.name}></span>
+                    </gt>
+                </a></h3>
+                <h4>原价：&#165; <del><{$vocplist.original_cost}></del></h4>
+                <h5>现价：&#165; <span style="color:#BE1D22"><{$vocplist.current_price}></span></h5>
+            </div>
+        </volist>
+        <div style="clear:both"></div>
+    </div><!------>
+
+    <div class="shop_r01_m001">
+
+        <volist name="create_date_list" id="vocdlist">
+            <div class="pro02_m_01 shop_zs01">
+                <a href="__APP__/Shops/<{$Merchantinfo.no}>/details/<{$vocdlist.id}>.html"><img src="__PUBLIC__/Content/CommodityList/cut_<{$vocdlist.image}>" /></a>
+                <h3> <a href="__APP__/Shops/<{$Merchantinfo.no}>/details/<{$vocdlist.id}>.html">
+                    <gt name="vocdlist.name|mb_strlen='utf-8'" value="28">
+                        <span title="<{$vocdlist.name}>"><{$vocdlist.name|mb_substr=0,28,"utf-8"}>...</span>
+                        <else/>
+                        <span><{$vocdlist.name}></span>
+                    </gt>
+                </a></h3>
+                <h4>原价：&#165; <del><{$vocdlist.original_cost}></del></h4>
+                <h5>现价：&#165; <span style="color:#BE1D22"><{$vocdlist.current_price}></span></h5>
+            </div>
+        </volist>
+
+        <div style="clear:both"></div>
+    </div><!------>
+
+    <script>
+        $(function(){
+            $(".shop_r01_m001").eq(0).css("display","block")
+            $(".px01").addClass("px03")
+            $(".px01").eq(0).removeClass("px03")
+            $(".px01").eq(0).addClass("px02")
+            $(".px01").eq(0).click(function(){
+                $(".px01").removeClass("px02");
+                $(".px01").addClass("px03")
+                $(this).removeClass("px03");
+                $(this).addClass("px02");
+                $(".shop_r01_m001").css("display","none")
+                $(".shop_r01_m001").eq(0).css("display","block")
+            })
+            $(".px01").eq(1).click(function(){
+                $(".px01").removeClass("px02");
+                $(".px01").addClass("px03")
+                $(this).removeClass("px03");
+                $(this).addClass("px02");
+                $(".shop_r01_m001").css("display","none")
+                $(".shop_r01_m001").eq(1).css("display","block")
+            })
+            $(".px01").eq(2).click(function(){
+                $(".px01").removeClass("px02");
+                $(".px01").addClass("px03")
+                $(this).removeClass("px03");
+                $(this).addClass("px02");
+                $(".shop_r01_m001").css("display","none")
+                $(".shop_r01_m001").eq(2).css("display","block")
+            })
+        })
+    </script>
+
+</div><!----shop_r01 end--->
+
+</div><!-----shop_r end------->
+
+<div style="clear:both"></div>
+</div><!-----shop_m end------->

@@ -1,0 +1,92 @@
+<layout name='layout' />
+<!--<link href="../Public/css/style.css" rel="stylesheet" type="text/css" />-->
+<div style="clear:both"></div>
+
+
+<div id="main">
+
+<include file="Index:nav" />
+
+<div class="cent">
+
+<div class="cent01">
+
+<volist name="list" id="volist">
+    <notempty name="volist.FolkCustomInformation">
+    <div class="ftrq">
+
+        <div class="ftrq_t">
+            <div class="ftrq_t01"><notempty name="volist.icon"><img src="__PUBLIC__/Content/FolkCustomDirection/<{$volist.icon}>" /></notempty></div>
+            <div class="ftrq_t02"><{$volist.name}></div>
+            <div class="ftrq_t03">
+                <volist name="volist.FolkCustomProvinces" id="vo_fp">
+                    <a href="__APP__/LocalConditionsAndCustoms/area/pid/<{$vo_fp.pid}>/cid/<{$vo_fp.id}>"><{$vo_fp.name}></a>
+                </volist>
+            </div>
+            <!--<div class="more"><a href="ftrq_01.html">更多>></a></div>-->
+            <div style="clear:both"></div>
+        </div><!-------ftrq_t----------->
+
+        <div class="ftrq_m">
+            <div class="ftrq_l">
+                <notempty name="volist.link">
+                    <a href="<{$volist.link}>" target="_blank"><img src="__PUBLIC__/Content/FolkCustomDirection/<{$volist.image}>" /></a>
+                <else/>
+                    <img src="__PUBLIC__/Content/FolkCustomDirection/<{$volist.image}>" />
+                </notempty>
+            </div>
+
+            <div class="ftrq_r">
+                <div class="ftrq_r_t">
+                    <{$folk_custom[1]}>
+                </div><!---->
+                <div class="ftrq_r_m">
+                    <ul>
+                        <volist name="volist.Custom" id="vo_custom">
+                            <li>
+                                <div class="li_l"><a href="__APP__/LocalConditionsAndCustoms/details/pid/<{$vo_custom.pid}>/cid/<{$vo_custom.cid}>/id/<{$vo_custom.id}>">
+                                    <gt name="vo_custom.name|mb_strlen='utf-8'" value="17">
+                                        <span title="<{$vo_custom.name}>"><{$vo_custom.name|mb_substr=0,17,"utf-8"}>...</span>
+                                        <else/>
+                                        <span><{$vo_custom.name}></span>
+                                    </gt>
+                                </a></div>
+                                <div class="li_r"><{$vo_custom.create_date|date="Y-m-d",###}></div>
+                                <div style="clear:both"></div>
+                            </li>
+                        </volist>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="ftrq_r">
+                <div class="ftrq_r_t">
+                    <{$folk_custom[2]}>
+                </div><!---->
+                <div class="ftrq_r_m">
+                    <ul>
+                        <volist name="volist.Specialty" id="vo_specialty">
+                            <li>
+                                <div class="li_l"><a href="__APP__/LocalConditionsAndCustoms/details/pid/<{$vo_specialty.pid}>/cid/<{$vo_specialty.cid}>/id/<{$vo_specialty.id}>">
+                                    <gt name="vo_specialty.name|mb_strlen='utf-8'" value="17">
+                                        <span title="<{$vo_specialty.name}>"><{$vo_specialty.name|mb_substr=0,17,"utf-8"}>...</span>
+                                    <else/>
+                                        <span><{$vo_specialty.name}></span>
+                                    </gt>
+                                </a></div>
+                                <div class="li_r"><{$vo_specialty.create_date|date="Y-m-d",###}></div>
+                                <div style="clear:both"></div>
+                            </li>
+                        </volist>
+                    </ul>
+                </div>
+            </div>
+
+            <div style="clear:both"></div>
+        </div>
+
+    </div>
+    </notempty>
+</volist>
+
+</div>

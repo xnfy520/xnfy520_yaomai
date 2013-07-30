@@ -1,0 +1,64 @@
+<layout name='layout'/>
+<!--<link href="../Public/css/style.css" rel="stylesheet" type="text/css" />-->
+<div style="clear:both"></div>
+
+<div id="main">
+
+<include file="Index:nav" />
+
+<div class="cent">
+
+    <div class="shop_t">
+        <include file="Shops:header" />
+    </div>
+    <!-----shop_t end------->
+
+<div class="shop_m">
+    <include file="Shops:left" />
+    <!-----shop_l end------->
+
+    <div class="shop_r" id="Shop-insert-product-list">
+
+        <div class="shop_r01" style="margin-top:0">
+            <div class="shop_r01_t">
+                <notempty name="ccname"><{$ccname.name}>&nbsp;>></notempty><notempty name="csname">&nbsp;<{$csname.name}>&nbsp;>></notempty>&nbsp;全部商品
+            </div><!----->
+            <div class="shop_r01_m">
+
+                <volist name="CommodityListinfo" id="voclinfo">
+
+                    <div class="pro02_m_01 shop_zs01">
+                        <a href="__APP__/Shops/<{$Merchantinfo.no}>/details/<{$voclinfo.id}>.html"><img src="__PUBLIC__/Content/CommodityList/cut_<{$voclinfo.image}>" /></a>
+                        <h3><a href="__APP__/Shops/<{$Merchantinfo.no}>/details/<{$voclinfo.id}>.html">
+                            <gt name="voclinfo.name|mb_strlen='utf-8'" value="28">
+                                <span title="<{$voclinfo.name}>"><{$voclinfo.name|mb_substr=0,28,"utf-8"}>...</span>
+                            <else/>
+                                <span><{$voclinfo.name}></span>
+                            </gt>
+                        </a></h3>
+                        <h4>原价：&#165; <del><{$voclinfo.original_cost}></del></h4>
+                        <h5>现价：&#165; <span style="color:#BE1D22"><{$voclinfo.current_price}></span></h5>
+                    </div><!-------->
+
+                </volist>
+
+                <div style="clear:both"></div>
+
+                <notempty name="CommodityListinfo">
+                    <div style="height: 40px;line-height: 40px;margin-top: 15px;" id="shops-products-list">
+                        <span style="float: right;margin-right: 10px;">
+                        <{$fpage}>
+                        </span>
+                    </div>
+                </notempty>
+
+            </div><!------>
+
+        </div><!----shop_r01 end--->
+
+
+
+    </div><!-----shop_r end------->
+
+    <div style="clear:both"></div>
+</div><!-----shop_m end------->

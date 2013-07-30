@@ -1,0 +1,194 @@
+<layout name='layout'/>
+<script>
+  function lxfEndtime(){
+	  $(".lxftime").each(function(){
+		var lxfday=$(this).attr("lxfday");//用来判断是否显示天数的变量
+		var endtime = new Date($(this).attr("endtime")).getTime();//取结束日期(毫秒值)
+		var nowtime = new Date().getTime();        //今天的日期(毫秒值)
+		var youtime = endtime-nowtime;//还有多久(毫秒值)
+		var seconds = youtime/1000;
+		var minutes = Math.floor(seconds/60);
+		var hours = Math.floor(minutes/60);
+		var days = Math.floor(hours/24);
+		var CDay= days ;
+		var CHour= hours % 24;
+		var CMinute= minutes % 60;
+		var CSecond= Math.floor(seconds%60);//"%"是取余运算，可以理解为60进一后取余数，然后只要余数。
+		if(endtime<=nowtime){
+				$(this).html("已过期")//如果结束日期小于当前日期就提示过期啦
+				}else{
+						if($(this).attr("lxfday")=="no"){
+								$(this).html("剩余时间：<span>"+CHour+"</span>时<span>"+CMinute+"</span>分<span>"+CSecond+"</span>秒");          //输出没有天数的数据
+								}else{
+				$(this).html("剩余时间：<span>"+days+"</span>天<span>"+CHour+"</span>时<span>"+CMinute+"</span>分<span>"+CSecond+"</span>秒");          //输出有天数的数据
+						}
+				}
+	  });
+   setTimeout("lxfEndtime()",1000);
+  };
+$(function(){
+      lxfEndtime();
+   });
+</script>
+
+ <div id="xm-tg">
+    	<ul>
+        	<li id="xm-tgleft">
+            	<div id="xm-tgleft1">
+                	<div id="xm-left1-1">
+                    	<p id="xm-left1-1p" >现代双色床头柜</p>
+                        <p style="color:#898989;">（温馨提示：此商品每个ID只能购买2件，团购商品价格已调至最低，不再参与其他促销优惠活动。）</p>
+                    </div>
+ 
+                    <div id="xm-tgleft2">
+                        <ul>
+                            <li id="xm-tgleft2l">
+                            	<div id="xm-tgqg">
+                                	<ul>
+                                    	<li id="xm-mon"><span style="font-size:24px;">￥</span><span  style="font-size:28px;">2000</span></li>
+                                    	<li></li>
+                                        <li id="xm-gou"><a href="#"><img src="../Public/image/17.jpg" width="94" height="40" /></a></li>
+                                    </ul>
+                                </div>
+                                <div id="xm-tgqg1">
+                                	<div id="xm-tgqg2">
+                                    	<ul>
+                                        	<li id="xm-tgqg3">我要买：</li>
+                                            <li id="xm-tgqg4"><a href="#"><img src="../Public/image/18.jpg" /></a></li>
+                                            <li id="xm-tgqg5"><input type="text" value="1" /></li>
+                                            <li id="xm-tgqg6"><a href="#"><img src="../Public/image/19.jpg" /></a></li>
+                                        </ul>
+                                    </div>
+                                    <div id="xm-jq1">
+                                    	<ul>
+                                        	<li id="xm-jq2">原价<p>¥630</p></li>
+                                            <li id="xm-jq3">折扣<p>6.4折</p></li>
+                                            <li id="xm-jq4">节省<p>231元</p></li>
+                                        </ul>
+                                    </div>
+                                    <div id="xm-js1">
+                                    	<p>已团购<strong style="font-size:28px; color:#cc0000; font: '微软雅黑';">13</strong>件 </p>
+                                        <p>仅剩<strong style="color:#cc0000;">14</strong>件宝贝，请尽快抢购！</p>
+                                    </div>
+                                	<div id="xm-js2" class="lxftime" endtime="7/31/2013 9:3:5"></div>
+                                </div>
+                          </li>
+                          
+                          <li id="xm-tgleft2r">
+                          	<div style=" height:300px;width:400px;"><img src="../Public/image/20.jpg" /></div>
+                            <div id="xm-tupiao1">
+                            	<div>
+                            	<a>分享到：</a>
+                            	<a href="#"><img src="../Public/image/21.jpg" /></a>
+                                <a href="#"><img src="../Public/image/22.jpg" /></a>
+                                <a href="#"><img src="../Public/image/23.jpg" /></a>
+                                <a href="#"><img src="../Public/image/24.jpg" /></a>
+                                <a href="#"><img src="../Public/image/25.jpg" /></a>
+                                </div>
+                            </div>
+                          </li>
+                        </ul>
+               		 </div>
+               </div>
+
+               <div id="xm-tgleft3">
+               		<div class="xm-bpxq1">
+                    	<div class="xm-bpxq3">本品详情</div>
+                    </div>
+                    <div class="xm-bpxq2"><img src="../Public/image/26.jpg" /></div>
+                    <div class="xm-bpxq2"><img src="../Public/image/26.jpg" /></div>
+               </div>
+            </li>
+            
+            <li id="xm-tgright">
+            	<div id="xm-tgright1"><strong>同类团购商品推荐</strong></div>
+                <div class="xm-tjsp">
+                	<div class="xm-tjsp1"><a href="#"><img src="../Public/image/27.jpg" /></a></div>
+                    <div class="xm-tjsp2"><a href="#">别致的床头柜</a></div>
+                    <div class="xm-tjsp3"><strong>团购价：</strong><span>¥799.00</span></div>
+                    <div class="xm-tjsp4">
+                    	<ul>
+                        	<li  class="xm-tjspl">原价：<a>¥1100.00</a></li>
+                        	<li class="xm-tjspr">已团购<span>20</span>件</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="xm-tjsp">
+                	<div class="xm-tjsp1"><a href="#"><img src="../Public/image/27.jpg" /></a></div>
+                    <div class="xm-tjsp2"><a href="#">别致的床头柜</a></div>
+                    <div class="xm-tjsp3"><strong>团购价：</strong><span>¥799.00</span></div>
+                    <div class="xm-tjsp4">
+                    	<ul>
+                        	<li  class="xm-tjspl">原价：<a>¥1100.00</a></li>
+                        	<li class="xm-tjspr">已团购<span>20</span>件</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="xm-tjsp">
+                	<div class="xm-tjsp1"><a href="#"><img src="../Public/image/27.jpg" /></a></div>
+                    <div class="xm-tjsp2"><a href="#">别致的床头柜</a></div>
+                    <div class="xm-tjsp3"><strong>团购价：</strong><span>¥799.00</span></div>
+                    <div class="xm-tjsp4">
+                    	<ul>
+                        	<li  class="xm-tjspl">原价：<a>¥1100.00</a></li>
+                        	<li class="xm-tjspr">已团购<span>20</span>件</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="xm-tjsp">
+                	<div class="xm-tjsp1"><a href="#"><img src="../Public/image/27.jpg" /></a></div>
+                    <div class="xm-tjsp2"><a href="#">别致的床头柜</a></div>
+                    <div class="xm-tjsp3"><strong>团购价：</strong><span>¥799.00</span></div>
+                    <div class="xm-tjsp4">
+                    	<ul>
+                        	<li  class="xm-tjspl">原价：<a>¥1100.00</a></li>
+                        	<li class="xm-tjspr">已团购<span>20</span>件</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="xm-tjsp">
+                	<div class="xm-tjsp1"><a href="#"><img src="../Public/image/27.jpg" /></a></div>
+                    <div class="xm-tjsp2"><a href="#">别致的床头柜</a></div>
+                    <div class="xm-tjsp3"><strong>团购价：</strong><span>¥799.00</span></div>
+                    <div class="xm-tjsp4">
+                    	<ul>
+                        	<li  class="xm-tjspl">原价：<a>¥1100.00</a></li>
+                        	<li class="xm-tjspr">已团购<span>20</span>件</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="xm-tjsp">
+                	<div class="xm-tjsp1"><a href="#"><img src="../Public/image/27.jpg" /></a></div>
+                    <div class="xm-tjsp2"><a href="#">别致的床头柜</a></div>
+                    <div class="xm-tjsp3"><strong>团购价：</strong><span>¥799.00</span></div>
+                    <div class="xm-tjsp4">
+                    	<ul>
+                        	<li  class="xm-tjspl">原价：<a>¥1100.00</a></li>
+                        	<li class="xm-tjspr">已团购<span>20</span>件</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="xm-tjsp">
+                	<div class="xm-tjsp1"><a href="#"><img src="../Public/image/27.jpg" /></a></div>
+                    <div class="xm-tjsp2"><a href="#">别致的床头柜</a></div>
+                    <div class="xm-tjsp3"><strong>团购价：</strong><span>¥799.00</span></div>
+                    <div class="xm-tjsp4">
+                    	<ul>
+                        	<li  class="xm-tjspl">原价：<a>¥1100.00</a></li>
+                        	<li class="xm-tjspr">已团购<span>20</span>件</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                
+                
+            </li>
+        </ul>
+    
+    </div>

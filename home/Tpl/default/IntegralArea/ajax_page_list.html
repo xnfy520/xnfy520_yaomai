@@ -1,0 +1,46 @@
+<div class="jf_r_m" id="insert-shop-product-list">
+
+    <volist name="IntegralGiftListinfo" id="vo_igli">
+        <div class="jf_r01">
+            <a href="__APP__/IntegralArea/details"><img src="__PUBLIC__/Content/IntegralGiftList/cut_<{$vo_igli.image}>" class="img01"/></a>
+            <h3>
+                <gt name="vo_igli.name|mb_strlen='utf-8'" value="12">
+                    <span title="<{$vo_igli.name}>"><{$vo_igli.name|mb_substr=0,12,"utf-8"}>...</span>
+                    <else/>
+                    <span><{$vo_igli.name}></span>
+                </gt>
+            </h3>
+            <h4>兑换积分：<{$vo_igli.need_integral}></h4>
+            <!--<h5>-->
+            <!--<a href="__APP__/IntegralArea/details"><img src="../Public/images/btn0301.png" /></a>-->
+            <!--</h5>-->
+        </div>
+    </volist>
+
+    <div style="clear:both"></div>
+    <script>
+        $(function(){
+            $(".jf_r01").eq(3).css("float","right");
+            $(".jf_r01").eq(3).css("margin-right","0px");
+            $(".jf_r01").eq(7).css("float","right");
+            $(".jf_r01").eq(7).css("margin-right","0px");
+            $(".jf_r01").eq(11).css("float","right");
+            $(".jf_r01").eq(11).css("margin-right","0px");
+            $(".jf_r01").eq(15).css("float","right");
+            $(".jf_r01").eq(15).css("margin-right","0px");
+            $(".jf_r01").eq(19).css("float","right");
+            $(".jf_r01").eq(19).css("margin-right","0px");
+        })
+    </script>
+
+
+    <div style="clear:both"></div>
+
+    <notempty name="IntegralGiftListinfo">
+        <div style="height: 40px;line-height: 40px;margin-top: 15px;">
+                            <span style="float: right;margin-right: 10px;">
+                            <{$fpage}>
+                            </span>
+        </div>
+    </notempty>
+</div>

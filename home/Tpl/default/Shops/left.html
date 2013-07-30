@@ -1,0 +1,116 @@
+<div class="shop_l">
+    <div class="shop_101" style="margin-top:0">
+        <div class="shop_l_t">
+            商铺信息
+        </div>
+        <div class="shop_l01_m">
+            <div class="shop_sb"><img src="__PUBLIC__/Content/Merchant/<{$Merchantinfo.sign}>" /></div>
+            <table width="100%" cellpadding="0" cellspacing="0" class="shop_tab01">
+                <tr>
+                    <td width="60">商铺名称：</td>
+                    <td style="color:#bf1d22"><{$Merchantinfo.name}></td>
+                </tr>
+                <tr>
+                    <td style="vertical-align:top;">所在地区：</td>
+                    <td><{$Merchantinfo.wheres|default='-'}></td>
+                </tr>
+                <tr>
+                    <td>入驻时间：</td>
+                    <td><{$Merchantinfo.create_date|date="Y-m-d",###}></td>
+                </tr>
+                <tr>
+                    <td>商品数量：</td>
+                    <td><{$Merchantinfo.counts|default='0'}></td>
+                </tr>
+                <tr>
+                    <td>联系电话：</td>
+                    <td><{$Merchantinfo.phone|default='-'}></td>
+                </tr>
+                <tr>
+                    <td valign="top">店铺客服：</td>
+                    <td>
+                        <notempty name="Merchantinfo.qq1">
+                            <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=<{$Merchantinfo.qq1}>&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:<{$Merchantinfo.qq1}>:41 &r=0.23194666695781052" alt="点击这里给我发消息" title="点击这里给我发消息"></a>
+                        </notempty>
+                        <notempty name="Merchantinfo.qq2">
+                            <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=<{$Merchantinfo.qq1}>&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:<{$Merchantinfo.qq1}>:41 &r=0.23194666695781052" alt="点击这里给我发消息" title="点击这里给我发消息"></a>
+                        </notempty>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+    </div><!---shop_101--->
+
+    <div class="shop_101">
+        <div class="shop_l_t">
+            商品分类
+        </div>
+        <div class="shop_l01_m01">
+            <volist name="CommodityCategoryinfo" id="voccinfo" key="k">
+                <eq name="k" value="1">
+                    <neq name="voccinfo.counts" value="0">
+                        <h3 style="border:0;"><a href="__APP__/Shops/<{$Merchantinfo.no}>/products/index/pid/<{$voccinfo.id}>.html"><{$voccinfo.name}></a></h3>
+                        <p>
+                            <volist name="voccinfo.CommoditySubclass" id="vocsinfo">
+                                <neq name="vocsinfo.counts" value="0">
+                                    <a href="__APP__/Shops/<{$Merchantinfo.no}>/products/index/pid/<{$vocsinfo.pid}>/cid/<{$vocsinfo.id}>.html"><{$vocsinfo.name}></a>
+                                </neq>
+                            </volist>
+                        </p>
+                    </neq>
+                <else/>
+                    <neq name="voccinfo.counts" value="0">
+                        <h3><a href="__APP__/Shops/<{$Merchantinfo.no}>/products/index/pid/<{$voccinfo.id}>.html"><{$voccinfo.name}></a></h3>
+                        <p>
+                            <volist name="voccinfo.CommoditySubclass" id="vocsinfo">
+                                <neq name="vocsinfo.counts" value="0">
+                                    <a href="__APP__/Shops/<{$Merchantinfo.no}>/products/index/pid/<{$vocsinfo.pid}>/cid/<{$vocsinfo.id}>.html"><{$vocsinfo.name}></a>
+                                </neq>
+                            </volist>
+                        </p>
+                    </neq>
+                </eq>
+
+            </volist>
+        </div>
+
+    </div><!---shop_101--->
+    <div class="shop_101">
+        <div class="shop_l_t">
+            销量排行榜
+        </div>
+        <div class="shop_l01_m" style="padding:0;">
+
+            <volist name="create_date" id="vocds">
+                <div class="shop_cs01">
+                    <div class="shop_cs01_l">
+                        <a href="__APP__/Shops/<{$Merchantinfo.no}>/details/<{$vocds.id}>.html"><img src="__PUBLIC__/Content/CommodityList/cut_<{$vocds.image}>" /></a>
+                    </div>
+                    <div class="shop_cs01_r">
+                        <p><a href="__APP__/Shops/<{$Merchantinfo.no}>/details/<{$vocds.id}>.html" style="color:#666">
+                            <gt name="vocds.name|mb_strlen='utf-8'" value="21">
+                                <span title="<{$vocds.name}>"><{$vocds.name|mb_substr=0,21,"utf-8"}>...</span>
+                                <else/>
+                                <span><{$vocds.name}></span>
+                            </gt>
+                        </a></p>
+                        <h3>原价：&#165; <del><{$vocds.original_cost}></del></h3>
+                        <h3>现价：&#165; <span style="color:#be1d22"><{$vocds.current_price}></span></h3>
+
+                    </div>
+                    <div style="clear:both"></div>
+                </div>
+            </volist>
+
+            <script>
+                $(function(){
+                    $(".shop_l01_m01").css("border-top","0")
+                })
+            </script>
+        </div>
+
+    </div><!---shop_101--->
+
+
+</div>

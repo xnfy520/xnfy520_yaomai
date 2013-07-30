@@ -1,0 +1,148 @@
+<layout name='layout' />
+<!--<link href="../Public/css/style.css" rel="stylesheet" type="text/css" />-->
+<div style="clear:both"></div>
+
+<div id="main">
+
+<include file="Index:nav" />
+
+<div class="cent">
+
+<div class="cent01">
+<div class="ftrq">
+<div class="ftrq_t">
+    <div class="ftrq_t01"><img src="__PUBLIC__/Content/FolkCustomDirection/<{$datas.FolkCustomDirection.icon}>" /></div>
+    <div class="ftrq_t02"><{$datas.FolkCustomDirection.name}></div>
+    <div style="clear:both"></div>
+</div><!-------ftrq_t----------->
+
+<div class="ftrq_m01">
+
+<div class="ftrq_m_l">
+
+    <div class="ftrq_m_l01">
+        <div class="ftrq_m_l01_m">
+            <h3>推荐商品</h3>
+
+            <volist name="IndexRecommend_commodity_recommend" id="vo_ircr">
+                <div class="shop_cs01">
+                    <div class="shop_cs01_l">
+                        <a href="__APP__/Shops/<{$vo_ircr.merchant_no}>/details/<{$vo_ircr['CommodityList']['id']}>.html"><img src="__PUBLIC__/Content/CommodityList/thumb_<{$vo_ircr['CommodityList']['image']}>" /></a>
+                    </div>
+                    <div class="shop_cs01_r01">
+                        <p><a href="__APP__/Shops/<{$vo_ircr.merchant_no}>/details/<{$vo_ircr['CommodityList']['id']}>.html" style="color:#2C364A">
+                            <gt name="vo_ircr['CommodityList']['name']|mb_strlen='utf-8'" value="10">
+                                <span title="<{$vo_ircr['CommodityList']['name']}>"><{$vo_ircr['CommodityList']['name']|mb_substr=0,10,"utf-8"}>...</span>
+                                <else/>
+                                <span><{$vo_ircr['CommodityList']['name']}></span>
+                            </gt>
+                        </a></p>
+                        <h4>原价：&#165;<del><{$vo_ircr['CommodityList']['original_cost']}></del></h4>
+                        <h4>现价：<span style="color:#be1d22">&#165; <{$vo_ircr['CommodityList']['current_price']}></span></h4>
+                    </div>
+                    <div style="clear:both"></div>
+                </div><!------>
+            </volist>
+
+            <script>
+                $(function(){
+                    $(".shop_cs01").eq(0).css("border-top","0")
+                })
+            </script>
+        </div>
+    </div>
+
+
+    <div class="ftrq_m_l01" style="margin-top:10px;">
+        <div class="ftrq_m_l01_m">
+            <h3><{$folk_custom[1]}>点击排行版</h3>
+            <ul>
+                <volist name="top_custom" id="vo_top_custom">
+                    <li><div class="shuz01"><{$i}></div><a href="__APP__/LocalConditionsAndCustoms/details/pid/<{$vo_top_custom.pid}>/cid/<{$vo_top_custom.cid}>/id/<{$vo_top_custom.id}>">
+                        <gt name="vo_top_custom.name|mb_strlen='utf-8'" value="11">
+                            <span title="<{$vo_top_custom.name}>"><{$vo_top_custom.name|mb_substr=0,11,"utf-8"}>...</span>
+                            <else/>
+                            <span><{$vo_top_custom.name}></span>
+                        </gt>
+                    </a>
+                        <div style="clear:both"></div>
+                    </li>
+                </volist>
+            </ul>
+            <script>
+                $(function(){
+                    $(".shuz01").addClass("shuz03");
+                    $(".shuz01").eq(0).removeClass("shuz03");
+                    $(".shuz01").eq(0).addClass("shuz02");
+
+                    $(".shuz01").eq(1).removeClass("shuz03");
+                    $(".shuz01").eq(1).addClass("shuz02");
+
+                    $(".shuz01").eq(2).removeClass("shuz03");
+                    $(".shuz01").eq(2).addClass("shuz02");
+                })
+            </script>
+        </div>
+    </div>
+
+
+    <div class="ftrq_m_l01" style="margin-top:10px;">
+        <div class="ftrq_m_l01_m">
+            <h3><{$folk_custom[2]}>点击排行榜</h3>
+            <ul>
+                <volist name="top_specialty" id="vo_top_specialty">
+                    <li><div class="shuz04"><{$i}></div><a href="__APP__/LocalConditionsAndCustoms/details/pid/<{$vo_top_specialty.pid}>/cid/<{$vo_top_specialty.cid}>/id/<{$vo_top_specialty.id}>">
+                        <gt name="vo_top_specialty.name|mb_strlen='utf-8'" value="11">
+                            <span title="<{$vo_top_specialty.name}>"><{$vo_top_specialty.name|mb_substr=0,11,"utf-8"}>...</span>
+                            <else/>
+                            <span><{$vo_top_specialty.name}></span>
+                        </gt>
+                    </a>
+                        <div style="clear:both"></div>
+                    </li>
+                </volist>
+            </ul>
+            <script>
+                $(function(){
+                    $(".shuz04").addClass("shuz03");
+                    $(".shuz04").eq(0).removeClass("shuz03");
+                    $(".shuz04").eq(0).addClass("shuz02");
+
+                    $(".shuz04").eq(1).removeClass("shuz03");
+                    $(".shuz04").eq(1).addClass("shuz02");
+
+                    $(".shuz04").eq(2).removeClass("shuz03");
+                    $(".shuz04").eq(2).addClass("shuz02");
+                })
+            </script>
+        </div>
+    </div>
+
+</div><!-----ftrq_m_l end----->
+
+<div class="ftrq_m_r">
+    <div class="ftrq_r_t">
+        <{$datas.FolkCustomProvinces.name}> - <{$folk_customs}>
+    </div><!---->
+    <div class="ftrq_main">
+        <h3 style="font-size: 17px;"><{$datas.name}></h3>
+        <h4><{$datas.create_date|date="Y年m月d日 H:i",###}></h4>
+        <p>
+            <{$datas.details}>
+        </p>
+    </div>
+
+</div><!-----ftrq_m_r end------->
+
+<div style="clear:both"></div>
+</div>
+
+</div><!---ftrq end---->
+
+
+
+
+
+
+
+</div><!----cent01--->

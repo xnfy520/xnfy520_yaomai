@@ -1,0 +1,31 @@
+
+<volist name="ccinfos" id="voccinfos">
+    <div class="pj">
+
+        <h3>咨询商品：<a href="__APP__/Shops/<{$voccinfos.by_merchant}>/details/<{$voccinfos.by_commodity}>.html"><{$voccinfos.CommodityList.name}></a> </h3>
+
+        <h4>
+            <div class="h4_l"><{$voccinfos.User.nickname}></div>
+            <div class="h4_r">咨询时间：<span style="color:#c01c22;"><{$voccinfos.create_date|date="Y-m-d",###}></span></div>
+            <div style="clear:both"></div>
+        </h4>
+
+        <p><{$voccinfos.message}></p>
+        <notempty name="voccinfos.CommodityConsult">
+            <div class="shop_hf">
+                <strong>回复：</strong><{$voccinfos.CommodityConsult.message}>
+            </div>
+        </notempty>
+
+    </div>
+</volist>
+
+<notempty name="ccinfos">
+    <div style="height: 40px;line-height: 40px;margin-top: 15px;">
+                            <span style="float: right;margin-right: 10px;">
+                                <{$fpage}>
+                            </span>
+    </div>
+</notempty>
+
+<div style="clear:both"></div>

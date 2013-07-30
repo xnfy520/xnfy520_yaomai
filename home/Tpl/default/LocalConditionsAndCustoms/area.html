@@ -1,0 +1,254 @@
+<layout name='layout' />
+<!--<link href="../Public/css/style.css" rel="stylesheet" type="text/css" />-->
+<div style="clear:both"></div>
+
+<div id="main">
+
+<include file="Index:nav" />
+
+<div class="cent">
+
+<div class="cent01">
+<div class="ftrq">
+<div class="ftrq_t">
+    <div class="ftrq_t01"><img src="__PUBLIC__/Content/FolkCustomDirection/<{$by_area.FolkCustomDirection.icon}>" /></div>
+    <div class="ftrq_t02"><{$by_area.FolkCustomDirection.name}></div><span class="ftrq_r_t " style="background: none; border: none; font-weight: normal; font-family: '微软雅黑';">&nbsp;&nbsp;>>&nbsp;&nbsp;<{$by_area.name}></span>
+    <div style="clear:both"></div>
+</div><!-------ftrq_t----------->
+
+<div class="ftrq_m01">
+<div class="ftrq_m_l">
+
+    <div class="ftrq_m_l01">
+        <div class="ftrq_m_l01_m">
+            <h3><{$folk_custom[1]}>点击排行版</h3>
+            <ul>
+                <volist name="top_custom" id="vo_top_custom">
+                    <li><div class="shuz01"><{$i}></div><a href="__APP__/LocalConditionsAndCustoms/details/pid/<{$vo_top_custom.pid}>/cid/<{$vo_top_custom.cid}>/id/<{$vo_top_custom.id}>">
+                        <gt name="vo_top_custom.name|mb_strlen='utf-8'" value="11">
+                            <span title="<{$vo_top_custom.name}>"><{$vo_top_custom.name|mb_substr=0,11,"utf-8"}>...</span>
+                            <else/>
+                            <span><{$vo_top_custom.name}></span>
+                        </gt>
+                    </a>
+                        <div style="clear:both"></div>
+                    </li>
+                </volist>
+            </ul>
+            <script>
+                $(function(){
+                    $(".shuz01").addClass("shuz03");
+                    $(".shuz01").eq(0).removeClass("shuz03");
+                    $(".shuz01").eq(0).addClass("shuz02");
+
+                    $(".shuz01").eq(1).removeClass("shuz03");
+                    $(".shuz01").eq(1).addClass("shuz02");
+
+                    $(".shuz01").eq(2).removeClass("shuz03");
+                    $(".shuz01").eq(2).addClass("shuz02");
+                })
+            </script>
+        </div>
+    </div>
+
+
+    <div class="ftrq_m_l01" style="margin-top:10px;">
+        <div class="ftrq_m_l01_m">
+            <h3><{$folk_custom[2]}>点击排行榜</h3>
+            <ul>
+                <volist name="top_specialty" id="vo_top_specialty">
+                    <li><div class="shuz04"><{$i}></div><a href="__APP__/LocalConditionsAndCustoms/details/pid/<{$vo_top_specialty.pid}>/cid/<{$vo_top_specialty.cid}>/id/<{$vo_top_specialty.id}>">
+                        <gt name="vo_top_specialty.name|mb_strlen='utf-8'" value="11">
+                            <span title="<{$vo_top_specialty.name}>"><{$vo_top_specialty.name|mb_substr=0,11,"utf-8"}>...</span>
+                            <else/>
+                            <span><{$vo_top_specialty.name}></span>
+                        </gt>
+                    </a>
+                        <div style="clear:both"></div>
+                    </li>
+                </volist>
+            </ul>
+            <script>
+                $(function(){
+                    $(".shuz04").addClass("shuz03");
+                    $(".shuz04").eq(0).removeClass("shuz03");
+                    $(".shuz04").eq(0).addClass("shuz02");
+
+                    $(".shuz04").eq(1).removeClass("shuz03");
+                    $(".shuz04").eq(1).addClass("shuz02");
+
+                    $(".shuz04").eq(2).removeClass("shuz03");
+                    $(".shuz04").eq(2).addClass("shuz02");
+                })
+            </script>
+        </div>
+    </div>
+
+</div>
+
+<div class="ftrq_m_r" id="insert-Custom">
+    <div class="ftrq_r_t">
+        <{$folk_custom[1]}>
+    </div><!---->
+    <div class="ftrq_m_r_m" style="padding-top: 5px;">
+        <ul style="min-height: 100px;">
+        <notempty name="Custom">
+            <volist name="Custom" id="voCustom">
+                <li>
+                    <div class="li_l01"><a href="__APP__/LocalConditionsAndCustoms/details/pid/<{$voCustom.pid}>/cid/<{$voCustom.cid}>/id/<{$voCustom.id}>">
+                        <gt name="voCustom.name|mb_strlen='utf-8'" value="18">
+                            <span title="<{$voCustom.name}>"><{$voCustom.name|mb_substr=0,18,"utf-8"}>...</span>
+                            <else/>
+                            <span><{$voCustom.name}></span>
+                        </gt>
+                    </a> </div>
+                    <div class="li_r"><{$voCustom.create_date|date="Y-m-d",###}></div>
+                    <div style="clear:both"></div>
+                </li>
+            </volist>
+            <else/>
+            <li style="color: #666;;">无内容</li>
+        </notempty>
+    <div style="clear:both"></div>
+    </ul>
+    </div>
+    <script>
+        $(function(){
+            $(".ftrq_m_r_m li:odd").css("float","right")
+            $(".ftrq_m_r_m li:odd").css("padding-left","30px")
+            $(".ftrq_m_r_m li:even").css("float","left")
+            $(".ftrq_m_r_m li:even").css("padding-right","30px")
+            $(".ftrq_m_r_m li").eq(8).css("border-bottom-width","1px")
+            $(".ftrq_m_r_m li").eq(8).css("border-bottom-style","dashed")
+            $(".ftrq_m_r_m li").eq(8).css("border-bottom-color","#dddddd")
+            $(".ftrq_m_r_m li").eq(9).css("border-bottom-width","1px")
+            $(".ftrq_m_r_m li").eq(9).css("border-bottom-style","dashed")
+            $(".ftrq_m_r_m li").eq(9).css("border-bottom-color","#dddddd")
+            $(".ftrq_m_r_m li").eq(8).css("padding-bottom","8px")
+            $(".ftrq_m_r_m li").eq(9).css("padding-bottom","8px")
+            $(".ftrq_m_r_m li").eq(10).css("padding-top","8px")
+            $(".ftrq_m_r_m li").eq(10).css("background-position","left 19px")
+            $(".ftrq_m_r_m li").eq(11).css("padding-top","8px")
+
+            $(".ftrq_m_r_m li").eq(18).css("border-bottom-width","1px")
+            $(".ftrq_m_r_m li").eq(18).css("border-bottom-style","dashed")
+            $(".ftrq_m_r_m li").eq(18).css("border-bottom-color","#dddddd")
+            $(".ftrq_m_r_m li").eq(19).css("border-bottom-width","1px")
+            $(".ftrq_m_r_m li").eq(19).css("border-bottom-style","dashed")
+            $(".ftrq_m_r_m li").eq(19).css("border-bottom-color","#dddddd")
+            $(".ftrq_m_r_m li").eq(18).css("padding-bottom","8px")
+            $(".ftrq_m_r_m li").eq(19).css("padding-bottom","8px")
+            $(".ftrq_m_r_m li").eq(20).css("padding-top","8px")
+            $(".ftrq_m_r_m li").eq(21).css("padding-top","8px")
+
+            $(".ftrq_m_r_m li").eq(28).css("border-bottom-width","1px")
+            $(".ftrq_m_r_m li").eq(28).css("border-bottom-style","dashed")
+            $(".ftrq_m_r_m li").eq(28).css("border-bottom-color","#dddddd")
+            $(".ftrq_m_r_m li").eq(29).css("border-bottom-width","1px")
+            $(".ftrq_m_r_m li").eq(29).css("border-bottom-style","dashed")
+            $(".ftrq_m_r_m li").eq(29).css("border-bottom-color","#dddddd")
+            $(".ftrq_m_r_m li").eq(28).css("padding-bottom","8px")
+            $(".ftrq_m_r_m li").eq(29).css("padding-bottom","8px")
+            $(".ftrq_m_r_m li").eq(30).css("padding-top","8px")
+            $(".ftrq_m_r_m li").eq(31).css("padding-top","8px")
+
+        })
+    </script>
+    <notempty name="Custom">
+        <div>
+            <span style="float: right;">
+            <{$c_fpage}>
+            </span>
+        </div>
+    </notempty>
+</div>
+
+<div class="ftrq_m_r" id="insert-Specialty">
+    <div class="ftrq_r_t">
+        <{$folk_custom[2]}>
+    </div>
+    <div class="ftrq_m_r_m01" style="padding-top: 5px;">
+        <ul style="min-height: 100px;">
+            <notempty name="Specialty">
+                <volist name="Specialty" id="voSpecialty">
+                    <li>
+                        <div class="li_l01"><a href="__APP__/LocalConditionsAndCustoms/details/pid/<{$voSpecialty.pid}>/cid/<{$voSpecialty.cid}>/id/<{$voSpecialty.id}>">
+                            <gt name="voSpecialty.name|mb_strlen='utf-8'" value="18">
+                                <span title="<{$voSpecialty.name}>"><{$voSpecialty.name|mb_substr=0,18,"utf-8"}>...</span>
+                                <else/>
+                                <span><{$voSpecialty.name}></span>
+                            </gt>
+                        </a> </div>
+                        <div class="li_r"><{$voSpecialty.create_date|date="Y-m-d",###}></div>
+                        <div style="clear:both"></div>
+                    </li>
+                </volist>
+                <else/>
+                <li style="color: #666;;">无内容</li>
+            </notempty>
+            <div style="clear:both"></div>
+        </ul>
+    </div>
+    <script>
+    $(function(){
+        $(".ftrq_m_r_m01 li:odd").css("float","right")
+        $(".ftrq_m_r_m01 li:odd").css("padding-left","30px")
+        $(".ftrq_m_r_m01 li:even").css("float","left")
+        $(".ftrq_m_r_m01 li:even").css("padding-right","30px")
+        $(".ftrq_m_r_m01 li").eq(8).css("border-bottom-width","1px")
+        $(".ftrq_m_r_m01 li").eq(8).css("border-bottom-style","dashed")
+        $(".ftrq_m_r_m01 li").eq(8).css("border-bottom-color","#dddddd")
+        $(".ftrq_m_r_m01 li").eq(9).css("border-bottom-width","1px")
+        $(".ftrq_m_r_m01 li").eq(9).css("border-bottom-style","dashed")
+        $(".ftrq_m_r_m01 li").eq(9).css("border-bottom-color","#dddddd")
+        $(".ftrq_m_r_m01 li").eq(8).css("padding-bottom","8px")
+        $(".ftrq_m_r_m01 li").eq(9).css("padding-bottom","8px")
+        $(".ftrq_m_r_m01 li").eq(10).css("padding-top","8px")
+        $(".ftrq_m_r_m01 li").eq(10).css("background-position","left 19px")
+        $(".ftrq_m_r_m01 li").eq(11).css("padding-top","8px")
+
+        $(".ftrq_m_r_m01 li").eq(18).css("border-bottom-width","1px")
+        $(".ftrq_m_r_m01 li").eq(18).css("border-bottom-style","dashed")
+        $(".ftrq_m_r_m01 li").eq(18).css("border-bottom-color","#dddddd")
+        $(".ftrq_m_r_m01 li").eq(19).css("border-bottom-width","1px")
+        $(".ftrq_m_r_m01 li").eq(19).css("border-bottom-style","dashed")
+        $(".ftrq_m_r_m01 li").eq(19).css("border-bottom-color","#dddddd")
+        $(".ftrq_m_r_m01 li").eq(18).css("padding-bottom","8px")
+        $(".ftrq_m_r_m01 li").eq(19).css("padding-bottom","8px")
+        $(".ftrq_m_r_m01 li").eq(20).css("padding-top","8px")
+        $(".ftrq_m_r_m01 li").eq(21).css("padding-top","8px")
+
+        $(".ftrq_m_r_m01 li").eq(28).css("border-bottom-width","1px")
+        $(".ftrq_m_r_m01 li").eq(28).css("border-bottom-style","dashed")
+        $(".ftrq_m_r_m01 li").eq(28).css("border-bottom-color","#dddddd")
+        $(".ftrq_m_r_m01 li").eq(29).css("border-bottom-width","1px")
+        $(".ftrq_m_r_m01 li").eq(29).css("border-bottom-style","dashed")
+        $(".ftrq_m_r_m01 li").eq(29).css("border-bottom-color","#dddddd")
+        $(".ftrq_m_r_m01 li").eq(28).css("padding-bottom","8px")
+        $(".ftrq_m_r_m01 li").eq(29).css("padding-bottom","8px")
+        $(".ftrq_m_r_m01 li").eq(30).css("padding-top","8px")
+        $(".ftrq_m_r_m01 li").eq(31).css("padding-top","8px")
+
+    })
+</script>
+    <notempty name="Specialty">
+        <div>
+        <span style="float: right;">
+        <{$s_fpage}>
+        </span>
+        </div>
+    </notempty>
+</div>
+
+<div style="clear:both"></div>
+</div>
+
+</div><!---ftrq end---->
+
+
+
+
+
+
+
+</div><!----cent01--->

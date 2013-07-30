@@ -1,0 +1,134 @@
+<layout name='layout' />
+<!--<link href="../Public/css/style.css" rel="stylesheet" type="text/css" />-->
+<div style="clear:both"></div>
+
+<div id="main">
+    <include file="Index:nav" />
+    <div class="ban01">
+        <notempty name="CommodityCategoryinfos.image">
+            <notempty name="CommodityCategoryinfos.link">
+                <a href="<{$CommodityCategoryinfos.link}>" target="_blank"><img src="__PUBLIC__/Content/CommodityCategory/<{$CommodityCategoryinfos.image}>" /></a>
+                <else/>
+                <img src="__PUBLIC__/Content/CommodityCategory/<{$CommodityCategoryinfos.image}>" />
+            </notempty>
+        </notempty>
+    </div><!------->
+    <div class="cent">
+
+        <div class="cent01">
+            <div class="sub01">
+                <div class="sub01_1">
+                    <strong>您选择的是：</strong> <{$Think.session.where_info.area_name}> > <{$Think.session.where_info.province_name}> > <span style="color:#5CAB32"><{$Think.session.where_info.city_name}></span>
+                </div>	<!---->
+                <div class="sub01_2" id="product-where-match">
+                    <a href="__APP__/Artware/index<notempty name='Think.get.category'>/category/<{$Think.get.category}></notempty>" class="sub_a01" style="margin-bottom: 5px;">全部</a>
+                    <volist name="Think.session.where_county" id="vowcountys">
+                        <a href="__APP__/Artware/index/where/<{$vowcountys.id}><notempty name='Think.get.category'>/category/<{$Think.get.category}></notempty>" class="sub_a02" style="margin-bottom: 5px;"><{$vowcountys.name}></a>
+                    </volist>
+                    <div style="clear:both"></div>
+                </div><!---->
+                <div class="sub01_1">
+                    <strong>乡味所有分类：</strong>
+                </div><!---->
+                <div class="sub01_2" id="product-category-match">
+                    <a href="__APP__/Artware/index<notempty name='Think.get.where'>/where/<{$Think.get.where}></notempty>" class="sub_a01" style="margin-bottom: 5px;">全部</a>
+                    <volist name="cslist" id="vocslist">
+                        <a href="__APP__/Artware/index<notempty name='Think.get.where'>/where/<{$Think.get.where}></notempty>/category/<{$vocslist.id}>" class="sub_a02"><{$vocslist.name}></a>
+                    </volist>
+                    <div style="clear:both"></div>
+                </div><!---->
+            </div><!-----sub01----->
+
+            <div class="pro02">
+                <div class="pro02_top">
+                    <div class="pro02_top_l">
+                        排序：
+                        <empty name="Think.get.price">
+                            <empty name="Think.get.sales">
+                                <a href="__APP__/Artware/index<notempty name='Think.get.where'>/where/<{$Think.get.where}></notempty><notempty name='Think.get.category'>/category/<{$Think.get.category}></notempty>" class="pro02_top_a01">默认</a>
+                                <else/>
+                                <a href="__APP__/Artware/index<notempty name='Think.get.where'>/where/<{$Think.get.where}></notempty><notempty name='Think.get.category'>/category/<{$Think.get.category}></notempty>" class="pro02_top_a02">默认</a>
+                            </empty>
+                            <else/>
+                            <empty name="Think.get.sales">
+                                <a href="__APP__/Artware/index<notempty name='Think.get.where'>/where/<{$Think.get.where}></notempty><notempty name='Think.get.category'>/category/<{$Think.get.category}></notempty>" class="pro02_top_a02">默认</a>
+                                <else/>
+                                <a href="__APP__/Artware/index<notempty name='Think.get.where'>/where/<{$Think.get.where}></notempty><notempty name='Think.get.category'>/category/<{$Think.get.category}></notempty>" class="pro02_top_a01">默认</a>
+                            </empty>
+                        </empty>
+                        <empty name="Think.get.price">
+                            <eq name="Think.get.price" value="asc">
+                                <a href="__APP__/Artware/index<notempty name='Think.get.where'>/where/<{$Think.get.where}></notempty><notempty name='Think.get.category'>/category/<{$Think.get.category}></notempty>/price/desc" class="pro02_top_a02">价格</a>
+                                <else/>
+                                <a href="__APP__/Artware/index<notempty name='Think.get.where'>/where/<{$Think.get.where}></notempty><notempty name='Think.get.category'>/category/<{$Think.get.category}></notempty>/price/asc" class="pro02_top_a02">价格</a>
+                            </eq>
+                            <else/>
+                            <eq name="Think.get.price" value="asc">
+                                <a href="__APP__/Artware/index<notempty name='Think.get.where'>/where/<{$Think.get.where}></notempty><notempty name='Think.get.category'>/category/<{$Think.get.category}></notempty>/price/desc" class="pro02_top_a01">价格</a>
+                                <else/>
+                                <a href="__APP__/Artware/index<notempty name='Think.get.where'>/where/<{$Think.get.where}></notempty><notempty name='Think.get.category'>/category/<{$Think.get.category}></notempty>/price/asc" class="pro02_top_a01">价格</a>
+                            </eq>
+                        </empty>
+                        <empty name="Think.get.sales">
+                            <eq name="Think.get.sales" value="asc">
+                                <a href="__APP__/Artware/index<notempty name='Think.get.where'>/where/<{$Think.get.where}></notempty><notempty name='Think.get.category'>/category/<{$Think.get.category}></notempty>/sales/desc" class="pro02_top_a02">销量</a>
+                                <else/>
+                                <a href="__APP__/Artware/index<notempty name='Think.get.where'>/where/<{$Think.get.where}></notempty><notempty name='Think.get.category'>/category/<{$Think.get.category}></notempty>/sales/asc" class="pro02_top_a02">销量</a>
+                            </eq>
+                            <else/>
+                            <eq name="Think.get.sales" value="asc">
+                                <a href="__APP__/Artware/index<notempty name='Think.get.where'>/where/<{$Think.get.where}></notempty><notempty name='Think.get.category'>/category/<{$Think.get.category}></notempty>/sales/desc" class="pro02_top_a01">销量</a>
+                                <else/>
+                                <a href="__APP__/Artware/index<notempty name='Think.get.where'>/where/<{$Think.get.where}></notempty><notempty name='Think.get.category'>/category/<{$Think.get.category}></notempty>/sales/asc" class="pro02_top_a01">销量</a>
+                            </eq>
+                        </empty>
+                    </div>
+                    <!--<div class="pro02_top_r">-->
+                    <!--第<strong>1/8</strong>页　<a href=""><img src="../Public/images/btn03.png" /></a><a href=""><img src="../Public/images/btn04.png" /></a>-->
+                    <!--</div>-->
+                    <div style="clear:both"></div>
+                </div><!----->
+
+                <div class="pro02_m" id="insert-shop-product-list">
+
+                    <empty name="list">
+
+                        <span style="height: 50px;line-height: 50px;padding-top: 20px;display: inline-block;text-indent: 20px;color:#666">暂无产品</span>
+
+                        <else/>
+
+                        <volist name="list" id="volist">
+                            <div class="pro02_m_01">
+                                <a href="__APP__/Shops/<{$volist.merchant_no}>/details/<{$volist.id}>.html">
+                                    <img src="__PUBLIC__/Content/CommodityList/cut_<{$volist.image}>" />
+                                </a>
+                                <h3> <a href="__APP__/Shops/<{$volist.merchant_no}>/details/<{$volist.id}>.html">
+                                    <gt name="volist.name|mb_strlen='utf-8'" value="28">
+                                        <span title="<{$volist.name}>"><{$volist.name|mb_substr=0,28,"utf-8"}>...</span>
+                                        <else/>
+                                        <span><{$volist.name}></span>
+                                    </gt>
+                                </a></h3>
+                                <h4>原价：&#165; <del><{$volist.original_cost}></del></h4>
+                                <h5>现价：&#165; <span style="color:#BE1D22"><{$volist.current_price}></span></h5>
+                            </div>
+                        </volist>
+
+                    </empty>
+
+
+                    <div style="clear:both"></div>
+
+                    <notempty name="list">
+                        <div style="height: 40px;line-height: 40px;margin-top: 15px;">
+                            <span style="float: right;margin-right: 10px;">
+                            <{$fpage}>
+                            </span>
+                        </div>
+                    </notempty>
+
+                </div><!----->
+
+            </div><!----pro02---->
+
+        </div><!------->

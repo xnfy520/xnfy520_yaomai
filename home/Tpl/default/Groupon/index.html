@@ -1,0 +1,380 @@
+<layout name='layout'/>
+<script>
+  function lxfEndtime(){
+	  $(".lxftime").each(function(){
+		var lxfday=$(this).attr("lxfday");//用来判断是否显示天数的变量
+		var endtime = new Date($(this).attr("endtime")).getTime();//取结束日期(毫秒值)
+		var nowtime = new Date().getTime();        //今天的日期(毫秒值)
+		var youtime = endtime-nowtime;//还有多久(毫秒值)
+		var seconds = youtime/1000;
+		var minutes = Math.floor(seconds/60);
+		var hours = Math.floor(minutes/60);
+		var days = Math.floor(hours/24);
+		var CDay= days ;
+		var CHour= hours % 24;
+		var CMinute= minutes % 60;
+		var CSecond= Math.floor(seconds%60);//"%"是取余运算，可以理解为60进一后取余数，然后只要余数。
+		if(endtime<=nowtime){
+				$(this).html("已过期")//如果结束日期小于当前日期就提示过期啦
+				}else{
+						if($(this).attr("lxfday")=="no"){
+								$(this).html("预售中：<span>"+CHour+"</span>时<span>"+CMinute+"</span>分<span>"+CSecond+"</span>秒");          //输出没有天数的数据
+								}else{
+				$(this).html("结束时间：<span>"+days+"</span>天<span>"+CHour+"</span>时<span>"+CMinute+"</span>分<span>"+CSecond+"</span>秒");          //输出有天数的数据
+						}
+				}
+	  });
+   setTimeout("lxfEndtime()",1000);
+  };
+$(function(){
+      lxfEndtime();
+   });
+</script>
+<div id="dd-sptg">
+    	<div id="dd-sptg-top">
+            商品团购：
+            <a href="#">床</a>
+            <a href="#">沙发</a>
+            <a href="#">桌子</a>
+            <a href="#">椅子</a>
+            <a href="#">柜子</a>
+            <a href="#">灯具</a>
+        </div>
+        <div id="dd-sptg-bottom">
+        	<span style="float:left">排序：</span>
+            <a class="dd-mr" href="#">默认</a>
+            <a class="dd-up-bg arrow-down" href="#">销量</a>
+            <a class="dd-dafault-bg arrow-up" href="#">价格</a>
+            <a href="#" class="fr syy m_right5">下一页</a>
+            <a href="#" class="fr syy">上一页</a>
+            <a class="fr">1/5</a>
+        </div>
+    </div>
+    
+    <div id="dd-tg-picList">
+        <div>
+            <ul>
+                <li>
+                	<div class="dd-jssj lxftime" endtime="7/31/2013 9:3:5"></div>
+                	<div class="dd-tg-photo">
+                    	<a href="__APP__/Groupon/details"><img src="../Public/photo/photo_3.jpg" width="280" height="185" /></a>
+                        <div class="dd-tg-photo-title">
+                        	<table width="280" height="59" border="0" cellspacing="0" cellpadding="0">
+                              <tr>
+                                <td width="170" height="21" class="p_left10">市场价：2323</td>
+                                <td width="90" height="21" align="right" class="p_right10">已团购13件</td>
+                              </tr>
+                              <tr>
+                                <td width="170" class="p_left10 pay" align="left" height="38">¥399.00</td>
+                                <td width="100" align="center" height="38"><a href="#"><img src="../Public/photo/qkk.png" width="84" height="28" /></a></td>
+                              </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="dd-tg-name">
+                    	<a href="#">世友地板 大美木豆实木复合地板 包送货到家，安装费用16元一平方</a>
+                    </div>
+                </li>
+                <li>
+                	<div class="dd-jssj lxftime" endtime="7/31/2013 9:3:5"></div>
+                	<div class="dd-tg-photo">
+                    	<a href="__APP__/Groupon/details"><img src="../Public/photo/photo_3.jpg" width="280" height="185" /></a>
+                        <div class="dd-tg-photo-title">
+                        	<table width="280" height="59" border="0" cellspacing="0" cellpadding="0">
+                              <tr>
+                                <td width="170" height="21" class="p_left10">市场价：</td>
+                                <td width="90" height="21" align="right" class="p_right10">已团购13件</td>
+                              </tr>
+                              <tr>
+                                <td width="170" class="p_left10 pay" align="left" height="38">¥399.00</td>
+                                <td width="100" align="center" height="38"><a href="#"><img src="../Public/photo/qkk.png" width="84" height="28" /></a></td>
+                              </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="dd-tg-name">
+                    	<a href="#">世友地板 大美木豆实木复合地板 包送货到家，安装费用16元一平方</a>
+                    </div>
+                </li>
+                <li>
+                	<div class="dd-jssj lxftime" endtime="7/31/2013 9:3:5"></div>
+                	<div class="dd-tg-photo">
+                    	<a href="__APP__/Groupon/details"><img src="../Public/photo/photo_3.jpg" width="280" height="185" /></a>
+                        <div class="dd-tg-photo-title">
+                        	<table width="280" height="59" border="0" cellspacing="0" cellpadding="0">
+                              <tr>
+                                <td width="170" height="21" class="p_left10">市场价：</td>
+                                <td width="90" height="21" align="right" class="p_right10">已团购13件</td>
+                              </tr>
+                              <tr>
+                                <td width="170" class="p_left10 pay" align="left" height="38">¥399.00</td>
+                                <td width="100" align="center" height="38"><a href="#"><img src="../Public/photo/qkk.png" width="84" height="28" /></a></td>
+                              </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="dd-tg-name">
+                    	<a href="#">世友地板 大美木豆实木复合地板 包送货到家，安装费用16元一平方</a>
+                    </div>
+                </li>
+                <li>
+                	<div class="dd-jssj lxftime" endtime="7/31/2013 9:3:5"></div>
+                	<div class="dd-tg-photo">
+                    	<a href="__APP__/Groupon/details"><img src="../Public/photo/photo_3.jpg" width="280" height="185" /></a>
+                        <div class="dd-tg-photo-title">
+                        	<table width="280" height="59" border="0" cellspacing="0" cellpadding="0">
+                              <tr>
+                                <td width="170" height="21" class="p_left10">市场价：</td>
+                                <td width="90" height="21" align="right" class="p_right10">已团购13件</td>
+                              </tr>
+                              <tr>
+                                <td width="170" class="p_left10 pay" align="left" height="38">¥399.00</td>
+                                <td width="100" align="center" height="38"><a href="#"><img src="../Public/photo/qkk.png" width="84" height="28" /></a></td>
+                              </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="dd-tg-name">
+                    	<a href="#">世友地板 大美木豆实木复合地板 包送货到家，安装费用16元一平方</a>
+                    </div>
+                </li>
+                <li>
+                	<div class="dd-jssj lxftime" endtime="7/31/2013 9:3:5"></div>
+                	<div class="dd-tg-photo">
+                    	<a href="__APP__/Groupon/details"><img src="../Public/photo/photo_3.jpg" width="280" height="185" /></a>
+                        <div class="dd-tg-photo-title">
+                        	<table width="280" height="59" border="0" cellspacing="0" cellpadding="0">
+                              <tr>
+                                <td width="170" height="21" class="p_left10">市场价：</td>
+                                <td width="90" height="21" align="right" class="p_right10">已团购13件</td>
+                              </tr>
+                              <tr>
+                                <td width="170" class="p_left10 pay" align="left" height="38">¥399.00</td>
+                                <td width="100" align="center" height="38"><a href="#"><img src="../Public/photo/qkk.png" width="84" height="28" /></a></td>
+                              </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="dd-tg-name">
+                    	<a href="#">世友地板 大美木豆实木复合地板 包送货到家，安装费用16元一平方</a>
+                    </div>
+                </li>
+                <li>
+                	<div class="dd-jssj lxftime" endtime="7/31/2013 9:3:5"></div>
+                	<div class="dd-tg-photo">
+                    	<a href="#"><img src="../Public/photo/photo_3.jpg" width="280" height="185" /></a>
+                        <div class="dd-tg-photo-title">
+                        	<table width="280" height="59" border="0" cellspacing="0" cellpadding="0">
+                              <tr>
+                                <td width="170" height="21" class="p_left10">市场价：</td>
+                                <td width="90" height="21" align="right" class="p_right10">已团购13件</td>
+                              </tr>
+                              <tr>
+                                <td width="170" class="p_left10 pay" align="left" height="38">¥399.00</td>
+                                <td width="100" align="center" height="38"><a href="#"><img src="../Public/photo/qkk.png" width="84" height="28" /></a></td>
+                              </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="dd-tg-name">
+                    	<a href="#">世友地板 大美木豆实木复合地板 包送货到家，安装费用16元一平方</a>
+                    </div>
+                </li>
+                <li>
+                	<div class="dd-jssj lxftime" endtime="7/31/2013 9:3:5"></div>
+                	<div class="dd-tg-photo">
+                    	<a href="#"><img src="../Public/photo/photo_3.jpg" width="280" height="185" /></a>
+                        <div class="dd-tg-photo-title">
+                        	<table width="280" height="59" border="0" cellspacing="0" cellpadding="0">
+                              <tr>
+                                <td width="170" height="21" class="p_left10">市场价：</td>
+                                <td width="90" height="21" align="right" class="p_right10">已团购13件</td>
+                              </tr>
+                              <tr>
+                                <td width="170" class="p_left10 pay" align="left" height="38">¥399.00</td>
+                                <td width="100" align="center" height="38"><a href="#"><img src="../Public/photo/qkk.png" width="84" height="28" /></a></td>
+                              </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="dd-tg-name">
+                    	<a href="#">世友地板 大美木豆实木复合地板 包送货到家，安装费用16元一平方</a>
+                    </div>
+                </li>
+                <li>
+                	<div class="dd-jssj lxftime" endtime="7/31/2013 9:3:5"></div>
+                	<div class="dd-tg-photo">
+                    	<a href="#"><img src="../Public/photo/photo_3.jpg" width="280" height="185" /></a>
+                        <div class="dd-tg-photo-title">
+                        	<table width="280" height="59" border="0" cellspacing="0" cellpadding="0">
+                              <tr>
+                                <td width="170" height="21" class="p_left10">市场价：</td>
+                                <td width="90" height="21" align="right" class="p_right10">已团购13件</td>
+                              </tr>
+                              <tr>
+                                <td width="170" class="p_left10 pay" align="left" height="38">¥399.00</td>
+                                <td width="100" align="center" height="38"><a href="#"><img src="../Public/photo/qkk.png" width="84" height="28" /></a></td>
+                              </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="dd-tg-name">
+                    	<a href="#">世友地板 大美木豆实木复合地板 包送货到家，安装费用16元一平方</a>
+                    </div>
+                </li>
+                <li>
+                	<div class="dd-jssj lxftime" endtime="7/31/2013 9:3:5"></div>
+                	<div class="dd-tg-photo">
+                    	<a href="#"><img src="../Public/photo/photo_3.jpg" width="280" height="185" /></a>
+                        <div class="dd-tg-photo-title">
+                        	<table width="280" height="59" border="0" cellspacing="0" cellpadding="0">
+                              <tr>
+                                <td width="170" height="21" class="p_left10">市场价：</td>
+                                <td width="90" height="21" align="right" class="p_right10">已团购13件</td>
+                              </tr>
+                              <tr>
+                                <td width="170" class="p_left10 pay" align="left" height="38">¥399.00</td>
+                                <td width="100" align="center" height="38"><a href="#"><img src="../Public/photo/qkk.png" width="84" height="28" /></a></td>
+                              </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="dd-tg-name">
+                    	<a href="#">世友地板 大美木豆实木复合地板 包送货到家，安装费用16元一平方</a>
+                    </div>
+                </li>
+                <li>
+                	<div class="dd-jssj lxftime" endtime="7/31/2013 9:3:5"></div>
+                	<div class="dd-tg-photo">
+                    	<a href="#"><img src="../Public/photo/photo_3.jpg" width="280" height="185" /></a>
+                        <div class="dd-tg-photo-title">
+                        	<table width="280" height="59" border="0" cellspacing="0" cellpadding="0">
+                              <tr>
+                                <td width="170" height="21" class="p_left10">市场价：</td>
+                                <td width="90" height="21" align="right" class="p_right10">已团购13件</td>
+                              </tr>
+                              <tr>
+                                <td width="170" class="p_left10 pay" align="left" height="38">¥399.00</td>
+                                <td width="100" align="center" height="38"><a href="#"><img src="../Public/photo/qkk.png" width="84" height="28" /></a></td>
+                              </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="dd-tg-name">
+                    	<a href="#">世友地板 大美木豆实木复合地板 包送货到家，安装费用16元一平方</a>
+                    </div>
+                </li>
+                <li>
+                	<div class="dd-jssj lxftime" endtime="7/31/2013 9:3:5"></div>
+                	<div class="dd-tg-photo">
+                    	<a href="#"><img src="../Public/photo/photo_3.jpg" width="280" height="185" /></a>
+                        <div class="dd-tg-photo-title">
+                        	<table width="280" height="59" border="0" cellspacing="0" cellpadding="0">
+                              <tr>
+                                <td width="170" height="21" class="p_left10">市场价：</td>
+                                <td width="90" height="21" align="right" class="p_right10">已团购13件</td>
+                              </tr>
+                              <tr>
+                                <td width="170" class="p_left10 pay" align="left" height="38">¥399.00</td>
+                                <td width="100" align="center" height="38"><a href="#"><img src="../Public/photo/qkk.png" width="84" height="28" /></a></td>
+                              </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="dd-tg-name">
+                    	<a href="#">世友地板 大美木豆实木复合地板 包送货到家，安装费用16元一平方</a>
+                    </div>
+                </li>
+                <li>
+                	<div class="dd-jssj lxftime" endtime="7/31/2013 9:3:5"></div>
+                	<div class="dd-tg-photo">
+                    	<a href="#"><img src="../Public/photo/photo_3.jpg" width="280" height="185" /></a>
+                        <div class="dd-tg-photo-title">
+                        	<table width="280" height="59" border="0" cellspacing="0" cellpadding="0">
+                              <tr>
+                                <td width="170" height="21" class="p_left10">市场价：</td>
+                                <td width="90" height="21" align="right" class="p_right10">已团购13件</td>
+                              </tr>
+                              <tr>
+                                <td width="170" class="p_left10 pay" align="left" height="38">¥399.00</td>
+                                <td width="100" align="center" height="38"><a href="#"><img src="../Public/photo/qkk.png" width="84" height="28" /></a></td>
+                              </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="dd-tg-name">
+                    	<a href="#">世友地板 大美木豆实木复合地板 包送货到家，安装费用16元一平方</a>
+                    </div>
+                </li>
+                <li>
+                	<div class="dd-jssj lxftime" endtime="7/31/2013 9:3:5"></div>
+                	<div class="dd-tg-photo">
+                    	<a href="#"><img src="../Public/photo/photo_3.jpg" width="280" height="185" /></a>
+                        <div class="dd-tg-photo-title">
+                        	<table width="280" height="59" border="0" cellspacing="0" cellpadding="0">
+                              <tr>
+                                <td width="170" height="21" class="p_left10">市场价：</td>
+                                <td width="90" height="21" align="right" class="p_right10">已团购13件</td>
+                              </tr>
+                              <tr>
+                                <td width="170" class="p_left10 pay" align="left" height="38">¥399.00</td>
+                                <td width="100" align="center" height="38"><a href="#"><img src="../Public/photo/qkk.png" width="84" height="28" /></a></td>
+                              </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="dd-tg-name">
+                    	<a href="#">世友地板 大美木豆实木复合地板 包送货到家，安装费用16元一平方</a>
+                    </div>
+                </li>
+                <li>
+                	<div class="dd-jssj lxftime" endtime="7/31/2013 9:3:5"></div>
+                	<div class="dd-tg-photo">
+                    	<a href="#"><img src="../Public/photo/photo_3.jpg" width="280" height="185" /></a>
+                        <div class="dd-tg-photo-title">
+                        	<table width="280" height="59" border="0" cellspacing="0" cellpadding="0">
+                              <tr>
+                                <td width="170" height="21" class="p_left10">市场价：</td>
+                                <td width="90" height="21" align="right" class="p_right10">已团购13件</td>
+                              </tr>
+                              <tr>
+                                <td width="170" class="p_left10 pay" align="left" height="38">¥399.00</td>
+                                <td width="100" align="center" height="38"><a href="#"><img src="../Public/photo/qkk.png" width="84" height="28" /></a></td>
+                              </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="dd-tg-name">
+                    	<a href="#">世友地板 大美木豆实木复合地板 包送货到家，安装费用16元一平方</a>
+                    </div>
+                </li>
+                <li>
+                	<div class="dd-jssj lxftime" endtime="7/31/2013 9:3:5"></div>
+                	<div class="dd-tg-photo">
+                    	<a href="#"><img src="../Public/photo/photo_3.jpg" width="280" height="185" /></a>
+                        <div class="dd-tg-photo-title">
+                        	<table width="280" height="59" border="0" cellspacing="0" cellpadding="0">
+                              <tr>
+                                <td width="170" height="21" class="p_left10">市场价：</td>
+                                <td width="90" height="21" align="right" class="p_right10">已团购13件</td>
+                              </tr>
+                              <tr>
+                                <td width="170" class="p_left10 pay" align="left" height="38">¥399.00</td>
+                                <td width="100" align="center" height="38"><a href="#"><img src="../Public/photo/qkk.png" width="84" height="28" /></a></td>
+                              </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="dd-tg-name">
+                    	<a href="#">世友地板 大美木豆实木复合地板 包送货到家，安装费用16元一平方</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div id="dd-page-num" align="right">
+    	<a href="#">1</a>
+    	<a href="#">2</a>
+    	<a href="#">3</a>···
+    	<a href="#" class="m_right6">8</a>共8页 到第<input type="text" /><input type="submit" value="确定" />
+    </div>

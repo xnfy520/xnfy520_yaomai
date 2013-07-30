@@ -1,0 +1,36 @@
+
+<empty name="list">
+
+    <span style="height: 50px;line-height: 50px;padding-top: 20px;display: inline-block;text-indent: 20px;color:#666">暂无产品</span>
+
+    <else/>
+
+    <volist name="list" id="volist">
+        <div class="pro02_m_01">
+            <a href="__APP__/Shops/<{$volist.merchant_no}>/details/<{$volist.id}>.html">
+                <img src="__PUBLIC__/Content/CommodityList/cut_<{$volist.image}>" />
+            </a>
+            <h3> <a href="__APP__/Shops/<{$volist.merchant_no}>/details/<{$volist.id}>.html">
+                <gt name="volist.name|mb_strlen='utf-8'" value="28">
+                    <span title="<{$volist.name}>"><{$volist.name|mb_substr=0,28,"utf-8"}>...</span>
+                    <else/>
+                    <span><{$volist.name}></span>
+                </gt>
+            </a></h3>
+            <h4>原价：&#165; <del><{$volist.original_cost}></del></h4>
+            <h5>现价：&#165; <span style="color:#BE1D22"><{$volist.current_price}></span></h5>
+        </div>
+    </volist>
+
+</empty>
+
+
+<div style="clear:both"></div>
+
+<notempty name="list">
+    <div style="height: 40px;line-height: 40px;margin-top: 15px;">
+        <span style="float: right;margin-right: 10px;">
+        <{$fpage}>
+        </span>
+    </div>
+</notempty>
