@@ -51,7 +51,7 @@
                 <strong>现　　价：</strong>
                     <input type="text" name="price" value="<{$data.price|default=0.00}>" style="width: 47px;text-align: center;height: 18px;" maxlength="8" />　
                 <strong>截止日期：</strong>
-                <input type="text" name="expiration_date" value="<{$data.expiration_date|default=''|date="Y-m-d",###}>" class="Wdate" type="text" onfocus="WdatePicker({minDate:'%y-%M-{%d+1}'})" readonly="readonly" style="width: 100px;height: 18px;text-indent:5px" />　
+                <input type="text" name="expiration_date" value="<{$data.expiration_date|default=''|date="Y-m-d",###}>" class="Wdate" type="text" onfocus="WdatePicker()" readonly="readonly" style="width: 100px;height: 18px;text-indent:5px" />　
                 <strong>排　　序：</strong>
                 <input title="值必须在0-255 (必填)" type="text" name="sort"  value="<{$data.sort|default=0}>" style="width: 50px;text-align: center;height: 18px;" maxlength="3" />　
                 <strong>体　　积：</strong>
@@ -109,7 +109,7 @@
                 'insertorderedlist','insertunorderedlist',
                 'clearhtml', 'quickformat',
                 'forecolor', 'hilitecolor', 'bold','italic', 'underline', 'strikethrough',
-                'removeformat','emoticons', 'link', 'unlink', 'selectall',  'fullscreen'
+                'removeformat','emoticons','image', 'link', 'unlink', 'selectall',  'fullscreen'
             ]
         });
         editor2 = K.create('.textareas', {

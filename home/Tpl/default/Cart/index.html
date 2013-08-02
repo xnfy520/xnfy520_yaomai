@@ -26,28 +26,23 @@
         
     </div>
 
- <div id="xm-gxq1">您可能感兴趣的商品</div>
-    <div id="xm-gxq2">
-    	<ul>
-        	<li class="xm-gxq3">
-                <div class="xm-gxq4"><a href="#"><img src="../Public/image/42.jpg" width="160" height="108" /></a></div>
-                <div class="xm-gxq5"><a href="#">现代中式田园橡木匠实木儿童床 1.2米 原木色 橡木家具，田园风格，中式家具</a></div>
-            </li>
-            <li class="xm-gxq3">
-                <div class="xm-gxq4"><a href="#"><img src="../Public/image/42.jpg" width="160" height="108" /></a></div>
-                <div class="xm-gxq5"><a href="#">现代中式田园橡木匠实木儿童床 1.2米 原木色 橡木家具，田园风格，中式家具</a></div>
-            </li>
-            <li class="xm-gxq3">
-                <div class="xm-gxq4"><a href="#"><img src="../Public/image/42.jpg" width="160" height="108" /></a></div>
-                <div class="xm-gxq5"><a href="#">现代中式田园橡木匠实木儿童床 1.2米 原木色 橡木家具，田园风格，中式家具</a></div>
-            </li>
-            <li class="xm-gxq3">
-                <div class="xm-gxq4"><a href="#"><img src="../Public/image/42.jpg" width="160" height="108" /></a></div>
-                <div class="xm-gxq5"><a href="#">现代中式田园橡木匠实木儿童床 1.2米 原木色 橡木家具，田园风格，中式家具</a></div>
-            </li>
-            <li class="xm-gxq3">
-                <div class="xm-gxq4"><a href="#"><img src="../Public/image/42.jpg" width="160" height="108" /></a></div>
-                <div class="xm-gxq5"><a href="#">现代中式田园橡木匠实木儿童床 1.2米 原木色 橡木家具，田园风格，中式家具</a></div>
-            </li>
-        </ul>
-    </div>
+<notempty name="cr">
+    <div id="xm-gxq1">您可能感兴趣的商品</div>
+        <div id="xm-gxq2">
+            <ul>
+                <volist name="cr" id="vo_cr">
+                    <li class="xm-gxq3">
+                        <div class="xm-gxq4"><a href="__APP__/Commodity/details/id/<{$vo_cr.CommodityList.id}>"><img src="__PUBLIC__/Content/CommodityList/thumb_<{$vo_cr.CommodityList.image}>" width="160" height="108" /></a></div>
+                        <div class="xm-gxq5"><a href="__APP__/Commodity/details/id/<{$vo_cr.CommodityList.id}>">
+                            <gt name="vo_cr.CommodityList.name|mb_strlen='utf-8'" value="38">
+                                <span title="<{$vo_cr.CommodityList.name}>"><{$vo_cr.CommodityList.name|mb_substr=0,38,"utf-8"}>...</span>
+                            <else/>
+                                <span><{$vo_cr.CommodityList.name}></span>
+                            </gt>
+                        </a></div>
+                    </li>
+                </volist>
+            </ul>
+        </div>
+</notempty>
+ 

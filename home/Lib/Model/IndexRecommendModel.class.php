@@ -10,6 +10,7 @@
 			'class_name'=>'CommodityList',
 			'foreign_key'=>'commodity_id',
 			'condition'=>'enable=1',
+			'mapping_fields'=>'id,pid,cid,name,image,price',
 		),
 
 	);

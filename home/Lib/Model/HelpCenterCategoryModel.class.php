@@ -9,9 +9,9 @@
 			'mapping_name'=>'HelpCenterInformation',
 			'class_name'=>'HelpCenterInformation',
 			'foreign_key'=>'pid',
-			'condition'=>'publish=1 AND recommend=1',
+			'condition'=>'publish=1',
 			'mapping_fields'=>'id,pid,name,sort',
-			'mapping_order'=>'sort',
+			'mapping_order'=>'sort,id',
 			'mapping_limit'=>4
 		),
 

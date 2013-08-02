@@ -7,13 +7,10 @@
 <div style="text-align: center;margin: 20px auto;">
     <p style="text-align: center;font-weight: bold;font-size: 17px;margin-bottom: 15px;position: relative;">
         <switch name="Think.get.type">
-            <case value="favorable">首页-超值优惠</case>
-            <case value="recommend">首页-精品推荐</case>
-            <case value="specialty">首页-区域特产</case>
-            <case value="commodity_recommend">风土人情详情页-商品推荐</case>
-            <case value="member_commodity_recommend">用户中心-商品推荐</case>
-            <case value="cart_commodity_recommend">购物车-商品推荐</case>
-            <default />首页-超值优惠
+            <case value="groupon">团购详情页-推荐</case>
+            <case value="member">个人中心页-推荐</case>
+            <case value="cart">购物车页-推荐</case>
+            <default />团购详情页-推荐
         </switch>
         <button type="button" id="add-commodity" style="position: absolute;left: 370px;margin: 0;">添加商品</button></p>
     <form action="javascript:;" method="post" name="commodity">
@@ -65,17 +62,17 @@
         <script>
             $(function(){
                 $("[name='commodity_name[]']").livequery(function() {
-                    var cache = {};
+                  //  var cache = {};
                     $("[name='commodity_name[]']").autocomplete({
-                        minLength: 2,
+                        minLength: 1,
                         source: function( request, response ) {
                             var term = request.term;
-                            if ( term in cache ) {
-                                response( cache[ term ] );
-                                return;
-                            }
+                            // if ( term in cache ) {
+                            //     response( cache[ term ] );
+                            //     return;
+                            // }
                             $.getJSON( define_app_url+'/System/get_commodity', request, function( data, status, xhr ) {
-                                cache[ term ] = data;
+                            //    cache[ term ] = data;
                                 response( data );
                             });
                         },

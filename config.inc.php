@@ -73,30 +73,18 @@
 
 		/*** 首页推荐配置***/
 		'index_recommend_config'=>array(
-			'favorable'=>array(
+			'groupon'=>array(
 				'type'=>1,
-				'name'=>'超值优惠',
+				'name'=>'团购详情页-推荐',
 			), //超值优惠
-			'recommend'=>array(
+			'member'=>array(
 				'type'=>2,
-				'name'=>'精品推荐',
+				'name'=>'个人中心页-推荐',
 			),//精品推荐
-			'specialty'=>array(
+			'cart'=>array(
 				'type'=>3,
-				'name'=>'区域特产',
+				'name'=>'购物车页-推荐',
 			),//区域特产
-			'commodity_recommend'=>array(
-				'type'=>4,
-				'name'=>'商品推荐',
-			),//商品推荐
-			'member_commodity_recommend'=>array(
-				'type'=>5,
-				'name'=>'用户中心商品推荐',
-			),//用户中心商品推荐
-			'cart_commodity_recommend'=>array(
-				'type'=>6,
-				'name'=>'购物车商品推荐',
-			),//用户中心商品推荐
 		),
 
 		/**送货时间配置**/

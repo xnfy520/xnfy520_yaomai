@@ -7,14 +7,9 @@
                 <li id="dd-bn">
                 	<div class="xm-banner">
                     	<dl>
-                        	<dd class="zg"><img src="../Public/image/30.jpg" width="980" height="510" /></dd>
-                        	<dd class="zd"><img src="../Public/image/7.jpg" width="980" height="510" /></dd>
-                        	<dd class="zd"><img src="../Public/image/30.jpg" width="980" height="510" /></dd>
-                        	<dd class="zd"><img src="../Public/image/7.jpg" width="980" height="510" /></dd>
-                        	<dd class="zd"><img src="../Public/image/30.jpg" width="980" height="510" /></dd>
-                        	<dd class="zd"><img src="../Public/image/7.jpg" width="980" height="510" /></dd>
-                        	<dd class="zd"><img src="../Public/image/30.jpg" width="980" height="510" /></dd>
-                        	<dd class="zd"><img src="../Public/image/7.jpg" width="980" height="510" /></dd>
+                            <volist name="data.CommodityImages" id="vo_ci">
+                                <dd class="zg"><img src="__PUBLIC__/Content/CommodityImages/thumb_<{$vo_ci.image}>" width="980" height="510" /></dd>
+                            </volist>
                         </dl>
                     </div>
                 </li>
@@ -45,140 +40,92 @@
 
     <div id="xm-crbanner">
     	<ul>
-        	<li><a href="#"><img src="../Public/image/31.jpg" /></a></li>
-            <li><a href="#"><img src="../Public/image/32.jpg" /></a></li>
-            <li><a href="#"><img src="../Public/image/31.jpg" /></a></li>
-            <li><a href="#"><img src="../Public/image/32.jpg" /></a></li>
-            <li><a href="#"><img src="../Public/image/31.jpg" /></a></li>
-            <li><a href="#"><img src="../Public/image/32.jpg" /></a></li>
-            <li><a href="#"><img src="../Public/image/31.jpg" /></a></li>
-            <li><a href="#"><img src="../Public/image/31.jpg" /></a></li>
+            <volist name="data.CommodityImages" id="vo_ci">
+                <li><a href="javascript:;"><img width=64 height=33 src="__PUBLIC__/Content/CommodityImages/thumb_<{$vo_ci.image}>" /></a></li>
+            </volist>
         </ul>
     </div>
 
     <div id="xm-zhuti">
     	<ul>
         	<li id="xm-zhuti-left">
-           	  <div class="xm-zhuti-left1">
-                  <ul>
-                  	<li class="xm-zhuti-left2">
-               	     	<h1>声明风格</h1>
-                		<p>当代的经典闺房风格轮廓，更新的外观相比背台词。在一系列的颜色。</p>
-                    </li>
-                    <li class="xm-zhuti-left3">
-                        <a class="editinfo" href="../Public/image/30.jpg">
-                        	<img alt="example2" src="../Public/image/33.jpg" width="220" height="115" />
-                        </a>
-                    </li>
-                  </ul>
-                </div>
-                
-                <div class="xm-zhuti-left1">
-                  <ul>
-                  	<li class="xm-zhuti-left2">
-               	     	<h1>贴心的设计</h1>
-                		<p>每一个角度考虑，手臂，手出身的腿和角褶背面滚动。一个美丽的独立的一块。</p>
-                    </li>
-                    <li class="xm-zhuti-left3">
-                        <a class="editinfo" href="../Public/image/30.jpg">
-                        	<img alt="example2" src="../Public/image/33.jpg" width="220" height="115" />
-                        </a>
-                    </li>
-                  </ul>
-                </div>
-                
-                <div class="xm-zhuti-left1">
-                  <ul>
-                  	<li class="xm-zhuti-left2">
-               	     	<h1>真正的奢侈品</h1>
-                		<p>这真的是舒适 - 具有弹性，但支持静坐和综合座垫无缝完成。豪华比利时天鹅绒。</p>
-                    </li>
-                    <li class="xm-zhuti-left3">
-                        <a class="editinfo" href="../Public/image/30.jpg">
-                        	<img alt="example2" src="../Public/image/33.jpg" width="220" height="115" />
-                        </a>
-                    </li>
-                  </ul>
-                </div>
-                
-                <div class="xm-zhuti-left1 xm-no-bo">
-                  <ul>
-                  	<li class="xm-zhuti-left2">
-               	     	<h1>在英国手工制作</h1>
-                		<p>整个集合在英国由手工精心制作的，我们的家庭式经营的制造商。混合和匹配，不拘一格的外观颜色。</p>
-                    </li>
-                    <li class="xm-zhuti-left3">
-                        <a class="editinfo" href="../Public/image/30.jpg">
-                        	<img alt="example2" src="../Public/image/33.jpg" width="220" height="115" />
-                        </a>
-                    </li>
-                  </ul>
-                </div>
+                <empty name="data.VoteDetails">
+                    <div style="margin-top:10px">无内容</div>
+                <else/>
+                    <volist name="data.CommodityDetails" id="vo_cd">
+                   	    <div class="xm-zhuti-left1">
+                          <ul>
+                          	<li class="xm-zhuti-left2">
+                       	     	<h1><{$vo_cd.name}></h1>
+                        		<p><{$vo_cd.description}></p>
+                            </li>
+                            <li class="xm-zhuti-left3">
+                                <a class="editinfo" href="__PUBLIC__/Content/CommodityDetails/<{$vo_cd.image}>">
+                                	<img alt="example2" src="__PUBLIC__/Content/CommodityDetails/thumb_<{$vo_cd.image}>" width="220" height="115" />
+                                </a>
+                            </li>
+                          </ul>
+                        </div>
+                    </volist>
+                </empty>
             </li>
 
           <li id="xm-zhuti-right">
-            <div id="xm-zhuti-right1">
-           	  <img style="float:left;" src="../Public/image/34.jpg" width="81" height="81" />
-              <strong style="font-size:13px;">艾米，公关和社会媒体经理说</strong>
-              <p>“关于加斯顿沙发和爱心座椅是一个老派的，迷人的氛围。试想一下，这些曲线，色彩是复杂的，是蛋糕上的樱桃天鹅绒完成！”</p> 
-            </div>
-            <div id="xm-zhuti-right2">
-             	<strong style="line-height:30px; font-size:13px;">为什么店Made.com</strong>
-                <div>伟大的设计，提供高达70％的折扣典型的高街价格</div>
-                <div>100％安全交易和回报做文章，免费</div>
-                <div>最后，因为你可以信任我们-我们已经交付了数千满意的客户遍布全国。通过他们的家弗里克卡。</div>
-            </div>
-            <div class="xm-zhuti-right3">
-            	<ul>
-                	<li class="xm-zhuti-r1">送货和退货</li>
-                    <li class="xm-zhuti-r2">得到这个出动</li>
-                    <li class="xm-zhuti-r3">8 - 10周之内</li>
-                    <li class="xm-zhuti-r2">标准交货价</li>
-                    <li class="xm-zhuti-r3">£0.00（300英镑以上的订单免费）</li>
-                </ul>
-            </div>
-            
-            <div class="xm-zhuti-right3">
-            	<ul>
-                	<li class="xm-zhuti-r1">产品尺寸</li>
-                    <li class="xm-zhuti-r2">一般尺寸</li>
-                    <li class="xm-zhuti-r3">W174所述D94所述H89</li>
-                    <li class="xm-zhuti-r2">座位高度</li>
-                    <li class="xm-zhuti-r3">46厘米</li>
-                    <li class="xm-zhuti-r2">其他尺寸</li>
-                    <li class="xm-zhuti-r3">8 - 10周之内</li>
-                    <li class="xm-zhuti-r2">包装尺寸</li>
-                    <li class="xm-zhuti-r3">座位宽度 - 114厘米，座椅深度 - 62厘米</li>
-                    <li class="xm-zhuti-r2">查看尺寸图</li>
-                    <li class="xm-zhuti-r3">177×96×71厘米</li>
-                </ul>
-            </div>
-            
-             <div class="xm-zhuti-right3">
-            	<ul>
-                	<li class="xm-zhuti-r1">产品详细信息</li>
-                    <li class="xm-zhuti-r2">框架</li>
-                    <li class="xm-zhuti-r3">实心桦木</li>
-                    <li class="xm-zhuti-r2">腿</li>
-                    <li class="xm-zhuti-r3">实心山毛榉木 - 古董完成</li>
-                    <li class="xm-zhuti-r2">悬挂</li>
-                    <li class="xm-zhuti-r3">泉</li>
-                    <li class="xm-zhuti-r2">填充</li>
-                    <li class="xm-zhuti-r3">泡沫（36kg/cbm）</li>
-                    <li class="xm-zhuti-r2">布</li>
-                    <li class="xm-zhuti-r3">70％涤纶，30％棉天鹅绒 - 富豪蓝色</li>
-                    <li class="xm-zhuti-r2">护理</li>
-                    <li class="xm-zhuti-r3">固定座套 - 专业护理</li>
-                    <li class="xm-zhuti-r2">装配</li>
-                    <li class="xm-zhuti-r3">容易</li>
-                    <li class="xm-zhuti-r2">重量</li>
-                    <li class="xm-zhuti-r3">47千克</li>
-                    <li class="xm-zhuti-r2">起源</li>
-                    <li class="xm-zhuti-r3">联合王国</li>
-                </ul>
-            </div>
-            
-            
+
+            <notempty name="data.Stylist">
+                <div id="xm-zhuti-right1">
+                    <img style="float:left;" src="__PUBLIC__/Content/Stylist/thumb_<{$data.Stylist.image}>" width="81" height="81" />
+                    <strong style="font-size:13px;"><{$data.Stylist.name}>说</strong>
+                    <p>“ <{$data.stylist_say}> ”</p> 
+                </div>
+            </notempty>
+            <notempty name="data.details">
+                <div id="xm-zhuti-right2">
+                    <{$data.details}>
+                </div>
+            </notempty>
+            <notempty name="data.p1">
+                <div class="xm-zhuti-right3">
+                	<ul>
+                    	<li class="xm-zhuti-r1">送货和退货</li>
+                        <volist name="data.p1" id="vo_p1">
+                            <ul>
+                                <li class="xm-zhuti-r2"><{$vo_p1|key}></li>
+                                <li class="xm-zhuti-r3"><{$vo_p1|current}></li>
+                            </ul>
+                        </volist>
+                    </ul>
+                </div>
+            </notempty>
+
+            <notempty name="data.p2">
+                <div class="xm-zhuti-right3">
+                    <ul>
+                        <li class="xm-zhuti-r1">产品尺寸</li>
+                        <volist name="data.p2" id="vo_p2">
+                            <ul>
+                                <li class="xm-zhuti-r2"><{$vo_p2|key}></li>
+                                <li class="xm-zhuti-r3"><{$vo_p2|current}></li>
+                            </ul>
+                        </volist>
+                    </ul>
+                </div>
+            </notempty>
+
+            <notempty name="data.p3">
+                <div class="xm-zhuti-right3">
+                    <ul>
+                        <li class="xm-zhuti-r1">产品详细信息</li>
+                        <volist name="data.p3" id="vo_p3">
+                            <ul>
+                                <li class="xm-zhuti-r2"><{$vo_p3|key}></li>
+                                <li class="xm-zhuti-r3"><{$vo_p3|current}></li>
+                            </ul>
+                        </volist>
+                    </ul>
+                </div>
+            </notempty>
+
           </li>
         </ul>
     </div>

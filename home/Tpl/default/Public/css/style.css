@@ -675,7 +675,7 @@ body{
 
 .downMenu{
 	width:978px;
-	height:223px;
+	/*height:223px;*/
 	border-width:0px 1px 1px 1px;
 	border-color:#000;
 	border-style:solid;
@@ -706,17 +706,18 @@ body{
 }	
 .downMenu-left-k{
 	width:670px; 
-	height:195px;
+	/*height:195px;*/
 }
 .downMenu-left{
 	width:650px;
-	height:160px;
+	/*height:160px;*/
 	border-top:1px solid #B1AEAE;
 	margin-left:15px;
 }
 .downMenu-left li{
 	width:160px;
-	height:150px;
+	margin-top: 15px;
+	/*height:150px;*/
 	text-align:left;
 }
 .downMenu-left li div{

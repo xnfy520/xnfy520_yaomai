@@ -111,29 +111,17 @@ class SystemAction extends CommonAction{
 
 			$order = 'id desc';
 
-			$CommodityListinfo = $CommodityList->field('id,name,by_user')->where($maps)->order($order)->limit(10)->select();
-
-			for($i=0; $i<count($CommodityListinfo); $i++){
-
-				$Merchantinfo = $Merchant->field('no')->where('status=1 AND enable=1 AND by_user='.$CommodityListinfo[$i]['by_user'])->find();
-				if(!empty($Merchantinfo)){
-					$CommodityListinfo[$i]['merchant_no'] = $Merchantinfo['no'];
-				}
-
-			}
+			$CommodityListinfo = $CommodityList->field('id,name')->where($maps)->order($order)->limit(10)->select();
 
 			$datas = array();
-			for($i=0; $i<count($CommodityListinfo); $i++){
-				if(isset($CommodityListinfo[$i]['merchant_no']) && !empty($CommodityListinfo[$i]['merchant_no'])){
-					$datas[] = $CommodityListinfo[$i];
-				}
-			}
+
+			$datas = $CommodityListinfo;
 
 			$result = array();
 
 			foreach ($datas as $key=>$value) {
 
-				array_push($result, array("value"=>$value['name'], "label" =>strip_tags($value['name']),"merchant_no"=>$value['merchant_no'],"product_id"=>$value['id']));
+				array_push($result, array("value"=>$value['name'], "label" =>strip_tags($value['name']),"product_id"=>$value['id']));
 				if (count($result) > 10){break;}
 
 			}

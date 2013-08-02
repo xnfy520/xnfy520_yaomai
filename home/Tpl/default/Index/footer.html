@@ -4,44 +4,21 @@
             <li class="guanyu1 bac1">
                 <div class="guanyu2">关于我们</div>
                 <div class="guabyu3">
-                    <a href="#">公司简介</a> 
-                    <a href="#">CEO致辞</a> 
-                    <a href="#">诚聘英才</a> 
-                    <a href="#">联系我们</a>
+                    <volist name="hcis" id="vo_hcis">
+                        <a href="__APP__/About/index/id/<{$vo_hcis.id}>"><{$vo_hcis.name}></a> 
+                    </volist>
                 </div>
             </li>
-            <li class="guanyu1 bac2">
-                <div class="guanyu2">新手指南</div>
-                <div class="guabyu3"> 
-                    <a href="#">注册新用户</a> 
-                    <a href="#">订购家具流程 </a> 
-                    <a href="#">付款方式</a> 
-                    <a href="#">常见问题解答</a>
-                </div>
-            </li>
-            <li class="guanyu1 bac3">
-                <div class="guanyu2">物流运输</div>
-                <div class="guabyu3"> 
-                    <a href="#">收货指南 </a> 
-                    <a href="#">物流配送程 </a> 
-                </div>
-            </li>
-            <li class="guanyu1 bac4">
-                <div class="guanyu2">今后服务</div>
-                <div class="guabyu3">  
-                    <a href="#">如何申请退款</a> 
-                    <a href="#">维修补件说明</a> 
-                </div>
-            </li>
-            <li class="guanyu1 bac5">
-                <div class="guanyu2">购物保障</div>
-                <div class="guabyu3"> 
-                    <a href="#">正品保障</a> 
-                    <a href="#">注册协议 </a> 
-                    <a href="#">隐私保护</a> 
-                    <a href="#">免责声明</a>
-                </div>
-            </li>
+            <volist name="hccl" id="vo_hccl" key="s">
+                <li class="guanyu1 bac<{$s+1}>">
+                    <div class="guanyu2"><{$vo_hccl.name}></div>
+                    <div class="guabyu3"> 
+                        <volist name="vo_hccl.HelpCenterInformation" id="vo_hccl_hci">
+                             <a href="__APP__/SupportCenter/index/id/<{$vo_hccl_hci.id}>"><{$vo_hccl_hci.name}></a>
+                        </volist>
+                    </div>
+                </li>
+            </volist>
             <li class="guanyu1">
               <div class="guanyu4">要买微信公众号</div>
               <div class="guanyu5"><img src="../Public/image/10.jpg" width="100" height="100" /></div>
@@ -52,8 +29,8 @@
     <!--底部链接-->
     <div class="foot">
         <ul>
-            <li class="foot1"><a href="#">关于我们</a></li>
-            <li class="foot1"><a href="#">联系我们 </a></li>
+            <li class="foot1"><a href="__APP__/About">关于我们</a></li>
+            <li class="foot1"><a href="__APP__/About/index/id/95">联系我们 </a></li>
             <li class="foot1"><a href="__APP__/SupportCenter">帮助中心</a></li>
             <li class="foot2">要买家具商城 版权所有 Copyright© 2002-2013 ICP备案号：鄂ICP备10207551号</li>
         </ul>
@@ -102,7 +79,6 @@
     var define_module_name = "<{$Think.const.MODULE_NAME}>";   //当前模块名
     var define_action_name = "<{$Think.const.ACTION_NAME}>";   //当前操作名
 
-  //  var define_fake_action_name = "<{$fake_action_name|default='index'}>";
     var define_fake_action_name = "<{$fake_action_name}>";
 
     var define_fake_action_value = "<{$define_fake_action_value}>";

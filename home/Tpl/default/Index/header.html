@@ -71,299 +71,34 @@
         <ul>
             <li><a style="padding: 10px 15px;" href="__APP__/Index">首页</a></li>
             <li><a style="padding: 10px 15px;" href="__APP__/About">关于我们</a></li>
-            <li><a class="normalMenu" href="__APP__/Commodity">床</a></li>
-            <li><a class="normalMenu" href="__APP__/Commodity">沙发</a></li>
-            <li><a class="normalMenu" href="__APP__/Commodity">桌子</a></li>
-            <li><a class="normalMenu" href="__APP__/Commodity">椅子</a></li>
-            <li><a class="normalMenu" href="__APP__/Commodity">柜子</a></li>
-            <li><a class="normalMenu" href="__APP__/Commodity">灯具</a></li>
+            <volist name="ccs" id="vo_ccs">
+                <li><a class="normalMenu" href="__APP__/Commodity/index/pid/<{$vo_ccs.id}>"><{$vo_ccs.name}></a></li>
+            </volist>
             <li><a style="padding: 10px 15px;" href="__APP__/Groupon">团购</a></li>
             <li><a style="padding: 10px 15px;" href="__APP__/Vote">最新投票产品</a></li>
             <li class="car"><div>购物车：&nbsp;<span>3</span>&nbsp;件</div></li>
             <li class="shop"><div><a href="__APP__/Cart">去结算</a></div></li>
         </ul>
 
-        <div class="downMenu" style="display:none;z-index:999">
+        <volist name="ccs" id="vo_ccs">
+                <div class="downMenu" style="display:none;z-index:999">
             <ul>
                 <li class="downMenu-left-k">
-                    <div class="downMenu-title">SHOP BY TYPE</div>
+                    <div class="downMenu-title"><{$vo_ccs.name}> 类型</div>
                     <div class="downMenu-left">
                         <ul>
-                            <li>
-                                <div><a href="#"> 2 Seater Sofas </a></div>
-                                <div><a href="#"> 3 Seater Sofas </a></div>
-                                <div><a href="#"> 4 Seater Sofas </a></div>
-                                <div><a href="#"> Modular Sofas </a></div>
-                                <div><a href="#"> Corner Sofas </a></div>
-                                <div><a href="#"> Armchairs </a></div>
-                            </li>
-                            <li>
-                                <div><a href="#"> Sofa Beds </a></div>
-                                <div><a href="#"> Ottomans and Footstools </a></div>
-                                <div><a href="#"> High Back Chairs </a></div>
-                                <div><a href="#"> Bean Bags </a></div>
-                                <div><a href="#"> Chaises </a></div>
-                                <div><a href="#"> Leather Seating </a></div>
-                            </li>
-                            <li>
-                                <div><a href="#"> Sofa Beds </a></div>
-                                <div><a href="#"> Ottomans and Footstools </a></div>
-                                <div><a href="#"> High Back Chairs </a></div>
-                                <div><a href="#"> Bean Bags </a></div>
-                                <div><a href="#"> Chaises </a></div>
-                                <div><a href="#"> Leather Seating </a></div>
-                            </li>
-                            <li>
-                                <div><a href="#"> Sofa Beds </a></div>
-                                <div><a href="#"> Ottomans and Footstools </a></div>
-                                <div><a href="#"> High Back Chairs </a></div>
-                                <div><a href="#"> Bean Bags </a></div>
-                                <div><a href="#"> Chaises </a></div>
-                                <div><a href="#"> Leather Seating </a></div>
-                            </li>
+                            <volist name="vo_ccs.CommoditySubclass" id="vo_css_cs">
+                                <li><a href="__APP__/Commodity/index/pid/<{$vo_css_cs.pid}>/cid/<{$vo_css_cs.id}>"> <{$vo_css_cs.name}> </a></li>
+                            </volist>
                         </ul>
                     </div>
                 </li>
             </ul>
             <div class="downMenu-bottom">
-                <a href="#">VIEW ALL GARDEN & LEISURE</a><span> »</span>
+                <a href="__APP__/Commodity/index/pid/<{$vo_ccs.id}>">查看所有 <{$vo_ccs.name}></a><span> »</span>
             </div>
         </div>
-        
-        <div class="downMenu" style="display:none;z-index:999">
-            <ul>
-                <li class="downMenu-left-k">
-                    <div class="downMenu-title">SHOP BY TYPE</div>
-                    <div class="downMenu-left">
-                        <ul>
-                            <li>
-                                <div><a href="#"> 2 Seater Sofas </a></div>
-                                <div><a href="#"> 3 Seater Sofas </a></div>
-                                <div><a href="#"> 4 Seater Sofas </a></div>
-                                <div><a href="#"> Modular Sofas </a></div>
-                                <div><a href="#"> Corner Sofas </a></div>
-                                <div><a href="#"> Armchairs </a></div>
-                            </li>
-                            <li>
-                                <div><a href="#"> Sofa Beds </a></div>
-                                <div><a href="#"> Ottomans and Footstools </a></div>
-                                <div><a href="#"> High Back Chairs </a></div>
-                                <div><a href="#"> Bean Bags </a></div>
-                                <div><a href="#"> Chaises </a></div>
-                                <div><a href="#"> Leather Seating </a></div>
-                            </li>
-                            <li>
-                                <div><a href="#"> Sofa Beds </a></div>
-                                <div><a href="#"> Ottomans and Footstools </a></div>
-                                <div><a href="#"> High Back Chairs </a></div>
-                                <div><a href="#"> Bean Bags </a></div>
-                                <div><a href="#"> Chaises </a></div>
-                                <div><a href="#"> Leather Seating </a></div>
-                            </li>
-                            <li>
-                                <div><a href="#"> Sofa Beds </a></div>
-                                <div><a href="#"> Ottomans and Footstools </a></div>
-                                <div><a href="#"> High Back Chairs </a></div>
-                                <div><a href="#"> Bean Bags </a></div>
-                                <div><a href="#"> Chaises </a></div>
-                                <div><a href="#"> Leather Seating </a></div>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-            </ul>
-            <div class="downMenu-bottom">
-                <a href="#">VIEW ALL GARDEN & LEISURE</a><span> »</span>
-            </div>
-        </div>
-        
-        <div class="downMenu" style="display:none;z-index:999">
-            <ul>
-                <li class="downMenu-left-k">
-                    <div class="downMenu-title">SHOP BY TYPE</div>
-                    <div class="downMenu-left">
-                        <ul>
-                            <li>
-                                <div><a href="#"> 2 Seater Sofas </a></div>
-                                <div><a href="#"> 3 Seater Sofas </a></div>
-                                <div><a href="#"> 4 Seater Sofas </a></div>
-                                <div><a href="#"> Modular Sofas </a></div>
-                                <div><a href="#"> Corner Sofas </a></div>
-                                <div><a href="#"> Armchairs </a></div>
-                            </li>
-                            <li>
-                                <div><a href="#"> Sofa Beds </a></div>
-                                <div><a href="#"> Ottomans and Footstools </a></div>
-                                <div><a href="#"> High Back Chairs </a></div>
-                                <div><a href="#"> Bean Bags </a></div>
-                                <div><a href="#"> Chaises </a></div>
-                                <div><a href="#"> Leather Seating </a></div>
-                            </li>
-                            <li>
-                                <div><a href="#"> Sofa Beds </a></div>
-                                <div><a href="#"> Ottomans and Footstools </a></div>
-                                <div><a href="#"> High Back Chairs </a></div>
-                                <div><a href="#"> Bean Bags </a></div>
-                                <div><a href="#"> Chaises </a></div>
-                                <div><a href="#"> Leather Seating </a></div>
-                            </li>
-                            <li>
-                                <div><a href="#"> Sofa Beds </a></div>
-                                <div><a href="#"> Ottomans and Footstools </a></div>
-                                <div><a href="#"> High Back Chairs </a></div>
-                                <div><a href="#"> Bean Bags </a></div>
-                                <div><a href="#"> Chaises </a></div>
-                                <div><a href="#"> Leather Seating </a></div>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-            </ul>
-            <div class="downMenu-bottom">
-                <a href="#">VIEW ALL GARDEN & LEISURE</a><span> »</span>
-            </div>
-        </div>
-        
-        <div class="downMenu" style="display:none;z-index:999">
-            <ul>
-                <li class="downMenu-left-k">
-                    <div class="downMenu-title">SHOP BY TYPE</div>
-                    <div class="downMenu-left">
-                        <ul>
-                            <li>
-                                <div><a href="#"> 2 Seater Sofas </a></div>
-                                <div><a href="#"> 3 Seater Sofas </a></div>
-                                <div><a href="#"> 4 Seater Sofas </a></div>
-                                <div><a href="#"> Modular Sofas </a></div>
-                                <div><a href="#"> Corner Sofas </a></div>
-                                <div><a href="#"> Armchairs </a></div>
-                            </li>
-                            <li>
-                                <div><a href="#"> Sofa Beds </a></div>
-                                <div><a href="#"> Ottomans and Footstools </a></div>
-                                <div><a href="#"> High Back Chairs </a></div>
-                                <div><a href="#"> Bean Bags </a></div>
-                                <div><a href="#"> Chaises </a></div>
-                                <div><a href="#"> Leather Seating </a></div>
-                            </li>
-                            <li>
-                                <div><a href="#"> Sofa Beds </a></div>
-                                <div><a href="#"> Ottomans and Footstools </a></div>
-                                <div><a href="#"> High Back Chairs </a></div>
-                                <div><a href="#"> Bean Bags </a></div>
-                                <div><a href="#"> Chaises </a></div>
-                                <div><a href="#"> Leather Seating </a></div>
-                            </li>
-                            <li>
-                                <div><a href="#"> Sofa Beds </a></div>
-                                <div><a href="#"> Ottomans and Footstools </a></div>
-                                <div><a href="#"> High Back Chairs </a></div>
-                                <div><a href="#"> Bean Bags </a></div>
-                                <div><a href="#"> Chaises </a></div>
-                                <div><a href="#"> Leather Seating </a></div>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-            </ul>
-            <div class="downMenu-bottom">
-                <a href="#">VIEW ALL GARDEN & LEISURE</a><span> »</span>
-            </div>
-        </div>
-        
-        <div class="downMenu" style="display:none;z-index:999">
-            <ul>
-                <li class="downMenu-left-k">
-                    <div class="downMenu-title">SHOP BY TYPE</div>
-                    <div class="downMenu-left">
-                        <ul>
-                            <li>
-                                <div><a href="#"> 2 Seater Sofas </a></div>
-                                <div><a href="#"> 3 Seater Sofas </a></div>
-                                <div><a href="#"> 4 Seater Sofas </a></div>
-                                <div><a href="#"> Modular Sofas </a></div>
-                                <div><a href="#"> Corner Sofas </a></div>
-                                <div><a href="#"> Armchairs </a></div>
-                            </li>
-                            <li>
-                                <div><a href="#"> Sofa Beds </a></div>
-                                <div><a href="#"> Ottomans and Footstools </a></div>
-                                <div><a href="#"> High Back Chairs </a></div>
-                                <div><a href="#"> Bean Bags </a></div>
-                                <div><a href="#"> Chaises </a></div>
-                                <div><a href="#"> Leather Seating </a></div>
-                            </li>
-                            <li>
-                                <div><a href="#"> Sofa Beds </a></div>
-                                <div><a href="#"> Ottomans and Footstools </a></div>
-                                <div><a href="#"> High Back Chairs </a></div>
-                                <div><a href="#"> Bean Bags </a></div>
-                                <div><a href="#"> Chaises </a></div>
-                                <div><a href="#"> Leather Seating </a></div>
-                            </li>
-                            <li>
-                                <div><a href="#"> Sofa Beds </a></div>
-                                <div><a href="#"> Ottomans and Footstools </a></div>
-                                <div><a href="#"> High Back Chairs </a></div>
-                                <div><a href="#"> Bean Bags </a></div>
-                                <div><a href="#"> Chaises </a></div>
-                                <div><a href="#"> Leather Seating </a></div>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-            </ul>
-            <div class="downMenu-bottom">
-                <a href="#">VIEW ALL GARDEN & LEISURE</a><span> »</span>
-            </div>
-        </div>
-        
-        <div class="downMenu" style="display:none;z-index:999">
-            <ul>
-                <li class="downMenu-left-k">
-                    <div class="downMenu-title">SHOP BY TYPE</div>
-                    <div class="downMenu-left">
-                        <ul>
-                            <li>
-                                <div><a href="#"> 2 Seater Sofas </a></div>
-                                <div><a href="#"> 3 Seater Sofas </a></div>
-                                <div><a href="#"> 4 Seater Sofas </a></div>
-                                <div><a href="#"> Modular Sofas </a></div>
-                                <div><a href="#"> Corner Sofas </a></div>
-                                <div><a href="#"> Armchairs </a></div>
-                            </li>
-                            <li>
-                                <div><a href="#"> Sofa Beds </a></div>
-                                <div><a href="#"> Ottomans and Footstools </a></div>
-                                <div><a href="#"> High Back Chairs </a></div>
-                                <div><a href="#"> Bean Bags </a></div>
-                                <div><a href="#"> Chaises </a></div>
-                                <div><a href="#"> Leather Seating </a></div>
-                            </li>
-                            <li>
-                                <div><a href="#"> Sofa Beds </a></div>
-                                <div><a href="#"> Ottomans and Footstools </a></div>
-                                <div><a href="#"> High Back Chairs </a></div>
-                                <div><a href="#"> Bean Bags </a></div>
-                                <div><a href="#"> Chaises </a></div>
-                                <div><a href="#"> Leather Seating </a></div>
-                            </li>
-                            <li>
-                                <div><a href="#"> Sofa Beds </a></div>
-                                <div><a href="#"> Ottomans and Footstools </a></div>
-                                <div><a href="#"> High Back Chairs </a></div>
-                                <div><a href="#"> Bean Bags </a></div>
-                                <div><a href="#"> Chaises </a></div>
-                                <div><a href="#"> Leather Seating </a></div>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-            </ul>
-            <div class="downMenu-bottom">
-                <a href="#">VIEW ALL GARDEN & LEISURE</a><span> »</span>
-            </div>
-        </div>
+        </volist>
         
   </div>
 

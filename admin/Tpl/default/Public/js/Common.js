@@ -393,7 +393,9 @@ $(function(){
                                     var msg = JSON.parse(data);
                                     if(msg.status==1){
                                         jBox.close();
-                                        jBox.tip(msg.info, 'success',{ timeout: 1000,closed: function () {  }});
+                                        jBox.tip(msg.info, 'success',{ timeout: 1000,closed: function () { 
+                                            window.location = define_self_url;
+                                        }});
                                     }else{
                                         jBox.tip(msg.info, 'error',{ timeout: 1000});
                                     }
@@ -415,7 +417,10 @@ $(function(){
                 showIcon: false,
                 showSpeed: 'slow',
                 buttons: { '设置': 'ok','取消':'cancel'},
-                submit:edit_submit
+                submit:edit_submit,
+                closed:function(){
+                    window.location = define_self_url;
+                }
             });
 
     });
@@ -427,29 +432,17 @@ $(function(){
         var num = 0;
         var name = '';
         switch(type){
-            case 'favorable':
+            case 'groupon':
                 num = 6;
-                name = '首页-超值优惠';
+                name = '团购详情页-推荐';
                 break;
-            case 'recommend':
-                num = 8;
-                name = '首页-精品推荐';
+            case 'member':
+                num = 12;
+                name = '个人中心页-推荐';
                 break;
-            case 'specialty':
-                num = 9;
-                name = '首页-区域特产';
-                break;
-            case 'commodity_recommend':
+            case 'cart':
                 num = 5;
-                name = '风土人情详情页-商品推荐';
-                break;
-            case 'member_commodity_recommend':
-                num = 4;
-                name = '用户中心-商品推荐';
-                break;
-            case 'cart_commodity_recommend':
-                num = 5;
-                name = '购物车-商品推荐';
+                name = '购物车页-推荐';
                 break;
         }
         if(orgs.find("li").size()>=num){

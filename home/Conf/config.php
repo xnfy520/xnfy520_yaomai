@@ -4,7 +4,7 @@
 	$org = array(
 
 //		前台URL模式
-		'URL_MODEL'=>1, //使用REWRITE模式
+		'URL_MODEL'=>2, //使用REWRITE模式
 
 		'DEFAULT_THEME'=>'default', //默认模板主题目录
 

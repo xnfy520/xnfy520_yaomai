@@ -186,7 +186,7 @@ class CommodityListAction extends CommonAction{
 				$this->assign('data', $data);
 
 				$map['lid'] = $_GET['id'];
-				$map['by'] = 1;
+				$map['bys'] = 1;
 
 				$CommodityImages = M('CommodityImages');
 				$ciinfo = $CommodityImages->where($map)->order('id')->select();
@@ -245,7 +245,7 @@ class CommodityListAction extends CommonAction{
 					if(!empty($_POST['image_more'])){
 						$CommodityImages = M('CommodityImages');
 						$images_datas['lid'] = $insertid;
-						$images_datas['by'] = 1;
+						$images_datas['bys'] = 1;
 						for($i=0; $i<count($_POST['image_more']); $i++){
 							copy($tmpdir.'thumb_'.$_POST['image_more'][$i], $srcimagesdir.'thumb_'.$_POST['image_more'][$i]);
 							copy($tmpdir.'cut_'.$_POST['image_more'][$i], $srcimagesdir.'cut_'.$_POST['image_more'][$i]);
@@ -409,7 +409,7 @@ class CommodityListAction extends CommonAction{
 
 
 				$maps['lid'] = $data['id'];
-				$maps['by'] = 1;
+				$maps['bys'] = 1;
 
 				$CommodityImages = M('CommodityImages');
 				$ciinfos = $CommodityImages->where($maps)->select();
@@ -474,7 +474,7 @@ class CommodityListAction extends CommonAction{
 	function add_image(){
 		if(!empty($_POST['pid']) && !empty($_POST['id']) && !empty($_POST['image'])){
 			$map['lid'] = $_POST['id'];
-			$map['by'] = 1;
+			$map['bys'] = 1;
 			$map['image'] = $_POST['image'];
 			$CommodityImages = M('CommodityImages');
 			if($CommodityImages->add($map)){
@@ -494,8 +494,8 @@ class CommodityListAction extends CommonAction{
 	function delete_image(){
 		if(isset($_POST['id']) && !empty($_POST['id'])){
 			$CommodityImages = M('CommodityImages');
-			$data = $CommodityImages->where('by=1')->find($_POST['id']);
-			if($CommodityImages->where('by=1')->delete($_POST['id'])){
+			$data = $CommodityImages->where('bys=1')->find($_POST['id']);
+			if($CommodityImages->where('bys=1')->delete($_POST['id'])){
 				$srcdir = './Public/Content/CommodityImages/';
 				unlink($srcdir.'cut_'.$data['image']);
 				unlink($srcdir.'thumb_'.$data['image']);

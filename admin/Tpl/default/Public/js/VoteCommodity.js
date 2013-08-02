@@ -841,7 +841,7 @@ $(function(){
 
                 var str = JSON.stringify(msg.thumb_image_info);
 
-                var id = $("#HomeGrownProduct-add-edit").find("[name=id]").val();
+                var id = $("#VoteCommodity-add-edit").find("[name=id]").val();
 
                 if(id){
 

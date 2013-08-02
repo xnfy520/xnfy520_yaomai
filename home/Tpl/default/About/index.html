@@ -4,48 +4,34 @@
         <div id="dd-about">
             <ul>
                 <li id="dd-about-menu">
-                    <a class="dd-about-menu-a" href="#">公司简介</a>
-                    <a class="dd-about-menu-a" href="#">CEO致辞 </a>
-                    <a class="dd-about-menu-now" href="#">诚聘英才</a>
-                    <a class="dd-about-menu-a" href="#">联系我们 </a>
+                    <volist name="hcis" id="vo_hcis">
+                        <a href="__APP__/About/index/id/<{$vo_hcis.id}>" class="dd-about-menu-a"><{$vo_hcis.name}></a>
+                    </volist>
                 </li>
               <li id="dd-about-text">
-                	<div id="dd-about-title">诚聘英才</div>
+                	<div id="dd-about-title"><{$data.name}></div>
                     <div>
-                      <p>为为网成立于2007年，2010年正式上线，拥有软件开发、网站运营、网上商城管理等高级人才数百人，致力打造生活消费的现代电子商务网站，商品门类齐全，包括：食品、日用百货、数码通信、美容美妆、亲子母婴、家用电器、居家生活、休闲运动、办公用品、建材家具、票务酒店、仓储物流等所有消费领域 </p>
-                      <p>“为为网”凭借自身优势资源和优质服务平台，与国内外数十家知名企业建立了长期、稳定良好的合作关系，“为为网”成功入驻复旦软件园，与复旦软件园结为战略合作伙伴。</p>
-                      <p>公司地址：中国上海市宝山区长逸路15号国际家居馆B馆6楼<br />
-                        邮编：200441<br />
-                        联系人：刘先生<br />
-                        人力资源E-mail：hr@homevv.com</p>
-                      <br />
-                      <div class="dd-line"></div>
-                      <br />
-                      
-                      <p><strong>采购经理</strong><br />
-                        职位要求：<br />
-                        1.负责食品饮料，生活日用，美妆护肤，家用电器，休闲时尚，图书音像其中一板块采购管理<br />
-                        2.具有丰富的商品知识，熟悉采购管理运作流程，了解行业相关法规及质量体系标准；<br />
-                        3.丰富的上游供应商资源，良好的合作关系以及合同谈判能力 ；<br />
-                        4.具有良好的个人沟通技巧，包括部门内和跨部门间的组织协调；<br />
-                        5.具有良好的职业道德和较强的服务、团队、敬业精神，能承受一定工作压力；<br />
-                        6.熟练使用offce等办公软件；<br />
-                        7.适应出差。<br />
-                      可以直接发简历至：hr@homevv.com</p>
-                      <p>&nbsp;</p>
-                      <p><strong>行政前台</strong><br />
-                        任职资格：<br />
-                        1.一年以上相关行政前台工作经验（优秀应届生亦可）；<br />
-                        2.职业形象，端庄大方，普通话标准；<br />
-                        3.大专及其以上学历，行政、中文、文秘、管理或相关专业；<br />
-                        4.熟练使用Microsoft office，打字熟练 ；<br />
-                        5.语言表述沟通能力强，思路清晰，具备良好的文字表达能力；<br />
-                        6.为人热情，工作认真，强烈责任心，承受较强工作压力。<br />
-                      可以直接发简历至：hr@homevv.com </p>
-                  </div>
+                      <{$data.details}> 
+                    </div>
                 </li>
             </ul>
         </div>
-        
-        
     </div>
+    <script type="text/javascript">
+    $(function(){
+      
+        var flag = 0;
+        $("#dd-about-menu a").each(function(){
+          var a = $(this);
+          if(a.attr('href')==define_self_url){
+              a.removeClass("dd-about-menu-a").addClass("dd-about-menu-now");
+              flag = 1;
+          }
+        });
+
+        if(!flag){
+          $("#dd-about-menu a:first").removeClass("dd-about-menu-a").addClass("dd-about-menu-now");
+        }
+
+    })
+    </script>

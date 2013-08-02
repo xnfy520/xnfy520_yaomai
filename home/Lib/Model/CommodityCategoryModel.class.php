@@ -9,6 +9,10 @@
 				'mapping_name'=>'CommoditySubclass',
 				'class_name'=>'CommoditySubclass',
 				'foreign_key'=>'pid',
+				'condition'=>'publish=1',
+			//	'mapping_fields'=>'id,pid,name,sort',
+				'mapping_order'=>'sort,id',
+			//	'mapping_limit'=>4
 			),
 
 		);

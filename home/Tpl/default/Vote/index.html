@@ -3,7 +3,8 @@
   function lxfEndtime(){
 	  $(".lxftime").each(function(){
 		var lxfday=$(this).attr("lxfday");//用来判断是否显示天数的变量
-		var endtime = new Date($(this).attr("endtime")).getTime();//取结束日期(毫秒值)
+		var endtime = $(this).attr("endtime");//取结束日期(毫秒值)
+
 		var nowtime = new Date().getTime();        //今天的日期(毫秒值)
 		var youtime = endtime-nowtime;//还有多久(毫秒值)
 		var seconds = youtime/1000;
@@ -15,7 +16,7 @@
 		var CMinute= minutes % 60;
 		var CSecond= Math.floor(seconds%60);//"%"是取余运算，可以理解为60进一后取余数，然后只要余数。
 		if(endtime<=nowtime){
-				$(this).html("已过期")//如果结束日期小于当前日期就提示过期啦
+				$(this).html("已结束")//如果结束日期小于当前日期就提示过期啦
 				}else{
 						if($(this).attr("lxfday")=="no"){
 								$(this).html("预售中：<span>"+CHour+"</span>时<span>"+CMinute+"</span>分<span>"+CSecond+"</span>秒");          //输出没有天数的数据
@@ -30,257 +31,100 @@ $(function(){
       lxfEndtime();
    });
 </script>
+<div style="clear: both;height: 38px;line-height: 38px;width: 978px;margin: 13px auto 0 auto;" id="dd-bz-title">
+<a href="__APP__/Index">首页</a> &nbsp;>> <span style="color:#666;"><a href="__APP__/Vote">最新投票产品</a></span>
+</div>
+<empty name="list">
+    <div style="clear: both;height: 38px;line-height: 38px;width: 978px;margin: 13px auto 0 auto;">无商品</div>
+<else/>
 <div id="dd-sf">
-        	<span style="float:left">商品排序：</span>
-            <a class="dd-sf-mr arrow-down2" href="#">销量</a>
-            <a class="dd-sf-mr dd-sf-border-lr arrow-up2" href="#">价格</a>
-            <a class="dd-sf-mr arrow-down2" href="#">最新</a>
+            <span style="float:left">商品排序：</span>
+            <a class="dd-sf-mr <eq name='Think.get.sort' value='sales_volume'><eq name='Think.get.by' value='asc'>arrow-down2<else/>arrow-up2</eq></eq>" href="?<notempty name='Think.get.page'>&page=<{$Think.get.page}></notempty>&sort=sales_volume&by=<eq name='Think.get.by' value='desc'>asc<else/>desc</eq>">销量</a>
+
+            <a class="dd-sf-mr dd-sf-border-lr <eq name='Think.get.sort' value='price'><eq name='Think.get.by' value='asc'>arrow-down2<else/>arrow-up2</eq></eq>" href="?<notempty name='Think.get.page'>&page=<{$Think.get.page}></notempty>&sort=price&by=<eq name='Think.get.by' value='desc'>asc<else/>desc</eq>">价格</a>
+
+            <a class="dd-sf-mr <notin name='Think.get.sort' value='sales_volume,price,news'>arrow-up2</notin><eq name='Think.get.sort' value='news'><eq name='Think.get.by' value='asc'>arrow-down2<else/>arrow-up2</eq></eq>" href="?<notempty name='Think.get.page'>&page=<{$Think.get.page}></notempty>&sort=news&by=<eq name='Think.get.by' value='desc'>asc<else/>desc</eq>">最新</a>
             <div id="dd-fy">
             
-            <table width="100%" border="0" cellspacing="0" cellpadding="0">
-              <tr>
-                <td>共<span>44</span>个商品<span>2/3</span></td>
-                <td><a href="#" class="dd-fy-prev"></a></td>
-                <td><a href="#" class="dd-fy-next"></a></td>
-              </tr>
-            </table>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                  <tr>
+                    <td>共<span><{$fpage.total}></span>个商品<span><{$fpage.current}></span></td>
+                    <td>
+                        <empty name="fpage.prev.page">
+                            <a href="javascript:;" class="dd-fy-prev"></a>
+                        <else/>
+                            <a href="?page=<{$fpage.prev.page}>" class="dd-fy-prev"></a>
+                        </empty>
+                    </td>
+                    <td>
+                        <empty name="fpage.next.page">
+                            <a href="javascript:;" class="dd-fy-next"></a>
+                        <else/>
+                            <a href="?page=<{$fpage.next.page}>" class="dd-fy-next"></a>
+                        </empty>
+                    </td>
+                  </tr>
+                </table>
             </div>
     </div>
     
     <div id="dd-tp-picList">
         <div>
             <ul>
-                <li>
-                    <div class="dd-ysz lxftime" endtime="7/31/2013 9:3:5"></div>
-                	<a href="__APP__/Vote/details">
-                    	<img src="../Public/photo/photo_4.jpg" width="301" />
-                        <div>Halston的<span>2</span>人座沙发，黄昏灰</div>
-                        <div><strong>599</strong>人已预定</div>
-                        <div><strong>¥999.00</strong>元</div>
-                    </a>
-                    <div class="tp">
-                        <ul>
-                            <li><input type="image" src="../Public/image/tp.png" /></li>
-                            <li class="tpsl">已有<strong>121</strong>人投票</li>
-                        </ul>
-                    </div>
-                </li>
-                <li>
-                	<div class="dd-ysz lxftime" endtime="7/31/2013 9:3:5"></div>
-                	<a href="__APP__/Vote/details">
-                    	<img src="../Public/photo/photo_4.jpg" width="301" />
-                        <div>Halston的<span>2</span>人座沙发，黄昏灰</div>
-                        <div><strong>599</strong>人已预定</div>
-                        <div><strong>¥999.00</strong>元</div>
-                    </a>
-                    <div class="tp">
-                        <ul>
-                            <li><input type="image" src="../Public/image/tp.png" /></li>
-                            <li class="tpsl">已有<strong>121</strong>人投票</li>
-                        </ul>
-                    </div>
-                </li>
-                <li>
-                	<div class="dd-ysz lxftime" endtime="7/31/2013 9:3:5"></div>
-                	<a href="__APP__/Vote/details">
-                    	<img src="../Public/photo/photo_4.jpg" width="301" />
-                        <div>Halston的<span>2</span>人座沙发，黄昏灰</div>
-                        <div><strong>599</strong>人已预定</div>
-                        <div><strong>¥999.00</strong>元</div>
-                    </a>
-                    <div class="tp">
-                        <ul>
-                            <li><input type="image" src="../Public/image/tp.png" /></li>
-                            <li class="tpsl">已有<strong>121</strong>人投票</li>
-                        </ul>
-                    </div>
-                </li>
-                <li>
-                	<div class="dd-ysz lxftime" endtime="7/31/2013 9:3:5"></div>
-                	<a href="__APP__/Vote/details">
-                    	<img src="../Public/photo/photo_4.jpg" width="301" />
-                        <div>Halston的<span>2</span>人座沙发，黄昏灰</div>
-                        <div><strong>599</strong>人已预定</div>
-                        <div><strong>¥999.00</strong>元</div>
-                    </a>
-                    <div class="tp">
-                        <ul>
-                            <li><input type="image" src="../Public/image/tp.png" /></li>
-                            <li class="tpsl">已有<strong>121</strong>人投票</li>
-                        </ul>
-                    </div>
-                </li>
-                <li>
-                	<div class="dd-ysz lxftime" endtime="7/31/2013 9:3:5"></div>
-                	<a href="#">
-                    	<img src="../Public/photo/photo_4.jpg" width="301" />
-                        <div>Halston的<span>2</span>人座沙发，黄昏灰</div>
-                        <div><strong>599</strong>人已预定</div>
-                        <div><strong>¥999.00</strong>元</div>
-                    </a>
-                    <div class="tp">
-                        <ul>
-                            <li><input type="image" src="../Public/image/tp.png" /></li>
-                            <li class="tpsl">已有<strong>121</strong>人投票</li>
-                        </ul>
-                    </div>
-                </li>
-                <li>
-                	<div class="dd-ysz lxftime" endtime="7/31/2013 9:3:5"></div>
-                	<a href="#">
-                    	<img src="../Public/photo/photo_4.jpg" width="301" />
-                        <div>Halston的<span>2</span>人座沙发，黄昏灰</div>
-                        <div><strong>599</strong>人已预定</div>
-                        <div><strong>¥999.00</strong>元</div>
-                    </a>
-                    <div class="tp">
-                        <ul>
-                            <li><input type="image" src="../Public/image/tp.png" /></li>
-                            <li class="tpsl">已有<strong>121</strong>人投票</li>
-                        </ul>
-                    </div>
-                </li>
-                <li>
-                	<div class="dd-ysz lxftime" endtime="7/31/2013 9:3:5"></div>
-                	<a href="#">
-                    	<img src="../Public/photo/photo_4.jpg" width="301" />
-                        <div>Halston的<span>2</span>人座沙发，黄昏灰</div>
-                        <div><strong>599</strong>人已预定</div>
-                        <div><strong>¥999.00</strong>元</div>
-                    </a>
-                    <div class="tp">
-                        <ul>
-                            <li><input type="image" src="../Public/image/tp.png" /></li>
-                            <li class="tpsl">已有<strong>121</strong>人投票</li>
-                        </ul>
-                    </div>
-                </li>
-                <li>
-                	<div class="dd-ysz lxftime" endtime="7/31/2013 9:3:5"></div>
-                	<a href="#">
-                    	<img src="../Public/photo/photo_4.jpg" width="301" />
-                        <div>Halston的<span>2</span>人座沙发，黄昏灰</div>
-                        <div><strong>599</strong>人已预定</div>
-                        <div><strong>¥999.00</strong>元</div>
-                    </a>
-                    <div class="tp">
-                        <ul>
-                            <li><input type="image" src="../Public/image/tp.png" /></li>
-                            <li class="tpsl">已有<strong>121</strong>人投票</li>
-                        </ul>
-                    </div>
-                </li>
-                <li>
-                	<div class="dd-ysz lxftime" endtime="7/31/2013 9:3:5"></div>
-                	<a href="#">
-                    	<img src="../Public/photo/photo_4.jpg" width="301" />
-                        <div>Halston的<span>2</span>人座沙发，黄昏灰</div>
-                        <div><strong>599</strong>人已预定</div>
-                        <div><strong>¥999.00</strong>元</div>
-                    </a>
-                    <div class="tp">
-                        <ul>
-                            <li><input type="image" src="../Public/image/tp.png" /></li>
-                            <li class="tpsl">已有<strong>121</strong>人投票</li>
-                        </ul>
-                    </div>
-                </li>
-                <li>
-                	<div class="dd-ysz lxftime" endtime="7/31/2013 9:3:5"></div>
-                	<a href="#">
-                    	<img src="../Public/photo/photo_4.jpg" width="301" />
-                        <div>Halston的<span>2</span>人座沙发，黄昏灰</div>
-                        <div><strong>599</strong>人已预定</div>
-                        <div><strong>¥999.00</strong>元</div>
-                    </a>
-                    <div class="tp">
-                        <ul>
-                            <li><input type="image" src="../Public/image/tp.png" /></li>
-                            <li class="tpsl">已有<strong>121</strong>人投票</li>
-                        </ul>
-                    </div>
-                </li>
-                <li>
-                	<div class="dd-ysz lxftime" endtime="7/31/2013 9:3:5"></div>
-                	<a href="#">
-                    	<img src="../Public/photo/photo_4.jpg" width="301" />
-                        <div>Halston的<span>2</span>人座沙发，黄昏灰</div>
-                        <div><strong>599</strong>人已预定</div>
-                        <div><strong>¥999.00</strong>元</div>
-                    </a>
-                    <div class="tp">
-                        <ul>
-                            <li><input type="image" src="../Public/image/tp.png" /></li>
-                            <li class="tpsl">已有<strong>121</strong>人投票</li>
-                        </ul>
-                    </div>
-                </li>
-                <li>
-                	<div class="dd-ysz lxftime" endtime="7/31/2013 9:3:5"></div>
-                	<a href="#">
-                    	<img src="../Public/photo/photo_4.jpg" width="301" />
-                        <div>Halston的<span>2</span>人座沙发，黄昏灰</div>
-                        <div><strong>599</strong>人已预定</div>
-                        <div><strong>¥999.00</strong>元</div>
-                    </a>
-                    <div class="tp">
-                        <ul>
-                            <li><input type="image" src="../Public/image/tp.png" /></li>
-                            <li class="tpsl">已有<strong>121</strong>人投票</li>
-                        </ul>
-                    </div>
-                </li>
-                <li>
-                	<div class="dd-ysz lxftime" endtime="7/31/2013 9:3:5"></div>
-                	<a href="#">
-                    	<img src="../Public/photo/photo_4.jpg" width="301" />
-                        <div>Halston的<span>2</span>人座沙发，黄昏灰</div>
-                        <div><strong>599</strong>人已预定</div>
-                        <div><strong>¥999.00</strong>元</div>
-                    </a>
-                    <div class="tp">
-                        <ul>
-                            <li><input type="image" src="../Public/image/tp.png" /></li>
-                            <li class="tpsl">已有<strong>121</strong>人投票</li>
-                        </ul>
-                    </div>
-                </li>
-                <li>
-                	<div class="dd-ysz lxftime" endtime="7/31/2013 9:3:5"></div>
-                	<a href="#">
-                    	<img src="../Public/photo/photo_4.jpg" width="301" />
-                        <div>Halston的<span>2</span>人座沙发，黄昏灰</div>
-                        <div><strong>599</strong>人已预定</div>
-                        <div><strong>¥999.00</strong>元</div>
-                    </a>
-                    <div class="tp">
-                        <ul>
-                            <li><input type="image" src="../Public/image/tp.png" /></li>
-                            <li class="tpsl">已有<strong>121</strong>人投票</li>
-                        </ul>
-                    </div>
-                </li>
-                <li>
-                	<div class="dd-ysz lxftime" endtime="7/31/2013 9:3:5"></div>
-                	<a href="#">
-                    	<img src="../Public/photo/photo_4.jpg" width="301" />
-                        <div>Halston的<span>2</span>人座沙发，黄昏灰</div>
-                        <div><strong>599</strong>人已预定</div>
-                        <div><strong>¥999.00</strong>元</div>
-                    </a>
-                    <div class="tp">
-                        <ul>
-                            <li><input type="image" src="../Public/image/tp.png" /></li>
-                            <li class="tpsl">已有<strong>121</strong>人投票</li>
-                        </ul>
-                    </div>
-                </li>
+                <volist name="list" id="vo_list">
+                    <li>
+                        <div class="dd-ysz lxftime" endtime="<{$vo_list['expiration_date']*1000}>"></div>
+                    	<a href="__APP__/Vote/details/id/<{$vo_list.id}>">
+                        	<img src="__PUBLIC__/Content/VoteCommodity/thumb_<{$vo_list.image}>" width="301" height="183" />
+                            <div>
+                                <gt name="vo_list.name|mb_strlen='utf-8'" value="23">
+                                    <span title="<{$vo_list.name}>"><{$vo_list.name|mb_substr=0,23,"utf-8"}>...</span>
+                                <else/>
+                                    <span><{$vo_list.name}></span>
+                                </gt>
+                            </div>
+                            <div><strong><{$vo_list.sales_volume}></strong>人已预定</div>
+                            <div><strong>&#165;<{$vo_list.price}></strong>元</div>
+                        </a>
+                        <div class="tp">
+                            <ul>
+                                <li><input type="image" src="../Public/image/tp.png" /></li>
+                                <li class="tpsl">已有<strong><{$vo_list.vote}></strong>人投票</li>
+                            </ul>
+                        </div>
+                    </li>
+                </volist>
             </ul>
         </div>
     </div>
     <div id="dd-page-num" align="right">
-    	<a href="#">1</a>
-    	<a href="#">2</a>
-    	<a href="#">3</a>···
-    	<a href="#" class="m_right6">8</a>共8页 到第<input type="text" /><input type="submit" value="确定" />
+        <volist name="fpage.list" id="vo_flist">
+            <a href="?page=<{$vo_flist.page}>" style="margin-right:3px"><{$vo_flist.title}></a>
+        </volist>
+        共<{$fpage.tpage}>页 到第<input type="text" name="jump_page" /><input type="submit" id="jump_page" value="确定" />
     </div>
+</empty>
+<script>
+    $(function(){
+        if(define_page==''){
+            $("#dd-page-num a:first").css("background","#95D0DE").css("color","black");
+        }
+        
+        $("#dd-page-num a").each(function(){
+            var a = $(this);
+            var str = new RegExp("page="+define_page);
+            if(define_page && str.test(a.attr('href'))){
+                $(this).css("background","#95D0DE").css("color","black");
+            }
+        });
+
+        $("#jump_page").click(function(){
+            var page = $("[name=jump_page]").val();
+            
+            if(!isNaN(page) && page!='' && page>0){
+                window.location=define_action_url+((define_pid)?'/pid/'+define_pid:'')+((define_cid)?'/cid/'+define_cid:'')+'?page='+page;
+            }
+        });
+
+    });
+</script>

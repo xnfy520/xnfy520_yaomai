@@ -133,7 +133,7 @@ class VoteCommodityAction extends CommonAction{
 				$this->assign('data', $data);
 
 				$map['lid'] = $_GET['id'];
-				$map['by'] = 2;
+				$map['bys'] = 2;
 
 				$CommodityImages = M('CommodityImages');
 				$ciinfo = $CommodityImages->where($map)->order('id')->select();
@@ -190,17 +190,17 @@ class VoteCommodityAction extends CommonAction{
 						copy($tmpdir.'cut_'.$_POST['image'], $srcdir.'cut_'.$_POST['image']);
 					}
 
-					if(!empty($_POST['image_more'])){
-						$CommodityImages = M('CommodityImages');
-						$images_datas['lid'] = $insertid;
-						$images_datas['by'] = 2;
-						for($i=0; $i<count($_POST['image_more']); $i++){
-							copy($tmpdir.'thumb_'.$_POST['image_more'][$i], $srcimagesdir.'thumb_'.$_POST['image_more'][$i]);
-							copy($tmpdir.'cut_'.$_POST['image_more'][$i], $srcimagesdir.'cut_'.$_POST['image_more'][$i]);
-							$images_datas['image'] = $_POST['image_more'][$i];
-							$CommodityImages->add($images_datas);
-						}
-					}
+					// if(!empty($_POST['image_more'])){
+					// 	$CommodityImages = M('CommodityImages');
+					// 	$images_datas['lid'] = $insertid;
+					// 	$images_datas['bys'] = 2;
+					// 	for($i=0; $i<count($_POST['image_more']); $i++){
+					// 		copy($tmpdir.'thumb_'.$_POST['image_more'][$i], $srcimagesdir.'thumb_'.$_POST['image_more'][$i]);
+					// 		copy($tmpdir.'cut_'.$_POST['image_more'][$i], $srcimagesdir.'cut_'.$_POST['image_more'][$i]);
+					// 		$images_datas['image'] = $_POST['image_more'][$i];
+					// 		$CommodityImages->add($images_datas);
+					// 	}
+					// }
 
 					$this->ajaxReturn(0,"新增成功！",1);
 
@@ -359,7 +359,7 @@ class VoteCommodityAction extends CommonAction{
 
 
 				$maps['lid'] = $data['id'];
-				$maps['by'] = 2;
+				$maps['bys'] = 2;
 
 				$CommodityImages = M('CommodityImages');
 				$ciinfos = $CommodityImages->where($maps)->select();
@@ -424,7 +424,7 @@ class VoteCommodityAction extends CommonAction{
 	function add_image(){
 		if(!empty($_POST['id']) && !empty($_POST['image'])){
 			$map['lid'] = $_POST['id'];
-			$map['by'] = 2;
+			$map['bys'] = 2;
 			$map['image'] = $_POST['image'];
 			$CommodityImages = M('CommodityImages');
 			if($CommodityImages->add($map)){
@@ -444,8 +444,8 @@ class VoteCommodityAction extends CommonAction{
 	function delete_image(){
 		if(isset($_POST['id']) && !empty($_POST['id'])){
 			$CommodityImages = M('CommodityImages');
-			$data = $CommodityImages->where('by=2')->find($_POST['id']);
-			if($CommodityImages->where('by=2')->delete($_POST['id'])){
+			$data = $CommodityImages->where('bys=2')->find($_POST['id']);
+			if($CommodityImages->where('bys=2')->delete($_POST['id'])){
 				$srcdir = './Public/Content/CommodityImages/';
 				unlink($srcdir.'cut_'.$data['image']);
 				unlink($srcdir.'thumb_'.$data['image']);
