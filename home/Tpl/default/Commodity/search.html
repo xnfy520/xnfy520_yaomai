@@ -1,0 +1,93 @@
+<layout name='layout'/>
+<div style="clear: both;height: 38px;line-height: 38px;width: 978px;margin: 13px auto 0 auto;" id="dd-bz-title">
+<a href="__APP__/Index">首页</a> 
+&nbsp;>> <span style="color:#666;">搜索</span>
+
+</div>
+<empty name="list">
+    <div style="clear: both;height: 38px;line-height: 38px;width: 978px;margin: 13px auto 0 auto;">无商品</div>
+<else/>
+    <div id="dd-sf">
+            <span style="float:left">商品排序：</span>
+            <a class="dd-sf-mr <eq name='Think.get.sort' value='sales_volume'><eq name='Think.get.by' value='asc'>arrow-down2<else/>arrow-up2</eq></eq>" href="?<notempty name='Think.get.page'>&page=<{$Think.get.page}></notempty>&sort=sales_volume&by=<eq name='Think.get.by' value='desc'>asc<else/>desc</eq>">销量</a>
+
+            <a class="dd-sf-mr dd-sf-border-lr <eq name='Think.get.sort' value='price'><eq name='Think.get.by' value='asc'>arrow-down2<else/>arrow-up2</eq></eq>" href="?<notempty name='Think.get.page'>&page=<{$Think.get.page}></notempty>&sort=price&by=<eq name='Think.get.by' value='desc'>asc<else/>desc</eq>">价格</a>
+
+            <a class="dd-sf-mr <notin name='Think.get.sort' value='sales_volume,price,news'>arrow-up2</notin><eq name='Think.get.sort' value='news'><eq name='Think.get.by' value='asc'>arrow-down2<else/>arrow-up2</eq></eq>" href="?<notempty name='Think.get.page'>&page=<{$Think.get.page}></notempty>&sort=news&by=<eq name='Think.get.by' value='desc'>asc<else/>desc</eq>">最新</a>
+            <div id="dd-fy">
+            
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                  <tr>
+                    <td>共<span><{$fpage.total}></span>个商品<span><{$fpage.current}></span></td>
+                    <td>
+                        <empty name="fpage.prev.page">
+                            <a href="javascript:;" class="dd-fy-prev"></a>
+                        <else/>
+                            <a href="?page=<{$fpage.prev.page}>" class="dd-fy-prev"></a>
+                        </empty>
+                    </td>
+                    <td>
+                        <empty name="fpage.next.page">
+                            <a href="javascript:;" class="dd-fy-next"></a>
+                        <else/>
+                            <a href="?page=<{$fpage.next.page}>" class="dd-fy-next"></a>
+                        </empty>
+                    </td>
+                  </tr>
+                </table>
+            </div>
+    </div>
+    
+    <div id="dd-sf-picList">
+        <div>
+            <ul>
+                <volist name="list" id="vo_list">
+                    <li>
+                        <a href="__APP__/Commodity/details/id/<{$vo_list.id}>">
+                            <img style="width:210px;height:131px" src="__PUBLIC__/Content/CommodityList/thumb_<{$vo_list.image}>" />
+                            <div>
+                                <gt name="vo_list.name|mb_strlen='utf-8'" value="15">
+                                    <span title="<{$vo_list.name}>"><{$vo_list.name|mb_substr=0,15,"utf-8"}>...</span>
+                                <else/>
+                                    <span><{$vo_list.name}></span>
+                                </gt>
+                            </div>
+                            <div><strong>&#165; <{$vo_list.price}></strong></div>
+                        </a>
+                    </li>
+                </volist>
+            </ul>
+        </div>
+    </div>
+
+    <div id="dd-page-num" align="right">
+        <volist name="fpage.list" id="vo_flist">
+            <a href="?page=<{$vo_flist.page}>" style="margin-right:3px"><{$vo_flist.title}></a>
+        </volist>
+        共<{$fpage.tpage}>页 到第<input type="text" name="jump_page" /><input type="submit" id="jump_page" value="确定" />
+    </div>
+</empty>
+<script>
+    $(function(){
+        if(define_page==''){
+            $("#dd-page-num a:first").css("background","#95D0DE").css("color","black");
+        }
+        
+        $("#dd-page-num a").each(function(){
+            var a = $(this);
+            var str = new RegExp("page="+define_page);
+            if(define_page && str.test(a.attr('href'))){
+                $(this).css("background","#95D0DE").css("color","black");
+            }
+        });
+
+        $("#jump_page").click(function(){
+            var page = $("[name=jump_page]").val();
+            
+            if(!isNaN(page) && page!='' && page>0){
+                window.location=define_action_url+((define_search_key)?'/search_key/'+define_search_key:'')+'?page='+page;
+            }
+        });
+
+    });
+</script>

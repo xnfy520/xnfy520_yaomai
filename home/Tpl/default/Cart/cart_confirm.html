@@ -1,0 +1,466 @@
+<layout name='layout'/>
+
+    <div id="dd-bz">
+    	<div id="dd-bz-title">首页 >> <span style="color:#666;">购物车</span> >> <span style="color:#666;">确认订单信息</span></div>
+        <div id="dd-tjddcg-bz3"><img src="../Public/image/27.png" /></div>
+    </div>
+<div id="xm-ddqr">
+   	<div class="xm-ddqr1">收货信息</div>
+        <div id="xm-ddqr2" class="new_address_insert" style="height:auto;">
+              <div id="xm-xdz1">使用地址簿中的地址：</div>
+              <volist name="my_addresss" id="vo_ad">
+                <div id="xm-xdz2" style="margin:0 0 10px">
+                      <ul>
+                          <li style="margin-right:10px;">
+                            <input index="<{$i-1}>" initiate_price="<{$vo_ad.logistics.initiate_price}>" average_price="<{$vo_ad.logistics.average_price}>" name="use_address" type="radio" value="<{$vo_ad.id}>" />
+                          </li>
+                          <li>
+                            <strong><{$vo_ad.consignee}></strong> 
+                            地址：
+                            <{$vo_ad.where_text}> 邮编：<{$vo_ad.zip}>
+                            <notempty name="vo_ad.cellphone">手机：<{$vo_ad.cellphone}></notempty>
+                            <notempty name="vo_ad.phone">电话：<{$vo_ad.phone}></notempty>
+                            <a href="javascript:;" class="delete_address">  [删除]</a>
+                          </li>
+                      </ul>
+                </div>
+              </volist>
+		</div>
+    	<div class="xm-txxdz">
+        	<ul>
+            	<li class="xm-txxdz1"><span>*</span> 收货人姓名：</li>
+                <li class="xm-txxdz2"><input name="consignee" type="text" /></li>
+                <li class="xm-txxdz1"><span>*</span> 收货人地址：</li>
+                <li class="xm-txxdz2">
+                  <select name="information_province">
+                        <option value="0">--请选择--</option>
+                        <volist name="provice_level" id="vo_pl">
+                            <option value="<{$vo_pl.id}>"><{$vo_pl.name}></option>
+                        </volist>
+                    </select>
+                  <span id="information_city"></span>
+                  <span id="information_county"></span>
+                  <input type="hidden" name="where_id" />
+                  <input type="hidden" name="where_text" />
+                </li>
+                <li class="xm-txxdz1"><span>*</span> 街道：</li>
+                <li class="xm-txxdz2">
+                  <input style="width:267px;" name="street" type="text" />
+                </li>
+                <li class="xm-txxdz1"><span>*</span> 邮编：</li>
+                <li class="xm-txxdz2">
+                  <input type="text" name="zip" />
+                </li>
+                <li class="xm-txxdz1"><span>*</span> 填写手机号：</li>
+                <li class="xm-txxdz2">
+                	<input type="text" name="cellphone" />
+                   <span class="xm-mg10"> 座机（选填）：<input name="phone" type="text" /></span>
+                </li>
+                <li class="xm-txxdz3"><a href="javascript:;" id="add_address">确认收货地址</a></li>
+            </ul>
+      </div>
+    <div class="xm-ddqr1">配送方式</div>
+    <div class="xm-zffs" style="height:auto;">
+    	<div class="xm-zffs1">
+             <ul>
+                <li><input name="delivery" type="radio" value="2" /></li>
+                <li class="xm-mg10">送货上门安装（非电梯楼上楼费用由用户另付）</li>
+             </ul>
+        </div>
+        <div class="xm-zffs1">
+             <ul>
+                <li><input name="delivery" type="radio" value="1" checked="checked" /></li>
+                <li class="xm-mg10">提货点自提（用户到相应提货点自提安装）</li>
+             </ul>
+        </div>
+        <div class="xm-zffs1">
+        	物流费用：&#165;<span class="logistics">0.00</span>
+        </div>
+        <div class="xm-zffs1">
+        	要求到货时间<input class="Wdate" readonly="readonly" name="ask_for_date" style="width:100px" type="text" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'%y-%M-{%d+3}',onpicked:function(){ },oncleared:function(){}})" />以后
+        </div>
+        <div class="xm-zffs1">
+        	有其他时间要求请与客服联系
+        </div>
+<!--         <div class="xm-txxdz3"><a href="#">确认配送方式</a></div> -->
+    </div>
+    
+    <div class="xm-ddqr1">支付方式</div>
+    <div class="xm-psfs3" style="height:auto;">
+        	<ul>
+            	<li class="xm-psfs2">
+                	<div>
+                    	<ul>
+                        	<li><input name="payment_model" type="radio" /></li>
+                            <li class="xm-mg10">货到付款</li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="xm-psfs1">快递可付现金、刷卡；</li>
+                <li class="xm-psfs2">
+               		 <div>
+                    	<ul>
+                        	<li><input name="payment_model" type="radio" /></li>
+                            <li class="xm-mg10"> 银行电汇</li>
+                           
+                        </ul>
+                    </div>
+                </li>
+                <li class="xm-psfs1">通过银行转账或现金直接存入指定帐号，需注明订单号。</li>
+                <li class="xm-psfs2">
+               		 <div>
+                  <label>
+                    	<ul>
+                        	<li><input name="payment_model" checked="checked" type="radio" /></li>
+                          <li class="xm-mg10">在线支付</li>
+                        </ul>
+                  </label>
+                    </div>
+                </li>                
+                <li class="xm-psfs1"> 通过网上银行或支付平台在线付款</li>
+            </ul>
+      </div>
+      
+       <div class="xm-ddqr1">发票信息</div>
+       <div class="xm-fpxn" style="height:auto;">
+        	<ul>
+            	<li class="xm-txxdz1"><span>*</span> 发票类型：</li>
+                <li class="xm-txxdz2">
+                	<select>
+                  		<option>商业零售发票</option>
+                	</select>
+                 </li>
+                <li class="xm-txxdz1"><span>*</span> 发票抬头：</li>
+                <li class="xm-txxdz2">
+                    <select>
+                      <option>个人</option>
+                    </select><input class="xm-mg10" type="text" />
+                </li>
+            <!--     <li class="xm-fpxn1"><a href="#">保&nbsp; 存</a></li>
+                <li class="xm-fpxn2"><a href="#">取&nbsp; 消</a></li>
+ -->            </ul>
+      </div>
+      
+      <div class="xm-ddqr1">
+      	<ul>
+        	<li>商品清单</li>
+          <li class="xm-fhxg"><a href="__APP__/Cart">返回购物车修改</a></li>
+        </ul>
+      </div>
+    <div id="xm-spqd1">
+      	<ul>
+        	<li class="xm-spqd2" style="width:550px">商品</li>
+            <li class="xm-spqd4">价格</li>
+            <li class="xm-spqd5">购买数量</li>
+            <li class="xm-spqd6">商品总价</li>
+        </ul>
+      </div>
+
+      <volist name="Cartslist" id="vo_cl">
+        <div class="xm-spqd7">
+        	<ul>
+          	<li class="xm-spqd2" style="width:550px">
+                  <div>
+                      <ul>
+                          <li class="xm-spqd8"><a href="__APP__/<{$vo_cl.URL}>/details/id/<{$vo_cl.Commodity.id}>"><img src="__PUBLIC__/Content/<{$vo_cl.CIDir}>/thumb_<{$vo_cl.Commodity.image}>" width="90" height="58" /></a></li>
+                          <li><a href="__APP__/<{$vo_cl.URL}>/details/id/<{$vo_cl.Commodity.id}>"><{$vo_cl.Commodity.name}></a></li>
+                      </ul>
+                  </div>
+              </li>
+              <li class="xm-spqd4">&#165;<span class="commodity-price"><{$vo_cl.Commodity.price}></span></li>
+              <li class="xm-spqd5"><{$vo_cl.quantity}></li>
+              <li class="xm-spqd6">&#165;<span class="commodity-xiaoji" xiaoji="<{$vo_cl['quantity']*$vo_cl.Commodity.price}>" ><{$vo_cl['quantity']*$vo_cl.Commodity.price}></span></li>
+          </ul>
+      </div>
+    </volist>
+
+    <div class="xm-ddqr1" style="margin-top:25px; ">订单结算</div>
+    <div class="xm-ddqs-1">运费/服务费：<a >¥<span class="logistics">0.00</span></a></div>
+    <neq name="Cartslist.0.type" value="2">
+    <div class="xm-ddqs-2">
+      	<ul>
+        	<li>使用<a style="color:#cc0000; font-size:12px;">满减</a>优惠卷</li>
+            <li class="xm-mg10"><input  type="checkbox"  /></li>
+            <li class="xm-mg10"> 优惠额：<span >¥200</span></li>
+        </ul>
+    </div>
+    </neq>
+      <input type="hidden" name="commodity_volume" value="<{$commodity_volume}>" />
+      <input type="hidden" name="commodity_total" value="<{$commodity_total}>" />
+      <input type="hidden" name="logistics" value="0" />
+    <div class="xm-ddqs-1">产品金额共计：<a>：&#165;<span class="commodity-total" data="<{$commodity_total}>" ><{$commodity_total}></span></a></div>
+    <div class="xm-ddqs-1"><strong>您共需为订单支付：<span>¥<span id="price_total"><{$commodity_total}></span></span></strong></div>
+    <div class="xm-ddqs-1 xm-cohui">-------------------------------------------------------------</div>
+  	<div id="xm-qrzz-1"><a href="#"><img src="../Public/image/39.jpg" width="150" height="45" /></a></div>
+  </div>
+
+<script>
+
+    $(function(){
+
+    $("[name=use_address]").eq($("[name=use_address]").size()-1).attr('checked','checked');
+
+    $(".logistics").text(get_logistics($("[name=use_address]").size()-1).toFixed(2));
+    $("[name=logistics]").val(get_logistics($("[name=use_address]").size()-1));
+
+    $("[name=use_address]").change(function(){
+        var i = $(this).attr('index'); 
+        set_logistics(i);
+    });
+
+    function set_logistics(i){
+        var gl = get_logistics(i);
+        console.log(i);
+        console.log(gl);
+        $(".logistics").text(gl.toFixed(2));
+        $("[name=logistics]").val(gl);
+        get_totals();
+    }
+
+    $("[name=delivery]").change(function(){
+        var v = $(this).val();
+        var gl = get_logistics($("[name=use_address]:checked").attr('index'));
+        if(v==1){
+          $(".logistics").text(gl.toFixed(2));
+          $("[name=logistics]").val(gl);
+        }else if(v==2){
+          $(".logistics").text((gl+10).toFixed(2));
+          $("[name=logistics]").val((gl+10));
+        }
+         get_totals();
+    });
+
+
+    get_totals();    
+
+    function get_totals(){
+        var lo = parseInt($("[name=logistics]").val());
+        var total = parseInt($("[name=commodity_total]").val());
+        $("#price_total").text((lo+total).toFixed(2));
+    }
+
+    function get_logistics(i){
+      var addinit = $("[name=use_address]").eq(i);
+      var initiate_price = parseInt(addinit.attr('initiate_price'));
+      var average_price = parseInt(addinit.attr('average_price'));
+      var commodity_volume = parseInt($("[name=commodity_volume]").val());
+      var data = initiate_price+average_price*commodity_volume;
+      return data;
+    }
+
+    $("[name=information_province]").live('change',function(){
+        var v = $(this).val();
+        var city = $("#information_city");
+        var county = $("#information_county");
+        city.html("");
+        // $('<select name="information_city"><option value="0" style="background: #ccc;">--请选择--</option></select>').appendTo(city);
+        $("[name=where_id]").val(v);
+        if(v==0){
+      city.html("");
+            county.html("");
+            $("[name=where_text]").val('');
+        }else{
+            $("[name=where_text]").val($(this).find("option:selected").text());
+            $.ajax({
+                url: define_app_url+'/Member/return_provinces',
+                data: {pid:v},
+                type:'POST',
+                success: function(datas){
+                    var obj = JSON.parse(datas);
+          if(obj.length>0){
+            city.html("");
+            $('<select name="information_city"><option value="0" style="background: #ccc;">--请选择--</option></select>').appendTo(city);
+            var citys = $("[name=information_city]");
+            for(var i=0; i<obj.length; i++){
+              $('<option value="'+obj[i].id+'">'+obj[i].name+'</option>').appendTo(citys);
+            }
+          }else{
+            city.html("");
+          }
+                }
+            });
+        }
+    });
+
+    $("[name=information_city]").live('change',function(){
+        var v = $(this).val();
+        var county = $("#information_county");
+        county.html("");
+        if(v==0){
+      county.html("");
+            $("[name=where_id]").val($("[name=information_province]").val());
+            $("[name=where_text]").val($("[name=information_province]").find("option:selected").text());
+        }else{
+      $("[name=where_id]").val(v);
+            $("[name=where_text]").val($("[name=information_province]").find("option:selected").text()+' '+$(this).find("option:selected").text());
+            $.ajax({
+                url: define_app_url+'/Member/return_provinces',
+                data: {pid:v},
+                type:'POST',
+                success: function(datas){
+                    var obj = JSON.parse(datas);
+          if(obj.length>0){
+            county.html("");
+            $('<select name="information_county"><option value="0" style="background: #ccc;">--请选择--</option></select>').appendTo(county);
+            var countys = $("[name=information_county]");
+            for(var i=0; i<obj.length; i++){
+              $('<option value="'+obj[i].id+'">'+obj[i].name+'</option>').appendTo(countys);
+            }
+          }else{
+            county.html("");
+          }
+                }
+            });
+        }
+    });
+
+    $("[name=information_county]").live('change',function(){
+    var v = $(this).val();
+    if(v!=0){
+      $("[name=where_id]").val(v);
+            $("[name=where_text]").val($("[name=information_province]").find("option:selected").text()+' '+$("[name=information_city]").find("option:selected").text()+' '+$(this).find("option:selected").text());
+    }else{
+            $("[name=where_id]").val($("[name=information_city]").val());
+            $("[name=where_text]").val($("[name=information_province]").find("option:selected").text()+' '+$("[name=information_city]").find("option:selected").text());
+        }
+    });
+
+    $("#add_address").click(function(){
+
+        if($("[name=use_address]").size()>=10){
+          jBox.tip('最多只能添加10个地址', 'error',{ timeout: 1000});
+            return false;
+        }
+
+        var ics = $("[name=information_city]");
+        var iccs = $("[name=information_county]");
+
+        var consignee = $("[name=consignee]").val();
+        var where_id = $("[name=where_id]").val();
+        var street = $("[name=street]").val();
+        var zip = $("[name=zip]").val();
+        var phone = $("[name=phone]").val();
+        var cellphone = $("[name=cellphone]").val();
+        var where_text = $("[name=where_text]").val();
+
+        if(consignee=='' || !/[\u4e00-\u9fa5]+/.test(consignee) || consignee.length<2){
+            jBox.tip('请填写收货人姓名', 'error',{ timeout: 1000});
+            return false;
+        }
+         if(where_id=='' || where_id==0){
+            jBox.tip('请选择所在城市', 'error',{ timeout: 1000});
+            return false;
+        }
+
+        if(ics.find('option').size()>0 && ics.val()==0){
+            jBox.tip('请选择所在城市', 'error',{ timeout: 1000});
+            return false;
+        }
+
+        if(iccs.find('option').size()>0 && iccs.val()==0){
+            jBox.tip('请选择所在城市', 'error',{ timeout: 1000});
+            return false;
+        }
+
+        if(street==''){
+            jBox.tip('请填写街道地址', 'error',{ timeout: 1000});
+            return false;
+        }
+        if(street==''){
+            jBox.tip('邮编不能为空', 'error',{ timeout: 1000});
+            return false;
+        }
+        if(zip=='' || isNaN(zip) || zip.length<6){
+            jBox.tip('请输入正确的邮编', 'error',{ timeout: 1000});
+            return false;
+        }
+
+        if(cellphone.length<11 || cellphone.length>11 || cellphone[0]!=1 || cellphone[1]==2){
+            jBox.tip("请输入正确的手机号码", 'error',{ timeout: 1000,closed: function () {  }});
+            return false;
+        }
+
+        if(phone!=''){
+            if(isNaN(phone) || phone.length<7){
+                jBox.tip('请填写正确的座机号码', 'error',{ timeout: 1000});
+                return false;
+            }
+        }
+
+        var ob = {consignee:consignee,where_id:where_id,street:street,zip:zip,cellphone:cellphone,phone:phone,where_text:where_text}
+     //   jBox.tip("正在处理...", 'loading');
+        $.ajax({
+            url: define_app_url+'/'+define_module_name+'/insert_address',
+            data: ob,
+            type:'POST',
+            success: function(data){
+                var msg = JSON.parse(data);
+                if(msg.status==1){
+
+                    var ht = '<div id="xm-xdz2" style="margin:0 0 10px"><ul><li style="margin-right:10px;"><input  index="'+$("[name=use_address]").size()+'" initiate_price="'+msg.data.initiate_price+'" average_price="'+msg.data.average_price+'" name="use_address" type="radio" value="'+msg.data.id+'" /></li><li><strong>'+consignee+'</strong> 地址：'+where_text+' 邮编：'+zip+' '+(cellphone ? '手机：'+cellphone : '')+' '+(phone ? '电话：'+phone : '')+'<a href="javascript:;" class="delete_address">  [删除]</a></li></ul></div>';
+
+                    var ap = $(".new_address_insert");
+                    ap.append(ht);
+                    $("[name=use_address]").removeAttr('checked');
+                    $("[name=use_address]").eq($("[name=use_address]").size()-1).attr('checked','checked');
+                    set_logistics($("[name=use_address]").size()-2);
+                    jBox.close();
+                    jBox.tip(msg.info, 'success',{ timeout: 1000,closed: function () {
+                        $("[name=information_province]").val(0);
+                        $("#information_city").html('');
+                        $("#information_county").html('');
+                        $("[name=consignee]").val('');
+                        $("[name=where_id]").val('');
+                        $("[name=street]").val('');
+                        $("[name=zip]").val('');
+                        $("[name=phone]").val('');
+                        $("[name=cellphone]").val('');
+                        $("[name=where_text]").val('');
+                    }});
+                }else{
+                    jBox.tip(msg.info, 'error',{ timeout: 1000});
+                }
+            }
+        });
+    });
+
+    $(".delete_address").live('click',function(){
+        if($("[name=use_address]").size()<=1){
+            jBox.tip('至少有一个地址!', 'error',{ timeout: 2000});
+            return false;
+        }
+        var self = $(this);
+        var id = self.parents('#xm-xdz2').find("[name=use_address]").val();
+        if(id){
+          var deleteid = [];
+          deleteid.push(id);
+          var submit = function (v, h, f) {
+              if (v == 'ok'){
+                  jBox.tip("正在处理...", 'loading');
+                  $.ajax({
+                      url: define_app_url+'/'+define_module_name+'/delete_address',
+                      data: {deleteid:deleteid},
+                      type:'POST',
+                      success: function(data){
+                          var msg = JSON.parse(data);
+                          if(msg.status==1){
+                              self.parents('#xm-xdz2').remove();
+                              $("[name=use_address]").removeAttr('checked');
+                              $("[name=use_address]").eq($("[name=use_address]").size()-1).attr('checked','checked');
+                              set_logistics($("[name=use_address]").size()-1);
+                              jBox.tip(msg.info, 'success',{ timeout: 1000,closed: function () { }});
+                          }else{
+                              jBox.tip(msg.info, 'error',{ timeout: 1000,closed: function () { }});
+                          }
+                      }
+                  });
+              }
+              return true; //close
+          };
+          jBox.confirm("确认删除这个地址？", "提示", submit,{top: '40%'});
+      }
+    });
+
+  });
+
+</script>

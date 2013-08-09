@@ -83,13 +83,13 @@ $(function(){
                                     <span><{$vo_list.name}></span>
                                 </gt>
                             </div>
-                            <div><strong><{$vo_list.sales_volume}></strong>人已预定</div>
+                            <div><strong><{$vo_list.subscribe_volume}></strong>人已预定</div>
                             <div><strong>&#165;<{$vo_list.price}></strong>元</div>
                         </a>
                         <div class="tp">
-                            <ul>
-                                <li><input type="image" src="../Public/image/tp.png" /></li>
-                                <li class="tpsl">已有<strong><{$vo_list.vote}></strong>人投票</li>
+                            <ul class="vote-group">
+                                <li><img style="cursor:pointer;" commodity_id="<{$vo_list.id}>" class="vote-commodity" src="../Public/image/tp.png" /></li>
+                                <li class="tpsl">已有<strong class="vote-count"><{$vo_list.vote}></strong>人投票</li>
                             </ul>
                         </div>
                     </li>
@@ -97,6 +97,36 @@ $(function(){
             </ul>
         </div>
     </div>
+    <script type="text/javascript">
+    $(function(){
+        $('.vote-commodity').live('click',function(){
+            var self = $(this);
+            var commodity_id = self.attr('commodity_id');
+            var count = self.parents('.vote-group').find('.vote-count');
+            if(define_userid==''){
+                jBox.tip('请先登录再投票', 'success',{ timeout: 2000,closed: function () {  }});
+            }else{
+                jBox.tip("正在处理...", 'loading');
+                window.setTimeout(function () {
+                    $.ajax({
+                        url: define_app_url+'/Vote/vote_commdity',
+                        data:{commodity_id:commodity_id},
+                        type:'POST',
+                        success: function(data){
+                            var msg = JSON.parse(data);
+                            if(msg.status==1){
+                                count.text(count.text()*1+1*1);
+                                jBox.tip(msg.info, 'success',{ timeout: 1000,closed: function () { }});
+                            }else{
+                                jBox.tip(msg.info, 'error',{ timeout: 1000,closed: function () { }});
+                            }
+                        }
+                    });
+                },500);
+            }
+        });
+    });
+    </script>
     <div id="dd-page-num" align="right">
         <volist name="fpage.list" id="vo_flist">
             <a href="?page=<{$vo_flist.page}>" style="margin-right:3px"><{$vo_flist.title}></a>

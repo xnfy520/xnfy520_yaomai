@@ -1,0 +1,148 @@
+<div id="address-add-edit">
+            <table>
+                <caption>添加收货地址</caption>
+                <tr class="table_tr"><th class="table_th"> 收货人：</th><td class="table_td"><input type="text" name="consignee" maxlength="50" /></td></tr>
+                <tr class="table_tr"><th class="table_th"> 所在城市：</th><td class="table_td">
+                    <select name="information_province">
+                        <option value="0">--请选择--</option>
+                        <volist name="provice_level" id="vo_pl">
+                            <option value="<{$vo_pl.id}>"><{$vo_pl.name}></option>
+                        </volist>
+                    </select>
+                    <span id="information_city"></span>
+                    <span id="information_county"></span>
+                    <input type="hidden" name="where_id" />
+                    <input type="hidden" name="where_text" />
+                </td></tr>
+                <tr class="table_tr"><th class="table_th"> 街道：</th><td class="table_td"><input type="text" name="street" /></td></tr>
+                <tr class="table_tr"><th class="table_th"> 邮编：</th><td class="table_td"><input type="text" name="zip" /></td></tr>
+                <tr class="table_tr"><th class="table_th"> 电话：</th><td class="table_td"><input type="text" name="phone" /></td></tr>
+                <tr class="table_tr"><th class="table_th"> 手机：</th><td class="table_td"><input type="text" name="cellphone" /></td></tr>
+            </table>
+</div>
+
+<style>
+
+/****添加 修改相关********/
+#address-add-edit{
+    background:white;
+    padding:  0 10px 5px 10px;
+    color: #546C83;
+}
+
+#address-add-edit table caption{
+    font-size:20px;
+    font-weight:bold;
+    height:30px;
+    margin:0 auto;
+    line-height:30px;
+    text-align:center;
+}
+
+#address-add-edit table .table_tr{
+    height: 25px;
+    line-height:25px;
+}
+
+#address-add-edit table .table_th{
+    height: 25px;
+    line-height:25px;
+    display: inline-block;
+    width: 100px;
+    text-align:right;
+}
+
+#address-add-edit table{
+    margin-top: 5px;
+}
+
+#address-add-edit .table_td{
+    width: 300px;
+    max-width: 300px;
+    min-width: 300px;
+}
+
+#address-add-edit{
+
+}
+
+#address-add-edit table .table_th_top{
+    height: 25px;
+    line-height:25px;
+    display: inline-block;
+    width: 100px;
+    vertical-align: top;
+}
+
+#address-add-edit table .table_star{
+    color: red;
+}
+
+#address-add-edit table input[type=text]{
+    width: 300px;
+    color:#546C83;
+}
+
+#address-add-edit table .table_radio{
+    position: relative;
+    top: 3px;
+}
+
+#address-add-edit table .table_sort_title{
+    font-size: 1.6em;
+    font-weight: bold;
+    position: relative;
+    top:2px;
+}
+
+#address-add-edit table .table_sort_input{
+    text-align: center;
+    position: relative;
+    width: 50px;
+    max-width: 50px;;
+}
+
+#address-add-edit table .table_sort_span{
+    float: right;
+}
+
+#address-add-edit table .table_select{
+    padding:2px 2px 2px 0;
+    width: 304px;
+    color:#546C83;
+}
+
+#address-add-edit table .table_radio label{
+    cursor:pointer;
+}
+
+#address-add-edit table .textarea{
+    resize: none;
+    width: 298px;
+    height: 100px;
+    margin-top: 3px;
+    color:#546C83;
+}
+
+#address-add-edit table .table_image_tip_size{
+    color:red;
+    font-weight: bold;
+}
+
+#table_tr_show_image_add{
+    display: none;
+}
+
+#address-add-edit table .thumb_image{
+    max-width: 300px;
+    max-height: 150px;
+    margin-top: 3px;
+    padding: 1px;
+    border: 1px dashed #ccc;;
+}
+
+#address-add-edit table .table_th_adjust{
+    position: relative;
+    top: 2px;
+}
+</style>

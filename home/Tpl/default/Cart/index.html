@@ -3,29 +3,219 @@
     <div id="dd-bz">
     	<div id="dd-bz-title">首页 >> <span style="color:#666;">我的购物车</span></div>
         <div id="dd-tjddcg-bz3"><img src="../Public/image/wdgwc.png" /></div>
-        <div id="dd-gwc">
-       	  <table width="905" height="274" border="0" cellspacing="0" cellpadding="0">
-              <tr>
-                <td width="274">&nbsp;</td>
-                <td width="631">&nbsp;</td>
-              </tr>
-              <tr>
-                <td height="87">&nbsp;</td>
-                <td height="87" align="left" valign="top">
-                	<img src="../Public/image/ft.png" /><br /><br />
-                    <a href="#"><img src="../Public/image/tx.png" /></a>
-                </td>
-            </tr>
-              <tr>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-              </tr>
-          </table>
-      </div>
-        
-        
+        <empty name="Cartslist">
+            <div id="dd-gwc">
+           	  <table width="905" height="274" border="0" cellspacing="0" cellpadding="0">
+                  <tr>
+                    <td width="274">&nbsp;</td>
+                    <td width="631">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td height="87">&nbsp;</td>
+                    <td height="87" align="left" valign="top">
+                    	<img src="../Public/image/ft.png" /><br /><br />
+                        <a href="__APP__/Commodity/index/pid/<{$clistss}>"><img src="../Public/image/tx.png" /></a>
+                    </td>
+                </tr>
+                  <tr>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                  </tr>
+              </table>
+          </div>
+      </empty>
     </div>
 
+    <notempty name="Cartslist">
+        <!-- <div  class="xm-wdgwc1">我的购物车</div> -->
+        <form action="__APP__/Cart/cart_confirm" method="POST">
+        <div id="xm-wdgwc2">
+            <ul>
+                <li class="xm-gwebd1" style="width: 500px">商品</li>
+                <li class="xm-gwebd2">单价</li>
+                <li class="xm-gwebd3">购买数量</li>
+                <li class="xm-gwebd5">小计</li>
+                <li  class="xm-gwebd6">操作</li>
+            </ul>
+        </div>
+        <volist name="Cartslist" id="vo_cl">
+            <div class="xm-wdgwc3">
+                <ul class="commodity-group">
+                    <li class="xm-gwebda1" style="width: 500px">
+                        <div>
+                            <ul>
+                                <input type="hidden" name="cart_id[]" value="<{$vo_cl.id}>" />
+                                <li class="xm-gwebda7"><input class="is_checked" value="<{$vo_cl.id}>" type="checkbox" /></li>
+                                <li class="xm-gwebda8">
+                                <a href="__APP__/<{$vo_cl.URL}>/details/id/<{$vo_cl.Commodity.id}>"><img src="__PUBLIC__/Content/<{$vo_cl.CIDir}>/thumb_<{$vo_cl.Commodity.image}>" width="90" height="58" /></a>
+                                </li>
+                                <li class="xm-gwebda9">
+                                <a href="__APP__/<{$vo_cl.URL}>/details/id/<{$vo_cl.Commodity.id}>"><{$vo_cl.Commodity.name}></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="xm-gwebda2">&#165;<span class="commodity-price"><{$vo_cl.Commodity.price}></span></li>
+                    <li class="xm-gwebda3">
+                        <div>
+                            <ul>
+                                <li class="xm-gmsl1"><a class="js-a commodity-reduce" style="cursor:pointer;">-</a></li>
+                                <li class="xm-gmsl2"><input name="quantity[]" class="sl-input commodity-quantity" type="text" value="<{$vo_cl.quantity|default="1"}>" /></li>
+                                <li class="xm-gmsl1"><a class="zj-a commodity-plus" style="cursor:pointer;">+</a></li>
+                                <!-- <li style="margin-left:5px;">套</li> -->
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="xm-gwebda5">&#165;<span class="commodity-xiaoji" xiaoji="<{$vo_cl['quantity']*$vo_cl.Commodity.price}>" ><{$vo_cl['quantity']*$vo_cl.Commodity.price|number_format="2"}></span></li>
+                    <li  class="xm-gwebda6">
+                        <a class="dd-sc cart-delete-one" delete_id="<{$vo_cl.id}>" style="line-height: 35px;">删除</a>  
+                    </li>
+                </ul>
+            </div>
+        </volist>
+   <!--      <div id="xm-zgqs">
+            <strong>商品金额：<span>5799</span>元</strong>
+        </div> -->
+        
+        <div id="xm-spzjg1" style="margin-top:10px">
+            <ul>
+                <li id="xm-spzjg2"><input class="check_all" type="checkbox" /></li>
+                <li id="xm-spzjg3">全选</li>
+                <li id="xm-spzjg4"><a style="cursor:pointer;" class="cart-delete-more">批量删除</a></li>
+                <li id="xm-spzjg5"><a style="cursor:pointer;" class="cart-delete-all">清空购物车</a></li>
+                <li id="xm-spzjg6">商品总价：<span class="commodity-total"><{$commodity_total}></span>元</li>
+                <li id="xm-spzjg7"><input type="image" class="cart_confirm" src="../Public/image/41.jpg" width="150" height="45" /></li>
+            </ul>
+        </div>
+        <form>
+    </notempty>
+<script>
+$(function(){
+
+    // $(".cart_confirm").click(function(){
+
+        // jBox.tip("正在处理...", 'loading');
+        // $.ajax({
+        //     url: define_app_url+'/'+define_module_name+'/cart_confirm',
+        //     data: {data:data},
+        //     type:'POST',
+        //     success: function(data){
+        //         var msg = JSON.parse(data);
+        //         if(msg.status==1){
+        //             jBox.tip(msg.info, 'success',{ timeout: 1000,closed: function () { window.location.reload(); }});
+        //         }else{
+        //             jBox.tip(msg.info, 'error',{ timeout: 1000,closed: function () { }});
+        //         }
+        //     }
+        // });
+    // });
+
+    $(".check_all").click(function(){
+        if($(this).attr('checked')=='checked'){
+            $(".is_checked").attr('checked','checked');
+        }else{
+            $(".is_checked").removeAttr('checked');
+        }
+    });
+
+    $(".commodity-plus").live('click',function(){
+        var self = $(this);
+        var v = self.parents('.commodity-group').find(".commodity-quantity");
+        v.val(v.val()*1+1*1);
+        var xj = self.parents('.commodity-group').find(".commodity-xiaoji");
+        var p = self.parents('.commodity-group').find(".commodity-price");
+        xj.text((p.text()*1*v.val()*1).toFixed(2)).attr('xiaoji',(p.text()*1*v.val()*1).toFixed(2));
+        totals();
+    });
+
+    $(".commodity-reduce").live('click',function(){
+        var self = $(this);
+        var v = self.parents('.commodity-group').find(".commodity-quantity");
+        if(v.val()>1){
+            v.val(v.val()*1-1*1);
+            var xj = self.parents('.commodity-group').find(".commodity-xiaoji");
+            var p = self.parents('.commodity-group').find(".commodity-price");
+            xj.text((p.text()*1*v.val()*1).toFixed(2)).attr('xiaoji',(p.text()*1*v.val()*1).toFixed(2));
+            totals();
+        }
+    });
+
+    $(".commodity-quantity").live('keyup',function(){
+        var self = $(this);
+        if(self.val()>=1 && !isNaN(self.val())){
+            var xj = self.parents('.commodity-group').find(".commodity-xiaoji");
+            var p = self.parents('.commodity-group').find(".commodity-price");
+            xj.text((p.text()*1*self.val()*1).toFixed(2)).attr('xiaoji',(p.text()*1*self.val()*1).toFixed(2));
+            totals();
+        }
+    });
+
+    function totals(){
+        var total = $(".commodity-total");
+        var t = 0;
+        $(".commodity-xiaoji").each(function(){
+            var x = parseInt($(this).attr('xiaoji'));
+            t = t+x;
+        });
+        total.text(t.toFixed(2));
+    }
+
+     $(".cart-delete-one").click(function(){
+        var id = $(this).attr('delete_id');
+        var deleteid = [];
+        deleteid.push(id);
+        delete_cart(deleteid,1);
+    });
+
+    $(".cart-delete-more").click(function(){
+        var deleteid = [];
+        $(".is_checked").each(function(){
+            if($(this).attr('checked')=='checked'){
+                deleteid.push($(this).val());
+            }
+        });
+        if(deleteid.length>0){
+            delete_cart(deleteid,2);
+        }else{
+            jBox.tip('请选择要删除的商品', 'error',{ timeout: 1000});
+        }
+    });
+
+    $(".cart-delete-all").click(function(){
+        var deleteid = null;
+        delete_cart(deleteid,3);
+    });
+
+    function delete_cart(data,type){
+            var submit = function (v, h, f) {
+            if (v == 'ok'){
+                jBox.tip("正在处理...", 'loading');
+                $.ajax({
+                    url: define_app_url+'/'+define_module_name+'/delete_cart',
+                    data: {deleteid:data,type:type},
+                    type:'POST',
+                    success: function(data){
+                        var msg = JSON.parse(data);
+                        if(msg.status==1){
+                            jBox.tip(msg.info, 'success',{ timeout: 1000,closed: function () { window.location.reload(); }});
+                        }else{
+                            jBox.tip(msg.info, 'error',{ timeout: 1000,closed: function () { }});
+                        }
+                    }
+                });
+            }
+            return true; //close
+        };
+        if(type==3){
+            jBox.confirm("确认清空购物车？", "提示", submit,{top: '40%'});
+        }else{
+            jBox.confirm("确认删除这些商品？", "提示", submit,{top: '40%'});
+        }
+
+    }
+
+});
+</script>
 <notempty name="cr">
     <div id="xm-gxq1">您可能感兴趣的商品</div>
         <div id="xm-gxq2">

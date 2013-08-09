@@ -1,1 +1,86 @@
 <layout name='layout'/>
+
+<div class="mid-xq">
+    	<ul>
+        	<li class="xq-weizhi">首页 >> <span style="color:#666;">沙发</span></li>
+
+			<include file="Member:left" />
+
+            <li class="xq-dingpiao">
+            	<div class="wdyd">
+               	  我的要买
+              	</div>
+                <div id="dd-grzx">
+                	<div id="dd-dlxx">
+                    	<strong><{$Userinfo.username}></strong>下午好！欢迎光临美乐乐家具网！<br />
+                        > 您的上一次登录时间是：<span><empty name="Userinfo.last_login">-<else/><{$Userinfo.last_login|date="Y-m-d H:i:s",###}></empty></span>
+                    </div>
+                </div>
+                
+                <div id="dd-nknxh">
+                    <div id="dd-nknxh-title">你可能喜欢的商品</div>
+                    
+                    <div id="dd-nknx-pic-k">
+                        <ul>
+                            <li id="dd-nknxh-pre"><a id="prevBtn" href="javascript:prevss();"></a></li>
+                            <li id="dd-nknxh-pic">
+                                <div>
+                                    <div id="dd-pic">
+                                        <ul>
+                                            <volist name="cr" id="vo_cr">
+                                                <li>
+                                                	<a href="__APP__/Commodity/details/id/<{$vo_cr.CommodityList.id}>">
+                                                    	<img src="__PUBLIC__/Content/CommodityList/thumb_<{$vo_cr.CommodityList.image}>" width="150" height="100" />
+                                                        <span>
+                                                            <gt name="vo_cr.CommodityList.name|mb_strlen='utf-8'" value="12">
+                                                                <span title="<{$vo_cr.CommodityList.name}>"><{$vo_cr.CommodityList.name|mb_substr=0,12,"utf-8"}>...</span>
+                                                            <else/>
+                                                                <span><{$vo_cr.CommodityList.name}></span>
+                                                            </gt>
+                                                        </span><br />
+                                                        <span>商城价：<strong>&#165;<{$vo_cr.CommodityList.price}></strong></span>
+                                                    </a>
+                                                </li>
+                                            </volist>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                            <li id="dd-nknxh-next"><a id="nextBtn" href="javascript:nextss();"></a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                
+                
+            </li>
+        </ul>
+    </div>
+    <script>
+
+    var zsl=Math.ceil($("#dd-pic ul li").length/4);
+var dqss=0;
+
+function picss(id){
+    $("#dd-pic").animate({left:-700*id},{queue:false,duration:500});
+}
+function prevss(){
+    if(dqss==0){
+        picss(dqss);
+    }else{
+        dqss--;
+        picss(dqss);
+    }
+};
+function nextss(){
+    if(dqss==zsl-1){
+        picss(dqss);
+    }else{
+        dqss++;
+        picss(dqss);
+    }
+};
+
+
+
+</script>

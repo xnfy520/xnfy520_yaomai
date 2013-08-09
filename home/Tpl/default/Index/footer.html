@@ -107,7 +107,7 @@
 
     var define_sales = "<{$Think.get.sales}>";
 
-    var define_search_key = "<{$Think.get.key}>";
+    var define_search_key = "<{$Think.get.search_key}>";
 
     var define_userid = "<{$Userinfo.id}>";
 
@@ -120,10 +120,41 @@
     var defind_localhost = "<{$Think.config.LOCALHOST}>";
 
 </script>
+<script type="text/javascript">
+    $(function(){
+        $("#login_out").click(function(){
 
-<!-- <script type=text/javascript src="../Public/js/Common.js"></script> -->
-<!-- 
- <script type=text/javascript src="../Public/js/<{$Think.const.MODULE_NAME}>.js"></script>
- -->
+            var submit = function (v, h, f) {
+                jBox.tip("正在处理...", 'loading');
+                if (v == 'ok'){
+                        window.setTimeout(function () {
+                        $.ajax({
+                            url: define_app_url+'/Member/ajax_login_out',
+                            type:'POST',
+                            success: function(data){
+                                var msg = JSON.parse(data);
+                                if(msg.status==1){
+                                    jBox.tip(msg.info, 'success',{ timeout: 1000,closed: function () { if(define_module_name=='Member'){window.location=msg.data}else{window.location=define_self_url}  }});
+                                }else{
+                                    return false;
+                                }
+                            }
+                        });
+                    }
+                ),500}
+                return true; //close
+            };
+            jBox.confirm("确认退出？", "提示", submit,{top: '40%',opacity: 0.1});
+
+        });
+    });
+</script>
+<script type=text/javascript src="../Public/js/Common.js"></script>
+<eq name="Think.const.MODULE_NAME" value="Member">
+        <script type=text/javascript src="../Public/js/Member.js"></script>
+</eq>
+<eq name="Think.const.MODULE_NAME" value="Commodity">
+        <script type=text/javascript src="../Public/js/CommodityList.js"></script>
+</eq>
 </body>
 </html>

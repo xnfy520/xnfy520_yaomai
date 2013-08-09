@@ -46,16 +46,17 @@ $(function(){
                                 	<ul>
                                     	<li id="xm-mon"><span style="font-size:24px;margin-left:10px">&#165;</span><span  style="font-size:28px;"><{$data.price}></span></li>
                                     	<li></li>
-                                        <li id="xm-gou"><a href="#"><img src="../Public/image/17.jpg" width="94" height="40" /></a></li>
+                                        <li id="xm-gou"><a id="groupon-buy" href="javascript:;"><img src="../Public/image/17.jpg" width="94" height="40" /></a></li>
                                     </ul>
                                 </div>
                                 <div id="xm-tgqg1">
+                                    <input type="hidden" name="commodity" value="<{$data.id}>" />
                                 	<div id="xm-tgqg2">
-                                    	<ul>
+                                    	<ul class="groupon-quantity">
                                         	<li id="xm-tgqg3">我要买：</li>
-                                            <li id="xm-tgqg4"><a href="#"><img src="../Public/image/18.jpg" /></a></li>
-                                            <li id="xm-tgqg5"><input type="text" value="1" /></li>
-                                            <li id="xm-tgqg6"><a href="#"><img src="../Public/image/19.jpg" /></a></li>
+                                            <li id="xm-tgqg4"><a href="javascript:;" class="quantity-delete"><img src="../Public/image/18.jpg" /></a></li>
+                                            <li id="xm-tgqg5"><input name="quantity" type="text" value="1" /></li>
+                                            <li id="xm-tgqg6"><a href="javascript:;" class="quantity-add"><img src="../Public/image/19.jpg" /></a></li>
                                         </ul>
                                     </div>
                                     <div id="xm-jq1">
@@ -147,3 +148,46 @@ document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static
         </ul>
     
     </div>
+    <script>
+    $(function(){
+
+        $(".quantity-add").click(function(){
+            var self = $(this);
+            var n = self.parents('.groupon-quantity').find("[name=quantity]");
+            n.val(n.val()*1+1*1);
+        });
+        $(".quantity-delete").click(function(){
+            var self = $(this);
+            var n = self.parents('.groupon-quantity').find("[name=quantity]");
+            if(n.val()>1){
+                n.val(n.val()*1-1*1);
+            }
+        });
+
+        $("#groupon-buy").click(function(){
+            var commodity_id = $("[name=commodity]").val();
+            var quantity = $("[name=quantity]").val();
+            if(define_userid==''){
+                jBox.tip('请先登录再购买', 'success',{ timeout: 2000,closed: function () {  }});
+            }else{
+                jBox.tip("正在处理...", 'loading');
+                window.setTimeout(function () {
+                    $.ajax({
+                        url: define_app_url+'/Groupon/ajax_commodity_add_cart',
+                        data:{commodity_id:commodity_id,quantity:quantity},
+                        type:'POST',
+                        success: function(data){
+                            var msg = JSON.parse(data);
+                            if(msg.status==1){
+                                window.location=define_app_url+'/Cart';
+                            }else{
+                                jBox.tip(msg.info, 'error',{ timeout: 1000,closed: function () { }});
+                            }
+                        }
+                    });
+                },500);
+            }
+        });
+        
+    });
+    </script>

@@ -132,7 +132,7 @@ class AddressAction extends CommonAction{
 				}
 			}else{
 				$count = $MODULE_NAME->where($datas)->count();
-				$page = new page($count,1);
+				$page = new page($count,15);
 				$list = $MODULE_NAME->relation(true)->where($datas)->limit($page->setlimit())->order('sort')->select();
 			}
 
@@ -184,7 +184,7 @@ class AddressAction extends CommonAction{
 				}
 			}else{
 				$count = $MODULE_NAME->where($datas)->count();
-				$page = new page($count,1);
+				$page = new page($count,15);
 				$list = $MODULE_NAME->relation(true)->where($datas)->limit($page->setlimit())->order('sort')->select();
 			}
 

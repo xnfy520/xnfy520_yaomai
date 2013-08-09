@@ -19,17 +19,18 @@
 		<div id="xm-wuliu">
        	  <div id="xm-wuliu1">商品价格：<strong>&#165;<{$data.price}></strong></div>
           <div id="xm-wuliu2">定金：<strong>&#165;<{$data.subscription}></strong></div>
-          <div id="xm-flfy"><a href="javascript:xs();">物流费用</a></div>
+          <div id="xm-flfy"><a href="javascript:;" id="view_logistics" pid="<{$data.id}>">物流费用</a></div>
           <div id="xm-flfy1">
-          	<a href="#"><img src="../Public/image/15.png" width="85" height="30"></a>
-            <a href="#"><img src="../Public/image/16.png" width="85" height="30"></a>
+          	<a href="__APP__/Vote/schedule/id/<{$data.id}>"><img src="../Public/image/toup1.png" width="99" height="30"></a>
+            <a href="javascript:;" class="vote-commodity" commodity_id="<{$data.id}>"><img src="../Public/image/toup2.png" width="74" height="30"></a>
           </div>
-          <div id="xm-flfy2">已有<span><{$data.sales_volume}></span>人预订，达到<span><{$data.subscribe}></span>人开始生产
+          <div id="xm-flfy2">已有<span><{$data.subscribe_volume}></span>人预订，达到<span><{$data.subscribe}></span>人开始生产
 				投票截止到 <span><{$data.expiration_date|date='Y-m-d',###}></span>
           </div>
         </div>
     </div>
-
+    <input id="buy_count" style="display:none" type="text" value="1" />
+        <span id="p_infos" measure="<{$data.measure}>" price="<{$data.price}>"></span>
     <div id="xm-crbanner">
     	<ul>
             <volist name="data.CommodityImages" id="vo_ci">
@@ -122,58 +123,96 @@
           </li>
         </ul>
     </div>
-    <div id="xj-tanchu1" style="display:none;z-index:9999">
-	<div id="xj-tanchu2">
-    	配送方案
-       <a href="javascript:yc();"><img src="../Public/image/44.jpg" /></a>
-    </div>
-    <div id="xj-tanchu3">
-    	<div id="xj-tanchu4">
-        	配送城市选择：
-            <select>
-        	  <option>湖北</option>
-        	</select>
-            <select>
-        	  <option>武汉</option>
-        	</select>
+<div id="xj-tanchu1" style="display:none;z-index:9999">
+        <div id="xj-tanchu2">
+            配送方案
+           <a href="javascript:yc();"><img src="../Public/image/44.jpg" /></a>
         </div>
-    </div>
+        <div id="xj-tanchu3">
+            <div id="xj-tanchu4">
+                配送城市选择：
+                <select id="logistics_province" name="logistics_province">
+                    <option value="0">--请选择--</option>
+                      <volist name="provice_level" id="vo_pl">
+                        <option value="<{$vo_pl.id}>"><{$vo_pl.name}></option>
+                      </volist>
+                </select>
+                <span id="logistics_city"></span>
+                <span id="logistics_county"></span>
+            </div>
+        </div>
     <div id="xj-tanchu5">
-    	<div class="xj-faa"> 通过物流运输至物流提货点，自提货，自安装，物流价起步价<span>25</span>元。</div>
-        <div class="xj-faa2">共<span>1</span>件商品，<span>1</span>件安体积计算运费，包装体积约<span>0.59</span>立方米，参考费用如下：</div>
-        <div class="xj-faa1">
-        	<ul>
-            	<li class="xj-td1">武昌区&nbsp;444元</li>
-                <li class="xj-td1">武昌区&nbsp;444元</li>
-                <li class="xj-td1">武昌区&nbsp;444元</li>
-                <li class="xj-td1">武昌区&nbsp;444元</li>
-                <li class="xj-td1">武昌区&nbsp;444元</li>
-                <li class="xj-td1">武昌区&nbsp;444元</li>
-                <li class="xj-td1">武昌(dfjkd)j区&nbsp;444元</li>
-                <li class="xj-td1">武昌区(dsfsdfsdfdfs)&nbsp;444元</li>
-            </ul>
+        <div class="xj-faa xj-faassss"> 请选择要配送到的城市 </div>
+        <div id="show_logistics" style="display:none">
+            <div class="xj-faa"> 通过物流运输至物流提货点，自提货，自安装，物流价起步价<span id="x_qbj">0</span>元。</div>
+            <div class="xj-faa2">共<span id="x_j">1</span>件商品，<span>1</span>件安体积计算运费，包装体积约<span id="x_tj">0.00</span>立方米，参考费用如下：</div>
+            <div class="xj-faa1">
+                <ul id="x_q_list">
+                    <!-- <li class="xj-td1">武昌区&nbsp;444元</li> -->
+                </ul>
+            </div>
+            <div class="m_left80">
+                <strong>此价格为配送至当地提货点的价格，然后下面再给出一个上门安装的另加费用</strong>
+            </div>
         </div>
-        <div class="m_left80"><strong>此价格为配送至当地提货点的价格，
-然后下面再给出一个上门安装的另加费用</strong></div>
     </div>
 </div>
 <script type="text/javascript" src="__PUBLIC__/js/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
 <link rel="stylesheet" type="text/css" href="__PUBLIC__/js/fancybox/jquery.fancybox-1.3.4.css" media="screen" />
+    <script type="text/javascript">
+    $(function(){
+        $('.vote-commodity').live('click',function(){
+            var self = $(this);
+            var commodity_id = self.attr('commodity_id');
+            if(define_userid==''){
+                jBox.tip('请先登录再投票', 'success',{ timeout: 2000,closed: function () {  }});
+            }else{
+                jBox.tip("正在处理...", 'loading');
+                window.setTimeout(function () {
+                    $.ajax({
+                        url: define_app_url+'/Vote/vote_commdity',
+                        data:{commodity_id:commodity_id},
+                        type:'POST',
+                        success: function(data){
+                            var msg = JSON.parse(data);
+                            if(msg.status==1){
+                                jBox.tip(msg.info, 'success',{ timeout: 1000,closed: function () { }});
+                            }else{
+                                jBox.tip(msg.info, 'error',{ timeout: 1000,closed: function () { }});
+                            }
+                        }
+                    });
+                },500);
+            }
+        });
+    });
+    </script>
 <script type="text/javascript">	
 
+
+
+$("#view_logistics").click(function(){
+    xs();
+});
+
+
 function xs(){
-	$("#xj-tanchu1").css({"display":"block"});
+    $("#xj-tanchu1").css({"display":"block"});
+    cz();
 }
 function yc(){
-	$("#xj-tanchu1").css({"display":"none"});
+    $("#xj-tanchu1").css({"display":"none"});
+    $(".xj-faassss").css("display","block");
+    $("#show_logistics").css('display','none');
+    $("#logistics_province").val(0);
 }
 function cz(){
-	var sm=($(window).height()-$("#xj-tanchu1").height())/2;
-	var zm=($(window).width()-$("#xj-tanchu1").width())/2;
-	$("#xj-tanchu1").css({"left":zm,"top":sm});
-	for(var i=1;i<$(".xm-banner dl dd").length;i++){
-		$(".xm-banner dl dd").eq(i).animate({opacity:0},{queue:false,duration:550});
-	}
+    var sm=($(window).height()-$("#xj-tanchu1").height())/2;
+    var zm=($(window).width()-$("#xj-tanchu1").width())/2;
+    $("#xj-tanchu1").css({"left":zm,"top":sm});
+    for(var i=1;i<$(".xm-banner dl dd").length;i++){
+        $(".xm-banner dl dd").eq(i).animate({opacity:0},{queue:false,duration:550});
+    }
 }
 $(document).ready(function(e) {
     cz();

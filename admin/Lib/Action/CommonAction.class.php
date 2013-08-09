@@ -70,12 +70,12 @@
 		}
 
 		function check_is_admin(){
-			if(isset($_SESSION['username']) && isset($_SESSION['email']) && isset($_SESSION['userid']) && isset($_SESSION['roleid'])){
-				if(!empty($_SESSION['username']) && !empty($_SESSION['email']) && !empty($_SESSION['userid']) && !empty($_SESSION['roleid'])){
-					$info['username'] = $_SESSION['username'];
-					$info['email'] = $_SESSION['email'];
-					$info['id'] = $_SESSION['userid'];
-					$info['roleid'] = $_SESSION['roleid'];
+			if(isset($_SESSION['Admin']['username']) && isset($_SESSION['Admin']['email']) && isset($_SESSION['Admin']['userid']) && isset($_SESSION['Admin']['roleid'])){
+				if(!empty($_SESSION['Admin']['username']) && !empty($_SESSION['Admin']['email']) && !empty($_SESSION['Admin']['userid']) && !empty($_SESSION['Admin']['roleid'])){
+					$info['username'] = $_SESSION['Admin']['username'];
+					$info['email'] = $_SESSION['Admin']['email'];
+					$info['id'] = $_SESSION['Admin']['userid'];
+					$info['roleid'] = $_SESSION['Admin']['roleid'];
 					$User = D('User');
 					$Userinfo = $User->relation(true)->where($info)->find();
 					$group = C('USER_GROUP');

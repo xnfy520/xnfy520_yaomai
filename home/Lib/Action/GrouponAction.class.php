@@ -75,4 +75,43 @@ class GrouponAction extends CommonAction {
 
 	}
 
+	function ajax_commodity_add_cart(){
+		if(!empty($_POST['commodity_id']) && !empty($_POST['quantity'])){
+			if($Userinfo = $this->checkLogin()){
+				$GrouponCommodity = M('GrouponCommodity');
+				$gc = $GrouponCommodity->where('enable=1')->find($_POST['commodity_id']);
+				if($gc){
+					if($gc['expiration_date']<=time()){
+						$this->ajaxReturn(0,"此团购商品已经结束",0);
+					}else{
+						$map['by_user'] = $Userinfo['id'];
+						$map['by_comodity'] = $_POST['commodity_id'];
+						$map['type'] = 2;
+						$Carts = M('Carts');
+						$count = $Carts->where($map)->count();
+						if($count>0){
+							$this->ajaxReturn(0,"该商品已经在您的购物车中了！",1);
+						}else{
+							$map['quantity'] = $_POST['quantity'];
+							$map['create_date'] = time();
+							if($Carts->add($map)){
+								$Carts->where('by_user='.$Userinfo['id'].' AND type<>2')->delete();
+								$this->ajaxReturn(0,"加入购物车成功！",1);
+							}else{
+								$this->ajaxReturn(0,"加入购物车失败！",0);
+							}
+						}
+					}
+
+				}else{
+					$this->ajaxReturn(0,"异常操作！",0);
+				}
+			}else{
+				$this->ajaxReturn(0,"异常操作！",0);
+			}
+		}else{
+			$this->ajaxReturn(0,"异常操作！",0);
+		}
+	}
+
 }

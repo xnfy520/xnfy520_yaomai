@@ -12,98 +12,134 @@
               </div>
               
               <div id="xm-wdxx">
-                <table width="100%" style="margin-top:30px;" border="0" cellspacing="0" cellpadding="0">
-                      <tr>
-                        <td width="4%">&nbsp;</td>
-                        <td width="13%" height="30" align="left" valign="middle">昵称：</td>
-                        <td width="71%" height="30" valign="middle"><input style="height:22px; width:200px;" type="text"/></td>
-                        <td width="12%">&nbsp;</td>
-                      </tr>
-                      <tr>
-                        <td>&nbsp;</td>
-                        <td height="30" align="left" valign="middle">真实姓名：</td>
-                        <td height="30" valign="middle"><input style="height:22px; width:200px;" type="text"/></td>
-                        <td>&nbsp;</td>
-                      </tr>
-                      <tr>
-                        <td>&nbsp;</td>
-                        <td height="30" align="left" valign="middle">手机号：</td>
-                        <td height="30" valign="middle"><input style="height:22px; width:200px;" type="text"/></td>
-                        <td>&nbsp;</td>
-                      </tr>
-                      <tr>
-                        <td>&nbsp;</td>
-                        <td height="30" align="left" valign="middle">性别：</td>
-                        <td height="30" valign="middle">
-                          <input name="sex" type="radio" checked="checked" />男
-                          <input name="sex" type="radio" />女
-                        </td>
-                        <td>&nbsp;</td>
-                      </tr>
-                      <tr>
-                        <td>&nbsp;</td>
-                        <td height="30" align="left" valign="middle">出生年月日：</td>
-                        <td height="30" valign="middle"><select name="select" >
-                          <option>1992</option>
-                          <option>1993</option>
-                          <option>1994</option>
-                          <option>1995</option>
-                          <option>1996</option>
-                          <option>1997</option>
-                        </select>
-                          <select name="select2" >
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                            <option>6</option>
-                            <option>7</option>
-                            <option>8</option>
-                            <option>9</option>
-                            <option>10</option>
-                            <option>11</option>
-                            <option>12</option>
-                          </select>
-                          <select name="select2" >
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                            <option>6</option>
-                            <option>7</option>
-                            <option>8</option>
-                        </select></td>
-                        <td>&nbsp;</td>
-                      </tr>
-                      <tr>
-                        <td>&nbsp;</td>
-                        <td height="30" align="left" valign="middle">居住地：</td>
-                        <td height="30" valign="middle"><select name="select3"  style="width:125px;">
-                          <option>湖北省</option>
-                          <option>湖南省</option>
-                          <option>河南省</option>
-                        </select>
-                          <select name="select3" style="width:153px;">
-                            <option>武汉市</option>
-                            <option>仙桃市</option>
-                          </select>
-                          <select name="select3" style="width:75px;" >
-                            <option>武昌区</option>
-                            <option>汉阳区</option>
-                        </select></td>
-                        <td>&nbsp;</td>
-                      </tr>
-                      <tr>
-                        <td>&nbsp;</td>
-                        <td height="60" align="left" valign="middle">&nbsp;</td>
-                        <td height="60" valign="middle"><input type="image" src="../Public/image/20.png" /></td>
-                        <td>&nbsp;</td>
-                      </tr>
-                </table>
+              <form action="javascript:;" name="update_information">
+                  <input type="hidden" name="id" value="<{$userinfo.id}>" />
+                  <table width="100%" style="margin-top:30px;" border="0" cellspacing="0" cellpadding="0">
+                        <tr>
+                          <td width="4%">&nbsp;</td>
+                          <td width="13%" height="30" align="left" valign="middle">昵称：</td>
+                          <td width="71%" height="30" valign="middle">
+                          <input style="height:22px; width:200px;" type="text" name="nickname" value="<{$userinfo.nickname}>"/>
+                          </td>
+                          <td width="12%">&nbsp;</td>
+                        </tr>
+                        <tr>
+                          <td>&nbsp;</td>
+                          <td height="30" align="left" valign="middle">真实姓名：</td>
+                          <td height="30" valign="middle">
+                            <input style="height:22px; width:200px;" type="text" name="truename" value="<{$userinfo.truename}>" />
+                          </td>
+                          <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                          <td>&nbsp;</td>
+                          <td height="30" align="left" valign="middle">邮箱：</td>
+                          <td height="30" valign="middle">
+                            <input style="height:22px; width:200px;" type="text" name="email" value="<{$userinfo.email}>"/>
+                          </td>
+                          <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                          <td>&nbsp;</td>
+                          <td height="30" align="left" valign="middle">手机号：</td>
+                          <td height="30" valign="middle">
+                            <input style="height:22px; width:200px;" type="text" name="phone" value="<{$userinfo.phone}>" />
+                          </td>
+                          <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                          <td>&nbsp;</td>
+                          <td height="30" align="left" valign="middle">性别：</td>
+                          <td height="30" valign="middle">
+                            <eq name="userinfo.sex" value="1">
+                              <input name="sex" value="1" type="radio" checked="checked" />男
+                              <input name="sex" value="0" type="radio" />女
+                            <else/>
+                              <input name="sex" value="1" type="radio" />男
+                              <input name="sex" value="0" type="radio" checked="checked" />女
+                            </eq>
+                          </td>
+                          <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                          <td>&nbsp;</td>
+                          <td height="30" align="left" valign="middle">出生年月日：</td>
+                          <td height="30" valign="middle"><input class="Wdate" value="<{$userinfo.birthday}>" type="text" readonly="readonly" name="birthday" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',maxDate:'%y-%M-%d',onpicked:function(){ },oncleared:function(){}})" ></td>
+                          <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                          <td>&nbsp;</td>
+                          <td height="30" align="left" valign="middle">居住地：</td>
+                          <td height="30" valign="middle">
+                              <input type="hidden" name="where_id" value="<{$userinfo.where_id}>" />
+                              <select name="information_province">
+                                <option value="0">--请选择--</option>
+                                <eq name="userinfo.where_id" value="0">
+                                  <volist name="provice_level" id="vo_pl">
+                                    <option value="<{$vo_pl.id}>"><{$vo_pl.name}></option>
+                                  </volist>
+                                <else/>
+                                  <volist name="provices.provice.list" id="vo_pl">
+                                    <eq name="vo_pl.id" value="$provices.provice.current.id">
+                                      <option selected="selected" value="<{$vo_pl.id}>"><{$vo_pl.name}></option>
+                                    <else/>
+                                      <option value="<{$vo_pl.id}>"><{$vo_pl.name}></option>
+                                    </eq>
+                                  </volist>
+                                </eq>
+                              </select>
+                              <span id="information_city">
+                                <neq name="userinfo.where_id" value="0">
+                                  <notempty name="provices.city.list">
+                                    <select name="information_city">
+                                      <option value="0" style="background: #ccc;">--请选择--</option>
+                                      <volist name="provices.city.list" id="vo_pl">
+                                        <eq name="vo_pl.id" value="$provices.city.current.id">
+                                          <option selected="selected" value="<{$vo_pl.id}>"><{$vo_pl.name}></option>
+                                        <else/>
+                                          <option value="<{$vo_pl.id}>"><{$vo_pl.name}></option>
+                                        </eq>
+                                      </volist>
+                                    </select>
+                                  </notempty>
+                                </neq>
+                              </span>
+                              <span id="information_county">
+                                <neq name="userinfo.where_id" value="0">
+                                  <notempty name="provices.county.list">
+                                    <select name="information_county">
+                                      <option value="0" style="background: #ccc;">--请选择--</option>
+                                      <volist name="provices.county.list" id="vo_pl">
+                                        <eq name="vo_pl.id" value="$provices.county.current.id">
+                                          <option selected="selected" value="<{$vo_pl.id}>"><{$vo_pl.name}></option>
+                                        <else/>
+                                          <option value="<{$vo_pl.id}>"><{$vo_pl.name}></option>
+                                        </eq>
+                                      </volist>
+                                    </select>
+                                  </notempty>
+                                </neq>
+                              </span>
+                          </td>
+                          <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                          <td>&nbsp;</td>
+                          <td height="60" align="left" valign="middle">&nbsp;</td>
+                          <td height="60" valign="middle"><input type="image" src="../Public/image/20.png" /></td>
+                          <td>&nbsp;</td>
+                        </tr>
+                  </table>
+                </form>
               </div>
               
           </li>
       </ul>
     </div>
+
+<script>
+$(function(){
+    
+
+});
+</script>

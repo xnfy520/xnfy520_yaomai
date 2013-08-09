@@ -1,11 +1,11 @@
             <li class="xq-grzx">
             	<div>
-                	<ul>
-						<li class="grzx"><a href="__APP__/Member">个人中心</a></li>
+                	<ul id="check_menu_now">
+						<li class="grzx"><a>个人中心</a></li>
                         <li><a class="xq-nemu1 xq-bac1">订单中心</a></li>
-                        <li><a  class="xq-nemu xq-now" href="__APP__/Member/CommodityOrder">商品订单</a></li>
-                        <li><a  class="xq-nemu" href="__APP__/Member/GrouponOrder">团购订单</a></li>
-                        <li><a  class="xq-nemu" href="__APP__/Member/VoteOrder">预定订单</a></li>
+                        <li><a  class="xq-nemu xq-now" href="__APP__/Member/commodityOrder">商品订单</a></li>
+                        <li><a  class="xq-nemu" href="__APP__/Member/grouponOrder">团购订单</a></li>
+                        <li><a  class="xq-nemu" href="__APP__/Member/voteOrder">预定订单</a></li>
                         <li><a  class="xq-nemu1 xq-bac2">个人账户</a></li>
                         <li><a  class="xq-nemu" href="__APP__/Cart">我的购物车</a></li>
                         <li><a  class="xq-nemu" href="__APP__/Member/coupon">我的优惠劵</a></li>
@@ -18,3 +18,17 @@
                     </ul>
                 </div>
             </li>
+            <script>
+                $(function(){
+                    if(define_module_name=='Member'){
+                        var regx = new RegExp(define_action_name);
+                        $("#check_menu_now li a").each(function(){
+                            var self = $(this);
+                            if(regx.test(self.attr("href"))){
+                                $("#check_menu_now li a").removeClass('xq-now');
+                                self.addClass('xq-now');
+                            }
+                        });
+                    }
+                });
+            </script>

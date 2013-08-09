@@ -69,16 +69,16 @@ class PublicAction extends CommonAction{
 			}
 
 			unset($_SESSION[$_SESSION[C('USER_AUTH_KEY')]]);
-			unset($_SESSION['username']);
-			unset($_SESSION['email']);
-			unset($_SESSION['userid']);
-			unset($_SESSION['roleid']);
+			unset($_SESSION['Admin']['username']);
+			unset($_SESSION['Admin']['email']);
+			unset($_SESSION['Admin']['userid']);
+			unset($_SESSION['Admin']['roleid']);
 
 			$_SESSION[C('USER_AUTH_KEY')]	=	$authInfo['id'];
-			$_SESSION['username'] = $authInfo['username'];
-			$_SESSION['email'] = $authInfo['email'];
-			$_SESSION['userid'] = $Userinfo['id'];
-			$_SESSION['roleid'] = $Userinfo['roleid'];
+			$_SESSION['Admin']['username'] = $authInfo['username'];
+			$_SESSION['Admin']['email'] = $authInfo['email'];
+			$_SESSION['Admin']['userid'] = $Userinfo['id'];
+			$_SESSION['Admin']['roleid'] = $Userinfo['roleid'];
 			if($authInfo['username']=='admins') {
 				$_SESSION['administrator']		=	true;
 			}
@@ -94,12 +94,14 @@ class PublicAction extends CommonAction{
 
 	public function ajax_admin_check_logout(){
 		if($this->check_is_admin()) {
-			unset($_SESSION);
-			session_destroy();
+			unset($_SESSION['Admin']);
+			unset($_SESSION[C('USER_AUTH_KEY')]);
+			unset($_SESSION['administrator']);
 			$this->ajaxReturn(__ROOT__,'退出成功!',1);
 		}else {
-			unset($_SESSION);
-			session_destroy();
+			unset($_SESSION['Admin']);
+			unset($_SESSION[C('USER_AUTH_KEY')]);
+			unset($_SESSION['administrator']);
 			$this->ajaxReturn(__APP__.'/Index/index','已经退出!',1);
 		}
 

@@ -8,6 +8,12 @@
 <link rel="stylesheet" type="text/css" href="../Public/css/xm.css" />
 <script src="__PUBLIC__/js/jquery-1.8.2.min.js" type="text/javascript"></script>
 <title></title>
+<style>
+.ui-autocomplete{
+    width:338px !important;
+    z-index: 99999 !important;
+}
+</style>
 </head>
 
 <body>
@@ -43,10 +49,16 @@
             <li class="top3"><a href="#">设为首页</a></li>
             <li class="top4"><a href="#">加入收藏</a></li>
             <li class="top5">您好！</li>
-            <li class="top6"><a href="__APP__/Index/login">请登录</a></li>
-            <li class="top7"><a href="__APP__/Member">个人中心</a></li>
-            <li class="top8"><a href="__APP__/Index/login">免费注册</a></li>
-            <li class="top9"><a href="#"><img src="../Public/image/1.png" width="16" height="17" /></a></li>
+            <empty name="Userinfo">
+                <li class="top6"><a href="__APP__/Index/login">请登录</a></li>
+                <li class="top7"><a href="__APP__/Member">个人中心</a></li>
+                <li class="top8"><a href="__APP__/Index/login">免费注册</a></li>
+                <li class="top9"><a href="#"><img src="../Public/image/1.png" width="16" height="17" /></a></li>
+            <else/>
+                <li><a href="__APP__/Member"><{$Userinfo.username}></a></li>
+                <li class="top7"><a href="__APP__/Member">个人中心</a></li>
+                <li class="top8"><a style="cursor:pointer" id="login_out">退出</a></li>
+            </empty>
         </ul>
     </div>
 </div>
@@ -57,10 +69,14 @@
             <li id="logo"><a href="__APP__/Index"><img src="../Public/image/2.png" width="250" height="66" /></a></li>
             <li id="shousuo">
                 <div id="ip">
-                    <ul>
-                        <li id="shuru"><input type="text" onfocus="this.value=''" onblur="this.value='请输入您想要查找的关键字'"  value="请输入您想要查找的关键字" /></li>
-                        <li id="shuru1"><input type="image" src="../Public/image/3.jpg" /></li>
-                    </ul>
+                    <form action="javascript:;" method="get" name="search_all_product" id="search_all_product">
+                        <ul>
+                            <li id="shuru">
+                                <input name="search_key" id="search_key" maxlength="30" type="text" placeholder='请输入您想要查找的关键字' />
+                            </li>
+                            <li id="shuru1"><input type="image" src="../Public/image/3.jpg" /></li>
+                        </ul>
+                    </form>
                 </div>
             </li>
             <li id="lianxi"><img src="../Public/image/4.jpg" width="181" height="46" /></li>
@@ -76,7 +92,7 @@
             </volist>
             <li><a style="padding: 10px 15px;" href="__APP__/Groupon">团购</a></li>
             <li><a style="padding: 10px 15px;" href="__APP__/Vote">最新投票产品</a></li>
-            <li class="car"><div>购物车：&nbsp;<span>3</span>&nbsp;件</div></li>
+            <li class="car"><div>购物车：&nbsp;<span id="header_carts"><{$Cart_counts|default="0"}></span>&nbsp;件</div></li>
             <li class="shop"><div><a href="__APP__/Cart">去结算</a></div></li>
         </ul>
 

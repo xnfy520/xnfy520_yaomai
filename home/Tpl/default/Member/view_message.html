@@ -1,0 +1,58 @@
+<div id="add-edit">
+    <table>
+        <tr class="table_tr"><th class="table_th"> 主题：</th><td class="table_td"><{$data.name}></td></tr>
+        <tr class="table_tr"><th class="table_th"> 发信人：</th><td class="table_td">系统信息</td></tr>
+        <tr class="table_tr"><th class="table_th"> 发送时间：</th><td class="table_td"><{$data.create_date|date="Y-m-d H:i:s",###}></td></tr>
+        <tr class="table_tr"><th class="table_th"> 内容：</th><td class="table_td"><{$data.details}></td></tr>
+    </table>
+</div>
+
+<style>
+
+/****添加 修改相关********/
+#add-edit{
+    background:white;
+    padding:  0 10px 5px 10px;
+    color: #546C83;
+}
+
+#add-edit table caption{
+    font-size:20px;
+    font-weight:bold;
+    height:30px;
+    margin:0 auto;
+    line-height:30px;
+    text-align:center;
+}
+
+#add-edit table .table_tr{
+    height: 25px;
+    line-height:25px;
+}
+
+#add-edit table .table_th{
+    height: 25px;
+    line-height:25px;
+    display: inline-block;
+    width: 100px;
+    text-align:right;
+}
+
+#add-edit table{
+    margin-top: 5px;
+}
+
+#add-edit .table_td{
+    width: 300px;
+    max-width: 300px;
+    min-width: 300px;
+}
+
+#add-edit table .table_th_top{
+    height: 25px;
+    line-height:25px;
+    display: inline-block;
+    width: 100px;
+    vertical-align: top;
+}
+</style>

@@ -23,7 +23,13 @@
 			$CommodityCategory = D('CommodityCategory');
 			$CommodityCategorys = $CommodityCategory->relation(true)->where('publish=1')->order('sort,id')->select();
 			$this->assign('ccs',$CommodityCategorys);
-		//	dump($CommodityCategorys);
+
+			if($Userinfo = $this->checkLogin()){
+				$Carts = M('Carts');
+				$Cart_counts = $Carts->where('by_user='.$Userinfo['id'])->count();
+				$this->assign('Cart_counts',$Cart_counts);
+				$this->assign('Userinfo', $Userinfo);
+			}
 
 		}
 
@@ -39,15 +45,6 @@
 				$group = C('USER_GROUP');
 				if($Userinfo){
 					if($Userinfo['Role']['level']==$group['member']['level']){
-//						$yesterday = mktime(0,0,0,date('m'),date('d')-1,date('Y'));
-//						$today = mktime(0,0,0,date('m'),date('d'),date('Y'));
-//						$times = mktime(0,0,0,date('m',$Userinfo['sign_in_time']),date('d',$Userinfo['sign_in_time']),date('Y',$Userinfo['sign_in_time']));
-//						if($times<$today){
-//							if(($today-($yesterday+(60*60*24)))==0){
-//								$Userinfo['allow_sign_in'] = 1;
-//							}
-//						}
-					//	$this->assign('Userinfo', $Userinfo);
 						return $Userinfo;
 					}else{
 						return false;
@@ -69,16 +66,6 @@
 						if($Userinfo){
 							$group = C('USER_GROUP');
 							if($Userinfo['Role']['level']==$group['member']['level']){
-//								$yesterday = mktime(0,0,0,date('m'),date('d')-1,date('Y'));
-//								$today = mktime(0,0,0,date('m'),date('d'),date('Y'));
-//								$times = mktime(0,0,0,date('m',$Userinfo['sign_in_time']),date('d',$Userinfo['sign_in_time']),date('Y',$Userinfo['sign_in_time']));
-//								if($times<$today){
-//									if(($today-($yesterday+(60*60*24)))==0){
-//										$Userinfo['allow_sign_in'] = 1;
-//									}
-//								}
-							//	$this->assign('Userinfo', $Userinfo);
-							//	dump($Userinfo);
 								return $Userinfo;
 							}else{
 								return false;
@@ -115,36 +102,21 @@
 
 				$CommodityList = M('CommodityList');
 
-				$Merchant = M('Merchant');
-
 				$maps['enable'] = 1;
 				$maps['name'] = array('like',"%{$term}%");
 
 				$order = 'id desc';
 
-				$CommodityListinfo = $CommodityList->field('id,name,by_user')->where($maps)->order($order)->limit(10)->select();
+				$CommodityListinfo = $CommodityList->field('id,name')->where($maps)->order($order)->limit(10)->select();
 
-				for($i=0; $i<count($CommodityListinfo); $i++){
+				$datas = $CommodityListinfo;
 
-					$Merchantinfo = $Merchant->field('no')->where('status=1 AND enable=1 AND by_user='.$CommodityListinfo[$i]['by_user'])->find();
-					if(!empty($Merchantinfo)){
-						$CommodityListinfo[$i]['merchant_no'] = $Merchantinfo['no'];
-					}
-
-				}
-
-				$datas = array();
-				for($i=0; $i<count($CommodityListinfo); $i++){
-					if(isset($CommodityListinfo[$i]['merchant_no']) && !empty($CommodityListinfo[$i]['merchant_no'])){
-						$datas[] = $CommodityListinfo[$i];
-					}
-				}
 
 				$result = array();
 
 				foreach ($datas as $key=>$value) {
 
-					array_push($result, array("value"=>$value['name'], "label" =>strip_tags($value['name']),"merchant_no"=>$value['merchant_no'],"product_id"=>$value['id']));
+					array_push($result, array("value"=>$value['name'], "label" =>strip_tags($value['name']),"product_id"=>$value['id']));
 					if (count($result) > 10){break;}
 
 				}

@@ -18,13 +18,16 @@
               	<div id="xm-sx1">
                 	<ul>
                     	<li id="xm-sx-sh1">收货地址上限10个</li>
-                        <li id="xm-sx-sh2"><a href="#">新增收货地址</a></li>
+                        <li id="xm-sx-sh2"><a href="javascript:;" id="add_new_address">新增收货地址</a></li>
                     </ul>
                 </div>
                 
-                <div id="xm-sx2">
-                	<ul>
-                    	<li id="xm-sx-qx1"><input type="checkbox"  /></li>
+                <empty name="adds">
+                    <div id="xm-sx2" style="margin-top:10px">无内容</div>
+                <else/>
+                    <div id="xm-sx2">
+                    <ul>
+                        <li id="xm-sx-qx1"><input class="check_all" type="checkbox"  /></li>
                         <li id="xm-sx-qx2">全选</li>
                         <li id="xm-sx-qx3">收货人姓名</li>
                         <li id="xm-sx-qx4">地址/邮编</li>
@@ -33,81 +36,58 @@
                     </ul>
                 </div>
 
-                <div class="xm-sx3">
-                	<ul>
-                    	<li class="xm-sx-mz1">
-                        	<div class="xm-fuk">
-                            	<ul>
-                                	<li><input type="checkbox"  /></li>
-                                    <li>小小地</li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="xm-sx-mz2">湖北武汉武昌区 光谷中心花园1</li>
-                        <li class="xm-sx-mz3">
-                        	<p>联系电话：</p> 
-							<p>手机：13477097782</p> 
-                        </li>
-                        <li class="xm-sx-mz4">
-                        	<a href="#">编辑</a>&nbsp;|&nbsp;
-                            <a class="sc">删除</a> 
-                        </li>
-                    </ul>
-                </div>
-                 <div class="xm-sx3">
-                	<ul>
-                    	<li class="xm-sx-mz1">
-                        	<div class="xm-fuk">
-                            	<ul>
-                                	<li><input type="checkbox"  /></li>
-                                    <li>小小地</li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="xm-sx-mz2">湖北武汉武昌区 光谷中心花园2</li>
-                        <li class="xm-sx-mz3">
-                        	<p>联系电话：</p> 
-							<p>手机：13477097782</p> 
-                        </li>
-                        <li class="xm-sx-mz4">
-                        	<a href="#">编辑</a>&nbsp;|&nbsp;
-                            <a class="sc">删除</a> 
-
-                        </li>
-                    </ul>
-                </div>
-                
-                <div class="xm-sx3">
-                	<ul>
-                    	<li class="xm-sx-mz1">
-                        	<div class="xm-fuk">
-                            	<ul>
-                                	<li><input type="checkbox"  /></li>
-                                    <li>小小地</li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="xm-sx-mz2">湖北武汉武昌区 光谷中心花园3</li>
-                        <li class="xm-sx-mz3">
-                        	<p>联系电话：</p> 
-							<p>手机：13477097782</p> 
-                        </li>
-                        <li class="xm-sx-mz4">
-                        	<a href="#">编辑</a>&nbsp;|&nbsp;
-                            <a class="sc">删除</a> 
-                        </li>
-                    </ul>
-                </div>
-                
+                <volist name="adds" id="vo_adds">
+                    <div class="xm-sx3">
+                        <ul>
+                            <li class="xm-sx-mz1">
+                                <div class="xm-fuk">
+                                    <ul>
+                                        <li><input class="is_checked" type="checkbox" value="<{$vo_adds.id}>"  /></li>
+                                        <li><{$vo_adds.consignee}></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="xm-sx-mz2"><{$vo_adds.where_text}> <{$vo_adds.street}></li>
+                            <li class="xm-sx-mz3">
+                                <notempty name="vo_adds.phone">
+                                    <p>联系电话：<{$vo_adds.phone}></p> 
+                                </notempty>
+                                <notempty name="vo_adds.cellphone">
+                                    <p>手机：<{$vo_adds.cellphone}></p> 
+                                </notempty>
+                            </li>
+                            <li class="xm-sx-mz4">
+                                <a href="javascript:;" class="edit_address" edit_id="<{$vo_adds.id}>">编辑</a>&nbsp;|&nbsp;
+                                <a class="sc delete_address" delete_id="<{$vo_adds.id}>">删除</a> 
+                            </li>
+                        </ul>
+                    </div>
+                </volist>
                 <div id="xm-sx4">
-                	<ul>
-                   	  <li id="xm-qxsc1"><input type="checkbox"  /></li>
+                    <ul>
+                      <li id="xm-qxsc1"><input class="check_all" type="checkbox"  /></li>
                       <li id="xm-qxsc2">全选</li>
-                        <li id="xm-qxsc3"><input type="button" value=" 删除 " style="cursor:pointer;"/></li>
+                        <li id="xm-qxsc3"><input class="delete_more_address" type="button" value=" 删除 " style="cursor:pointer;"/></li>
                     </ul>
                 </div>
+                </empty>
                 
              </div>
           </li>
       </ul>
     </div>
+
+    <script>
+    $(function(){
+        $(".check_all").click(function(){
+            var self = $(this);
+            if(self.attr("checked")=='checked'){
+                $(".check_all").attr("checked","checked");
+                $(".is_checked").attr("checked","checked");
+            }else{
+                $(".check_all").removeAttr("checked");
+                $(".is_checked").removeAttr("checked");
+            }
+        });
+    });
+    </script>
