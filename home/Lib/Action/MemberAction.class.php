@@ -40,14 +40,64 @@ class MemberAction extends CommonAction {
 
 	function voteOrder(){
         if($Userinfo = $this->checkLogin()){
+            import("ORG.Util.ajax_page");
+            $MemberOrder = M('MemberOrder');
+            $count = $MemberOrder->where('uid='.$Userinfo['id'].' AND commodity_type=4')->count();
+            $page = new page($count,5);
+            $orders = $MemberOrder->where('uid='.$Userinfo['id'].' AND commodity_type=4')->limit($page->setlimit())->order('create_date desc')->select();
+            if($orders){
+                $VoteCommodity = M('VoteCommodity');
+                for($i=0;$i<count($orders);$i++){
+                    $commodity = $VoteCommodity->field('details',true)->find($orders[$i]['commodity_id']);
+                    $orders[$i]['commodity'] = $commodity;
+                    if($commodity['expiration_date']<=time() || $commodity['subscribe_volume']>$commodity['subscribe'] || $orders[$i]['abolish']==1){
+                        $orders[$i]['allow_cancel'] = 0;
+                    }else{
+                        $orders[$i]['allow_cancel'] = 1;
+                    }
+                }
+            //    dump($orders);
+                $this->assign('orders',$orders);
+                $this->assign('fpage',$page->fpage());
+            }
             $this->display();
         }else{
             $this->redirect('/Index/login');
         }
     }
 
+    function cancelVoteOrder(){
+         if($Userinfo = $this->checkLogin()){
+            if(isset($_POST['order_id']) && isset($_POST['commodity_id'])){
+                $MemberOrder = M('MemberOrder');
+                $order = $MemberOrder->where('trade_status=1 AND abolish=0')->find($_POST['order_id']);
+                if($order && $_POST['commodity_id']==$order['commodity_id']){
+                    $VoteCommodity = M('VoteCommodity');
+                    $commodity = $VoteCommodity->where('enable=1')->find($_POST['commodity_id']);
+                    if($commodity['expiration_date']<time()){
+                        $this->ajaxReturn(0,"此投票商品已经结束,不能取消定单",0);
+                    }else if($commodity['subscribe_volume']>$commodity['subscribe']){
+                        $this->ajaxReturn(0,"此投票商品已经开始生产,不能取消定单",0);
+                    }else{
+                        $MemberOrder->where('id='.$_POST['order_id'])->setField('abolish',1);
+                        $VoteCommodity->where('id='.$_POST['commodity_id'])->setDec('subscribe_volume');
+                        $this->ajaxReturn(0,"取消订单成功",1);
+                    }
+                }else{
+                    $this->ajaxReturn(0,"异常操作",0);
+                }
+            }else{
+                $this->ajaxReturn(0,"异常操作",0);
+            }
+         }else{
+            $this->ajaxReturn(0,"异常操作",0);
+         }
+    }
+
     function coupon(){
         if($Userinfo = $this->checkLogin()){
+            $coupons = json_decode($Userinfo['coupons'],true);
+            $this->assign('coupons',$coupons);
             $this->display();
         }else{
             $this->redirect('/Index/login');

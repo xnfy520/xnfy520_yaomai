@@ -1,9 +1,10 @@
 <layout name='layout'/>
 
     <div id="dd-bz">
-    	<div id="dd-bz-title">首页 >> <span style="color:#666;">购物车</span> >> <span style="color:#666;">确认订单信息</span></div>
+    	<div id="dd-bz-title">首页 >> <span style="color:#666;">我的购物车</span> >> <span style="color:#666;">确认订单信息</span></div>
         <div id="dd-tjddcg-bz3"><img src="../Public/image/27.png" /></div>
     </div>
+    <form action="javascript:;" name="order_confirm" method="post">
 <div id="xm-ddqr">
    	<div class="xm-ddqr1">收货信息</div>
         <div id="xm-ddqr2" class="new_address_insert" style="height:auto;">
@@ -91,7 +92,7 @@
             	<li class="xm-psfs2">
                 	<div>
                     	<ul>
-                        	<li><input name="payment_model" type="radio" /></li>
+                        	<li><input name="payment_model" type="radio" value="3" /></li>
                             <li class="xm-mg10">货到付款</li>
                         </ul>
                     </div>
@@ -100,8 +101,8 @@
                 <li class="xm-psfs2">
                		 <div>
                     	<ul>
-                        	<li><input name="payment_model" type="radio" /></li>
-                            <li class="xm-mg10"> 银行电汇</li>
+                        	<li><input name="payment_model" type="radio" value="2" /></li>
+                            <li class="xm-mg10">银行电汇</li>
                            
                         </ul>
                     </div>
@@ -111,30 +112,55 @@
                		 <div>
                   <label>
                     	<ul>
-                        	<li><input name="payment_model" checked="checked" type="radio" /></li>
+                        	<li><input name="payment_model" checked="checked" type="radio" value="1" /></li>
                           <li class="xm-mg10">在线支付</li>
                         </ul>
                   </label>
                     </div>
                 </li>                
-                <li class="xm-psfs1"> 通过网上银行或支付平台在线付款</li>
+                <li class="xm-psfs1">
+                通过网上银行或支付平台在线付款
+                  <ul style="margin-top:5px;display:none" id="child-payment">
+                    <li style="clear:both;">
+                      <input type="radio" name="payment" value="1" checked="checked" /> 支付宝支付
+                    </li>
+                    <li style="clear:both;margin-top:5px">
+                      <input type="radio" name="payment" value="2" /> 网上银行支付
+                    </li>
+                  </ul>
+                </li>
             </ul>
       </div>
-      
+      </form>
+      <script type="text/javascript">
+        $(function(){
+          if($("[name=payment_model]:checked").val()==1){
+            $("#child-payment").show();
+          }
+          $("[name=payment_model]").change(function(){
+            if($(this).val()==1){
+              $("#child-payment").show();
+            }else{
+              $("#child-payment").hide();
+            }
+          });
+        });
+      </script>
        <div class="xm-ddqr1">发票信息</div>
        <div class="xm-fpxn" style="height:auto;">
         	<ul>
             	<li class="xm-txxdz1"><span>*</span> 发票类型：</li>
                 <li class="xm-txxdz2">
-                	<select>
-                  		<option>商业零售发票</option>
+                	<select name="invoice_type">
+                  		<option value="商业零售发票">商业零售发票</option>
                 	</select>
                  </li>
                 <li class="xm-txxdz1"><span>*</span> 发票抬头：</li>
                 <li class="xm-txxdz2">
-                    <select>
-                      <option>个人</option>
-                    </select><input class="xm-mg10" type="text" />
+                    <select name="invoice_rise">>
+                      <option value="个人">个人</option>
+                    </select>
+                    <input name="invoice_info" class="xm-mg10" type="text" />
                 </li>
             <!--     <li class="xm-fpxn1"><a href="#">保&nbsp; 存</a></li>
                 <li class="xm-fpxn2"><a href="#">取&nbsp; 消</a></li>
@@ -169,39 +195,102 @@
               </li>
               <li class="xm-spqd4">&#165;<span class="commodity-price"><{$vo_cl.Commodity.price}></span></li>
               <li class="xm-spqd5"><{$vo_cl.quantity}></li>
-              <li class="xm-spqd6">&#165;<span class="commodity-xiaoji" xiaoji="<{$vo_cl['quantity']*$vo_cl.Commodity.price}>" ><{$vo_cl['quantity']*$vo_cl.Commodity.price}></span></li>
+              <li class="xm-spqd6">&#165;<span class="commodity-xiaoji" xiaoji="<{$vo_cl.Commodity.price_all}>" ><{$vo_cl.Commodity.price_all}></span></li>
           </ul>
       </div>
     </volist>
 
     <div class="xm-ddqr1" style="margin-top:25px; ">订单结算</div>
     <div class="xm-ddqs-1">运费/服务费：<a >¥<span class="logistics">0.00</span></a></div>
-    <neq name="Cartslist.0.type" value="2">
-    <div class="xm-ddqs-2">
-      	<ul>
-        	<li>使用<a style="color:#cc0000; font-size:12px;">满减</a>优惠卷</li>
-            <li class="xm-mg10"><input  type="checkbox"  /></li>
-            <li class="xm-mg10"> 优惠额：<span >¥200</span></li>
-        </ul>
-    </div>
-    </neq>
+    <eq name="Cartslist.0.type" value="1">
+      <notempty name="youhui">
+        <div class="xm-ddqs-2" style="width:auto;margin-left:749px">
+          	<ul>
+            	<li>使用<a style="color:#cc0000; font-size:12px;">满减</a>优惠卷</li>
+                <li class="xm-mg10"><input name="coupon" type="checkbox" checked="checked" value="<{$youhui}>"  /></li>
+                <li class="xm-mg10"> 优惠额：<span >&#165;<{$youhui}></span></li>
+            </ul>
+        </div>
+      </notempty>
+    </eq>
       <input type="hidden" name="commodity_volume" value="<{$commodity_volume}>" />
       <input type="hidden" name="commodity_total" value="<{$commodity_total}>" />
       <input type="hidden" name="logistics" value="0" />
-    <div class="xm-ddqs-1">产品金额共计：<a>：&#165;<span class="commodity-total" data="<{$commodity_total}>" ><{$commodity_total}></span></a></div>
+    <div class="xm-ddqs-1">产品金额共计：<a>：&#165;<span class="commodity-total" data="<{$commodity_total}>"><{$commodity_total}></span></a></div>
     <div class="xm-ddqs-1"><strong>您共需为订单支付：<span>¥<span id="price_total"><{$commodity_total}></span></span></strong></div>
     <div class="xm-ddqs-1 xm-cohui">-------------------------------------------------------------</div>
-  	<div id="xm-qrzz-1"><a href="#"><img src="../Public/image/39.jpg" width="150" height="45" /></a></div>
+  	<div id="xm-qrzz-1"><input type="image" id="order_confirm" style="cursor:pointer;" src="../Public/image/39.jpg" width="150" height="45" /></div>
   </div>
 
 <script>
 
     $(function(){
 
-    $("[name=use_address]").eq($("[name=use_address]").size()-1).attr('checked','checked');
+      $("[name=order_confirm]").submit(function(){
 
-    $(".logistics").text(get_logistics($("[name=use_address]").size()-1).toFixed(2));
-    $("[name=logistics]").val(get_logistics($("[name=use_address]").size()-1));
+        var s_a = $("[name=use_address]");
+
+        var use_address = $("[name=use_address]:checked");
+        var payment_model = $("[name=payment_model]:checked");
+        var payment = $("[name=payment]:checked");
+        var delivery = $("[name=delivery]:checked");
+        var ask_for_date = $("[name=ask_for_date]");
+        var invoice_type = $("[name=invoice_type]");
+        var invoice_rise = $("[name=invoice_rise]");
+        var invoice_info = $("[name=invoice_info]");
+
+        if(s_a.size()<1 || !s_a.val()){
+          jBox.tip('请添加或选择收货地址', 'error',{ timeout: 2000});
+          return false;
+        }
+
+        var ob = {use_address:use_address.val(),payment_model:payment_model.val(),payment:payment.val(),delivery:delivery.val(),ask_for_date:ask_for_date.val(),invoice_type:invoice_type.val(),invoice_rise:invoice_rise.val(),invoice_info:invoice_info.val()};
+
+          if(payment_model.val()==1){
+              if(payment.val()==1){
+                   var submit = function (v, h, f) {
+                    if (v == 'ok'){
+
+                        window.open(define_app_url+'/Pay/alipay_to_subscription/id/'+use_address); //打开新窗口
+
+                        window.setTimeout(function () {
+
+                           jBox.tip("正在处理...", 'loading');
+                            $.ajax({
+                                url: define_app_url+'/'+define_module_name+'/order_confirm',
+                                data: {data:ob},
+                                type:'POST',
+                                success: function(data){
+                                    var msg = JSON.parse(data);
+                                    if(msg.status==1){
+                                         window.location=define_app_url+'/Cart/order_complete';
+                                    }else{
+                                        jBox.tip(msg.info, 'error',{ timeout: 1000,closed: function () { }});
+                                    }
+                                }
+                            });
+
+                        },500);
+
+                    }
+                    return true; //close
+                };
+                if(define_userid){
+                    jBox.confirm("确认提交订单，并跳转到支付页面？", "提示", submit,{top: '40%'});
+                }else{
+                    window.location = define_app_url+'/Cat';
+                }
+              }
+          }else{
+            console.log('??');
+          }
+      });
+
+    if($("[name=use_address]").size()>0){
+        $("[name=use_address]").eq($("[name=use_address]").size()-1).attr('checked','checked');
+        $(".logistics").text(get_logistics($("[name=use_address]").size()-1).toFixed(2));
+        $("[name=logistics]").val(get_logistics($("[name=use_address]").size()-1));
+    }
 
     $("[name=use_address]").change(function(){
         var i = $(this).attr('index'); 
@@ -210,10 +299,16 @@
 
     function set_logistics(i){
         var gl = get_logistics(i);
-        console.log(i);
-        console.log(gl);
-        $(".logistics").text(gl.toFixed(2));
-        $("[name=logistics]").val(gl);
+    //    console.log(gl);
+        var v = $("[name=delivery]:checked").val();
+     //   console.log(v);
+        if(v==1){
+          $(".logistics").text(gl.toFixed(2));
+          $("[name=logistics]").val(gl);
+        }else if(v==2){
+          $(".logistics").text((gl+10).toFixed(2));
+          $("[name=logistics]").val((gl+10));
+        }
         get_totals();
     }
 
@@ -230,13 +325,17 @@
          get_totals();
     });
 
+    $("[name=coupon]").click(function(){
+       get_totals();
+    });
 
-    get_totals();    
+    get_totals();
 
     function get_totals(){
         var lo = parseInt($("[name=logistics]").val());
         var total = parseInt($("[name=commodity_total]").val());
-        $("#price_total").text((lo+total).toFixed(2));
+        var coupon = parseInt($("[name=coupon]:checked").val() ? $("[name=coupon]:checked").val() : 0);
+        $("#price_total").text((lo+total-coupon).toFixed(2));
     }
 
     function get_logistics(i){
@@ -245,7 +344,12 @@
       var average_price = parseInt(addinit.attr('average_price'));
       var commodity_volume = parseInt($("[name=commodity_volume]").val());
       var data = initiate_price+average_price*commodity_volume;
-      return data;
+      if(data){
+        return data;
+      }else{
+        return 0;
+      }
+
     }
 
     $("[name=information_province]").live('change',function(){
@@ -388,7 +492,7 @@
         }
 
         var ob = {consignee:consignee,where_id:where_id,street:street,zip:zip,cellphone:cellphone,phone:phone,where_text:where_text}
-     //   jBox.tip("正在处理...", 'loading');
+        jBox.tip("正在处理...", 'loading');
         $.ajax({
             url: define_app_url+'/'+define_module_name+'/insert_address',
             data: ob,

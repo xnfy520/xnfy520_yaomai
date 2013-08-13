@@ -27,7 +27,6 @@ class CartAction extends CommonAction {
         						$Cartslist[$s]['Commodity'] = $cd;
         						$Cartslist[$s]['CIDir'] = 'CommodityList';
                                 $Cartslist[$s]['URL'] = 'Commodity';
-                                $this->assign('Cartslist',$Cartslist);
         					}else{
                                 $Carts->delete($Cartslist[$s]['id']);
                             }
@@ -44,7 +43,6 @@ class CartAction extends CommonAction {
                                     $Cartslist[$s]['Commodity'] = $cd;
                                     $Cartslist[$s]['CIDir'] = 'GrouponCommodity';
                                     $Cartslist[$s]['URL'] = 'Groupon';
-                                    $this->assign('Cartslist',$Cartslist);
                                 }
                             }else{
                                 $Carts->delete($Cartslist[$s]['id']);
@@ -57,10 +55,13 @@ class CartAction extends CommonAction {
         		}
         		$commodity_total = 0;
         		for($k=0;$k<count($Cartslist);$k++){
+                    $Cartslist[$k]['xiaoji'] = number_format($Cartslist[$k]['quantity']*$Cartslist[$k]['Commodity']['price'],"2",".","");
         			$tmpp = $Cartslist[$k]['quantity']*$Cartslist[$k]['Commodity']['price'];
         			$commodity_total+=$tmpp;
         		}
-            //   dump($Cartslist);
+                if($Cartslist){
+                    $this->assign('Cartslist',$Cartslist);
+                }
         	   $this->assign('commodity_total',number_format($commodity_total,"2",".",""));
         	}
         }
@@ -140,6 +141,7 @@ class CartAction extends CommonAction {
                             for($s=0;$s<count($Cartslist);$s++){
                                 $cd = $CommodityList->field('details,p1,p2,p3',true)->where('enabled=1')->find($Cartslist[$s]['by_comodity']);
                                 if($cd){
+                                    $cd['price_all'] = number_format($cd['price']*$Cartslist[$s]['quantity'],"2",".","");
                                     $Cartslist[$s]['Commodity'] = $cd;
                                     $Cartslist[$s]['CIDir'] = 'CommodityList';
                                     $Cartslist[$s]['URL'] = 'Commodity';
@@ -156,6 +158,7 @@ class CartAction extends CommonAction {
                                     if($cd['expiration_date']<=time()){
                                         $Carts->delete($Cartslist[$s]['id']);
                                     }else{
+                                        $cd['price_all'] = number_format($cd['price']*$Cartslist[$s]['quantity'],"2",".","");
                                         $Cartslist[$s]['Commodity'] = $cd;
                                         $Cartslist[$s]['CIDir'] = 'GrouponCommodity';
                                         $Cartslist[$s]['URL'] = 'Groupon';
@@ -177,7 +180,18 @@ class CartAction extends CommonAction {
                         $commodity_volume+=$Cartslist[$k]['Commodity']['measure'];
                     }
 
-                    $this->assign('commodity_total',$commodity_total);
+                    if($type==1){
+                        $coupons = json_decode($Userinfo['coupons'],true);
+                        if($coupons>0 && $commodity_total>=1000){
+                            $ns =  floor($commodity_total/1000);
+                            $youhui = $ns*50;
+                            $this->assign('youhui',number_format($youhui,"2"));
+                        }
+                    }else if($type==2){
+
+                    }
+                    
+                    $this->assign('commodity_total',number_format($commodity_total,"2",".",""));
                     $this->assign('commodity_volume',$commodity_volume);
                 //    echo $commodity_volume;
                 }

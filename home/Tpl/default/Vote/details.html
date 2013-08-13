@@ -21,7 +21,7 @@
           <div id="xm-wuliu2">定金：<strong>&#165;<{$data.subscription}></strong></div>
           <div id="xm-flfy"><a href="javascript:;" id="view_logistics" pid="<{$data.id}>">物流费用</a></div>
           <div id="xm-flfy1">
-          	<a href="__APP__/Vote/schedule/id/<{$data.id}>"><img src="../Public/image/toup1.png" width="99" height="30"></a>
+          	<a class="check-subscribe" commodity_id="<{$data.id}>" href="javascript:;"><img src="../Public/image/toup1.png" width="99" height="30"></a>
             <a href="javascript:;" class="vote-commodity" commodity_id="<{$data.id}>"><img src="../Public/image/toup2.png" width="74" height="30"></a>
           </div>
           <div id="xm-flfy2">已有<span><{$data.subscribe_volume}></span>人预订，达到<span><{$data.subscribe}></span>人开始生产
@@ -161,6 +161,32 @@
 <link rel="stylesheet" type="text/css" href="__PUBLIC__/js/fancybox/jquery.fancybox-1.3.4.css" media="screen" />
     <script type="text/javascript">
     $(function(){
+
+        $(".check-subscribe").click(function(){
+            var self = $(this);
+            var commodity_id = self.attr('commodity_id');
+            if(define_userid==''){
+                jBox.tip('登录后才能预订', 'success',{ timeout: 2000,closed: function () {  }});
+            }else{
+                jBox.tip("正在处理...", 'loading');
+                window.setTimeout(function () {
+                    $.ajax({
+                        url: define_app_url+'/Vote/check_subscribe',
+                        data:{commodity_id:commodity_id},
+                        type:'POST',
+                        success: function(data){
+                            var msg = JSON.parse(data);
+                            if(msg.status==1){
+                                window.location = define_app_url+'/Vote/schedule/id/'+commodity_id;
+                            }else{
+                                jBox.tip(msg.info, 'error',{ timeout: 2000,closed: function () { }});
+                            }
+                        }
+                    });
+                },500);
+            }
+        });
+
         $('.vote-commodity').live('click',function(){
             var self = $(this);
             var commodity_id = self.attr('commodity_id');

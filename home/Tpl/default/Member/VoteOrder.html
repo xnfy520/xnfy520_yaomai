@@ -1,183 +1,222 @@
 <layout name='layout'/>
+<script>
+  function lxfEndtime(){
+      $(".lxftime").each(function(){
+        var lxfday=$(this).attr("lxfday");//用来判断是否显示天数的变量
+        var endtime = $(this).attr("endtime");//取结束日期(毫秒值)
 
+        var nowtime = new Date().getTime();        //今天的日期(毫秒值)
+        var youtime = endtime-nowtime;//还有多久(毫秒值)
+        var seconds = youtime/1000;
+        var minutes = Math.floor(seconds/60);
+        var hours = Math.floor(minutes/60);
+        var days = Math.floor(hours/24);
+        var CDay= days ;
+        var CHour= hours % 24;
+        var CMinute= minutes % 60;
+        var CSecond= Math.floor(seconds%60);//"%"是取余运算，可以理解为60进一后取余数，然后只要余数。
+        if(endtime<=nowtime){
+                $(this).html("已结束")//如果结束日期小于当前日期就提示过期啦
+                }else{
+                        if($(this).attr("lxfday")=="no"){
+                                $(this).html("预售中：<span>"+CHour+"</span>时<span>"+CMinute+"</span>分<span>"+CSecond+"</span>秒");          //输出没有天数的数据
+                                }else{
+            //    $(this).html("<span>"+days+"</span>天<span>"+CHour+"</span>时<span>"+CMinute+"</span>分<span>"+CSecond+"</span>秒");          //输出有天数的数据
+                $(this).html("<span>"+days+"</span>天<span>"+CHour+"</span>时<span>");          //输出有天数的数据
+                        }
+                }
+      });
+   setTimeout("lxfEndtime()",1000);
+  };
+$(function(){
+      lxfEndtime();
+   });
+</script>
 <div class="mid-xq">
     	<ul>
-        	<li class="xq-weizhi">首页 >> <span style="color:#666;">沙发</span></li>
+        	<li class="xq-weizhi">首页 >> <span style="color:#666;">个人中心</span></li>
 
             <include file="Member:left" />
 
             <li class="xq-dingpiao">
+
             	<div class="wdyd">
-                	我的<a class="yuding" href="#">预定</a> /<a class="toupiao" href="#"> 投票</a>
+                	我的<a class="yuding_s">预定</a> /<a class="toupiao_s"> 投票</a>
                 </div>
+                
+                <empty name="orders">
 
-                <div class="wd">
-                	<div class="ding">
-                    	<ul>
-                        	<li class="ding1">订单号</li>
-                            <li class="ding2">产品图片名称</li>
-                            <li class="ding3">投票</li>
-                            <li class="ding4">预订人数</li>
-                            <li class="ding5">倒计时</li>
-                            <li class="ding6">状态</li>
-                            <li class="ding7">操作</li>
-                        </ul>
-                    </div>
+                    <div>无内容</di>
 
-                    <div class="de-yuding">
-                    	<div class="de1">
-                        	<ul>
-                            	<li class="de2">2013071222314</li>
-                                <li class="de3"><img src="../Public/image/11.jpg" width="75" height="49" /></li>
-                                <li class="de4">印尼桃花芯木双人床进芯木框架贵族品质奢华享受！</li>
-                                <li class="de5">56</li>
-                                <li class="de6">56/80</li>
-                                <li class="de7"><span>5</span>天<span>23</span>小时</li>
-                                <li class="de8">已预定</li>
-                                <li class="de9"><a href="#">取消预订</a></li>
-                            </ul>
-                        </div>
-                        <div class="de1">
-                        	<ul>
-                            	<li class="de2">2013071222314</li>
-                                <li class="de3"><img src="../Public/image/11.jpg" width="75" height="49" /></li>
-                                <li class="de4">印尼桃花芯木双人床进芯木框架贵族品质奢华享受！</li>
-                                <li class="de5">56</li>
-                                <li class="de6">56/80</li>
-                                <li class="de7"><span>5</span>天<span>23</span>小时</li>
-                                <li class="de8">已预定</li>
-                                <li class="de9"><a href="#">取消预订</a></li>
-                                
-                            </ul>
-                        </div>
-                        <div class="de1">
-                        	<ul>
-                            	<li class="de2">2013071222314</li>
-                                <li class="de3"><img src="../Public/image/11.jpg" width="75" height="49" /></li>
-                                <li class="de4">印尼桃花芯木双人床进芯木框架贵族品质奢华享受！</li>
-                                <li class="de5">56</li>
-                                <li class="de6">56/80</li>
-                                <li class="de7"><span>5</span>天<span>23</span>小时</li>
-                                <li class="de8">已预定</li>
-                                <li class="de9"><a href="#">取消预订</a></li>
-                                
-                            </ul>
-                        </div>
-                        <div class="de1">
-                        	<ul>
-                            	<li class="de2">2013071222314</li>
-                                <li class="de3"><img src="../Public/image/11.jpg" width="75" height="49" /></li>
-                                <li class="de4">印尼桃花芯木双人床进芯木框架贵族品质奢华享受！</li>
-                                <li class="de5">56</li>
-                                <li class="de6">56/80</li>
-                                <li class="de7"><span>5</span>天<span>23</span>小时</li>
-                                <li class="de8">已预定</li>
-                                <li class="de9"><a href="#">取消预订</a></li>
-                                
-                            </ul>
-                        </div>
-                        <div class="de1">
-                        	<ul>
-                            	<li class="de2">2013071222314</li>
-                                <li class="de3"><img src="../Public/image/11.jpg" width="75" height="49" /></li>
-                                <li class="de4">印尼桃花芯木双人床进芯木框架贵族品质奢华享受！</li>
-                                <li class="de5">56</li>
-                                <li class="de6">56/80</li>
-                                <li class="de7"><span>5</span>天<span>23</span>小时</li>
-                                <li class="de8">已预定</li>
-                                <li class="de9"><a href="#">取消预订</a></li>
-                                
-                            </ul>
-                        </div>
-                    </div>
+                <else/>
                     
-                    <div class="de-toupiao">
-                    	<div class="de1">
-                        	<ul>
-                            	<li class="de2">2013071222314</li>
-                                <li class="de3"><img src="../Public/image/11.jpg" width="75" height="49" /></li>
-                                <li class="de4">印尼桃花芯木双人床进芯木框架贵族品质奢华享受！</li>
-                                <li class="de5">56</li>
-                                <li class="de6">56/80</li>
-                                <li class="de7"><span>5</span>天<span>23</span>小时</li>
-                                <li class="de8">已投票</li>
-                                <li class="de9"><a href="#">取消投票</a></li>
-                                
+                    <div class="wd">
+
+                        <div class="ding">
+                            <ul>
+                                <li class="ding1">订单号</li>
+                                <li class="ding2">产品图片名称</li>
+                                <li class="ding3">投票</li>
+                                <li class="ding4">预订人数</li>
+                                <li class="ding5">倒计时</li>
+                                <li class="ding6">状态</li>
+                                <li class="ding7">操作</li>
                             </ul>
                         </div>
-                        <div class="de1">
-                        	<ul>
-                            	<li class="de2">2013071222314</li>
-                                <li class="de3"><img src="../Public/image/11.jpg" width="75" height="49" /></li>
-                                <li class="de4">印尼桃花芯木双人床进芯木框架贵族品质奢华享受！</li>
-                                <li class="de5">56</li>
-                                <li class="de6">56/80</li>
-                                <li class="de7"><span>5</span>天<span>23</span>小时</li>
-                                <li class="de8">已投票</li>
-                                <li class="de9"><a href="#">取消投票</a></li>
-                                
-                            </ul>
+
+                        <div class="de-yuding">
+                            <volist name="orders" id="vo_o">
+                                <div class="de1">
+                                    <ul>
+                                        <li class="de2"><{$vo_o.out_trade_no}></li>
+                                        <li class="de3">
+                                        <a href="__APP__/Vote/details/id/<{$vo_o.commodity_id}>">
+                                            <img src="__PUBLIC__/Content/VoteCommodity/thumb_<{$vo_o.commodity.image}>" width="75" height="49" />
+                                        </a>
+                                        </li>
+                                        <li class="de4"><a href="__APP__/Vote/details/id/<{$vo_o.commodity_id}>"><{$vo_o.commodity.name}></a></li>
+                                        <li class="de5"><{$vo_o.commodity.vote}></li>
+                                        <li class="de6"><{$vo_o.commodity.subscribe_volume}>/<{$vo_o.commodity.subscribe}></li>
+                                        <li class="de7 lxftime" endtime="<{$vo_o['commodity']['expiration_date']*1000}>"></li>
+                                        <li class="de8">
+                                            <eq name="vo_o.trade_status" value="1">
+                                                <eq name="vo_o.abolish" value="1">
+                                                    已取消预定
+                                                <else/>
+                                                    已预定
+                                                </eq>
+                                            <else/>
+                                                未预订
+                                            </eq>
+                                        </li>
+                                        <li class="de9">
+                                            <eq name="vo_o.allow_cancel" value="0">
+                                                -
+                                            <else/>
+                                                <eq name="vo_o.trade_status" value="1">
+                                                    <a class="cancel_yuding" subscribe_volume="<{$vo_o.commodity.subscribe_volume}>" subscribe="<{$vo_o.commodity.subscribe}>" endtime="<{$vo_o['commodity']['expiration_date']*1000}>" commodity_id="<{$vo_o.commodity.id}>" order_id="<{$vo_o.id}>" href="javascript:;">取消预订</a>
+                                                <else/>
+                                                    <a target="_blank" href="https://tradeexprod.alipay.com/fastpay/createDirectPayByBuyer.htm?partner=<{$Think.config.ALIPAY_CONFIG_COMMODITY.partner}>&out_trade_no=<{$vo_o.out_trade_no}>">支付订金</a>
+                                                </eq>
+                                            </eq>
+                                        </li>
+                                        
+                                    </ul>
+                                </div>
+                            </volist>
                         </div>
-                        <div class="de1">
-                        	<ul>
-                            	<li class="de2">2013071222314</li>
-                                <li class="de3"><img src="../Public/image/11.jpg" width="75" height="49" /></li>
-                                <li class="de4">印尼桃花芯木双人床进芯木框架贵族品质奢华享受！</li>
-                                <li class="de5">56</li>
-                                <li class="de6">56/80</li>
-                                <li class="de7"><span>5</span>天<span>23</span>小时</li>
-                                <li class="de8">已投票</li>
-                                <li class="de9"><a href="#">取消投票</a></li>
-                                
-                            </ul>
-                        </div>
-                        <div class="de1">
-                        	<ul>
-                            	<li class="de2">2013071222314</li>
-                                <li class="de3"><img src="../Public/image/11.jpg" width="75" height="49" /></li>
-                                <li class="de4">印尼桃花芯木双人床进芯木框架贵族品质奢华享受！</li>
-                                <li class="de5">56</li>
-                                <li class="de6">56/80</li>
-                                <li class="de7"><span>5</span>天<span>23</span>小时</li>
-                                <li class="de8">已投票</li>
-                                <li class="de9"><a href="#">取消投票</a></li>
-                                
-                            </ul>
-                        </div>
-                        <div class="de1">
-                        	<ul>
-                            	<li class="de2">2013071222314</li>
-                                <li class="de3"><img src="../Public/image/11.jpg" width="75" height="49" /></li>
-                                <li class="de4">印尼桃花芯木双人床进芯木框架贵族品质奢华享受！</li>
-                                <li class="de5">56</li>
-                                <li class="de6">56/80</li>
-                                <li class="de7"><span>5</span>天<span>23</span>小时</li>
-                                <li class="de8">已投票</li>
-                                <li class="de9"><a href="#">取消投票</a></li>
-                                
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <div class="fanye">
-                    	<ul>
-                        	<li style="width:390px; text-align:right">总计 1 条记录</li>
-                            <li>共 <span class="se1">1</span> 页</li>
-                            <li><a class="se2">« 第一页</a></li>
-                            <li><a class="se2" href="#">‹上一页</a></li>
-                            <li><a class="se2" href="#">下一页›</a></li>
-                            <li><a class="se2" href="#">最末页 »</a></li>
-                            <li class="op"><select>
-                              <option>1</option>
-                              <option>2</option>
-                              <option>3</option>
-                              <option>4</option>
-                              <option>5</option>
-                              <option>6</option>
+
+                        
+                        <div class="fanye">
+                      <ul>
+                          <li style="width:390px; text-align:right">总计 <{$fpage.total}> 条记录</li>
+                            <li>共 <span class="se1"><{$fpage.tpage}></span> 页</li>
+                            <li>
+                              <eq name="fpage.header.page" value="0">
+                                  <a>« 第一页</a>
+                              <else/>
+                                  <a class="se2" href="__APP__/Member/voteOrder/page/<{$fpage.header.page}>">« 第一页</a>
+                              </eq>
+                            </li>
+                            <li>
+                              <eq name="fpage.prev.page" value="0">
+                                  <a>‹上一页</a>
+                              <else/>
+                                  <a class="se2" href="__APP__/Member/voteOrder/page/<{$fpage.prev.page}>">‹上一页</a>
+                              </eq>
+                            </li>
+                            <li>
+                              <eq name="fpage.next.page" value="0">
+                                  <a>下一页›</a>
+                              <else/>
+                                  <a class="se2" href="__APP__/Member/voteOrder/page/<{$fpage.next.page}>">下一页›</a>
+                              </eq>
+                            </li>
+                            <li>
+                              <eq name="fpage.footer.page" value="0">
+                                    <a>最末页 »</a>
+                              <else/>
+                                    <a class="se2" href="__APP__/Member/voteOrder/page/<{$fpage.footer.page}>">最末页 »</a>
+                              </eq>
+                            </li>
+                            <li class="op"><select id="change_page">
+                              <volist name="fpage.list" id="vo_flist">
+                                <eq name="vo_flist.page" value="$Think.get.page">
+                                  <option value="<{$vo_flist.page}>" selected="selected"><{$vo_flist.page}></option>
+                                <else/>
+                                  <option value="<{$vo_flist.page}>"><{$vo_flist.page}></option>
+                                </eq>
+                              </volist>
                           </select></li>
                         </ul>
                     </div>
-                </div>
+                
+              </div>
+                        
+                    </div>
+
+                </empty>
+
             </li>
         </ul>
     </div>
+    <script>
+    $(function(){
+        $("#change_page").change(function(){
+          window.location = define_action_url+'/page/'+$(this).val();
+        });
+    });
+    </script>
+      <script>
+    $(function(){
+      $(".cancel_yuding").click(function(){
+          var id = $(this).attr('order_id');
+          var commodity_id = $(this).attr('commodity_id');
+          var subscribe_volume = $(this).attr('subscribe_volume');
+          var subscribe = $(this).attr('subscribe');
+          var times = $(this).attr('endtime');
+          var d = new Date;
+          if(times<d.getTime()){
+            jBox.tip('此投票商品已经结束,不能取消定单', 'success',{ timeout: 2000,closed: function () {  }});
+            return;
+          }
+          if(subscribe_volume>subscribe){
+            jBox.tip('此投票商品已经开始生产,不能取消定单', 'success',{ timeout: 2000,closed: function () {  }});
+            return;
+          }
+
+        var submit = function (v, h, f) {
+          if (v == 'ok'){
+
+            //  jBox.tip("正在处理...", 'loading');
+                window.setTimeout(function () {
+                    $.ajax({
+                        url: define_app_url+'/Member/cancelVoteOrder',
+                        data:{order_id:id,commodity_id:commodity_id},
+                        type:'POST',
+                        success: function(data){
+                            var msg = JSON.parse(data);
+                            if(msg.status==1){
+                                jBox.tip(msg.info, 'success',{ timeout: 1000,closed: function () {
+                                    window.location.reload();
+                                 }});
+                            }else{
+                                jBox.tip(msg.info, 'error',{ timeout: 1000,closed: function () { }});
+                            }
+                        }
+                    });
+                },500);
+
+          }
+          return true; //close
+      };
+
+      if(define_userid){
+          jBox.confirm("确认取消此预订商品?", "提示", submit,{top: '40%'});
+      }else{
+          jBox.tip('您还没有登录，请登录后再购买', 'success',{ timeout: 2000,closed: function () {  }});
+      }
+
+      });
+    });
+  </script>

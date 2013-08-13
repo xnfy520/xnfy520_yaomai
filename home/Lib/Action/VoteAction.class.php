@@ -136,6 +136,34 @@ class VoteAction extends CommonAction {
 		 }
 	}
 
+	function check_subscribe(){
+		if($Userinfo = $this->checkLogin()){
+			if(isset($_POST['commodity_id']) && !empty($_POST['commodity_id'])){
+		 		$VoteCommodity = M('VoteCommodity');
+		 		$co = $VoteCommodity->where('enable=1')->find($_POST['commodity_id']);
+		 		if($co['expiration_date']<=time()){
+			 		$this->ajaxReturn(0,'该投票商品已结束',0);
+			 	}else{
+			 		$MemberOrder = M('MemberOrder');
+			 		$commodity = $MemberOrder->where('uid='.$Userinfo['id'].' AND commodity_id='.$_POST['commodity_id'].' AND abolish=0')->find();
+			 		if($commodity){
+			 			if($commodity['trade_status']==1){
+			 				$this->ajaxReturn(0,'你已经预订此商品',0);
+			 			}else{
+			 				$this->ajaxReturn(0,'你已经预订此商品,但还没有支付订金',0);
+			 			}
+			 		}else{
+			 			$this->ajaxReturn(0,'可以预订',1);
+			 		}
+			 	}
+		 	}else{
+		 		$this->ajaxReturn(0,'异常操作',0);
+	 		}
+		}else{
+			$this->ajaxReturn(0,'登录后才能预订',0);
+		}
+	}
+
 	function schedule(){
 		if(isset($_GET['id']) && !empty($_GET['id'])){
 			$VoteCommodity = M('VoteCommodity');
@@ -145,6 +173,17 @@ class VoteAction extends CommonAction {
 		 			$this->redirect('/Vote/details/id/'.$_GET['id']);
 	 			}else{
 	 				if($Userinfo = $this->checkLogin()){
+	 					$MemberOrder = M('MemberOrder');
+	 					$commdoitys = $MemberOrder->where('uid='.$Userinfo['id'].' AND commodity_id='.$_GET['id'].' AND abolish=0')->find();
+
+	 					if($commdoitys){
+	 						if($commdoitys['trade_status']==1){
+	 							$this->redirect('/Vote/details/id/'.$_GET['id']);
+		 					}else if($commdoitys['trade_status']==0){
+		 						$this->redirect('/Member/VoteOrder');
+		 					}
+	 					}
+	 					
 	 					$flag = true;
 	 					$tmp = array(array('commodity_id'=>$_GET['id'],'by_user'=>$Userinfo['id']));
 	 					if(empty($co['votes'])){
@@ -180,6 +219,7 @@ class VoteAction extends CommonAction {
 		 					}
 		 					$VoteCommodity->where('id='.$_GET['id'])->setField($votes);
 	 					}
+
 	 				}
 	 				$this->assign('data',$co);
 	 				$this->display();

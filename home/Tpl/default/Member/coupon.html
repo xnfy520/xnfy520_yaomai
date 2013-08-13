@@ -14,32 +14,17 @@
                 <div class="wd">
                     <div id="dd-shpj">
                     	<div id="dd-hb"><!-- 红包不能与其他优惠同时使用 --></div>
-                        <ul>
-                        	<li>
-                            	<a href="#"><img src="../Public/image/hb.jpg" width="137" height="110" /></a>
-                            </li>
-                        	<li>
-                            	<a href="#"><img src="../Public/image/hb.jpg" width="137" height="110" /></a>
-                            </li>
-                        	<li>
-                            	<a href="#"><img src="../Public/image/hb.jpg" width="137" height="110" /></a>
-                            </li>
-                        	<li>
-                            	<a href="#"><img src="../Public/image/hb.jpg" width="137" height="110" /></a>
-                            </li>
-                        	<li>
-                            	<a href="#"><img src="../Public/image/hb.jpg" width="137" height="110" /></a>
-                            </li>
-                        	<li>
-                            	<a href="#"><img src="../Public/image/hb.jpg" width="137" height="110" /></a>
-                            </li>
-                        	<li>
-                            	<a href="#"><img src="../Public/image/hb.jpg" width="137" height="110" /></a>
-                            </li>
-                        	<li>
-                            	<a href="#"><img src="../Public/image/hb.jpg" width="137" height="110" /></a>
-                            </li>
+                        <empty name="coupons">
+                            <div>无优惠劵</div>
+                        <else/>
+                            <ul>
+                            <volist name="coupons" id="vo_cou">
+                                <li>
+                                    <img src="../Public/image/hb.jpg" width="137" height="110" />
+                                </li>
+                            </volist>
                         </ul>
+                        </empty>
                     </div>
                 </div>   
             </li>

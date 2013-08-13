@@ -25,21 +25,26 @@
 		),
 
 		'ALIPAY_CONFIG_COMMODITY'=>array(
-			'partner'=>'2088102650804455',
-			'key'=>'jgasqeamuni8mvfguezc4fj35v99cfqh',
-			'seller_email'=>'xnfy520@qq.com',
-			'return_url'=>'http://'.$_SERVER['HTTP_HOST'].'/index.php/Shops/return_url',
-			'notify_url'=>'http://'.$_SERVER['HTTP_HOST'].'/index.php/Shops/notify_url',
+			'partner'=>'2088701999304820',
+			'key'=>'q6veewe5dfjg5psk691jx34erofoksvj',
 			'sign_type'=>'MD5',
 			'input_charset'=>'utf-8',
+			'cacert'=>'http://'.$_SERVER['HTTP_HOST'].'/xnfy520_yaomai/',
 			'transport'=>'http',
 		),
 
-		'payment_info'=>array(
-			'subject'=>'老土网订单商品',
-			'alibody'=>'老土网商品信息'
-		),
+		'alipay_api'=>array(
+			'return_url'=>'http://'.$_SERVER['HTTP_HOST'].'/xnfy520_yaomai/index.php/Pay/return_url',
+			'notify_url'=>'http://'.$_SERVER['HTTP_HOST'].'/xnfy520_yaomai/index.php/Pay/notify_url',
 
+			'show_url'=>'http://'.$_SERVER['HTTP_HOST'].'/xnfy520_yaomai/index.php/Pay/show_url',
+
+			'seller_email'=>'78699721@qq.com',
+			'out_trade_no'=>strrev(time()),
+			'subject'=>'要买家具',
+			'body'=>'要买家具',
+		),
+//https://tradeexprod.alipay.com/fastpay/createDirectPayByBuyer.htm?partner=2088701999304820&out_trade_no=6483216731
 		/*** Provinces 已使用***/
 		'provinces_level'=>array(
 			'area_level' => 0,
@@ -92,12 +97,6 @@
 			'1'=>'只工作日送货',
 			'2'=>'工作日、双休日与假日均可送货',
 			'3'=>'只双休日、假日送货',
-		),
-
-		/**民俗类型**/
-		'folk_custom'=>array(
-			'1'=>'民间习俗',
-			'2'=>'名优特产',
 		),
 
 		/**送货方式配置**/

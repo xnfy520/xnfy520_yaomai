@@ -66,21 +66,67 @@ $(function(){
              <table width="175" border="0" cellspacing="0" cellpadding="0">
                       <tr>
                         <td width="80" height="30"><strong style="font-size:14px;">支付方式:</strong></td>
-                        <td width="20" height="30"><input name="payment" type="radio" checked="checked"  /></td>
+                        <td width="20" height="30"><input name="payment" value="1" type="radio" checked="checked"  /></td>
                         <td width="75" height="30">支付宝支付</td>
                       </tr>
                       <tr>
                         <td width="80" height="30">&nbsp;</td>
-                        <td width="20" height="30"><input name="payment" type="radio"  /></td>
+                        <td width="20" height="30"><input name="payment" value="2" type="radio"  /></td>
                         <td width="75" height="30">网上银行支付</td>
                       </tr>
              </table>
       </div>
       <div id="xm-zfff1">
-     	 <a href="#"><img src="../Public/image/47.jpg"/></a> 
+     	 <input type="image" id="vote-commodity" commodity="<{$data.id}>" src="../Public/image/47.jpg"/>
       </div>
       <div id="xm-zfff2">
      	 <a href="__APP__/Vote/details/id/<{$Think.get.id}>"><img src="../Public/image/48.jpg"/></a> 
       </div>
         
   </div>
+  <script>
+    $(function(){
+      $("#vote-commodity").click(function(){
+          var id = $(this).attr('commodity');
+          var times = $(".lxftime").attr('endtime');
+          var payment = $("[name=payment]").val();
+          var d = new Date;
+          if(times<d.getTime()){
+            jBox.tip('此投票商品已结束', 'success',{ timeout: 2000,closed: function () {  }});
+            return;
+          }
+          if(payment==1){
+                var submit = function (v, h, f) {
+                  if (v == 'ok'){
+
+                      window.open(define_app_url+'/Pay/alipay_to_subscription/id/'+id); //打开新窗口
+
+                      window.setTimeout(function () {
+
+                          var submit_to = function(vv, hh, ff){
+
+                              if(vv == 'ok'){
+                                  window.location=define_app_url+'/Member/voteOrder';
+                              }else if(vv == 'cancels'){
+                                  window.location=define_app_url+'/SupportCenter';
+                              }
+
+                          }
+
+                          jBox.warning("订单已经提交，请您在新打开的网上银行页面进行支付，支付完成前请不要关闭该窗口。", "提示", submit_to,{top: '40%',buttons: { '已完成支付': 'ok'},closed: function () {  window.location=define_app_url+'/Member/voteOrder' }});
+
+                      },500);
+
+                  }
+                  return true; //close
+              };
+
+              if(define_userid){
+                  jBox.confirm("确认支付订金，并跳转到支付页面？", "提示", submit,{top: '40%'});
+              }else{
+                  jBox.tip('您还没有登录，请登录后再购买', 'success',{ timeout: 2000,closed: function () {  }});
+              }
+          }
+      });
+    });
+  </script>

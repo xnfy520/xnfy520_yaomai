@@ -66,7 +66,7 @@
                             </ul>
                         </div>
                     </li>
-                    <li class="xm-gwebda5">&#165;<span class="commodity-xiaoji" xiaoji="<{$vo_cl['quantity']*$vo_cl.Commodity.price}>" ><{$vo_cl['quantity']*$vo_cl.Commodity.price|number_format="2"}></span></li>
+                    <li class="xm-gwebda5">&#165;<span class="commodity-xiaoji" xiaoji="<{$vo_cl.xiaoji}>" ><{$vo_cl.xiaoji}></span></li>
                     <li  class="xm-gwebda6">
                         <a class="dd-sc cart-delete-one" delete_id="<{$vo_cl.id}>" style="line-height: 35px;">删除</a>  
                     </li>
@@ -76,7 +76,6 @@
    <!--      <div id="xm-zgqs">
             <strong>商品金额：<span>5799</span>元</strong>
         </div> -->
-        
         <div id="xm-spzjg1" style="margin-top:10px">
             <ul>
                 <li id="xm-spzjg2"><input class="check_all" type="checkbox" /></li>

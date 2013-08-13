@@ -3,12 +3,14 @@ $(".foot .foot1").eq(1).addClass("footbac");
 $(".yuding").hover(function(){
 	$(".de-yuding").css("display","block");
 	$(".de-toupiao").css("display","none");
+
 },function(){
 })
 	
 $(".toupiao").hover(function(){
 	$(".de-yuding").css("display","none");
 	$(".de-toupiao").css("display","block");
+
 },function(){
 })
 
