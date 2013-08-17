@@ -1,0 +1,41 @@
+<layout name='layout'/>
+
+<div class="mid-xq">
+    	<ul>
+          <li class="xq-weizhi">首页 >> <span style="color:#666;">个人中心</span> >> <span style="color:#666;">生产跟踪</span></li>
+
+            <include file="Member:left" />
+
+            <li class="xq-dingpiao">
+            	<div class="wdyd">
+                	生产跟踪
+                </div>
+
+                <div class="wd">
+                    <div id="dd-ddgz-child">
+                        <ul>
+                            <li>生产信息跟踪</li>
+                            <li><a href="__APP__/Member/suggest">网站评价建议</a></li>
+                        </ul>
+                    </div>
+                    <empty name="list">
+						无内容
+					<else/>
+						<div id="dd-scxxgz">
+	                    	<ul>
+	                    		<volist name="list" id="vo_li">
+		                        	<li>
+		                            	<a href="__APP__/Member/production_tracking_details/id/<{$vo_li.id}>"><img width="210" height="139" src="__PUBLIC__/Content/VoteCommodity/thumb_<{$vo_li.image}>" /></a>
+		                                <div class="dd-cpxx-info">
+		                                	<span><{$vo_li.name}></span>
+		                                    <span>本站价：<b>&#165;<{$vo_li.price}></b></span>
+		                                </div>
+		                            </li>
+	                           </volist>
+	                        </ul>
+	                    </div>
+                    </empty>
+                 </div>   
+            </li>
+        </ul>
+    </div>

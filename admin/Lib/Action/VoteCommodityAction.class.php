@@ -114,6 +114,7 @@ class VoteCommodityAction extends CommonAction{
 				$VoteCommodity = M('VoteCommodity');
 
 				$data = $VoteCommodity->where($datas)->find();
+
 				if(!empty($data['p1'])){
 					$data['p1'] = json_decode($data['p1'],true);
 				}

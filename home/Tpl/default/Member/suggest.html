@@ -1,0 +1,79 @@
+<layout name='layout'/>
+<div class="mid-xq">
+    	<ul>
+          <li class="xq-weizhi">首页 >> <span style="color:#666;">个人中心</span> >> <span style="color:#666;">网站评价建议</span></li>
+
+            <include file="Member:left" />
+
+            <li class="xq-dingpiao">
+            	<div class="wdyd">
+                	网站评价建议
+                </div>
+
+                <div class="wd">
+                    <div id="dd-ddgz-child">
+                        <ul>
+                            <li><a href="__APP__/Member/production_tracking">生产信息跟踪</a></li>
+                            <li>网站评价建议</li>
+                        </ul>
+                    </div>
+                    <div id="dd-shpj">
+                    <form action="javascript:;" name="send_evaluate">
+                    	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+                          <tr>
+                            <td height="64">
+                                <input type="radio" value="1" checked="checked" name="evaluate" />满意
+                                <input type="radio" value="2" name="evaluate" />一般
+                                <input type="radio" value="3" name="evaluate" />不满意
+                            </td>
+                          </tr>
+                          <tr>
+                            <td height="220">
+                            	<textarea id="dd-hf" name="details"></textarea>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td height="60">
+                            	<input type="image" src="../Public/image/save.png" /> //这里改成发送
+                            </td>
+                          </tr>
+                        </table>
+                      </form>
+                  	</div>
+                 </div>   
+            </li>
+        </ul>
+    </div>
+<script>
+$(function(){
+    $("[name=send_evaluate]").submit(function(){
+        var data = $(this).serializeArray();
+
+        var details = $("[name=send_evaluate]").find("[name=details]");
+        if(details.val().length<5){
+           jBox.tip('评价或建议内容长度需大于5字符!', 'success',{ timeout: 1000,closed: function () {}});
+           return false;
+        }
+        jBox.tip("正在处理...", 'loading');
+        window.setTimeout(function () {
+            $.ajax({
+                url: define_app_url+'/Member/send_evaluate',
+                data: data,
+                type:'POST',
+                success: function(data){
+                    var msg = JSON.parse(data);
+                    if(msg.status==1){
+                        jBox.tip(msg.info, 'success',{ timeout: 2000,closed: function () {
+                            window.location.reload();
+                        }});
+                    }else{
+                        jBox.tip(msg.info, 'error',{ timeout: 1000,closed: function () {
+                            
+                        }});
+                    }
+                }
+            });
+        },500);
+    });
+});
+</script>

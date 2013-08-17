@@ -23,7 +23,14 @@ class MemberAction extends CommonAction {
     }
 
     function commodityOrder(){
+
         if($Userinfo = $this->checkLogin()){
+            $data = $this->getOrder(1,$_GET['status']?$_GET['status']:0);
+            if($data){
+                $this->assign('numbers',$data['numbers']);
+                $this->assign('orders',$data['orders']);
+                $this->assign('fpage',$data['fpage']);
+            }
             $this->display();
         }else{
             $this->redirect('/Index/login');
@@ -32,9 +39,76 @@ class MemberAction extends CommonAction {
 
     function grouponOrder(){
         if($Userinfo = $this->checkLogin()){
+             $data = $this->getOrder(2,$_GET['status']?$_GET['status']:0);
+            if($data){
+                $this->assign('numbers',$data['numbers']);
+                $this->assign('orders',$data['orders']);
+                $this->assign('fpage',$data['fpage']);
+            }
             $this->display();
         }else{
             $this->redirect('/Index/login');
+        }
+    }
+
+    function votesOrder(){
+        if($Userinfo = $this->checkLogin()){
+            $data = $this->getOrder(3,$_GET['status']?$_GET['status']:0);
+            if($data){
+                $this->assign('numbers',$data['numbers']);
+                $this->assign('orders',$data['orders']);
+                $this->assign('fpage',$data['fpage']);
+            }
+            $this->display();
+        }else{
+            $this->redirect('/Index/login');
+        }
+    }
+
+    function getOrder($type,$status){
+        if(isset($type) && !empty($type)){
+             if($Userinfo = $this->checkLogin()){
+                $return_data = array();
+                import("ORG.Util.ajax_page");
+                $MemberOrder = M('MemberOrder');
+                $w['uid'] = $Userinfo['id'];
+                $w['commodity_type'] = $type;
+                if(isset($_GET['status'])){
+                    if($_GET['status']==1){
+                        $w['pay_type'] = array('egt',1);
+                    }else if($_GET['status']==2){
+                        $w['pay_type'] = array('eq',0);
+                    }
+                }
+
+                $count = $MemberOrder->where($w)->count();
+                $page = new page($count,11);
+                $orders = $MemberOrder->where($w)->order('create_date desc')->limit($page->setlimit())->select();
+
+                $number = array();
+                $number[0] = $MemberOrder->where('uid='.$Userinfo['id'].' AND commodity_type='.$type)->count();
+                $number[1] = $MemberOrder->where('uid='.$Userinfo['id'].' AND pay_type>0 AND commodity_type='.$type)->count();
+                $number[2] = $MemberOrder->where('uid='.$Userinfo['id'].' AND pay_type=0 AND commodity_type='.$type)->count();
+
+                if($orders){
+                    for($i=0;$i<count($orders);$i++){
+                        $add = json_decode($orders[$i]['address'],true);
+                        $com = json_decode($orders[$i]['commodity_data'],true);
+                        $other = json_decode($orders[$i]['other_data'],true);
+                        $orders[$i]['address'] = $add;
+                        $orders[$i]['commodity_data'] = $com;
+                        $orders[$i]['other_data'] = $other;
+                    }
+                }
+                $return_data['numbers'] = $number;
+                $return_data['orders'] = $orders;
+                $return_data['fpage'] = $page->fpage();
+                return $return_data;
+             }else{
+                return;
+             }
+        }else{
+            return;
         }
     }
 
@@ -48,12 +122,22 @@ class MemberAction extends CommonAction {
             if($orders){
                 $VoteCommodity = M('VoteCommodity');
                 for($i=0;$i<count($orders);$i++){
-                    $commodity = $VoteCommodity->field('details',true)->find($orders[$i]['commodity_id']);
+                    $j_com = json_decode($orders[$i]['commodity_data'],true);
+                    $commodity = $VoteCommodity->field('details',true)->find($j_com['id']);
                     $orders[$i]['commodity'] = $commodity;
-                    if($commodity['expiration_date']<=time() || $commodity['subscribe_volume']>$commodity['subscribe'] || $orders[$i]['abolish']==1){
-                        $orders[$i]['allow_cancel'] = 0;
-                    }else{
-                        $orders[$i]['allow_cancel'] = 1;
+                    if($commodity['enable']==0){
+                        $orders[$i]['order_status'] = 0; //不允许支付定金   -
+                    }else if($orders[$i]['pay_type']==0 && $commodity['expiration_date']>time() && $commodity['subscribe_volume']<$commodity['subscribe'] && $orders[$i]['abolish']==0){//未支付&未过期&未满员&未取消
+
+                        $orders[$i]['order_status'] = 1; //允许支付定金 支付订金
+
+                    }else if($orders[$i]['pay_type']>0 && $commodity['expiration_date']>time() && $commodity['subscribe_volume']<$commodity['subscribe'] && $orders[$i]['abolish']==0){//已支付&未过期&未满员&未取消
+                        $orders[$i]['order_status'] = 2; //允许取消定金  取消预订 
+
+                    }else if($orders[$i]['pay_type']>0 && $orders[$i]['abolish']==0 && $commodity['expiration_date']<=time() && $commodity['subscribe_volume']>=$commodity['subscribe']){//已支付&未取消&已过期&已满员
+                        $orders[$i]['order_status'] = 3; //允许购买  加入购物车
+                    }else if($orders[$i]['pay_type']>0 || $commodity['expiration_date']<=time() || $commodity['subscribe_volume']>$commodity['subscribe'] || $orders[$i]['abolish']==1){  //已支付|已过期|已满员|已取消
+                        $orders[$i]['order_status'] = 0; //不允许支付定金   -
                     }
                 }
             //    dump($orders);
@@ -70,13 +154,13 @@ class MemberAction extends CommonAction {
          if($Userinfo = $this->checkLogin()){
             if(isset($_POST['order_id']) && isset($_POST['commodity_id'])){
                 $MemberOrder = M('MemberOrder');
-                $order = $MemberOrder->where('trade_status=1 AND abolish=0')->find($_POST['order_id']);
-                if($order && $_POST['commodity_id']==$order['commodity_id']){
+                $order = $MemberOrder->where('uid='.$Userinfo['id'].' AND pay_type>0 AND abolish=0')->find($_POST['order_id']);
+                if($order){
                     $VoteCommodity = M('VoteCommodity');
                     $commodity = $VoteCommodity->where('enable=1')->find($_POST['commodity_id']);
-                    if($commodity['expiration_date']<time()){
+                    if($commodity['expiration_date']<=time()){
                         $this->ajaxReturn(0,"此投票商品已经结束,不能取消定单",0);
-                    }else if($commodity['subscribe_volume']>$commodity['subscribe']){
+                    }else if($commodity['subscribe_volume']>=$commodity['subscribe']){
                         $this->ajaxReturn(0,"此投票商品已经开始生产,不能取消定单",0);
                     }else{
                         $MemberOrder->where('id='.$_POST['order_id'])->setField('abolish',1);
@@ -92,6 +176,60 @@ class MemberAction extends CommonAction {
          }else{
             $this->ajaxReturn(0,"异常操作",0);
          }
+    }
+
+    function addVoteTOCart(){
+        if($Userinfo = $this->checkLogin()){
+            if(isset($_POST['order_id']) && !empty($_POST['order_id'])){
+                $MemberOrder = M('MemberOrder');
+                $order = $MemberOrder->where('uid='.$Userinfo['id'])->find($_POST['order_id']);
+                if($order){
+                    if($order['pay_type']>0 && $order['abolish']==0){
+                        $commodity = json_decode($order['commodity_data'],true);
+                        if($commodity){
+                            $VoteCommodity = M('VoteCommodity');
+                            $vc = $VoteCommodity->where('enable=1')->find($commodity['id']);
+                            if($vc){
+                                if($vc['expiration_date']<=time() && $vc['subscribe_volume']>=$vc['subscribe']){
+                                    $Carts = M('Carts');
+                                    $map['by_user'] = $Userinfo['id'];
+                                    $map['by_comodity'] = $commodity['id'];
+                                    $map['type'] = 3;
+                                    $count = $Carts->where($map)->count();
+                                    if($count>0){
+                                        $this->ajaxReturn(0,"该商品已经在您的购物车中了！",0);
+                                    }else{
+                                        $map['quantity'] = 1;
+                                        $map['create_date'] = time();
+                                        if($Carts->add($map)){
+                                            $Carts->where('by_user='.$Userinfo['id'].' AND type<>3')->delete();
+                                            $cou = $Carts->where('by_user='.$Userinfo['id'].' AND type=3')->count();
+                                            $this->ajaxReturn($cou,"加入购物车成功！",1);
+                                        }else{
+                                            $this->ajaxReturn(0,"加入购物车失败！",0);
+                                        }
+                                    }
+                                }else{
+                                    $this->ajaxReturn(0,"不符合加入购物车的条件",0);
+                                }
+                            }else{
+                                $this->ajaxReturn(0,"不存在此商品或已经下架",0);
+                            }
+                        }else{
+                            $this->ajaxReturn(0,"订单异常",0);
+                        }
+                    }else{
+                        $this->ajaxReturn(0,"异常操作,未付预订或已经取消预订",0);
+                    }
+                }else{
+                    $this->ajaxReturn(0,"不存在此订单",0);
+                }
+            }else{
+                $this->ajaxReturn(0,"异常操作",0);
+            }
+        }else{
+            $this->ajaxReturn(0,"异常操作",0);
+        }
     }
 
     function coupon(){
@@ -423,11 +561,86 @@ class MemberAction extends CommonAction {
         }
     }
 
+    function production_tracking(){
+        if($Userinfo = $this->checkLogin()){
+            $MemberOrder = M('MemberOrder');
+            $order = $MemberOrder->where('uid='.$Userinfo['id'].' AND pay_type>0 AND abolish=0 AND commodity_type=4')->order('create_date')->select();
+            if($order){
+                $VoteCommodity = M('VoteCommodity');
+                $como = array();
+                for($i=0;$i<count($order);$i++){
+                    $co = json_decode($order[$i]['commodity_data'],true);
+                    $como[] = $VoteCommodity->find($co['id']);
+                }
+                if(count($como)>0){
+                    $this->assign('list',$como);
+                }
+            }
+            $this->display();
+        }else{
+            $this->redirect('/Index/login');
+        }
+    }
+
+    function production_tracking_details(){
+        if($Userinfo = $this->checkLogin()){
+            if(isset($_GET['id']) && !empty($_GET['id'])){
+                $VoteCommodity = M('VoteCommodity');
+                $com = $VoteCommodity->find($_GET['id']);
+                if($com){
+
+                    $this->assign('data',$com);
+
+                    $this->display();
+                }else{
+                    $this->redirect('/Member/production_tracking');
+                }
+            }else{
+                $this->redirect('/Member/production_tracking');
+            }
+        }else{
+            $this->redirect('/Index/login');
+        }
+    }
+
+    function logistics_tracking(){
+        if($Userinfo = $this->checkLogin()){
+            $this->display();
+        }else{
+            $this->redirect('/Index/login');
+        }
+    }
+
     function suggest(){
         if($Userinfo = $this->checkLogin()){
             $this->display();
         }else{
             $this->redirect('/Index/login');
+        }
+    }
+
+    function send_evaluate(){
+        if($Userinfo = $this->checkLogin()){
+            if(isset($_POST['details']) && !empty($_POST['details'])){
+                $_POST['details'] = strip_tags($_POST['details']);
+                $Evaluate = M('Evaluate');
+                if($data = $Evaluate->create()){
+                    $data['uid'] = $Userinfo['id'];
+                    $data['username'] = $Userinfo['username'];
+                    $data['create_date'] = time();
+                     if($Evaluate->add($data)){
+                        $this->ajaxReturn(0,"发送评论或建议成功",1);
+                     }else{
+                         $this->ajaxReturn(0,"提交失败",0);
+                     }
+                }else{
+                    $this->ajaxReturn(0,$Evaluate->getError(),0);
+                }
+            }else{
+                $this->ajaxReturn(0,"异常操作",0);
+            }
+        }else{
+            $this->ajaxReturn(0,"异常操作",0);
         }
     }
 

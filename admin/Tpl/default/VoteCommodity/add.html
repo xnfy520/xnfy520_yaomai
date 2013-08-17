@@ -70,8 +70,8 @@
                 }
             </style>
             <li style="height: 25px;line-height: 25px;margin-bottom: 2px;">
-                <!-- <span class="switch_textarea" style="background: #546C83;color:white;">描述</span> -->
                 <span class="switch_textarea" style="background: #546C83;color:white;">简介</span>
+                <span class="switch_textarea" style="background: #ccc;color:#C61A69;">生产跟踪信息</span>
                 <button type="button" style="margin: 0;padding:5px 2px" id="Parameter">送货和退货</button>
                 <button type="button" style="margin: 0;padding:5px 2px" id="Parameter2">产品尺寸</button>
                 <button type="button" style="margin: 0;padding:5px 2px" id="Parameter3">产品详细信息</button>
@@ -90,16 +90,8 @@
                 <textarea class="textareas" name="details" style="resize: none;position:absolute;visibility: hidden;float: left;"></textarea>
             </li>
             <li class="texli" style="margin-bottom: 10px;display:none">
-                 <textarea class="description" name="description" style="resize: none;position:absolute;visibility: hidden;float: left;"></textarea>
+                 <textarea class="production_tracking" name="production_tracking" style="resize: none;position:absolute;visibility: hidden;float: left;"></textarea>
             </li>
-            
-           <!--  <li class="xnfy520-function-index-add-edit-ul-li" style="margin-bottom: 3px;">
-                <strong>详　　情：</strong>
-                <span style="font-size: 12px;">( 详情页内图片最大宽度为895px。封面或商品请上传高宽比例为1：1的图片，商品图片最多为10张 )</span>
-            </li>
-            <li>
-                <textarea name="details" style="resize: none;position:absolute;visibility: hidden;"></textarea>
-            </li> -->
             <li>
                 <input style="margin-left:0;" type="submit" name="" value="添加" />
             </li>
@@ -116,7 +108,7 @@
 <script>
     var editor;
     KindEditor.ready(function(K) {
-        editor = K.create('.description', {
+        editor = K.create('.production_tracking', {
             newlineTag : 'br',
             resizeType : 1,
             allowPreviewEmoticons : false,

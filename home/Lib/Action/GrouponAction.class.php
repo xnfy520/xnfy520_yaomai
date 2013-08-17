@@ -57,11 +57,11 @@ class GrouponAction extends CommonAction {
 	function details(){
 		if(isset($_GET['id']) && !empty($_GET['id'])){
 			$GrouponCommodity = D('GrouponCommodity');
-			$data = $GrouponCommodity->where('enable=1')->find($_GET['id']);
+			$data = $GrouponCommodity->find($_GET['id']);
 			if($data){
 				$data['zk'] = round(($data['price'] / $data['org_price']),2)*10;
 				$this->assign('data',$data);
-
+				$GrouponCommodity->where('id='.$_GET['id'])->setInc('views');
 				$recommend = $GrouponCommodity->field('id,pid,name,image,price,org_price,expiration_date,sales_volume')->where('enable=1 AND expiration_date>'.time().' AND id<>'.$_GET['id'])->order('sort,id')->limit(7)->select();
 			//	dump($recommend);
 				$this->assign('gr',$recommend);

@@ -213,9 +213,23 @@
         </div>
       </notempty>
     </eq>
+    <eq name="Cartslist.0.type" value="3">
+      <notempty name="youhui">
+        <div class="xm-ddqs-2" style="width:auto;margin-left:749px">
+            <ul>
+              <li>使用<a style="color:#cc0000; font-size:12px;">9折</a>优惠卷</li>
+                <li class="xm-mg10"><input name="coupon" type="checkbox" checked="checked" value="<{$youhui}>"  /></li>
+                <li class="xm-mg10"> 优惠额：<span >&#165;<{$youhui}></span></li>
+            </ul>
+        </div>
+      </notempty>
+    </eq>
+      <input type="hidden" name="delivery_price" value="20" />
       <input type="hidden" name="commodity_volume" value="<{$commodity_volume}>" />
       <input type="hidden" name="commodity_total" value="<{$commodity_total}>" />
       <input type="hidden" name="logistics" value="0" />
+      <input type="hidden" name="price_total" value="<{$commodity_total}>" />
+
     <div class="xm-ddqs-1">产品金额共计：<a>：&#165;<span class="commodity-total" data="<{$commodity_total}>"><{$commodity_total}></span></a></div>
     <div class="xm-ddqs-1"><strong>您共需为订单支付：<span>¥<span id="price_total"><{$commodity_total}></span></span></strong></div>
     <div class="xm-ddqs-1 xm-cohui">-------------------------------------------------------------</div>
@@ -228,42 +242,69 @@
 
       $("[name=order_confirm]").submit(function(){
 
+        if(!define_userid){
+            window.location = define_app_url+'/Cat';
+        }
+
         var s_a = $("[name=use_address]");
 
-        var use_address = $("[name=use_address]:checked");
-        var payment_model = $("[name=payment_model]:checked");
-        var payment = $("[name=payment]:checked");
-        var delivery = $("[name=delivery]:checked");
-        var ask_for_date = $("[name=ask_for_date]");
-        var invoice_type = $("[name=invoice_type]");
-        var invoice_rise = $("[name=invoice_rise]");
-        var invoice_info = $("[name=invoice_info]");
+        var use_address = $("[name=use_address]:checked"); //地址
+        var payment_model = $("[name=payment_model]:checked");//支付方式
+        var payment = $("[name=payment]:checked"); //平台类型
+        var delivery = $("[name=delivery]:checked"); //配送类型
+        var ask_for_date = $("[name=ask_for_date]"); //要求到货日期
+        var invoice_type = $("[name=invoice_type]"); //发票信息
+        var invoice_rise = $("[name=invoice_rise]"); //发票信息
+        var invoice_info = $("[name=invoice_info]"); //发票信息
+        var commodity_total = $("[name=commodity_total]"); //商品总价
+        var price_total = $("[name=price_total]"); //订单总价
+        var logistics = $("[name=logistics]"); //运费+服务费
+        var delivery_price = $("[name=delivery_price]"); //服务费
+        var coupon = $("[name=coupon]:checked"); //优惠金额
 
         if(s_a.size()<1 || !s_a.val()){
           jBox.tip('请添加或选择收货地址', 'error',{ timeout: 2000});
           return false;
         }
 
-        var ob = {use_address:use_address.val(),payment_model:payment_model.val(),payment:payment.val(),delivery:delivery.val(),ask_for_date:ask_for_date.val(),invoice_type:invoice_type.val(),invoice_rise:invoice_rise.val(),invoice_info:invoice_info.val()};
+        var ob = {
+          use_address:use_address.val(),
+          payment_model:payment_model.val(),
+          payment:payment.val(),
+          delivery:delivery.val(),
+          ask_for_date:ask_for_date.val(),
+          invoice_type:invoice_type.val(),
+          invoice_rise:invoice_rise.val(),
+          invoice_info:invoice_info.val(),
+          commodity_total:commodity_total.val(),
+          price_total:price_total.val(),
+          logistics:logistics.val(),
+          delivery_price:delivery_price.val(),
+          coupon:parseInt(coupon.val() ? coupon.val() :0)
+        };
 
           if(payment_model.val()==1){
               if(payment.val()==1){
                    var submit = function (v, h, f) {
                     if (v == 'ok'){
 
-                        window.open(define_app_url+'/Pay/alipay_to_subscription/id/'+use_address); //打开新窗口
-
                         window.setTimeout(function () {
 
                            jBox.tip("正在处理...", 'loading');
                             $.ajax({
                                 url: define_app_url+'/'+define_module_name+'/order_confirm',
-                                data: {data:ob},
+                                data: ob,
                                 type:'POST',
                                 success: function(data){
                                     var msg = JSON.parse(data);
                                     if(msg.status==1){
-                                         window.location=define_app_url+'/Cart/order_complete';
+ 
+                                      window.open(define_app_url+'/Pay/alipay_to_cart/out_trade_no/'+msg.data);
+
+                                      window.setTimeout(function () {
+                                        window.location=define_app_url+'/Cart/order_complete/out_trade_no/'+msg.data;
+                                      },500);
+
                                     }else{
                                         jBox.tip(msg.info, 'error',{ timeout: 1000,closed: function () { }});
                                     }
@@ -275,14 +316,14 @@
                     }
                     return true; //close
                 };
-                if(define_userid){
-                    jBox.confirm("确认提交订单，并跳转到支付页面？", "提示", submit,{top: '40%'});
-                }else{
-                    window.location = define_app_url+'/Cat';
-                }
+
+                jBox.confirm("确认提交订单，并跳转到支付页面？", "提示", submit,{top: '40%'});
+
+              }else{
+                console.log('网银支付');
               }
           }else{
-            console.log('??');
+            console.log('其它支付方式');
           }
       });
 
@@ -301,13 +342,14 @@
         var gl = get_logistics(i);
     //    console.log(gl);
         var v = $("[name=delivery]:checked").val();
+        var delivery_price = parseInt($("[name=delivery_price]").val());
      //   console.log(v);
         if(v==1){
           $(".logistics").text(gl.toFixed(2));
           $("[name=logistics]").val(gl);
         }else if(v==2){
-          $(".logistics").text((gl+10).toFixed(2));
-          $("[name=logistics]").val((gl+10));
+          $(".logistics").text((gl+delivery_price).toFixed(2));
+          $("[name=logistics]").val((gl+delivery_price));
         }
         get_totals();
     }
@@ -315,12 +357,13 @@
     $("[name=delivery]").change(function(){
         var v = $(this).val();
         var gl = get_logistics($("[name=use_address]:checked").attr('index'));
+        var delivery_price = parseInt($("[name=delivery_price]").val());
         if(v==1){
           $(".logistics").text(gl.toFixed(2));
           $("[name=logistics]").val(gl);
         }else if(v==2){
-          $(".logistics").text((gl+10).toFixed(2));
-          $("[name=logistics]").val((gl+10));
+          $(".logistics").text((gl+delivery_price).toFixed(2));
+          $("[name=logistics]").val((gl+delivery_price));
         }
          get_totals();
     });
@@ -335,6 +378,7 @@
         var lo = parseInt($("[name=logistics]").val());
         var total = parseInt($("[name=commodity_total]").val());
         var coupon = parseInt($("[name=coupon]:checked").val() ? $("[name=coupon]:checked").val() : 0);
+        $("[name=price_total]").val(lo+total-coupon);
         $("#price_total").text((lo+total-coupon).toFixed(2));
     }
 

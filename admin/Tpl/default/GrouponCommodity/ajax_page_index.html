@@ -6,11 +6,12 @@
                     <th class="xnfy520-function-index-table-th-50">#</th>
                     <th id="xnfy520-function-index-table-th-name">商品名称</th>
                     <th class="xnfy520-function-index-table-th-50">上架</th>
-                    <th class="xnfy520-function-index-table-th-50">推荐</th>
+                    <!-- <th class="xnfy520-function-index-table-th-50">推荐</th> -->
                     <th class="xnfy520-function-index-table-th-50">排序</th>
                     <th class="xnfy520-function-index-table-th-50">浏览</th>
                     <th class="xnfy520-function-index-table-th-50">原价</th>
                     <th class="xnfy520-function-index-table-th-50">现价</th>
+                    <th class="xnfy520-function-index-table-th-50">销量</th>
                     <th class="xnfy520-function-index-table-th-time">截止日期</th>
                     <th id="xnfy520-function-index-table-th-check-all">
                         <input type="button" value="全选" />
@@ -43,14 +44,14 @@
                                 </eq>
                                 <span style="display: none;" data_on="确认下架此商品？" data_off="确认上架此商品？"></span>
                             </td>
-                            <td class="xnfy520-function-index-table-td-hover">
+                            <!-- <td class="xnfy520-function-index-table-td-hover">
                                 <eq name="vo.recommend" value="1">
                                     <span class="switch_status" by="<{$vo.id}>" type="recommend" value="<{$vo.recommend}>">是</span>
                                     <else/>
                                     <span class="switch_status" by="<{$vo.id}>" type="recommend" value="<{$vo.recommend}>">否</span>
                                 </eq>
                                 <span style="display: none;" data_on="确认取消推荐此商品？" data_off="确认推荐此商品？"></span>
-                            </td>
+                            </td> -->
                             <td>
                                 <{$vo.sort}>
                             </td>
@@ -62,6 +63,9 @@
                             </td>
                             <td>
                                 &#165; <{$vo.price}>
+                            </td>
+                            <td>
+                                <{$vo.sales_volume}>
                             </td>
                             <td><{$vo.expiration_date|date="Y-m-d",###}></td>
                             <td class="xnfy520-function-index-table-td-checkbox">

@@ -1,0 +1,36 @@
+<layout name='layout'/>
+
+<div class="mid-xq">
+    	<ul>
+          <li class="xq-weizhi">首页 >> <span style="color:#666;">个人中心</span> >> <span style="color:#666;">生产跟踪</span></li>
+
+            <include file="Member:left" />
+
+            <li class="xq-dingpiao">
+            	<div class="wdyd">
+                	生产跟踪
+                </div>
+
+                <div class="wd">
+                    <div id="dd-ddgz-child">
+                        <ul>
+                            <li><a href="__APP__/Member/production_tracking">生产信息跟踪</a></li>
+                            <li><a href="__APP__/Member/suggest">网站评价建议</a></li>
+                        </ul>
+                    </div>
+                    <empty name="data">
+						无内容
+					<else/>
+						<div style="text-indent:20px">
+                            <notempty name="data.production_tracking">
+    	                    	<h3 style="line-height: 40px;"><{$data.name}> &#165;<{$data.price}></h3>
+                                <div><{$data.production_tracking}></div>
+                            <else/>
+                                <div style="margin-top:10px;">无内容</div>
+                            </notempty>
+	                    </div>
+                    </empty>
+                 </div>   
+            </li>
+        </ul>
+    </div>

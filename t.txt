@@ -1,0 +1,17 @@
+订单表结构 包括2种支付方式 4种商品类型
+MemberOrder  表名称
+id 订单ID
+uid 所属用户ID
+username 所属用户名
+pay_type 支付类型 1 支付宝 2网银
+alipay_date 支付宝支付数据 支付类型为1时查询
+	trade_no 支付宝订单号
+	trade_status 订单状态 0 未支付 1 已支付
+	pay_date 支付时间
+ebank_date 网银支付数据 支付类型为2时查询
+commodity_type 商品类型 1 普通商品 2 团购商品 3 投票商品 4 投票商品订金
+commodity_data 订单商品详情
+total_fee 订单总价
+out_trade_no 唯一订单号
+create_date 建单时间
+abolish 订单状态 0 正常 1 已取消

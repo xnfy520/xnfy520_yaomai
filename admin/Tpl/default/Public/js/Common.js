@@ -76,7 +76,7 @@ $(function(){
     //     var current = define_module_name+'-'+define_action_name;
     // }
     var sd = [
-                'System','SystemAnnouncement','LastUpdate','Blogroll','OtherLinks',
+                'System','SystemAnnouncement','LastUpdate','Blogroll','OtherLinks','Evaluate',
                 'AdvertCategory','AdvertList',
                 'Address','Provinces','Role',
                 'CommodityCategory','CommoditySubclass','CommodityList',
@@ -92,6 +92,10 @@ $(function(){
         $("#Left-CommodityList").css("background","#4698CA").css("color","#fff").parents('ul').css("display","block");
     }else if(define_module_name=='VoteDetails'){
         $("#Left-VoteCommodity").css("background","#4698CA").css("color","#fff").parents('ul').css("display","block");
+    }else if(define_module_name=='OrderList'){
+        if(define_type){
+            $("#Left-OrderList"+define_type).css("background","#4698CA").css("color","#fff").parents('ul').css("display","block");
+        }
     }else{
         for(var i in sd){
             if(sd[i]==define_module_name){

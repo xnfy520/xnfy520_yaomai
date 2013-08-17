@@ -45,7 +45,7 @@ $(function(){
                     success: function(data){
                         var msg = JSON.parse(data);
                         if(msg.status==1){
-                        	$("#header_carts").text($("#header_carts").text()*1+1*1);
+                            $("#header_carts").text(msg.data);
                             jBox.tip(msg.info, 'success',{ timeout: 1000,closed: function () {  }});
                         }else{
                             jBox.tip(msg.info, 'error',{ timeout: 1000,closed: function () { }});

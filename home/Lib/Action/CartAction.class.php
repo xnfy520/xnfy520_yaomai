@@ -5,6 +5,11 @@ class CartAction extends CommonAction {
 	public function index(){
 		$IndexRecommend = D('IndexRecommend');
         $cr = $IndexRecommend->relation(true)->where('type=3')->order('sort,id')->select();
+        for($a=0;$a<count($cr);$a++){
+            if(empty($cr[$a]['CommodityList'])){
+                unset($cr[$a]);
+            }
+        }
         $this->assign('cr',$cr);
 
         $CommodityCategory = M('CommodityCategory');
@@ -22,8 +27,8 @@ class CartAction extends CommonAction {
         			case 1:
         				$CommodityList = M('CommodityList');
         				for($s=0;$s<count($Cartslist);$s++){
-        					$cd = $CommodityList->field('details,p1,p2,p3',true)->where('enabled=1')->find($Cartslist[$s]['by_comodity']);
-        					if($cd){
+        					$cd = $CommodityList->field('details,p1,p2,p3',true)->find($Cartslist[$s]['by_comodity']);
+        					if($cd && $cd['enable']==1){
         						$Cartslist[$s]['Commodity'] = $cd;
         						$Cartslist[$s]['CIDir'] = 'CommodityList';
                                 $Cartslist[$s]['URL'] = 'Commodity';
@@ -35,8 +40,8 @@ class CartAction extends CommonAction {
         			case 2:
                         $GrouponCommodity = M('GrouponCommodity');
                         for($s=0;$s<count($Cartslist);$s++){
-                            $cd = $GrouponCommodity->field('details',true)->where('enabled=1')->find($Cartslist[$s]['by_comodity']);
-                            if($cd){
+                            $cd = $GrouponCommodity->field('details',true)->find($Cartslist[$s]['by_comodity']);
+                            if($cd && $cd['enable']==1){
                                 if($cd['expiration_date']<=time()){
                                     $Carts->delete($Cartslist[$s]['id']);
                                 }else{
@@ -50,7 +55,18 @@ class CartAction extends CommonAction {
                         }
         			break;
         			case 3:
-
+                        $VoteCommodity = M('VoteCommodity');
+                         for($s=0;$s<count($Cartslist);$s++){
+                            $cd = $VoteCommodity->field('details,p1,p2,p3',true)->find($Cartslist[$s]['by_comodity']);
+                            if($cd && $cd['enable']==1){
+                                $cd['price_all'] = number_format($cd['price']*$Cartslist[$s]['quantity'],"2",".","");
+                                $Cartslist[$s]['Commodity'] = $cd;
+                                $Cartslist[$s]['CIDir'] = 'VoteCommodity';
+                                $Cartslist[$s]['URL'] = 'Vote';
+                            }else{
+                                $Carts->delete($Cartslist[$s]['id']);
+                            }
+                        }
         			break;
         		}
         		$commodity_total = 0;
@@ -139,8 +155,8 @@ class CartAction extends CommonAction {
                         case 1:
                             $CommodityList = M('CommodityList');
                             for($s=0;$s<count($Cartslist);$s++){
-                                $cd = $CommodityList->field('details,p1,p2,p3',true)->where('enabled=1')->find($Cartslist[$s]['by_comodity']);
-                                if($cd){
+                                $cd = $CommodityList->field('details,p1,p2,p3',true)->find($Cartslist[$s]['by_comodity']);
+                                if($cd && $cd['enable']==1){
                                     $cd['price_all'] = number_format($cd['price']*$Cartslist[$s]['quantity'],"2",".","");
                                     $Cartslist[$s]['Commodity'] = $cd;
                                     $Cartslist[$s]['CIDir'] = 'CommodityList';
@@ -153,8 +169,8 @@ class CartAction extends CommonAction {
                         case 2:
                             $GrouponCommodity = M('GrouponCommodity');
                             for($s=0;$s<count($Cartslist);$s++){
-                                $cd = $GrouponCommodity->field('details',true)->where('enabled=1')->find($Cartslist[$s]['by_comodity']);
-                                if($cd){
+                                $cd = $GrouponCommodity->field('details',true)->find($Cartslist[$s]['by_comodity']);
+                                if($cd && $cd['enable']==1){
                                     if($cd['expiration_date']<=time()){
                                         $Carts->delete($Cartslist[$s]['id']);
                                     }else{
@@ -170,7 +186,18 @@ class CartAction extends CommonAction {
                             }
                         break;
                         case 3:
-
+                            $VoteCommodity = M('VoteCommodity');
+                             for($s=0;$s<count($Cartslist);$s++){
+                                $cd = $VoteCommodity->field('details,p1,p2,p3',true)->find($Cartslist[$s]['by_comodity']);
+                                if($cd && $cd['enable']==1){
+                                    $cd['price_all'] = number_format($cd['price']*$Cartslist[$s]['quantity'],"2",".","");
+                                    $Cartslist[$s]['Commodity'] = $cd;
+                                    $Cartslist[$s]['CIDir'] = 'VoteCommodity';
+                                    $Cartslist[$s]['URL'] = 'Vote';
+                                }else{
+                                    $Carts->delete($Cartslist[$s]['id']);
+                                }
+                            }
                         break;
                     }
                     $commodity_total = 0;
@@ -182,27 +209,195 @@ class CartAction extends CommonAction {
 
                     if($type==1){
                         $coupons = json_decode($Userinfo['coupons'],true);
-                        if($coupons>0 && $commodity_total>=1000){
+                        if(count($coupons)>0 && $commodity_total>=1000){
                             $ns =  floor($commodity_total/1000);
                             $youhui = $ns*50;
-                            $this->assign('youhui',number_format($youhui,"2"));
+                            $this->assign('youhui',number_format($youhui,"2",".",""));
                         }
-                    }else if($type==2){
-
+                    }else if($type==3){
+                            $youhui = floor($commodity_total*(1/10));
+                            $this->assign('youhui',number_format($youhui,"2",".",""));
                     }
-                    
+                    $this->assign('Cartslist',$Cartslist);
                     $this->assign('commodity_total',number_format($commodity_total,"2",".",""));
                     $this->assign('commodity_volume',$commodity_volume);
-                //    echo $commodity_volume;
+                    $this->display();
+                }else{
+                    $this->redirect('/Cart');
                 }
-                $this->assign('Cartslist',$Cartslist);
-
-        		$this->display();
         	}else{
         		$this->redirect('/Cart');
         	}
         }else{
         	$this->redirect('/Cart');
+        }
+    }
+
+    function order_confirm(){
+        if($Userinfo = $this->checkLogin()){
+            if(empty($_POST['use_address']) || empty($_POST['commodity_total']) || empty($_POST['price_total']) || empty($_POST['logistics']) || empty($_POST['delivery_price'])){
+                $this->ajaxReturn(0,"异常操作",0);
+            }
+           $cart_data = $this->get_carts();
+           if($cart_data){
+                $Addresss = M('Addresss');
+                $my_ad = $Addresss->find($_POST['use_address']);
+                if(!$my_ad){
+                    $this->ajaxReturn(0,"异常操作",0);
+                }
+
+                $order['uid'] = $Userinfo['id'];
+                $order['username'] = $Userinfo['username'];
+                $order['out_trade_no'] = strrev(time());
+                $order['total_fee'] = $_POST['price_total']; //充值金额倍率
+                $order['create_date'] = time();
+                $order['commodity_type'] = $cart_data['commodity_type']; //预订商品
+                $order['commodity_data'] = json_encode($cart_data['commoditys']);
+                $order['address'] = json_encode($my_ad);
+                if(!empty($_POST['logistics'])){
+                    $_POST['logistics'] = number_format($_POST['logistics'],"2",".","");
+                }
+                if(!empty($_POST['delivery_price'])){
+                    $_POST['delivery_price'] = number_format($_POST['delivery_price'],"2",".","");
+                }
+                if(!empty($_POST['coupon'])){
+                    $_POST['coupon'] = number_format($_POST['coupon'],"2",".","");
+                }
+                if(!empty($_POST['price_total'])){
+                    $_POST['price_total'] = number_format($_POST['price_total'],"2",".","");
+                }
+                $order['other_data'] = json_encode($_POST);
+                $MemberOrder = M('MemberOrder');
+                if($MemberOrder->add($order)){
+                    $Carts = M('Carts');
+                    $Carts->where('by_user='.$Userinfo['id'])->delete();
+                    if($cart_data['commodity_type']==1){
+                        $coupons = json_decode($Userinfo['coupons'],true);
+                        if(count($coupons)>0 && $_POST['commodity_total']>=1000 && $_POST['coupon']>0){
+                            array_pop($coupons);
+                            $User = M('User');
+                            $User->where('id='.$Userinfo['id'])->setField('coupons',json_encode($coupons));
+                        }
+                    }
+                    $this->ajaxReturn($order['out_trade_no'],"创建订单成功",1);
+                }else{
+                    $this->ajaxReturn(0,"创建订单失败",0);
+                }
+           }else{
+                $this->ajaxReturn(0,"异常操作",0);
+           }
+        }else{
+            $this->ajaxReturn(0,"异常操作",0);
+        }
+    }
+
+    function order_complete(){
+        if($Userinfo = $this->checkLogin()){
+            if(isset($_GET['out_trade_no']) && !empty($_GET['out_trade_no'])){
+                $MemberOrder = M('MemberOrder');
+                $w['out_trade_no'] = $_GET['out_trade_no'];
+                $w['uid'] = $Userinfo['id'];
+                $order = $MemberOrder->where($w)->find();
+                if($order && $order['create_date']+7>=time()){
+                    $type = 'commodityOrder';
+                    switch($order['commodity_type']){
+                        case 1:
+                            $type='commodityOrder';
+                            break;
+                        case 2:
+                            $type='grouponOrder';
+                            break;
+                        case 3:
+                            $type='votesOrder';
+                            break;
+                    }
+                    $this->assign('type',$type);
+                    $this->display();
+                }else{
+                    $this->redirect('/Member/commodityOrder');
+                }
+            }else{
+                $this->redirect('/Member/commodityOrder');
+            }
+        }else{
+            $this->redirect('/Cart');
+        }
+    }
+
+    function get_carts(){
+        if($Userinfo = $this->checkLogin()){
+            $Carts = M('Carts');
+            $Cartslist = $Carts->where('by_user='.$Userinfo['id'])->select();
+            if($Cartslist){
+                $type = $Cartslist[0]['type'];
+                switch($type){
+                    case 1:
+                        $CommodityList = D('CommodityList');
+                        for($s=0;$s<count($Cartslist);$s++){
+                            $cd = $CommodityList->relation(true)->field('details,p1,p2,p3',true)->find($Cartslist[$s]['by_comodity']);
+                            if($cd && $cd['enable']==1){
+                                $Cartslist[$s]['Commodity'] = $cd;
+                                $Cartslist[$s]['CIDir'] = 'CommodityList';
+                                $Cartslist[$s]['URL'] = 'Commodity';
+                            }else{
+                                $Carts->delete($Cartslist[$s]['id']);
+                            }
+                        }
+                    break;
+                    case 2:
+                        $GrouponCommodity = M('GrouponCommodity');
+                        for($s=0;$s<count($Cartslist);$s++){
+                            $cd = $GrouponCommodity->field('details',true)->find($Cartslist[$s]['by_comodity']);
+                            if($cd && $cd['enable']==1){
+                                if($cd['expiration_date']<=time()){
+                                    $Carts->delete($Cartslist[$s]['id']);
+                                }else{
+                                    $Cartslist[$s]['Commodity'] = $cd;
+                                    $Cartslist[$s]['CIDir'] = 'GrouponCommodity';
+                                    $Cartslist[$s]['URL'] = 'Groupon';
+                                }
+                            }else{
+                                $Carts->delete($Cartslist[$s]['id']);
+                            }
+                        }
+                    break;
+                    case 3:
+                        $VoteCommodity = D('VoteCommodity');
+                        for($s=0;$s<count($Cartslist);$s++){
+                            $cd = $VoteCommodity->relation(true)->field('details,p1,p2,p3',true)->find($Cartslist[$s]['by_comodity']);
+                            if($cd && $cd['enable']==1){
+                                $Cartslist[$s]['Commodity'] = $cd;
+                                $Cartslist[$s]['CIDir'] = 'VoteCommodity';
+                                $Cartslist[$s]['URL'] = 'Vote';
+                            }else{
+                                $Carts->delete($Cartslist[$s]['id']);
+                            }
+                        }
+                    break;
+                }
+                $commodity_total = 0;
+                $commodity_volume = 0;
+                $youhui = 0;
+                for($k=0;$k<count($Cartslist);$k++){
+                    $Cartslist[$k]['xiaoji'] = number_format($Cartslist[$k]['quantity']*$Cartslist[$k]['Commodity']['price'],"2",".","");
+                    $tmpp = $Cartslist[$k]['quantity']*$Cartslist[$k]['Commodity']['price'];
+                    $commodity_total+=$tmpp;
+                    $commodity_volume+=$Cartslist[$k]['Commodity']['measure'];
+                }
+                if($type==1){
+                    $coupons = json_decode($Userinfo['coupons'],true);
+                    if(count($coupons)>0 && $commodity_total>=1000){
+                        $ns =  floor($commodity_total/1000);
+                        $youhui = $ns*50;
+                    }
+                }else if($type==3){
+                    $youhui = floor($commodity_total*(1/10));
+                    $this->assign('youhui',number_format($youhui,"2",".",""));
+                }
+                return array('commoditys'=>$Cartslist,'total_price'=>$commodity_total,'commodity_type'=>$type,'youhui'=>$youhui);
+            }
+        }else{
+            return;
         }
     }
 

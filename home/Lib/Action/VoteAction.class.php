@@ -50,7 +50,7 @@ class VoteAction extends CommonAction {
 	function details(){
 		if(isset($_GET['id']) && !empty($_GET['id'])){
 			$VoteCommodity = D('VoteCommodity');
-			$data = $VoteCommodity->relation(true)->where('enable=1')->find($_GET['id']);
+			$data = $VoteCommodity->relation(true)->find($_GET['id']);
 			if($data){
 				if(!empty($data['p1'])){
 					$data['p1'] = json_decode($data['p1'],true);
@@ -63,7 +63,7 @@ class VoteAction extends CommonAction {
 				}
 				$this->assign('data',$data);
 			//	dump($data);
-
+				$VoteCommodity->where('id='.$_GET['id'])->setInc('views');
 				$address_config = C('address_level');
 	            if(!empty($address_config) && !empty($address_config['province_level'])){
 	                $Address = M('Address');
@@ -141,13 +141,26 @@ class VoteAction extends CommonAction {
 			if(isset($_POST['commodity_id']) && !empty($_POST['commodity_id'])){
 		 		$VoteCommodity = M('VoteCommodity');
 		 		$co = $VoteCommodity->where('enable=1')->find($_POST['commodity_id']);
+		 		if(!$co){
+		 			$this->ajaxReturn(0,'异常操作',0);
+		 		}
 		 		if($co['expiration_date']<=time()){
 			 		$this->ajaxReturn(0,'该投票商品已结束',0);
 			 	}else{
 			 		$MemberOrder = M('MemberOrder');
-			 		$commodity = $MemberOrder->where('uid='.$Userinfo['id'].' AND commodity_id='.$_POST['commodity_id'].' AND abolish=0')->find();
-			 		if($commodity){
-			 			if($commodity['trade_status']==1){
+			 		$commodity = $MemberOrder->where('uid='.$Userinfo['id'].' AND abolish=0')->select();
+			 		$flag = 0;
+			 		$c_order = '';
+			 		for($i=0;$i<count($commodity);$i++){
+			 			$com = json_decode($commodity[$i]['commodity_data'],true);
+			 			if($com['id']==$_POST['commodity_id']){
+			 				$c_order = $commodity[$i];
+			 				$flag = 1;
+			 			}
+			 		}
+
+			 		if($flag){
+			 			if($c_order['pay_type']!=0){
 			 				$this->ajaxReturn(0,'你已经预订此商品',0);
 			 			}else{
 			 				$this->ajaxReturn(0,'你已经预订此商品,但还没有支付订金',0);
@@ -173,19 +186,22 @@ class VoteAction extends CommonAction {
 		 			$this->redirect('/Vote/details/id/'.$_GET['id']);
 	 			}else{
 	 				if($Userinfo = $this->checkLogin()){
-	 					$MemberOrder = M('MemberOrder');
-	 					$commdoitys = $MemberOrder->where('uid='.$Userinfo['id'].' AND commodity_id='.$_GET['id'].' AND abolish=0')->find();
 
-	 					if($commdoitys){
-	 						if($commdoitys['trade_status']==1){
+	 					$MemberOrder = M('MemberOrder');
+
+			 			$commodity = $MemberOrder->where('uid='.$Userinfo['id'].' AND pay_type<>0 AND abolish=0')->select();
+
+	 					for($s=0;$s<count($commodity);$s++){
+	 						$tmps = json_decode($commodity[$s]['commodity_data'],true);
+	 						if($tmps['id']==$_GET['id']){
 	 							$this->redirect('/Vote/details/id/'.$_GET['id']);
-		 					}else if($commdoitys['trade_status']==0){
-		 						$this->redirect('/Member/VoteOrder');
-		 					}
+	 						}
 	 					}
-	 					
+
 	 					$flag = true;
+
 	 					$tmp = array(array('commodity_id'=>$_GET['id'],'by_user'=>$Userinfo['id']));
+
 	 					if(empty($co['votes'])){
 	 						$votes['votes'] = json_encode($tmp);
 	 					}else{
@@ -198,6 +214,7 @@ class VoteAction extends CommonAction {
 	 						}
 	 						$votes['votes'] = json_encode(array_merge($check,$tmp));
 	 					}
+
 	 					if($flag){
 	 						$votes['vote'] = $co['vote']+1;
 		 					$User = M('User');

@@ -1,0 +1,92 @@
+
+<div id="xnfy520-function-index">
+
+    <div id="xnfy520-function-index-title">
+        评价建议列表
+    </div>
+
+    <div id="xnfy520-function-index-search">
+
+        <form action="__APP__/Evaluate/index" method="post" name="form_search"  style="line-height: 35px;">
+            关键字 <input type="text" name="key" /> 按&nbsp;
+            <select name="search">
+                <option value="2">用户名</option>
+            </select>
+            <empty name="list">
+                <input type="submit" value="搜索" disabled="disabled" />
+                <else />
+                <input type="submit" value="搜索" />
+            </empty>
+        </form>
+
+    </div>
+
+    <div id="xnfy520-function-index-content">
+
+        <form action="javascript:;" method="post" name="Evaluate-del" class="delete">
+            <table id="xnfy520-function-index-table">
+                <thead>
+                <tr>
+                    <th id="xnfy520-function-index-table-th-name">用户名</th>
+                    <th id="xnfy520-function-index-table-th-enable">评价</th>
+                    <th id="xnfy520-function-index-table-th-description">内容</th>
+                    <th id="xnfy520-function-index-table-th-enable">详情</th>
+                    <th class="xnfy520-function-index-table-th-time">创建时间</th>
+                    <th id="xnfy520-function-index-table-th-check-all">
+                        <input type="button" value="全选" />
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <empty name="list">
+                    <tr><td colspan="5" style="height:50px;">暂无数据</td></tr>
+                    <else/>
+                    <volist name="list" id="vo">
+                        <tr>
+                            <td>
+                                <{$vo.username}>
+                            </td>
+                            <td>
+                                <switch name="vo.evaluate">
+                                    <case value="1">满意</case>
+                                    <case value="2">一般</case>
+                                    <case value="3">不满意</case>
+                                </switch>
+                            </td>
+                            <td class="xnfy520-function-index-table-td-description">
+                                  
+                                       <gt name="vo.details|mb_strlen='utf-8'" value="30">
+                                           <{$vo.details|mb_substr=0,30,"utf-8"}>...
+                                           <else/>
+                                           <{$vo.details}>
+                                       </gt>
+                                   
+                            </td>
+                            <td>
+                             <span class="xnfy520-function-index-edit">查看</span></td>
+                            <td><{$vo.create_date|date="Y-m-d H:i:s",###}></td>
+                            <td class="xnfy520-function-index-table-td-checkbox">
+                                <input class="xnfy520-function-index-table-check-this" type="checkbox" name="deleteid[]" value="<{$vo.id}>" />
+                            </td>
+                        </tr>
+                    </volist>
+                </empty>
+                </tbody>
+            </table>
+            <notempty name="list">
+                <div style="border:1px solid #ccc;height: 37px;">
+
+                    <div class="emit-fanye-box">
+                        <div class="emit-fanye-text">
+                            <{$fpage}>
+                        </div>
+                    </div>
+
+                    <span style="float: right;"><input type="submit" value="删除" /></span>
+
+                </div>
+            </notempty>
+        </form>
+
+    </div>
+</div>

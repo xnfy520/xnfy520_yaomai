@@ -67,7 +67,10 @@ class CommodityAction extends CommonAction {
 	function details(){
 		if(isset($_GET['id']) && !empty($_GET['id'])){
 			$CommodityList = D('CommodityList');
-			$data = $CommodityList->relation(true)->where('enable=1')->find($_GET['id']);
+			$data = $CommodityList->relation(true)->find($_GET['id']);
+			if(!$data){
+				$this->redirect('/Index');
+			}
 			if(!empty($data['p1'])){
 				$data['p1'] = json_decode($data['p1'],true);
 			}
@@ -79,7 +82,7 @@ class CommodityAction extends CommonAction {
 			}
 			$this->assign('data',$data);
 //			dump($data);
-
+			$CommodityList->where('id='.$_GET['id'])->setInc('views');
 			 $address_config = C('address_level');
             if(!empty($address_config) && !empty($address_config['province_level'])){
                 $Address = M('Address');
@@ -148,6 +151,15 @@ class CommodityAction extends CommonAction {
 	function ajax_buy_commodity(){
 		if(!empty($_POST['commodity_id']) && !empty($_POST['quantity'])){
 			if($Userinfo = $this->checkLogin()){
+				$CommodityList = M('CommodityList');
+				$co = $CommodityList->find($_POST['commodity_id']);
+				if($co){
+					if($co['enable']==0){
+						$this->ajaxReturn(0,"此商品已经下架",0);
+					}
+				}else{
+					$this->ajaxReturn(0,"不存在此商品",0);
+				}
 				$Carts = M('Carts');
 				$map['by_user'] = $Userinfo['id'];
 				$map['by_comodity'] = $_POST['commodity_id'];
@@ -176,6 +188,15 @@ class CommodityAction extends CommonAction {
 	function ajax_commodity_add_cart(){
 		if(!empty($_POST['commodity_id']) && !empty($_POST['quantity'])){
 			if($Userinfo = $this->checkLogin()){
+				$CommodityList = M('CommodityList');
+				$co = $CommodityList->find($_POST['commodity_id']);
+				if($co){
+					if($co['enable']==0){
+						$this->ajaxReturn(0,"此商品已经下架",0);
+					}
+				}else{
+					$this->ajaxReturn(0,"不存在此商品",0);
+				}
 				$map['by_user'] = $Userinfo['id'];
 				$map['by_comodity'] = $_POST['commodity_id'];
 				$map['type'] = 1;
@@ -188,7 +209,8 @@ class CommodityAction extends CommonAction {
 					$map['create_date'] = time();
 					if($Carts->add($map)){
 						$Carts->where('by_user='.$Userinfo['id'].' AND type<>1')->delete();
-						$this->ajaxReturn(0,"加入购物车成功！",1);
+						$cou = $Carts->where('by_user='.$Userinfo['id'].' AND type=1')->count();
+						$this->ajaxReturn($cou,"加入购物车成功！",1);
 					}else{
 						$this->ajaxReturn(0,"加入购物车失败！",0);
 					}

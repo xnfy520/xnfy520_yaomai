@@ -1,0 +1,27 @@
+{__NOLAYOUT__}
+<div id="Evaluate-add-edit">
+    <table>
+        <tr class="table_tr">
+           <td>用户名：</td>
+           <td><{$data.username}></td>
+        </tr>
+        <tr class="table_tr">
+           <td>发布时间：</td>
+           <td><{$data.create_date|date="Y-m-d H:i:s",###}></td>
+        </tr>
+        <tr class="table_tr">
+           <td>评价：</td>
+           <td>
+               <switch name="data.evaluate">
+                    <case value="1">满意</case>
+                    <case value="2">一般</case>
+                    <case value="3">不满意</case>
+                </switch>
+           </td>
+        </tr>
+        <tr class="table_tr">
+           <td style="vertical-align:top">内容：</td>
+           <td style="width:330px"><{$data.details}></td>
+        </tr>
+    </table>
+</div>

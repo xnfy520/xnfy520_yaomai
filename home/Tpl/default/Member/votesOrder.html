@@ -1,19 +1,19 @@
 <layout name='layout'/>
  <div class="mid-xq">
       <ul>
-          <li class="xq-weizhi">首页 >> <span style="color:#666;">个人中心</span> >> <span style="color:#666;">团购订单</span></li>
+          <li class="xq-weizhi">首页 >> <span style="color:#666;">个人中心</span> >> <span style="color:#666;">投票订单</span></li>
 
       <include file="Member:left" />
 
             <li id="xm-dingdan">
               <div id="xm-dd1">
-                  团购订单
+                  投票订单
               </div>
               <div id="xm-dd2">
                 <div id="xm-wcdd1">
-                  <a class="xm-ds" href="__APP__/Member/grouponOrder">全部订单<span>（<{$numbers[0]|default="0"}>个）</span></a>  
-                  <a class="xm-ds" href="__APP__/Member/grouponOrder/status/1">已付款订单<span>（<{$numbers[1]|default="0"}>个）</span></a>  
-                    <a class="xm-df" href="__APP__/Member/grouponOrder/status/2">待付款订单<span>（<{$numbers[2]|default="0"}>个</span>）</a> 
+                  <a class="xm-ds" href="__APP__/Member/votesOrder">全部订单<span>（<{$numbers[0]|default="0"}>个）</span></a>  
+                  <a class="xm-ds" href="__APP__/Member/votesOrder/status/1">已付款订单<span>（<{$numbers[1]|default="0"}>个）</span></a>  
+                    <a class="xm-df" href="__APP__/Member/votesOrder/status/2">待付款订单<span>（<{$numbers[2]|default="0"}>个</span>）</a> 
                 </div>
               <notempty name="orders">
 
@@ -56,12 +56,12 @@
                                     </tr>
                                   </volist>
                                   <tr>
-                                      <td style="text-align:left;text-indent:14px;height:30px" colspan="4">
+                                      <td style="text-align:left;text-indent:14px;height:30px" colspan="3">
                                       收货地址:<{$vo_o.address.where_text}> <{$vo_o.address.street}> (<{$vo_o.address.zip}>) <notempty name="vo_o.address.cellphone">手机号:<{$vo_o.address.cellphone}></notempty> <notempty name="vo_o.address.phone">电话:<{$vo_o.address.phone}></notempty> 收货人:<{$vo_o.address.consignee}>
                                       </td>
-                                      <td style="text-align:right;padding-right:12px">
+                                      <td style="text-align:right;padding-right:12px" colspan="2">
                                         <gt name="vo_o.pay_type" value="0">
-                                          <a style="color:blue" href="__APP__/Member/logistics_tracking">物流跟踪</a>
+                                          <a style="color:blue" href="__APP__/Member/production_tracking">生产跟踪</a>  <a style="color:blue" href="__APP__/Member/logistics_tracking">物流跟踪</a>
                                         </gt>
                                       </td>
                                   </tr>
@@ -78,28 +78,28 @@
                               <eq name="fpage.header.page" value="0">
                                   <a>« 第一页</a>
                               <else/>
-                                  <a class="se2" href="__APP__/Member/grouponOrder/page/<{$fpage.header.page}>">« 第一页</a>
+                                  <a class="se2" href="__APP__/Member/votesOrder/page/<{$fpage.header.page}>">« 第一页</a>
                               </eq>
                             </li>
                             <li>
                               <eq name="fpage.prev.page" value="0">
                                   <a>‹上一页</a>
                               <else/>
-                                  <a class="se2" href="__APP__/Member/grouponOrder/page/<{$fpage.prev.page}>">‹上一页</a>
+                                  <a class="se2" href="__APP__/Member/votesOrder/page/<{$fpage.prev.page}>">‹上一页</a>
                               </eq>
                             </li>
                             <li>
                               <eq name="fpage.next.page" value="0">
                                   <a>下一页›</a>
                               <else/>
-                                  <a class="se2" href="__APP__/Member/grouponOrder/page/<{$fpage.next.page}>">下一页›</a>
+                                  <a class="se2" href="__APP__/Member/votesOrder/page/<{$fpage.next.page}>">下一页›</a>
                               </eq>
                             </li>
                             <li>
                               <eq name="fpage.footer.page" value="0">
                                     <a>最末页 »</a>
                               <else/>
-                                    <a class="se2" href="__APP__/Member/grouponOrder/page/<{$fpage.footer.page}>">最末页 »</a>
+                                    <a class="se2" href="__APP__/Member/votesOrder/page/<{$fpage.footer.page}>">最末页 »</a>
                               </eq>
                             </li>
                             <li class="op"><select id="change_page">

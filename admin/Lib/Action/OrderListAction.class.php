@@ -6,12 +6,8 @@ class OrderListAction extends CommonAction{
 
 		if($Userinfo = $this->check_is_admin()){
 			import("ORG.Util.emit_ajax_page");
-
-			$CommodityList = D('CommodityList');
-			$CommodityListinfo = $CommodityList->field('id')->select();
-			$commoditys = array();
-			for($i=0; $i<count($CommodityListinfo); $i++){
-				$commoditys[] = $CommodityListinfo[$i]['id'];
+			if(!isset($_GET['type']) && empty($_GET['type'])){
+				$this->redirect('/Index');
 			}
 			$MemberOrder = M('MemberOrder');
 
@@ -47,9 +43,8 @@ class OrderListAction extends CommonAction{
 
 			if(isset($_GET['cid']) && !empty($_GET['cid'])){
 				switch($_GET['cid']){
-					case 1 : $datas['trade_status'] = array(array('eq',''),array('eq','WAIT_BUYER_PAY'),'or') ;break;
-					case 2 : $datas['trade_status'] = array('eq','WAIT_SELLER_SEND_GOODS');break;
-					case 3 : $datas['trade_status'] = array('eq','TRADE_FINISHED');break;
+					case 1 : $datas['pay_type'] = array('gt',0) ;break;
+					case 2 : $datas['pay_type'] = array('eq',0);break;
 				}
 			}
 
@@ -66,40 +61,32 @@ class OrderListAction extends CommonAction{
 				}
 			}
 
-			$datas['id'] = array('neq',"0");
-			$MemberOrderinfo = $MemberOrder->where($datas)->order('create_date desc')->select();
-			$User = M('User');
-			$MerchantOrder = array();
-			foreach($MemberOrderinfo as $key=>$value){
-				$commodity_infos = json_decode($value['commodity_infos'],true);
-				$address_infos = json_decode($value['address_infos'],true);
-				$MerchantOrder[$key] = $MemberOrderinfo[$key];
-				$MerchantOrder[$key]['address_info'] =$address_infos;
-				$shippersinfo = $MemberOrder->where('out_trade_no='.$value['out_trade_no'])->getField('shippers');
-				$infos = explode(';',$shippersinfo);
-				foreach($commodity_infos as $k=>$v){
-					if(in_array($v['by_user'],$infos)){
-						$commodity_infos[$k]['deliver_goods_status'] = 1;
-					}else{
-						$commodity_infos[$k]['deliver_goods_status'] = 0;
-					}
-					$commodity_infos[$k]['merchant_name'] = $User->where('id='.$v['by_user'])->getField('username');
-					$MerchantOrder[$key]['commodify_list'][] = $commodity_infos[$k];
-				}
-				$MerchantOrder[$key]['User'] = $User->find($value['by_user']);
+			$datas['commodity_type'] = $_GET['type'];
+
+			$count = $MemberOrder->where($datas)->count();
+
+			$page = new page($count,20);
+
+			$MemberOrderinfo = $MemberOrder->where($datas)->order('create_date desc')->limit($page->setlimit())->select();
+
+			for($i=0;$i<count($MemberOrderinfo);$i++){
+				$ali = json_decode($MemberOrderinfo[$i]['alipay_data'],true);
+				$ebank = json_decode($MemberOrderinfo[$i]['ebank_data'],true);
+				$com = json_decode($MemberOrderinfo[$i]['commodity_data'],true);
+				$add = json_decode($MemberOrderinfo[$i]['address'],true);
+				$other = json_decode($MemberOrderinfo[$i]['other_data'],true);
+				$MemberOrderinfo[$i]['alipay_data'] = $ali;
+				$MemberOrderinfo[$i]['ebank_data'] = $ebank;
+				$MemberOrderinfo[$i]['commodity_data'] = $com;
+				$MemberOrderinfo[$i]['address'] = $add;
+				$MemberOrderinfo[$i]['other_data'] = $other;
 			}
 
-			$fpage = 15;
+		//	dump($MemberOrderinfo);
 
-			array_values($MerchantOrder);
+			$this->assign('list',$MemberOrderinfo);
 
-			$datas = array_chunk($MerchantOrder,$fpage,true);
-
-			$this->assign('list',isset($_GET['page']) ? $datas[$_GET['page']-1] : $datas[0]);
-
-			$page = new page(count($MerchantOrder),$fpage);
-
-			$this->assign('fpage',$page->fpage(array(1,2,4,5,6,7,8)));
+			$this->assign('fpage',$page->fpage());
 
 			$this->display();
 		}else{

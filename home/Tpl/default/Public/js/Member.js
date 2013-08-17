@@ -107,7 +107,7 @@ $(function(){
 				return false;
 			}
         }
-    //    jBox.tip("正在处理...", 'loading');
+        jBox.tip("正在处理...", 'loading');
         window.setTimeout(function () {
             $.ajax({
                 url: define_app_url+'/Member/ajax_update_information',

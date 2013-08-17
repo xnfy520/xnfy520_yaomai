@@ -34,14 +34,13 @@ $(function(){
 </script>
 <div class="mid-xq">
     	<ul>
-        	<li class="xq-weizhi">首页 >> <span style="color:#666;">个人中心</span></li>
-
+          <li class="xq-weizhi">首页 >> <span style="color:#666;">个人中心</span> >> <span style="color:#666;">投票订单</span></li>
             <include file="Member:left" />
 
             <li class="xq-dingpiao">
 
             	<div class="wdyd">
-                	我的<a class="yuding_s">预定</a> /<a class="toupiao_s"> 投票</a>
+                	投票订单
                 </div>
                 
                 <empty name="orders">
@@ -70,16 +69,16 @@ $(function(){
                                     <ul>
                                         <li class="de2"><{$vo_o.out_trade_no}></li>
                                         <li class="de3">
-                                        <a href="__APP__/Vote/details/id/<{$vo_o.commodity_id}>">
+                                        <a href="__APP__/Vote/details/id/<{$vo_o.commodity.id}>">
                                             <img src="__PUBLIC__/Content/VoteCommodity/thumb_<{$vo_o.commodity.image}>" width="75" height="49" />
                                         </a>
                                         </li>
-                                        <li class="de4"><a href="__APP__/Vote/details/id/<{$vo_o.commodity_id}>"><{$vo_o.commodity.name}></a></li>
+                                        <li class="de4"><a href="__APP__/Vote/details/id/<{$vo_o.commodity.id}>"><{$vo_o.commodity.name}></a></li>
                                         <li class="de5"><{$vo_o.commodity.vote}></li>
                                         <li class="de6"><{$vo_o.commodity.subscribe_volume}>/<{$vo_o.commodity.subscribe}></li>
                                         <li class="de7 lxftime" endtime="<{$vo_o['commodity']['expiration_date']*1000}>"></li>
                                         <li class="de8">
-                                            <eq name="vo_o.trade_status" value="1">
+                                            <neq name="vo_o.pay_type" value="0">
                                                 <eq name="vo_o.abolish" value="1">
                                                     已取消预定
                                                 <else/>
@@ -87,18 +86,27 @@ $(function(){
                                                 </eq>
                                             <else/>
                                                 未预订
-                                            </eq>
+                                            </neq>
                                         </li>
                                         <li class="de9">
-                                            <eq name="vo_o.allow_cancel" value="0">
-                                                -
-                                            <else/>
-                                                <eq name="vo_o.trade_status" value="1">
-                                                    <a class="cancel_yuding" subscribe_volume="<{$vo_o.commodity.subscribe_volume}>" subscribe="<{$vo_o.commodity.subscribe}>" endtime="<{$vo_o['commodity']['expiration_date']*1000}>" commodity_id="<{$vo_o.commodity.id}>" order_id="<{$vo_o.id}>" href="javascript:;">取消预订</a>
-                                                <else/>
-                                                    <a target="_blank" href="https://tradeexprod.alipay.com/fastpay/createDirectPayByBuyer.htm?partner=<{$Think.config.ALIPAY_CONFIG_COMMODITY.partner}>&out_trade_no=<{$vo_o.out_trade_no}>">支付订金</a>
-                                                </eq>
-                                            </eq>
+                                          <switch name="vo_o.order_status">
+                                            <case value="0">
+                                              -
+                                            </case>
+                                            <case value="1">
+                                              <a href="__APP__/Vote/schedule/id/<{$vo_o.commodity.id}>" >支付订金</a>
+                                            </case>
+                                            <case value="2">
+                                              <a class="cancel_yuding" subscribe_volume="<{$vo_o.commodity.subscribe_volume}>" subscribe="<{$vo_o.commodity.subscribe}>" endtime="<{$vo_o['commodity']['expiration_date']*1000}>" commodity_id="<{$vo_o.commodity.id}>" order_id="<{$vo_o.id}>" href="javascript:;">取消预订</a>
+                                            </case>
+                                            <case value="3">
+                                              <a href="javascript:;" order_id="<{$vo_o.id}>" class="add_to_cart">加入购物车</a>
+                                            </case>
+                                            <default/>
+                                            --
+                                          </switch>
+                                          
+
                                         </li>
                                         
                                     </ul>
@@ -153,13 +161,14 @@ $(function(){
                 
               </div>
                         
-                    </div>
+                   
 
                 </empty>
 
             </li>
         </ul>
     </div>
+
     <script>
     $(function(){
         $("#change_page").change(function(){
@@ -176,19 +185,19 @@ $(function(){
           var subscribe = $(this).attr('subscribe');
           var times = $(this).attr('endtime');
           var d = new Date;
-          if(times<d.getTime()){
-            jBox.tip('此投票商品已经结束,不能取消定单', 'success',{ timeout: 2000,closed: function () {  }});
+          if(parseInt(times)<=d.getTime()){
+            jBox.tip('此投票商品已经结束,不能取消定单1', 'success',{ timeout: 2000,closed: function () {  }});
             return;
           }
-          if(subscribe_volume>subscribe){
-            jBox.tip('此投票商品已经开始生产,不能取消定单', 'success',{ timeout: 2000,closed: function () {  }});
+          if(parseInt(subscribe_volume)>=parseInt(subscribe)){
+            jBox.tip('此投票商品已经开始生产,不能取消定单2', 'success',{ timeout: 2000,closed: function () {  }});
             return;
           }
 
         var submit = function (v, h, f) {
           if (v == 'ok'){
 
-            //  jBox.tip("正在处理...", 'loading');
+              jBox.tip("正在处理...", 'loading');
                 window.setTimeout(function () {
                     $.ajax({
                         url: define_app_url+'/Member/cancelVoteOrder',
@@ -218,5 +227,35 @@ $(function(){
       }
 
       });
+
+
+        $(".add_to_cart").live('click',function(){
+            if(!define_userid){
+                jBox.tip('您还没有登录，请登录后再购买', 'success',{ timeout: 2000,closed: function () {  }});
+                return false;
+            }
+           var order_id = $(this).attr('order_id');
+           jBox.tip("正在处理...", 'loading');
+              window.setTimeout(function () {
+                  $.ajax({
+                      url: define_app_url+'/Member/addVoteTOCart',
+                      data:{order_id:order_id},
+                      type:'POST',
+                      success: function(data){
+                          var msg = JSON.parse(data);
+                          if(msg.status==1){
+                            $("#header_carts").text(msg.data);
+                              jBox.tip(msg.info, 'success',{ timeout: 1000,closed: function () {
+                                
+                               }});
+                          }else{
+                              jBox.tip(msg.info, 'error',{ timeout: 1000,closed: function () { }});
+                          }
+                      }
+                  });
+              },500);
+        });
+
+
     });
   </script>

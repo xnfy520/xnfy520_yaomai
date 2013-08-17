@@ -89,7 +89,7 @@ $(function(){
       $("#vote-commodity").click(function(){
           var id = $(this).attr('commodity');
           var times = $(".lxftime").attr('endtime');
-          var payment = $("[name=payment]").val();
+          var payment = $("[name=payment]:checked").val();
           var d = new Date;
           if(times<d.getTime()){
             jBox.tip('此投票商品已结束', 'success',{ timeout: 2000,closed: function () {  }});
