@@ -19,7 +19,13 @@
                         </ul>
                     </div>
                     <div id="dd-shpj">
-                    	物流信息跟踪ss
+                    	<empty name="data">
+                            无内容
+                        <else/>
+                            <div style="margin-top:10px">
+                                <h3><{$data.logistics_company_name}>　<small>运单号: <{$data.express_number}></small></h3>
+                            </div>
+                        </empty>
                   	</div>
                  </div>   
             </li>

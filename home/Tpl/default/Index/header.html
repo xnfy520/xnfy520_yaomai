@@ -2,6 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><{$Think.config.site_name}></title>
+<meta name="keywords" content="<{$Think.config.site_keywords}>" />
+<meta name="description" content="<{$Think.config.site_description}>" />
 <link rel="stylesheet" type="text/css" href="../Public/css/style.css" />
 <link rel="stylesheet" type="text/css" href="../Public/css/xj.css" />
 <link rel="stylesheet" type="text/css" href="../Public/css/dd-fy.css" />
@@ -30,13 +33,14 @@
             </ul>
           </div>
           <div class="xj-der2">客服工作时间</div>
-          <div class="xj-der4">周一至周日</div>
-          <div class="xj-der4">9:00 - 23:00</div>
-          <div class="xj-der2">客服团队</div>
-          <div class="xj-der5"><a href="#">客服兮兮</a></div>
-          <div class="xj-der5"><a href="#">客服兮兮</a></div>
-          <div class="xj-der5"><a href="#">客服兮兮</a></div>
-          <div class="xj-der5"><a href="#">客服兮兮</a></div>
+          <div class="xj-der4" style="height:auto;"><{$Think.config.conf1}></div>
+          <!-- <div class="xj-der4">9:00 - 23:00</div> -->
+          <notempty name="kf">
+              <div class="xj-der2">客服团队</div>
+              <volist name="kf" id="vo_kf">
+                <div class="xj-der5"><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=<{$vo_kf.qq}>&site=qq&menu=yes"><{$vo_kf.name}></a></div>
+              </volist>
+          </notempty>
           <div id="xj-der6"><a href="#">返回顶部</a></div> 
         </li>
     </ul>
@@ -44,7 +48,7 @@
 <div id="top">
   <div id="top-hy">
         <ul>
-            <li class="top1">欢迎光临要买家具网</li>
+            <li class="top1"><{$Think.config.welcome_words}></li>
             <li class="top2">&nbsp;</li>
             <li class="top3"><a href="#">设为首页</a></li>
             <li class="top4"><a href="#">加入收藏</a></li>
@@ -117,17 +121,15 @@
         </volist>
         
   </div>
-
-    <div id="mid-new">
-        <ul>
-            <li id="new">
-                <div><a href="#">李可能从曼彻斯特买了一台的芳婷控制台台，核桃及红，41分钟前</a></div>
-                <div><a href="#">李也许从曼彻斯特买了一台的芳婷控制台台，核桃及红，41分钟前</a></div>
-                <div><a href="#">李大概从曼彻斯特买了一台的芳婷控制台台，核桃及红，41分钟前</a></div>
-                <div><a href="#">李差不多从曼彻斯特买了一台的芳婷控制台台，核桃及红，41分钟前</a></div>
-                <div><a href="#">李好像是从曼彻斯特买了一台的芳婷控制台台，核桃及红，41分钟前</a></div>
-                <div><a href="#">李好像可能也许或者打个从曼彻斯特买了一台的芳婷控制台台，核桃及红，41分钟前</a></div>
-            </li>
-            <li id="close"><a href="javascript:void(0);"><img src="../Public/image/3.png" width="9" height="9" /></a></li>
-        </ul>
-    </div>
+    <notempty name="newest_buy">
+        <div id="mid-new">
+            <ul>
+                <li id="new">
+                    <volist name="newest_buy" id="vo_b">
+                        <div><a href="__APP__/<{$vo_b.commodity_url}>/details/id/<{$vo_b.commodity_id}>"><{$vo_b.username}>买了<{$vo_b.commodity_quantity|default="1"}>件<{$vo_b.commodity_name}> <{$vo_b.times}></a></div>
+                    </volist>
+                </li>
+                <li id="close"><a href="javascript:void(0);"><img src="../Public/image/3.png" width="9" height="9" /></a></li>
+            </ul>
+        </div>
+    </notempty>

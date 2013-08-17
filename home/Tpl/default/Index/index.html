@@ -1,47 +1,72 @@
 <layout name='layout'/>
 
-    <div class="mid-banner">
-        <ul>
-            <li class="banner-shang"><a>&nbsp;</a></li>
-            <li class="banner">
-                <div id="banner" class="xm-banner-dh">
-                    <ul>
-                        <li><a href="#"><img src="../Public/image/7.jpg" width="980" height="472" /></a></li>
-                        <li><a href="#"><img src="../Public/image/7.jpg" width="980" height="472" /></a></li>
-                        <li><a href="#"><img src="../Public/image/7.jpg" width="980" height="472" /></a></li>
-                        <li><a href="#"><img src="../Public/image/7.jpg" width="980" height="472" /></a></li>
-                    </ul>
-                </div> 
-          </li>
-            <li class="banner-xia"><a>&nbsp;</a></li>
-        </ul>
-    </div>
-
+    <notempty name="a1">
+        <div class="mid-banner">
+            <ul>
+                <li class="banner-shang"><a>&nbsp;</a></li>
+                <li class="banner">
+                    <div id="banner" class="xm-banner-dh">
+                        <ul>
+                            <volist name="a1" id="vo_a">
+                                <empty name="vo_a.link">
+                                    <li><img src="__PUBLIC__/Content/AdvertList/<{$vo_a.image}>" width="980" height="472" /></li>
+                                <else/>
+                                    <li><a target="_blank" href="<{$vo_a.link}>"><img src="__PUBLIC__/Content/AdvertList/<{$vo_a.image}>" width="980" height="472" /></a></li>
+                                </empty>
+                            </volist>
+                        </ul>
+                    </div> 
+              </li>
+                <li class="banner-xia"><a>&nbsp;</a></li>
+            </ul>
+        </div>
+    </notempty>
     <div class="mid-sjs">
         <div class="sjs1">
             <ul>
               <li class="sjs2">设计师设计的产品</li>
-              <li class="sjs3"><a href="#">更多新品</a></li>
+              <li class="sjs3"></li>
             </ul>
         </div>
-        <div class="sjs4">
-            <a href="#"><img src="../Public/image/8.jpg" width="980" height="354" /></a>
-        </div>
+        <notempty name="a2">
+            <div class="sjs4">
+                <empty name="a2.link">
+                    <img src="__PUBLIC__/Content/AdvertList/<{$a2.image}>" width="980" height="354" />
+                <else/>
+                    <a target="_blank" href="<{$a2.image}>"><img src="__PUBLIC__/Content/AdvertList/<{$a2.image}>" width="980" height="354" /></a>
+                </empty>
+            </div>
+        </notempty>
     </div>
 
     <div class="mid-sjs">
         <div class="sjs1">
             <ul>
               <li class="sjs5">团购产品</li>
-              <li class="sjs3"><a href="#">更多新品</a></li>
+              <li class="sjs3"><a href="__APP__/Groupon">更多新品</a></li>
             </ul>
         </div>
-        <div class="sjs6">
-            <ul>
-            <li class="sjs7"><img src="../Public/image/9.jpg" width="490" height="482" /></li>
-            <li class="xian">&nbsp;</li>
-            <li class="sjs7"><img src="../Public/image/9.jpg" width="490" height="482" /></li>
-            </ul>
-            
-        </div>
+        <notempty name="a3">
+            <div class="sjs6">
+                <ul>
+                <li class="sjs7">
+                    <empty name="a3.0.link">
+                        <img src="__PUBLIC__/Content/AdvertList/<{$a3.0.image}>" width="490" height="482" />
+                    <else/>
+                        <a target="_blank" href="<{$a3.0.link}>"><img src="__PUBLIC__/Content/AdvertList/<{$a3.0.image}>" width="490" height="482" /></a>
+                    </empty>
+                </li>
+                <notempty name="a3.1">
+                    <li class="xian">&nbsp;</li>
+                    <li class="sjs7">
+                        <empty name="a3.1.link">
+                            <img src="__PUBLIC__/Content/AdvertList/<{$a3.1.image}>" width="490" height="482" />
+                        <else/>
+                            <a target="_blank" href="<{$a3.1.link}>"><img src="__PUBLIC__/Content/AdvertList/<{$a3.1.image}>" width="490" height="482" /></a>
+                        </empty>
+                    </li>
+                </notempty>
+                </ul>
+            </div>
+        </notempty>
     </div>

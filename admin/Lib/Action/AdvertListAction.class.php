@@ -104,14 +104,25 @@ class AdvertListAction extends CommonAction{
     function add(){
 		if($this->check_is_admin()){
 			$AdvertCategory = M('AdvertCategory');
-			$AdvertCategoryinfo = $AdvertCategory->where('publish=1')->order('sort,create_date')->select();
-
 			$advert_category = C('Advert_Category');
-			foreach($advert_category as $k=>$v){
-				if($AdvertCategoryinfo[0]['type']==$v['type']){
-					$tip_size = $advert_category[$k]['tip_size'];
+			$AdvertCategoryinfo = $AdvertCategory->where('publish=1')->order('sort')->select();
+			if(isset($_GET['pid']) && !empty($_GET['pid'])){
+				$AdvertCategoryinfos = $AdvertCategory->where('publish=1')->find($_GET['pid']);
+
+				foreach($advert_category as $k=>$v){
+					if($AdvertCategoryinfos['type']==$v['type']){
+						$tip_size = $advert_category[$k]['tip_size'];
+					}
+				}
+			}else{
+				
+				foreach($advert_category as $k=>$v){
+					if($AdvertCategoryinfo[0]['type']==$v['type']){
+						$tip_size = $advert_category[$k]['tip_size'];
+					}
 				}
 			}
+
 			$this->assign('tip_size',$tip_size);
 
 			$this->assign('clist',$AdvertCategoryinfo);
@@ -143,6 +154,7 @@ class AdvertListAction extends CommonAction{
 						break;
 					}
 				}
+
 				$this->assign('tip_size',$tip_size);
 				$this->display();
 

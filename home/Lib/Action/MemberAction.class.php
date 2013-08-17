@@ -55,6 +55,7 @@ class MemberAction extends CommonAction {
         if($Userinfo = $this->checkLogin()){
             $data = $this->getOrder(3,$_GET['status']?$_GET['status']:0);
             if($data){
+             //   dump($data);
                 $this->assign('numbers',$data['numbers']);
                 $this->assign('orders',$data['orders']);
                 $this->assign('fpage',$data['fpage']);
@@ -95,9 +96,11 @@ class MemberAction extends CommonAction {
                         $add = json_decode($orders[$i]['address'],true);
                         $com = json_decode($orders[$i]['commodity_data'],true);
                         $other = json_decode($orders[$i]['other_data'],true);
+                        $shipments = json_decode($orders[$i]['shipments_data'],true);
                         $orders[$i]['address'] = $add;
                         $orders[$i]['commodity_data'] = $com;
                         $orders[$i]['other_data'] = $other;
+                        $orders[$i]['shipments_data'] = $shipments;
                     }
                 }
                 $return_data['numbers'] = $number;
@@ -163,7 +166,7 @@ class MemberAction extends CommonAction {
                     }else if($commodity['subscribe_volume']>=$commodity['subscribe']){
                         $this->ajaxReturn(0,"此投票商品已经开始生产,不能取消定单",0);
                     }else{
-                        $MemberOrder->where('id='.$_POST['order_id'])->setField('abolish',1);
+                        $MemberOrder->where('id='.$_POST['order_id'])->setField(array('abolish'=>1,'abolish_date'=>time()));
                         $VoteCommodity->where('id='.$_POST['commodity_id'])->setDec('subscribe_volume');
                         $this->ajaxReturn(0,"取消订单成功",1);
                     }
@@ -605,7 +608,17 @@ class MemberAction extends CommonAction {
 
     function logistics_tracking(){
         if($Userinfo = $this->checkLogin()){
-            $this->display();
+            if(isset($_GET['id']) && !empty($_GET['id'])){
+                $MemberOrder = M('MemberOrder');
+                $order = $MemberOrder->where('pay_type>0 && shipments_data<>""')->find($_GET['id']);
+                if($order){
+                    $order['shipments_data'] = json_decode($order['shipments_data'],true);
+                    $this->assign('data',$order['shipments_data']);
+                }
+                $this->display();
+            }else{
+                $this->redirect('/Member');
+            }
         }else{
             $this->redirect('/Index/login');
         }

@@ -42,7 +42,7 @@
                     <!--<th class="xnfy520-function-index-table-th-50">权限</th>-->
                     <th class="xnfy520-function-index-table-th-50">启用</th>
                     <!--<th class="xnfy520-function-index-table-th-50">审核</th>-->
-                    <th class="xnfy520-function-index-table-th-100">会员中心</th>
+                    <th class="xnfy520-function-index-table-th-100">创建时间</th>
                     <th id="xnfy520-function-index-table-th-check-all">
                         <notempty name="list">
                             <input type="button" value="全选" />
@@ -104,8 +104,8 @@
                                 <!--</eq>-->
 
                             <!--</td>-->
-                            <!--<td><{$vo.regdate|date="Y-m-d H:i:s",###}></td>-->
-                            <td><span style="cursor: pointer;" class="into-member" by_user="<{$vo.id}>" >个人中心</span></td>
+                            <td><{$vo.regdate|date="Y-m-d H:i:s",###}></td>
+                            <!-- <td><span style="cursor: pointer;" class="into-member" by_user="<{$vo.id}>" >个人中心</span></td> -->
                             <td class="xnfy520-function-index-table-td-checkbox">
                                 <eq name="vo.id" value="1">
                                         <input style="display: none;" class="xnfy520-function-index-table-check-this" disabled="disabled" type="checkbox" name="deleteid[]" value="<{$vo.id}>" />

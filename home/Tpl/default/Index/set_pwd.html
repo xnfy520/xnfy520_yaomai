@@ -1,0 +1,72 @@
+<layout name='layout'/>
+
+    <div id="dd-bz">
+    	<div id="dd-bz-title">首页 >> <span style="color:#666;">重置密码</span></div>
+        <div id="dd-zhmm">
+       	  <div id="dd-zhmm-title">重置密码</div>
+       	  <form action="javascript:;" name="change_pwd">
+       	  <input type="hidden" name="id" value="<{$set_uid}>" />
+	          <table width="905" height="300" border="0" cellspacing="0" cellpadding="0">
+	              <tr>
+	                <td width="230" height="47" align="right" valign="middle">输入新密码：</td>
+	                <td width="675" height="47" valign="middle" ><input name="password" class="k_250" type="password" /></td>
+	              </tr>
+	              <tr>
+	                <td width="230" height="47" align="right" valign="middle">重复新密码：</td>
+	                <td width="675" height="47" valign="middle" ><input name="re_password" class="k_250" type="password" /></td>
+	              </tr>
+	              <tr>
+	                <td align="right" valign="middle">&nbsp;</td>
+	                <td><input type="image" src="../Public/image/tjbig.png" /></td>
+	              </tr>
+	            </table>
+            </form>
+        </div>
+        
+        
+    </div>
+
+    <script>
+
+   	$("[name=change_pwd]").live('submit',function(){
+		var self = $(this);
+
+		var data = $(this).serializeArray();
+		var password = self.find("[name=password]");
+		var re_password = self.find("[name=re_password]");
+
+		if(password.val().length<6 || password.val().length>16){
+			jBox.tip("密码不能小于6位，大于16位", 'error',{ timeout: 1000,closed: function () { }});
+			return false;
+		}
+
+		if(password.val()!=re_password.val()){
+			jBox.tip("两次输入密码不一致", 'error',{ timeout: 1000,closed: function () {  }});
+			return false;
+		}
+
+		jBox.tip("处理中...", 'loading');
+		window.setTimeout(function () {
+			$.ajax({
+				url: define_app_url+'/Index/change_pwd',
+				type:'POST',
+				data:data,
+				success: function(data){
+					var msg = JSON.parse(data);
+					if(msg.status==1){
+						jBox.tip(msg.info, 'error',{ timeout: 3000,closed: function () {
+							window.location = define_app_url+'/Index/login';
+						}});
+					}else{
+						jBox.tip(msg.info, 'error',{ timeout: 3000,closed: function () {
+							
+						}});
+					}
+				}
+			});
+		},500);
+
+	});
+
+
+    </script>

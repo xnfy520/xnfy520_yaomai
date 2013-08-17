@@ -320,24 +320,48 @@ class PayAction extends CommonAction {
 							$order['pay_type'] = 1;
 							$MemberOrder->where('out_trade_no='.$out_trade_no)->save($order);
 							$commoditys = json_decode($MemberOrderInfo['commodity_data'],true);
+							$newest = array();
 							switch($MemberOrderInfo['commodity_type']){
 								case 1:
 									$CommodityList = M('CommodityList');
 									for($i=0;$i<count($commoditys);$i++){
 										$CommodityList->where('id='.$commoditys[$i]['Commodity']['id'])->setInc('sales_volume',$commoditys[$i]['quantity']);
+										$newest[] = array(
+											'username'=>$MemberOrderInfo['username'],
+											'commodity_url'=>'Commodity',
+											'commodity_id'=>$commoditys[$i]['Commodity']['id'],
+											'commodity_name'=>$commoditys[$i]['Commodity']['name'],
+											'commodity_quantity'=>$commoditys[$i]['quantity'],
+											'time'=>time(),
+										);
 									}
 								break;
 								case 2: 
 									$GrouponCommodity = M('GrouponCommodity');
 									for($i=0;$i<count($commoditys);$i++){
 										$GrouponCommodity->where('id='.$commoditys[$i]['Commodity']['id'])->setInc('sales_volume',$commoditys[$i]['quantity']);
+										$newest[] = array(
+											'username'=>$MemberOrderInfo['username'],
+											'commodity_url'=>'Groupon',
+											'commodity_id'=>$commoditys[$i]['Commodity']['id'],
+											'commodity_name'=>$commoditys[$i]['Commodity']['name'],
+											'commodity_quantity'=>$commoditys[$i]['quantity'],
+											'time'=>time(),
+										);
 									}
 								break;
 								case 3: 
-
 									$VoteCommodity = M('VoteCommodity');
 									for($i=0;$i<count($commoditys);$i++){
 										$VoteCommodity->where('id='.$commoditys[$i]['Commodity']['id'])->setInc('sales_volume',$commoditys[$i]['quantity']);
+										$newest[] = array(
+											'username'=>$MemberOrderInfo['username'],
+											'commodity_url'=>'Vote',
+											'commodity_id'=>$commoditys[$i]['Commodity']['id'],
+											'commodity_name'=>$commoditys[$i]['Commodity']['name'],
+											'commodity_quantity'=>$commoditys[$i]['quantity'],
+											'time'=>time(),
+										);
 									}
 									break;
 								case 4:
@@ -345,6 +369,20 @@ class PayAction extends CommonAction {
 									$VoteCommodity->where('id='.$commoditys['id'])->setInc('subscribe_volume');
 								break;
 							}
+
+							if(F('newest_buy')){
+					    		$newest_buy = F('newest_buy');
+					    		$tmp = array_merge($newest_buy,$newest);
+					    		if(count($tmp)>10){
+					    			$tmp = array_chunk($tmp,10,true);
+					    			F('newest_buy',$tmp[count($tmp)-1]);
+					    		}else{
+					    			F('newest_buy',$tmp);
+					    		}
+					    	}else{
+					    		F('newest_buy',$newest);
+					    	}
+
 						}
 
 					}

@@ -146,6 +146,10 @@ function cz(){
         this.src=this.src;
     });
 
+    $("#switch_captcha").click(function(){
+        $("#click_captcha").trigger('click');
+    });
+
     $("#insertcode").keyup(function(){
         if(this.value!=this.value.toUpperCase()){
             this.value=this.value.toUpperCase();

@@ -30,6 +30,46 @@
 				$this->assign('Cart_counts',$Cart_counts);
 				$this->assign('Userinfo', $Userinfo);
 			}
+			
+			$AdvertList = M('AdvertList');
+			$AdvertList4 = $AdvertList->where('publish=1 AND pid=9')->order('sort')->find();
+
+    		$this->assign('a4',$AdvertList4);
+
+    		$conf2 =C('conf2');
+    		if(!empty($conf2)){
+    			$conf2 = explode('|', $conf2);
+	    		$kf = array();
+	    		for($i=0;$i<count($conf2);$i++){
+	    			$tmp = explode(' ', $conf2[$i]);
+	    			$kf[$i]['name'] = $tmp[0];
+	    			$kf[$i]['qq'] = $tmp[1];
+	    		}
+	    		$this->assign('kf',$kf);
+    		}
+
+    		if(F('newest_buy')){
+    			$newest_buy = F('newest_buy');
+    			if(count($newest_buy)>0){
+					for($i=0;$i<count($newest_buy);$i++){
+						if(!empty($newest_buy[$i]['time'])){
+							$o = ceil((time()-$newest_buy[$i]['time'])/60);
+							if($o>60*24){
+								$o = ceil($o/60/24);
+								$newest_buy[$i]['times'] = $o.'天前';
+							}else if($o>60){
+								$o = ceil($o/60);
+								$newest_buy[$i]['times'] = $o.'小时前';
+							}else if($o<1){
+								$newest_buy[$i]['times'] = '刚刚';
+							}else{
+								$newest_buy[$i]['times'] = $o.'分钟前';
+							}
+						}
+					}
+    				$this->assign('newest_buy',array_reverse($newest_buy));
+    			}
+    		}
 
 		}
 
@@ -171,6 +211,14 @@
 				'county'=>$county
 			);
 
+		}
+
+		function get_email_config(){
+			$config['host'] = C('email_host');
+			$config['prot'] = C('email_prot');
+			$config['username'] = C('email_username');
+			$config['password'] = C('email_password');
+			return $config;
 		}
 
 	}

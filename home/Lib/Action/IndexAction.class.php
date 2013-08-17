@@ -4,155 +4,18 @@ class IndexAction extends CommonAction {
 
     public function index(){
 
-		$CommodityCategory = D('CommodityCategory');
-		$CommodityCategoryinfo = $CommodityCategory->relation(true)->where('publish=1')->order('sort')->select();
-		for($i=0; $i<count($CommodityCategoryinfo);$i++){
-			$tmp = str_ireplace(' ','',ucwords(str_ireplace('_',' ',$CommodityCategoryinfo[$i]['function'])));
-			$CommodityCategoryinfo[$i]['Type'] = $tmp;
-		}
-		$this->assign('CommodityCategoryinfo',$CommodityCategoryinfo);
+    	$AdvertList = M('AdvertList');
+    	$AdvertList1 = $AdvertList->where('publish=1 AND pid=5')->order('sort')->limit(6)->select();
+    	$AdvertList2 = $AdvertList->where('publish=1 AND pid=6')->order('sort')->find();
+    	$AdvertList3 = $AdvertList->where('publish=1 AND pid=7')->order('sort')->limit(2)->select();
 
-		$Provinces = D('Provinces');
-
-		$index_recommend_config = C('index_recommend_config');
-		$IndexRecommend = D('IndexRecommend');
-		$Merchant = M('Merchant');
-
-		$IndexRecommend_index_favorable = $IndexRecommend->relation(true)->where('type='.$index_recommend_config['favorable']['type'])->limit(6)->order('sort,id')->select();
-
-		for($i=0; $i<count($IndexRecommend_index_favorable); $i++){
-			$Merchantinfo = $Merchant->where('status=1 AND enable=1 AND by_user='.$IndexRecommend_index_favorable[$i]['CommodityList']['by_user'])->find();
-			if(!empty($Merchantinfo)){
-				$IndexRecommend_index_favorable[$i]['merchant_no'] = $Merchantinfo['no'];
-			}
-		}
-
-		$this->assign('IndexRecommend_index_favorable',$IndexRecommend_index_favorable);
-
-		$IndexRecommend_index_recommend = $IndexRecommend->relation(true)->where('type='.$index_recommend_config['recommend']['type'])->limit(8)->order('sort,id')->select();
-
-		for($i=0; $i<count($IndexRecommend_index_recommend); $i++){
-			$Merchantinfo = $Merchant->where('status=1 AND enable=1 AND by_user='.$IndexRecommend_index_recommend[$i]['CommodityList']['by_user'])->find();
-			if(!empty($Merchantinfo)){
-				$IndexRecommend_index_recommend[$i]['merchant_no'] = $Merchantinfo['no'];
-			}
-		}
-
-		$this->assign('IndexRecommend_index_recommend',$IndexRecommend_index_recommend);
-
-		$IndexRecommend_index_specialty = $IndexRecommend->relation(true)->where('type='.$index_recommend_config['specialty']['type'])->limit(9)->order('sort,id')->select();
-
-		for($i=0; $i<count($IndexRecommend_index_specialty); $i++){
-
-			$Merchantinfo = $Merchant->where('status=1 AND enable=1 AND by_user='.$IndexRecommend_index_specialty[$i]['CommodityList']['by_user'])->find();
-			if(!empty($Merchantinfo)){
-				$IndexRecommend_index_specialty[$i]['merchant_no'] = $Merchantinfo['no'];
-				$where = $Provinces->where('id='.$IndexRecommend_index_specialty[$i]['CommodityList']['where_id'])->getField('name');
-				$find = array("市","省");
-				$replace = array("","");
-				$IndexRecommend_index_specialty[$i]['producing_areas'] = str_ireplace($find,$replace,$where);
-			}
-
-		}
-		$this->assign('IndexRecommend_index_specialty',$IndexRecommend_index_specialty);
-
-		$IntegralGiftList = M('IntegralGiftList');
-		$IntegralGiftList_index = $IntegralGiftList->where('publish=1 AND recommend=1')->order('sort,create_date')->select();
-		$this->assign('IntegralGiftList_index',$IntegralGiftList_index);
-
-		unset($_SESSION['sina_wb_userinfo']);
+    	$this->assign('a1',$AdvertList1);
+    	$this->assign('a2',$AdvertList2);
+    	$this->assign('a3',$AdvertList3);
 
 		$this->display();
 
     }
-
-	function ajax_page_products_list(){
-
-		if(isset($_GET['key']) && !empty($_GET['key'])){
-
-			$search_key = stripslashes(strip_tags(trim($_GET['key'])));
-
-			$CommodityList = M('CommodityList');
-
-			$Merchant = M('Merchant');
-
-			import("ORG.Util.emit_ajax_page");
-
-			$maps['enable'] = 1;
-
-			$maps['name'] = array('like',"%{$search_key}%");
-
-
-			if(isset($_GET['price'])){
-				switch($_GET['price']){
-					case 'asc': $order = 'current_price asc,id desc' ;break;
-					case 'desc': $order = 'current_price desc,id desc' ;break;
-					default: $order = 'current_price desc,id desc' ;break;
-				}
-			}else if($_GET['sales']){
-				switch($_GET['sales']){
-					case 'asc': $order = 'sales_volume asc,id desc' ;break;
-					case 'desc': $order = 'sales_volume desc,id desc' ;break;
-					default: $order = 'sales_volume desc,id desc' ;break;
-				}
-			}else{
-				$order = 'id desc';
-			}
-
-			$CommodityListinfo = $CommodityList->where($maps)->order($order)->select();
-
-			for($i=0; $i<count($CommodityListinfo); $i++){
-
-				$Merchantinfo = $Merchant->where('status=1 AND enable=1 AND by_user='.$CommodityListinfo[$i]['by_user'])->find();
-				if(!empty($Merchantinfo)){
-					$CommodityListinfo[$i]['merchant_no'] = $Merchantinfo['no'];
-					$CommodityListinfo[$i]['where_info'] = $this->getAnywhere($Merchant->getFieldByByUser($CommodityListinfo[$i]['by_user'],'where'));
-				}
-
-			}
-
-			if(isset($_GET['where']) && !empty($_GET['where'])){
-				foreach($CommodityListinfo as $key=>$value){
-					if($value['where_info']['county_id']!=$_GET['where']){
-						unset($CommodityListinfo[$key]);
-					}
-				}
-			}
-
-			if(!empty($_SESSION['where_info']['province_id']) || !empty($_SESSION['where_info']['city_id'])){
-				foreach($CommodityListinfo as $key=>$value){
-					if($value['where_info']['province_id']!=$_SESSION['where_info']['province_id'] || $value['where_info']['city_id']!=$_SESSION['where_info']['city_id']){
-						unset($CommodityListinfo[$key]);
-					}
-				}
-
-				$fpage = 1;
-
-				array_values($CommodityListinfo);
-
-				$datas = array_chunk($CommodityListinfo,$fpage,true);
-
-				$page = new page(count($CommodityListinfo),$fpage);
-
-				$this->assign('fpage',$page->fpage(array(4,5,6,7,8)));
-
-			}
-
-			if(!empty($datas)){
-
-				$this->assign('list',isset($_GET['page']) ? $datas[$_GET['page']-1] : $datas[0]);
-
-			}
-
-			$this->display();
-
-
-		}else{
-
-			$this->display();
-
-		}
-	}
 
 //	function callback(){
 //
@@ -247,5 +110,80 @@ class IndexAction extends CommonAction {
 //			$this->ajaxReturn(0,"设置失败！",0);
 //		}
 //	}
+
+
+	function get_pwd(){
+		if(isset($_POST['verify']) && !empty($_POST['verify'])){
+			if(md5($_POST['verify'])!=$_SESSION['verify']){
+				$this->ajaxReturn(0,"验证码错误！",0);
+			}
+		}
+		$User = M('User');
+		$map['email'] = $_POST['email'];
+		$UserInfo = $User->where($map)->find();
+		if($UserInfo){
+			// if(empty($UserInfo['check_email_time'])){
+			// 	$this->ajaxReturn(0,"此用户邮箱未激活，无法发送重置邮件！",0);
+			// }else{
+				$time = time();
+				$mailTo = array();
+				$AddAttachment = array();
+				array_push(
+					$mailTo, array(($UserInfo['email']!=$_POST['email'] ? $_POST['email'] : $UserInfo['email']),"收件人姓名:".$UserInfo['username'])
+				);
+				$subject = C('SITE_NAME').' 重置用户密码';
+				$url = 'http://'.$_SERVER['HTTP_HOST'].'/xnfy520_yaomai/Index/set_pwd/id/'.enstrhex($UserInfo['id'],'key').'/ti/'.enstrhex($time,'key');
+				$urls = '<a href="http://'.$_SERVER['HTTP_HOST'].'/xnfy520_yaomai/Index/set_pwd/id/'.enstrhex($UserInfo['id'],'key').'/ti/'.enstrhex($time,'key').'">点击</a>';
+				$body = '您的重置密码地址为<br/>'.$url.'<br/>或 '.$urls;
+				if(sendmail_sunchis_com($mailTo,$subject,$body,$AddAttachment,$this->get_email_config())){
+					$data['check_pwd_time'] = $time;
+					$User->where('id='.$UserInfo['id'])->setField($data);
+					$this->ajaxReturn(0,"重置密码邮件已经发出，请尽快查收!",1);
+				}else{
+					$this->ajaxReturn(0,"系统异常！",0);
+				}
+			// }
+
+		}else{
+			$this->ajaxReturn(0,"不存在此用户,请输入正确的邮箱！",0);
+		}
+	}
+
+	function set_pwd(){
+		if(!empty($_GET['id']) && !empty($_GET['ti'])){
+			$userid = destrhex($_GET['id'],'key');
+			$cpt = destrhex($_GET['ti'],'key');
+			$User = M('User');
+			$map['id'] = (int)$userid;
+			$map['check_pwd_time'] = (int)$cpt;
+			$Userinfo = $User->field('id,check_pwd_time')->where($map)->find();
+			if($Userinfo && $Userinfo['check_pwd_time']+60*60*24*3>time()){
+				$this->assign('set_uid',$Userinfo['id']);
+				$this->display();
+			}else{
+				$this->redirect('/Index/login');
+			}
+		}else{
+			$this->redirect('/Index/login');
+		}
+	}
+
+	function change_pwd(){
+		$User = M('User');
+		if($data = $User->create()){
+			$UserInfo = $User->find($data['id']);
+			if($UserInfo && $UserInfo['check_pwd_time']){
+				$map['password'] = md5($data['password']);
+				$map['check_pwd_time'] = null;
+				if($User->where('id='.$data['id'])->setField($map)){
+					$this->ajaxReturn(0,"密码重置成功，请登录！",1);
+				}else{
+					$this->ajaxReturn(0,"系统异常",1);
+				}
+			}
+		}else{
+			$this->ajaxReturn(0,$User->getError(),0);
+		}
+	}
 
 }

@@ -1,9 +1,17 @@
 <?php
 
-function sendmail_sunchis_com($mailTo,$subject,$body,$AddAttachment){
+function sendmail_sunchis_com($mailTo,$subject,$body,$AddAttachment,$config){
 	if(count($mailTo)==0){
 		//	$this->ajaxReturn(0,"收件人不能为空！",0);
 		return false;
+	}
+	if(!$config){
+		$config['host'] = "smtp.163.com";
+		$config['port'] = 25;
+		$config['username'] = "xnfy520_test@163.com";
+		$config['password'] = "123456abc";
+		$config['form'] = $config['username'];
+		$config['replyto'] = $config['username'];
 	}
 	error_reporting(E_STRICT);
 	date_default_timezone_set("Asia/Shanghai");	//设定时区东八区
@@ -14,20 +22,20 @@ function sendmail_sunchis_com($mailTo,$subject,$body,$AddAttachment){
 	$mail             = new PHPMailer(); 		//new一个PHPMailer对象出来
 	$body             = eregi_replace("[\]",'',$body); //对邮件内容进行必要的过滤
 	$mail->CharSet 	  = "UTF-8";				//设定邮件编码，默认ISO-8859-1，如果发中文此项必须设置，否则乱码
-	//	$mail->IsSMTP();	 						// 设定使用SMTP服务
+	$mail->IsSMTP();	 						// 设定使用SMTP服务
 	//	$mail->SMTPDebug  = 1;                     	// 启用SMTP调试功能
 	// 1 = errors and messages
 	// 2 = messages only
 	$mail->SMTPAuth   = true;                  	// 启用 SMTP 验证功能
 	//$mail->SMTPSecure = "ssl";                // 安全协议
-	$mail->Host       = "smtp.163.com";      	// SMTP 服务器
-	$mail->Port       = 25;                   	// SMTP服务器的端口号
-	$mail->Username   = "xnfy520_test@163.com";  			// SMTP服务器用户名
-	$mail->Password   = "123456abc";        // SMTP服务器密码
-	$mail->SetFrom('xnfy520_test@163.com', '老土网邮件');
-	$mail->AddReplyTo("xnfy520_test@163.com","老土网邮件");
+	$mail->Host       = $config['host'];      	// SMTP 服务器
+	$mail->Port       = $config['port'];                   	// SMTP服务器的端口号
+	$mail->Username   = $config['username'];  			// SMTP服务器用户名
+	$mail->Password   = $config['password'];        // SMTP服务器密码
+	$mail->SetFrom($config['username'], '');
+	$mail->AddReplyTo($config['username'],"");
 	$mail->Subject    = $subject;
-	$mail->AltBody    = "老土网邮件"; // optional, comment out and test
+	$mail->AltBody    = ""; // optional, comment out and test
 	$mail->MsgHTML($body);
 
 	foreach($mailTo as $k => $v){

@@ -57,6 +57,9 @@ class OrderListAction extends CommonAction{
 						case 2:
 							$datas['out_trade_no'] = array("like","%{$_POST['key']}%");
 							break;
+						case 3:
+							$datas['username'] = array("like","%{$_POST['key']}%");
+							break;
 					}
 				}
 			}
@@ -193,6 +196,98 @@ class OrderListAction extends CommonAction{
 			$this->assign('fpage',$page->fpage(array(1,2,4,5,6,7,8)));
 
 			$this->display();
+		}
+	}
+
+	function get_shipments_data(){
+		if($this->check_is_admin()){
+			if(isset($_GET['id'])){
+
+
+
+				$MemberOrder = M('MemberOrder');
+
+				$data = $MemberOrder->find($_GET['id']);
+
+				if($data){
+					$logistics_company = C('logistics_company');
+					$this->assign('lc',$logistics_company);
+					$data['shipments_data'] = json_decode($data['shipments_data'],true);
+					$this->assign('data', $data);
+
+					$this->display();
+				}else{
+					$this->ajaxReturn(0,'异常操作',0);
+				}
+
+			}else{
+				$this->ajaxReturn(0,'异常操作',0);
+			}
+		}else{
+			$this->ajaxReturn(0,'异常操作',0);
+		}
+	}
+
+	function set_shipments_data(){
+		if($this->check_is_admin()){
+			if(isset($_POST['id'])){
+				$MemberOrder = M('MemberOrder');
+				if(!empty($_POST['logistics_company_id']) && !empty($_POST['express_number'])){
+					$logistics_company = C('logistics_company');
+					for($i=0;$i<count($logistics_company);$i++){
+						if($logistics_company[$i]['id']==$_POST['logistics_company_id']){
+							$_POST['logistics_company_name'] = $logistics_company[$i]['name'];
+						}
+					}
+					$_POST['update_date'] = time();
+					$shipments_data = json_encode($_POST);
+				}else{
+					$shipments_data = null;
+				}
+				if($MemberOrder->where('id='.$_POST['id'])->setField('shipments_data',$shipments_data)){
+					if(empty($shipments_data)){
+						$this->ajaxReturn(0,"修改发货信息成功",1);
+					}else{
+						$this->ajaxReturn(1,"修改发货信息成功",1);
+					}
+				}else{
+					$this->ajaxReturn(0,"修改发货信息失败",0);
+				}
+			}else{
+				$this->ajaxReturn(0,"异常操作",0);
+			}
+		}else{
+				$this->ajaxReturn(0,"异常操作",0);
+		}
+	}
+
+	function ajax_switch_abolish_dispose(){
+		if($Userinfo = $this->check_is_admin()){
+			if(!empty($_POST['by']) && !empty($_POST['type']) && isset($_POST['value'])){
+
+				$MemberOrder = M('MemberOrder');
+
+				if($_POST['value']){
+
+					$data[$_POST['type']] = 0;
+
+					$MemberOrder->where('id='.$_POST['by'])->setField($data);
+					$this->ajaxReturn(0,'修改成功',1);
+
+
+				}else{
+
+					$data[$_POST['type']] = 1;
+
+					$MemberOrder->where('id='.$_POST['by'])->setField($data);
+					$this->ajaxReturn(1,'修改成功',1);
+
+				}
+
+			}
+
+		}else{
+			$this->ajaxReturn(0,'异常操作',0);
 		}
 	}
 

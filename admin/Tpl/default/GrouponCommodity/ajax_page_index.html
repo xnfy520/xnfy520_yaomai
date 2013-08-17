@@ -69,7 +69,7 @@
                             </td>
                             <td><{$vo.expiration_date|date="Y-m-d",###}></td>
                             <td class="xnfy520-function-index-table-td-checkbox">
-                                <input class="xnfy520-function-index-table-check-this" type="checkbox" pid="<{$vo.pid}>" cid="<{$vo.cid}>" name="deleteid[]" value="<{$vo.id}>" />
+                                <input <gt name="vo.sales_volume" value="0">disabled="disabled" style="display:none"</gt>  class="xnfy520-function-index-table-check-this" type="checkbox" pid="<{$vo.pid}>" cid="<{$vo.cid}>" name="deleteid[]" value="<{$vo.id}>" />
                             </td>
                         </tr>
                     </volist>

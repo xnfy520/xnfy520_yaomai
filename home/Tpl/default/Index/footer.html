@@ -19,11 +19,19 @@
                     </div>
                 </li>
             </volist>
-            <li class="guanyu1">
-              <div class="guanyu4">要买微信公众号</div>
-              <div class="guanyu5"><img src="../Public/image/10.jpg" width="100" height="100" /></div>
-              <div class="guanyu6">关注有惊喜，好礼马上到</div>
-            </li>
+            <notempty name="a4">
+                <li class="guanyu1">
+                  <div class="guanyu4">要买微信公众号</div>
+                  <div class="guanyu5">
+                  <empty name="a4.link">
+                    <img src="__PUBLIC__/Content/AdvertList/<{$a4.image}>" width="100" height="100" />
+                  <else/>
+                    <a target="_blank" href=""><img src="__PUBLIC__/Content/AdvertList/<{$a4.image}>" width="100" height="100" /></a>
+                  </empty>
+                  </div>
+                  <div class="guanyu6">关注有惊喜，好礼马上到</div>
+                </li>
+            </notempty>
         </ul>
     </div>
     <!--底部链接-->
@@ -32,7 +40,7 @@
             <li class="foot1"><a href="__APP__/About">关于我们</a></li>
             <li class="foot1"><a href="__APP__/About/index/id/95">联系我们 </a></li>
             <li class="foot1"><a href="__APP__/SupportCenter">帮助中心</a></li>
-            <li class="foot2">要买家具商城 版权所有 Copyright© 2002-2013 ICP备案号：鄂ICP备10207551号</li>
+            <li class="foot2"><{$Think.config.site_name}> <{$Think.config.site_copyright}> <{$Think.config.site_filing}></li>
         </ul>
     </div>
     <!--底部关于-->

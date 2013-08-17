@@ -61,7 +61,14 @@
                                       </td>
                                       <td style="text-align:right;padding-right:12px" colspan="2">
                                         <gt name="vo_o.pay_type" value="0">
-                                          <a style="color:blue" href="__APP__/Member/production_tracking">生产跟踪</a>  <a style="color:blue" href="__APP__/Member/logistics_tracking">物流跟踪</a>
+                                          <a style="color:blue" href="__APP__/Member/production_tracking">生产跟踪</a>
+                                          (
+                                          <notempty name="vo_o.shipments_data">
+                                            已发货 <a style="color:blue" href="__APP__/Member/logistics_tracking/id/<{$vo_o.id}>">物流跟踪</a>
+                                          <else/>
+                                            未发货
+                                          </notempty>
+                                          )
                                         </gt>
                                       </td>
                                   </tr>

@@ -42,34 +42,15 @@ class SystemAction extends CommonAction{
 			if($siteinfo['site_filing']==''){$siteinfo['site_filing']='None';};
 
 			/*****联系方式*****/
-			if($siteinfo['contact_online_service']==''){$siteinfo['contact_online_service']='';};
+			if($siteinfo['conf1']==''){$siteinfo['conf1']='';};
+			if($siteinfo['conf2']==''){$siteinfo['conf2']='';};
 
-			if($siteinfo['contact_online_service_time']==''){$siteinfo['contact_online_service_time']='';};
+			/*****邮箱设置*****/
 
-			if($siteinfo['contact_free_hotline']==''){$siteinfo['contact_free_hotline']='';};
-
-			if($siteinfo['contact_free_hotline_time']==''){$siteinfo['contact_free_hotline_time']='';};
-
-			if($siteinfo['contact_phone']==''){$siteinfo['contact_phone']='';};
-
-			if($siteinfo['contact_fax']==''){$siteinfo['contact_fax']='';};
-
-			if($siteinfo['contact_email']==''){$siteinfo['contact_email']='';};
-
-			if($siteinfo['contact_zip']==''){$siteinfo['contact_zip']='';};
-
-			if($siteinfo['contact_address']==''){$siteinfo['contact_address']='';};
-
-
-			/*****特别关注*****/
-
-			if($siteinfo['contact_sina_weibo']==''){$siteinfo['contact_sina_weibo']='';};
-
-			if($siteinfo['contact_tencent_weibo']==''){$siteinfo['contact_tencent_weibo']='';};
-
-			if($siteinfo['contact_qq_zone']==''){$siteinfo['contact_qq_zone']='';};
-
-
+			if($siteinfo['email_host']==''){$siteinfo['email_host']='';};
+			if($siteinfo['email_prot']==''){$siteinfo['email_prot']=25;};
+			if($siteinfo['email_username']==''){$siteinfo['email_username']='';};
+			if($siteinfo['email_password']==''){$siteinfo['email_password']='';};
 
 			$content = "<?php \n\n\treturn array(\n";
 			foreach($siteinfo as $key=>$value){

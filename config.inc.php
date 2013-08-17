@@ -99,6 +99,11 @@
 			'3'=>'只双休日、假日送货',
 		),
 
+		'logistics_company'=>array(
+			array('id'=>1,'name'=>'顺风快递'),
+			array('id'=>2,'name'=>'圆通快递')
+		),
+
 		/**送货方式配置**/
 //		'delivery_type'=>array(
 //			'express'=>array('name'=>'快递','type'=>'express','price'=>5,'description'=>'系统自动判断选择快递'),
@@ -143,26 +148,26 @@
 		'Advert_Category'=>array(
 			'index_wheel_sowing_advert'=>array(
 				'name'=>'首页轮播广告',
-				'tip_size'=>'请上传尺寸为 宽480px*高290px 的图片',
+				'tip_size'=>'请上传尺寸为 宽980px*高470px 的图片',
 				'type'=>'index_wheel_sowing_advert',
 				'description'=>''
 			),
 			'global_left_side_advert'=>array(
-				'name'=>'全局左侧广告',
-				'tip_size'=>'请上传尺寸为 宽180px*高360px 的图片',
+				'name'=>'首页设计师产品',
+				'tip_size'=>'请上传尺寸为 宽980px*高355px 的图片',
 				'type'=>'global_left_side_advert',
 				'description'=>''
 			),
 			'global_right_side_advert'=>array(
-				'name'=>'全局右侧广告',
-				'tip_size'=>'请上传尺寸为 宽180px*高360px 的图片',
+				'name'=>'首页团购产品',
+				'tip_size'=>'请上传尺寸为 宽490px*高480px 的图片',
 				'type'=>'global_right_side_advert',
 				'description'=>''
 			),
-			'commodity_details_page_advert'=>array(
-				'name'=>'商品详情页广告',
-				'tip_size'=>'请上传尺寸为 宽740px*高80px 的图片',
-				'type'=>'commodity_details_page_advert',
+			'global_right_side_adverts'=>array(
+				'name'=>'微信公众号',
+				'tip_size'=>'请上传尺寸为 宽100px*高100px 的图片',
+				'type'=>'global_right_side_adverts',
 				'description'=>''
 			)
 		),
