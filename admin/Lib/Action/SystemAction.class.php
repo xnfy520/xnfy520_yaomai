@@ -44,6 +44,11 @@ class SystemAction extends CommonAction{
 			/*****联系方式*****/
 			if($siteinfo['conf1']==''){$siteinfo['conf1']='';};
 			if($siteinfo['conf2']==''){$siteinfo['conf2']='';};
+			if($siteinfo['conf3']==''){$siteinfo['conf3']='';};
+			if($siteinfo['conf4']==''){$siteinfo['conf4']='';};
+			if($siteinfo['conf5']==''){$siteinfo['conf5']='';};
+			if($siteinfo['conf6']==''){$siteinfo['conf6']=7;};
+			if($siteinfo['conf7']==''){$siteinfo['conf7']=200;};
 
 			/*****邮箱设置*****/
 

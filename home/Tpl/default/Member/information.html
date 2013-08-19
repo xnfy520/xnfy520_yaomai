@@ -67,6 +67,17 @@
                           <td height="30" valign="middle"><input class="Wdate" value="<{$userinfo.birthday}>" type="text" readonly="readonly" name="birthday" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',maxDate:'%y-%M-%d',onpicked:function(){ },oncleared:function(){}})" ></td>
                           <td>&nbsp;</td>
                         </tr>
+                        
+                         <tr>
+                          <td>&nbsp;</td>
+                          <td height="30" align="left" valign="middle">QQ登录：</td>
+                          <td height="30" valign="middle"><span style="color:red" class="cancel_qq_text"><empty name="userinfo.tencent_qq_nickname">未绑定<else/>已绑定</empty></span>　　
+                          <notempty name="userinfo.tencent_qq_nickname">
+                            <label class="cancel_qq"><input type="checkbox" name="tencent_qq_nickname" value="" /> 取消绑定</label>
+                          </notempty>
+                          </td>
+                          <td>&nbsp;</td>
+                        </tr>
                         <tr>
                           <td>&nbsp;</td>
                           <td height="30" align="left" valign="middle">居住地：</td>

@@ -116,6 +116,10 @@ $(function(){
                 success: function(data){
                     var msg = JSON.parse(data);
                     if(msg.status==1){
+                        if($("[name=update_information]").find("[name=tencent_qq_nickname]").attr("checked")=='checked'){
+                            $('.cancel_qq').remove();
+                            $('.cancel_qq_text').text('未绑定');
+                        }
                         jBox.tip(msg.info, 'success',{ timeout: 1000,closed: function () {
                             
                         }});

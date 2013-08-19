@@ -5,11 +5,14 @@
 <title><{$Think.config.site_name}></title>
 <meta name="keywords" content="<{$Think.config.site_keywords}>" />
 <meta name="description" content="<{$Think.config.site_description}>" />
+<meta property="qc:admins" content="146042743433006375" />
 <link rel="stylesheet" type="text/css" href="../Public/css/style.css" />
 <link rel="stylesheet" type="text/css" href="../Public/css/xj.css" />
 <link rel="stylesheet" type="text/css" href="../Public/css/dd-fy.css" />
 <link rel="stylesheet" type="text/css" href="../Public/css/xm.css" />
 <script src="__PUBLIC__/js/jquery-1.8.2.min.js" type="text/javascript"></script>
+<script type="text/javascript"
+src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="<{$Think.config.conf3}>" data-redirecturi="<{$Think.config.conf5}>" charset="utf-8"></script>
 <title></title>
 <style>
 .ui-autocomplete{
@@ -57,7 +60,7 @@
                 <li class="top6"><a href="__APP__/Index/login">请登录</a></li>
                 <li class="top7"><a href="__APP__/Member">个人中心</a></li>
                 <li class="top8"><a href="__APP__/Index/login">免费注册</a></li>
-                <li class="top9"><a href="#"><img src="../Public/image/1.png" width="16" height="17" /></a></li>
+                <li class="top9"><a href="javascript:;" class="qq-weibo-login"><img src="../Public/image/1.png" width="16" height="17" /></a></li>
             <else/>
                 <li><a href="__APP__/Member"><{$Userinfo.username}></a></li>
                 <li class="top7"><a href="__APP__/Member">个人中心</a></li>
@@ -68,6 +71,60 @@
 </div>
 
 <div id="box">
+<span style="display: block;" id="qqLoginBtn"></span>
+<script type="text/javascript">
+    $(function(){
+        $(".qq-weibo-login").live("click",function(){
+                QC.Login.showPopup({
+                   appId:"100444882",
+                   redirectURI:"http://dzlc300.com/Index/qc_back"
+                });
+        });
+//QC.Login.signOut();
+    //     if(QC.Login.check()){
+    //         console.log(QC.Login.check());
+    //     }else{
+    //         console.log(QC.Login.check());
+    //     }
+    // //    QC.Login.signOut();
+    //     QC.Login({
+    //         btnId:"qqLoginBtn"  //插入按钮的节点id
+    //     },function(oInfo, oOpts){
+    //         console.log(oInfo);
+    //         QC.Login.getMe(function(openId, accessToken){
+    //             console.log('getMe');
+    //             console.log(openId);
+    //             console.log(accessToken);
+    //         })
+    //         //     alert(oInfo.nickname);  //昵称
+    //         //     QC.Login.getMe(function(openId, accessToken){
+    //         //         alert(openId+'--'+accessToken);
+    //         //     });
+    //     //    getQQuserinfo(oInfo);
+    //     },function(opts){
+    //         //   alert('QQ登录 注销成功');
+    //     });
+
+        function getQQuserinfo(oInfo){
+            $.ajax({
+                url: define_app_url+'/Index/get_qq_userinfo',
+                data:{datas:JSON.stringify(oInfo)},
+                type:'POST',
+                success: function(data){
+                    var msg = JSON.parse(data);
+                    if(msg.status==1){
+                        console.log(msg);
+                     //   setTimeout(function(){window.location=define_app_url+'/Member/qq_connect.html'},500);
+                    }else{
+                        console.log(msg);
+                        //   jBox.tip(msg.info, 'error',{ timeout: 1000})
+                    }
+                }
+            });
+        }
+
+    });
+</script>
     <div id="mid-logo">
         <ul>
             <li id="logo"><a href="__APP__/Index"><img src="../Public/image/2.png" width="250" height="66" /></a></li>

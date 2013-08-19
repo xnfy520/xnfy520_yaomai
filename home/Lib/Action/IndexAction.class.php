@@ -72,12 +72,98 @@ class IndexAction extends CommonAction {
 //		}
 //	}
 
+    function qc_back(){
+    	 if($Userinfo = $this->checkLogin()){
+    	 	$this->redirect('/Member');
+    	 }else{
+    	 	$this->display();
+    	 }
+    }
+
+    function login(){
+    	 if($Userinfo = $this->checkLogin()){
+    	 	$this->redirect('/Member');
+    	 }else{
+    	 	$this->display();
+    	 }
+    }
+
+    function check_bind_qq(){
+    	if(isset($_POST['nickname']) && !empty($_POST['nickname'])){
+    		$User = M('User');
+    		$w['tencent_qq_nickname'] =array('eq',$_POST['nickname']);
+    		$user = $User->where($w)->find();
+    		if($user){
+    			$_SESSION['username'] = $user['username'];
+                $_SESSION['email'] = $user['email'];
+                $_SESSION['userid'] = $user['id'];
+                $_SESSION['roleid'] =$user['roleid'];
+    			$this->ajaxReturn(0,"此QQ已经绑定",0);
+    		}else{
+    			$this->ajaxReturn(0,"可以绑定QQ",1);
+    		}
+    	}else{
+    		$this->ajaxReturn(0,"异常操作",0);
+    	}
+    }
+
+    function ajax_bind_qq(){
+    	if(empty($_POST['login_name']) || empty($_POST['password']) || empty($_POST['qq_name'])){
+    		$this->ajaxReturn(0,"异常操作",0);
+    	}
+    	 $User = D('User');
+        if(preg_match("/^[0-9a-zA-Z]+@(([0-9a-zA-Z]+)[.])+[a-z]{2,4}$/i",$_POST['login_name'])){
+            $Userinfo = $User->getByEmail($_POST['login_name']);
+        }else{
+            $Userinfo = $User->getByUsername($_POST['login_name']);
+        }
+        if($Userinfo){
+            if(md5($_POST['password'])==$Userinfo['password']){
+                $Role = M('Role');
+                $group = C('USER_GROUP');
+                $Roleinfo = $Role->where('level='.$group['member']['level'])->find();
+                if($Userinfo['roleid']==$Roleinfo['id'] && $Userinfo['status']==1){
+                	if(!empty($Userinfo['tencent_qq_nickname'])){
+                		$this->ajaxReturn(0,"此用户已经绑定了QQ！",0);
+                	}
+                    $map['tencent_qq_nickname'] = $_POST['qq_name'];
+                    if($User->where('id='.$Userinfo['id'])->setField($map)){
+                    	$_SESSION['username'] = $Userinfo['username'];
+		                $_SESSION['email'] = $Userinfo['email'];
+		                $_SESSION['userid'] = $Userinfo['id'];
+		                $_SESSION['roleid'] =$Userinfo['roleid'];
+                    	$this->ajaxReturn(__APP__.'/Member/index.html',"绑定QQ成功",1);
+                    }else{
+                    	$this->ajaxReturn(__APP__.'/Member/index.html',"绑定QQ失败",0);
+                    }
+                }else{
+                    $this->ajaxReturn(0,"该用户不存在或未被激活！",0);
+                }
+            }else{
+                $this->ajaxReturn(0,"用户名或密码错误！",0);
+            }
+        }else{
+            $this->ajaxReturn(0,"该用户不存在或未被激活！",0);
+        }
+    }
+
 	function save_sina_wb_userinfo(){
 		if(isset($_POST['datas']) && !empty($_POST['datas'])){
 			$_SESSION['sina_wb_userinfo'] = $_POST['datas'];
 			$this->ajaxReturn(0,"设置成功！",1);
 		}else{
 			unset($_SESSION['sina_wb_userinfo']);
+			$this->ajaxReturn(0,"设置失败！",0);
+		}
+	}
+
+	function get_qq_userinfo(){
+		if(isset($_POST['datas']) && !empty($_POST['datas'])){
+			dump($_POST);
+		//	$_SESSION['qq_userinfo'] = $_POST['datas'];
+			$this->ajaxReturn(0,"设置成功！",1);
+		}else{
+		//	unset($_SESSION['qq_userinfo']);
 			$this->ajaxReturn(0,"设置失败！",0);
 		}
 	}

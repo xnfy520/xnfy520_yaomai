@@ -337,6 +337,9 @@ class MemberAction extends CommonAction {
             if($data['where_id']!=$orginfo['where_id']){
                 $flag = false;
             }
+            if($data['tencent_qq_nickname']!=$orginfo['tencent_qq_nickname']){
+                $flag = false;
+            }
 
             if($flag){
                 $this->ajaxReturn(0,"没有数据被修改！",0);

@@ -41,7 +41,7 @@
             <li id="switch-change-1" class="default-li" style="cursor: pointer;width: 100px;height: 30px;line-height: 30px;float: left;margin-left: 85px;background: #95D0DE;text-align: center;margin-right: 10px;font-weight: bold;color: #546C83;">基本信息</li>
             <li id="switch-change-2" class="default-li" style="cursor:pointer;width: 100px;height: 30px;line-height: 30px;float: left;background: #546C83;text-align: center;font-weight: bold;margin-right: 10px;color: white;">联系方式</li>
             <li id="switch-change-3" class="default-li" style="cursor:pointer;width: 100px;height: 30px;line-height: 30px;float: left;background: #546C83;text-align: center;font-weight: bold;margin-right: 10px;color: white;">邮箱配置</li>
-            <!--<li id="switch-change-4" class="default-li" style="cursor:pointer;width: 100px;height: 30px;line-height: 30px;float: left;background: #546C83;text-align: center;font-weight: bold;margin-right: 10px;color: white;">特别关注</li>-->
+            <li id="switch-change-4" class="default-li" style="cursor:pointer;width: 100px;height: 30px;line-height: 30px;float: left;background: #546C83;text-align: center;font-weight: bold;margin-right: 10px;color: white;">QQ登录配置</li>
         </ul>
         <ul id="switch-change-1-sub" class="default-li-style">
             <li class="systemt-set-li">
@@ -75,6 +75,13 @@
                 <span class="tips"></span>
             </li>
 
+            <li class="systemt-set-li" style="vertical-align: top;">到货时间是支付尾款后几日
+                <input type="text" name="conf6" style="width:100px" value="<{$Think.config.conf6|default="5"}>" />
+                　　
+                送货上门安装服务费 <input type="text" name="conf7" style="width:100px" value="<{$Think.config.conf7|default="20"}>" />
+                <span class="tips"></span>
+            </li>
+
         </ul>
 
         <ul id="switch-change-2-sub" class="default-li-style" style="display: none;">
@@ -105,8 +112,16 @@
             </li>
         </ul>
 
-        <ul id="switch-change-4-sub" class="default-li-style" style="display: none;">
 
+        <ul id="switch-change-4-sub" class="default-li-style" style="display: none;">
+            <li class="systemt-set-li"><strong class="system-set-title">APPID：</strong>
+                <textarea name="conf3" style="width: 305px;"><{$Think.config.conf3}></textarea>
+                <strong class="system-set-title">APPKEY：</strong>
+                <textarea name="conf4" style="width: 305px;"><{$Think.config.conf4}></textarea>
+            </li>
+            <li class="systemt-set-li"><strong class="system-set-title">REDIRECTURI：</strong>
+                <textarea name="conf5" style="width: 305px;"><{$Think.config.conf5}></textarea>
+            </li>
         </ul>
 
         <ul>

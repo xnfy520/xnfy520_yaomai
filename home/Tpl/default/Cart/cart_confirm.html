@@ -224,7 +224,7 @@
         </div>
       </notempty>
     </eq>
-      <input type="hidden" name="delivery_price" value="20" />
+      <input type="hidden" name="delivery_price" value="<{$Think.config.conf7|default="20"}>" />
       <input type="hidden" name="commodity_volume" value="<{$commodity_volume}>" />
       <input type="hidden" name="commodity_total" value="<{$commodity_total}>" />
       <input type="hidden" name="logistics" value="0" />
