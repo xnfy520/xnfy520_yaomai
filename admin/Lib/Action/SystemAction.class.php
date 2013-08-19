@@ -49,6 +49,7 @@ class SystemAction extends CommonAction{
 			if($siteinfo['conf5']==''){$siteinfo['conf5']='';};
 			if($siteinfo['conf6']==''){$siteinfo['conf6']=7;};
 			if($siteinfo['conf7']==''){$siteinfo['conf7']=200;};
+			if($siteinfo['conf8']==''){$siteinfo['conf8']=200;};
 
 			/*****邮箱设置*****/
 

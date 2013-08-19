@@ -178,6 +178,24 @@ src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="<{$Think
         </volist>
         
   </div>
+    <notempty name="sas">
+        <div id="mid-new">
+            <ul>
+                <li id="new">
+                    <volist name="sas" id="vo_b">
+                        <div><a <notempty name="vo_b.link"> target="_blank" href="<{$vo_b.link}>"</notempty>  >
+                            <notempty name="vo_b.description">
+                                <{$vo_b.description}>
+                            <else/>
+                                <{$vo_b.name}>
+                            </notempty>
+                        </a></div>
+                    </volist>
+                </li>
+                <li id="close"><a href="javascript:void(0);"><img src="../Public/image/3.png" width="9" height="9" /></a></li>
+            </ul>
+        </div>
+    </notempty>
     <notempty name="newest_buy">
         <div id="mid-new">
             <ul>

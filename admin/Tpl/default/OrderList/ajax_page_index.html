@@ -1,133 +1,245 @@
 {__NOLAYOUT__}
-<form action="javascript:;" method="post" name="OrderList-del" class="delete">
-    <table id="xnfy520-function-index-table">
-        <thead>
-        <tr>
-            <th class="xnfy520-function-index-table-th-100">订单号</th>
-            <th class="xnfy520-function-index-table-th-100">用户</th>
-            <th class="xnfy520-function-index-table-th-100">收货人</th>
-            <th class="xnfy520-function-index-table-th-50">订单总金额</th>
-            <th class="xnfy520-function-index-table-th-50">订单状态</th>
-            <th class="xnfy520-function-index-table-th-150">下单时间</th>
-            <th class="xnfy520-function-index-table-th-50">操作</th>
-            <th class="xnfy520-function-index-table-th-50">详单</th>
-            <th id="xnfy520-function-index-table-th-check-all" style="display: none;">
-                <input type="button" value="全选" />
-            </th>
-        </tr>
-        </thead>
-        <tbody>
-        <empty name="list">
-            <tr><td colspan="8" style="height:50px;">暂无数据</td></tr>
-            <else/>
-            <volist name="list" id="vo">
-                <tr class="znxx">
-                    <td><{$vo.out_trade_no}></td>
-                    <td><{$vo.User.username}></td>
-                    <td><{$vo.address_info.name}></td>
-                    <td><{$vo.total_fee}></td>
-                    <td>
-                        <switch name="vo.trade_status" >
-                            <case value="WAIT_BUYER_PAY">待付款</case>
-                            <case value="WAIT_SELLER_SEND_GOODS">
-                                未发货
-                            </case>
-                            <case value="WAIT_BUYER_CONFIRM_GOODS">已发货</case>
-                            <case value="TRADE_FINISHED">已完结</case>
-                            <default />待付款
-                        </switch>
-                    </td>
-                    <td><{$vo.create_date|date="Y-m-d H:i:s",###}></td>
-                    <td>
-                        <switch name="vo.trade_status" >
-                            <case value="WAIT_BUYER_PAY">-</case>
-                            <case value="WAIT_SELLER_SEND_GOODS">
-                                <a target="_blank" href="https://lab.alipay.com/consume/queryTradeDetail.htm?actionName=SEND_GOODS&tradeNo=<{$vo.trade_no}>">发货</a>
-                            </case>
-                            <case value="WAIT_BUYER_CONFIRM_GOODS">-</case>
-                            <case value="TRADE_FINISHED">-</case>
-                            <default />-
-                        </switch>
-                    </td>
-                    <td><div style="color:#ec651a;cursor:pointer"  class="znxx03" status="1" >展开</div></td>
-                    <td class="xnfy520-function-index-table-td-checkbox" style="display: none;">
-                        <input class="xnfy520-function-index-table-check-this" type="checkbox" name="deleteid[]" value="<{$vo.id}>" />
-                    </td>
+ <form action="javascript:;" method="post" name="OrderList-del" class="delete">
+            <table id="xnfy520-function-index-table">
+                <thead>
+                <tr>
+                    <th class="xnfy520-function-index-table-th-100">订单号</th>
+                    <th class="xnfy520-function-index-table-th-100">用户</th>
+                    <th class="xnfy520-function-index-table-th-150">订单总金额</th>
+                    <th class="xnfy520-function-index-table-th-50">订单状态</th>
+                    <th class="xnfy520-function-index-table-th-150">下单时间</th>
+                    <th class="xnfy520-function-index-table-th-50">操作</th>
+                    <th class="xnfy520-function-index-table-th-50">详单</th>
+                    <th id="xnfy520-function-index-table-th-check-all" style="display: none;">
+                        <input type="button" value="全选" />
+                    </th>
                 </tr>
-                <tr class="znxx01" style="display: none;border: none;">
-                    <td colspan="8" style="padding:1px; border:none;" class="none-background-color">
-                        <table width="100%" cellpadding="0" cellspacing="0" class="tab0001">
-                            <volist name="vo.commodify_list" id="vo_mo_ci">
-                                <tr style="line-height: 0;">
-                                    <td colspan="7" style="padding-top:0; border:none">
-                                        <div class="znxx_m" style="width:100%; padding:0;">
-                                            <table  width="100%" cellpadding="0" cellspacing="0" style="border-collapse: collapse;border:none">
-                                                <tr style="border:none;">
-                                                    <td width="100" align="center" style="border: none;">
-                                                        <a target="_blank" href="__ROOT__/Shops/<{$vo_mo_ci.merchant_no}>/details/<{$vo_mo_ci.id}>.html">
-                                                            <img src="__PUBLIC__/Content/CommodityList/cut_<{$vo_mo_ci.image}>" style="width:30px; height:30px; padding:3px; border:1px solid #ddd;position: relative;top: 4px;" />
-                                                        </a>
-                                                    </td>
-                                                    <td style="color:#ec651a;border: none;text-align: left;">
-                                                        <a target="_blank" href="__ROOT__/Shops/<{$vo_mo_ci.merchant_no}>/details/<{$vo_mo_ci.id}>.html">
-                                                            <{$vo_mo_ci.name}>　<empty name="vo_mo_ci.CommoditySpecification">[ <{$vo_mo_ci.default_specification}> ]<else/>[ <{$vo_mo_ci.CommoditySpecification.specification}> ]</empty>
-                                                        </a>
-                                                    </td>
-                                                    <td style="border: none;" width="150" align="center">商户：<a target="_blank" href="__ROOT__/Shops/<{$vo_mo_ci.merchant_no}>.html"><{$vo_mo_ci.merchant_name}></a></td>
-                                                    <td style="border: none;" width="150" align="center">状态：
-                                                        <eq name="vo_mo_ci.deliver_goods_status" value="1">
-                                                            商户已发货
-                                                            <else/>
-                                                            <span style="color: #ff0000;font-weight: bold;;">商户未发货</span>
-                                                        </eq>
-                                                    </td>
-                                                    <td style="border: none;" width="100" align="center">单价：&#165; <{$vo_mo_ci.current_price}></td>
-                                                    <td style="border: none;" width="100" align="center">数量： <{$vo_mo_ci.buy_quantity}></td>
-                                                    <td style="border: none;" width="150" align="center">小计：&#165; <{$vo_mo_ci.total_price}></td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </volist>
-                            <tr>
-                                <td colspan="7" style="border: none;">
-                                    <notempty name="vo.gmt_payment">
-                                        付款时间：
-                                        <{$vo.gmt_payment}>　
-                                    </notempty>
-                                    收货人信息：
-                                    <strong>姓名</strong>：<{$vo.address_info.name}>　
-                                    <strong>地址</strong>：<{$vo.address_info.provinces}>　<{$vo.address_info.street}>　
-                                    <strong>邮编</strong>：<{$vo.address_info.zip}>　
-                                    <strong>手机</strong>：<{$vo.address_info.mobile}>
-                                    <notempty name="vo.address_info.phone">
-                                        　<strong>电话</strong>：<{$vo.address_info.pre_phone}>-<{$vo.address_info.phone}>
-                                    </notempty>
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
+                </thead>
+                <tbody>
+                <empty name="list">
+                    <tr><td colspan="8" style="height:50px;">暂无数据</td></tr>
+                <else/>
+                    <volist name="list" id="vo">
+                        <tr class="znxx">
+                            <td><{$vo.out_trade_no}></td>
+                            <td><{$vo.username}></td>
+                            <td style="text-indent:10px;<eq name='Think.get.type' value='4'>text-align:center;<else/>text-align:left;</eq>">
+                                <span style="min-width:80px;display:inline-block">&#165;<{$vo.total_fee}></span>
+                                <neq name="Think.get.type" value="4">
+                                (
+                                物流:<{$vo.other_data.logistics}>
+                                <notempty name="vo.other_data.coupon" value="50">优惠:-<{$vo.other_data.coupon}></notempty>
+                                )
+                                </neq>
+                            </td>
+                            <td>
+                                <eq name="Think.get.type" value="4">
+                                    <eq name="vo.abolish" value="1">
+                                        <span style="font-weight:bold;color:blue">已取消预订</span>
+                                    <else/>
+                                        <eq name="vo.pay_type" value="0">
+                                            未付款
+                                        <else/>
+                                            已付款
+                                        </eq>
+                                    </eq>
+                                <else/>
+                                    <eq name="vo.pay_type" value="0">
+                                        <neq name="vo.other_data.payment_model" value="1">
+                                            <span by="<{$vo.id}>" is_payment="<{$vo.pay_type}>" class="manual_payment" style="color:red;font-weight:bold;cursor:pointer">未付款</span>
+                                        <else/>
+                                            未付款
+                                        </neq>
+                                    <else/>
+                                        <neq name="vo.other_data.payment_model" value="1">
+                                            <span by="<{$vo.id}>" is_payment="<{$vo.pay_type}>" class="manual_payment" style="color:blue;font-weight:bold;cursor:pointer">已付款</span>
+                                        <else/>
+                                            已付款
+                                        </neq>
+                                    </eq>
+                                </eq>
+                            </td>
+                            <td><{$vo.create_date|date="Y-m-d H:i:s",###}></td>
+                            <td>
+                               <eq name="Think.get.type" value="4">
+                                    <eq name="vo.abolish" value="1">
+                                        <eq name="vo.abolish_dispose" value="1">
+                                            <span by="<{$vo.id}>" type="abolish_dispose" value="<{$vo.abolish_dispose}>" class="abolish_dispose" style="color:blue;font-weight:bold;cursor:pointer">已处理</span>
+                                        <else/>
+                                            <span by="<{$vo.id}>" type="abolish_dispose" value="<{$vo.abolish_dispose}>" class="abolish_dispose" style="color:red;font-weight:bold;cursor:pointer">处理</span>
+                                        </eq>
+                                        <span style="display: none;" data_on="确认已经处理？" data_off="确认设为未处理？"></span>
+                                    <else/>
+                                        -
+                                    </eq> 
+                               <else/>
+                                    <eq name="vo.pay_type" value="0">
+                                        -
+                                    <else/>
+                                        <empty name="vo.shipments_data">
+                                            <span class="send_out" by="<{$vo.id}>" style="color:red;font-weight:bold;cursor:pointer">发货</span>
+                                        <else/>
+                                            <span class="send_out" by="<{$vo.id}>" style="color:blue;font-weight:bold;cursor:pointer">发货信息</span>
+                                        </empty>
+                                    </eq>
+                               </eq>
+                            </td>
+                            <td><div style="color:#ec651a;cursor:pointer"  class="znxx03" status="1" >展开</div></td>
+                            <td class="xnfy520-function-index-table-td-checkbox" style="display: none;">
+                                <input class="xnfy520-function-index-table-check-this" type="checkbox" name="deleteid[]" value="<{$vo.id}>" />
+                            </td>
+                        </tr>
+                        <tr class="znxx01" style="display: none;border: none;">
+                            <td colspan="8" style="padding:1px; border:none;" class="none-background-color">
+                                <table width="100%" cellpadding="0" cellspacing="0" class="tab0001">
+                                    <eq name="Think.get.type" value="4">
+                                        <tr style="line-height: 0;">
+                                            <td colspan="7" style="padding-top:0; border:none">
+                                                <div class="znxx_m" style="width:100%; padding:0;">
+                                                    <table  width="100%" cellpadding="0" cellspacing="0" style="border-collapse: collapse;border:none">
+                                                        <tr style="border:none;">
+                                                            <td width="100" align="center" style="border: none;">
+                                                                <img src="__PUBLIC__/Content/VoteCommodity/thumb_<{$vo.commodity_data.image}>" style="width:55px; height:30px; padding:3px; border:1px solid #ddd;position: relative;top: 4px;" />
+                                                            </td>
+                                                            <td colspan="5" style="color:#ec651a;border: none;text-align: left;">
+                                                                <{$vo.commodity_data.name}>
+                                                            </td>
+                                                            <td colspan="1" style="border: none;" width="100" align="center">订金：&#165; <{$vo.commodity_data.subscription}></td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    <else/>
+                                        <volist name="vo.commodity_data" id="vo_mo_ci">
+                                            <tr style="line-height: 0;">
+                                                <td colspan="7" style="padding-top:0; border:none">
+                                                    <div class="znxx_m" style="width:100%; padding:0;">
+                                                        <table  width="100%" cellpadding="0" cellspacing="0" style="border-collapse: collapse;border:none">
+                                                            <tr style="border:none;">
+                                                                <td width="100" align="center" style="border: none;">
+                                                                    <img src="__PUBLIC__/Content/<{$vo_mo_ci.CIDir}>/thumb_<{$vo_mo_ci.Commodity.image}>" style="width:55px; height:30px; padding:3px; border:1px solid #ddd;position: relative;top: 4px;" />
+                                                                </td>
+                                                                <td style="color:#ec651a;border: none;text-align: left;">
+                                                                    <{$vo_mo_ci.Commodity.name}>
+                                                                </td>
+                                                                <td style="border: none;" width="100" align="center">单价：&#165; <{$vo_mo_ci.Commodity.price}></td>
+                                                                <td style="border: none;" width="100" align="center">数量： <{$vo_mo_ci.quantity}></td>
+                                                                <td style="border: none;" width="150" align="center">小计：&#165; <{$vo_mo_ci.xiaoji}></td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </volist>
+                                    </eq>
 
-            </volist>
-        </empty>
-        </tbody>
-    </table>
-    <notempty name="list">
-        <div style="border:1px solid #ccc;height: 37px;">
+                                    <tr>
+                                        <td colspan="7" style="border: none;text-align:left;text-indent:20px">
+                                            支付信息：
+                                            <strong>支付方式</strong>：
+                                            <eq name="Think.get.type" value="4">
+                                            在线支付　
+                                                <strong>支付平台</strong>：
+                                                <switch name="vo.pay_type">
+                                                    <case value="1">
+                                                    支付宝 ( 支付帐号 <{$vo.alipay_data.buyer_email|default="-"}> )　
+                                                    <strong>支付时间</strong>: <{$vo.alipay_data.pay_date|date="Y-m-d H:i:s",###}>
+                                                    </case>
+                                                    <case value="2">网上银行</case>
+                                                </switch>　
+                                                <notempty name="vo.abolish_date">
+                                                    <span style="color:blue">取消预订时间:<{$vo.abolish_date|date="Y-m-d H:i:s",###}></span>
+                                                </notempty>
+                                            <else/>
+                                                <switch name="vo.other_data.payment_model">
+                                                    <case value="3"><span title="快递可付现金、刷卡">货到付款</span></case>
+                                                    <case value="2"><span title="通过银行转账或现金直接存入指定帐号，需注明订单号">银行电汇</span></case>
+                                                    <case value="1"><span title="通过网上银行或支付平台在线付款">在线支付</span></case>
+                                                </switch>　
+                                                <eq name="vo.other_data.payment_model" value="1">
+                                                    <strong>支付平台</strong>：
+                                                    <switch name="vo.other_data.payment">
+                                                        <case value="1">
+                                                        支付宝 ( 支付帐号 <{$vo.alipay_data.buyer_email|default="-"}> )　
+                                                        <strong>支付时间</strong>: <{$vo.alipay_data.pay_date|date="Y-m-d H:i:s",###}>
+                                                        </case>
+                                                        <case value="2">网上银行</case>
+                                                    </switch>
+                                                </eq>　
+                                            </eq>
+                                        </td>
+                                    </tr>
+                                    <neq name="Think.get.type" value="4">
+                                        <tr>
+                                            <td colspan="7" style="border: none;text-align:left;text-indent:20px">
+                                                收货人信息：
+                                                <strong>姓名</strong>：<{$vo.address.consignee}>　
+                                                <strong>地址</strong>：<{$vo.address.where_text}>　<{$vo.address.street}>　
+                                                <strong>邮编</strong>：<{$vo.address.zip}>　
+                                                <notempty name="vo.address.cellphone">
+                                                    <strong>手机</strong>：<{$vo.address.cellphone}>　
+                                                </notempty>
+                                                <notempty name="vo.address.phone">
+                                                    <strong>电话</strong>：<{$vo.address.phone}>
+                                                </notempty>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="7" style="border: none;text-align:left;text-indent:20px">
+                                                订单备注：
+                                                <strong>配送方式</strong>：
+                                                <switch name="vo.other_data.delivery">
+                                                    <case value="1"><span title="用户到相应提货点自提安装">提货点自提 ( 运费 <{$vo.other_data.logistics}> )</span></case>
+                                                    <case value="2"><span title="非电梯楼上楼费用由用户另付">送货上门安装 ( 运费 <{$vo.other_data.logistics}> + 服务费 <{$vo.other_data.delivery_price}> )</span></case>
+                                                </switch>　
+                                                <notempty name="vo.other_data.ask_for_date">
+                                                    <strong>要求到货时间</strong>：<{$vo.other_data.ask_for_date}>
+                                                </notempty>　
+                                                <strong>发票信息</strong>：
+                                                类型/<{$vo.other_data.invoice_type}>　抬头/<{$vo.other_data.invoice_rise}>　<{$vo.other_data.invoice_info}>
+                                            </td>
+                                        </tr>
+                                    </neq>
+                                </table>
+                            </td>
+                        </tr>
 
-            <div class="emit-fanye-box">
-                <div class="emit-fanye-text">
-                    <{$fpage}>
+                    </volist>
+                </empty>
+                </tbody>
+            </table>
+            <notempty name="list">
+                <div style="border:1px solid #ccc;height: 37px;">
+
+                    <div class="emit-fanye-box">
+                        <div class="emit-fanye-text">
+                            <{$fpage}>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </notempty>
-</form>
-<style>
-    .none-background-color:hover{
-        background: white;
-    }
+            </notempty>
+        </form>
+        <style>
+            .none-background-color:hover{
+                background: white;
+            }
 
-</style>
+        </style>
+        <script>
+            $(function(){
+                $(".znxx03").live('click',function(){
+                    $(".znxx01").hide();
+
+                    if($(this).text()=="展开"){
+                        $(".znxx03").text("展开");
+                        $(this).parents(".znxx").next(".znxx01").show();
+                        $(this).html("关闭");
+                    }else{
+                        $(this).parents(".znxx").next(".znxx01").hide();
+                        $(this).html("展开");
+                    }
+
+                })
+            })
+        </script>

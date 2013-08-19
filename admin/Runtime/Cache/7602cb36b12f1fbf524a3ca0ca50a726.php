@@ -1,4 +1,4 @@
-{__NOLAYOUT__}
+<?php if (!defined('THINK_PATH')) exit();?>
 <div id="SystemAnnouncement-add-edit">
             <table>
                 <caption>添加系统公告</caption>

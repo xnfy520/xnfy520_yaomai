@@ -1,26 +1,24 @@
-{__NOLAYOUT__}
+<?php if (!defined('THINK_PATH')) exit();?>
 <div id="SystemAnnouncement-add-edit">
-    <input type="hidden" name="id" value="<{$data.id}>" />
+    <input type="hidden" name="id" value="<?php echo ($data["id"]); ?>" />
     <table>
         <caption>修改系统公告</caption>
         <tr class="table_tr">
             <th class="table_th"><span class="table_star">*</span> 名　　称：</th>
-            <td><input type="text" name="name" maxlength="15" value="<{$data.name}>" title="限1-15字符 (必填)" /></td>
+            <td><input type="text" name="name" maxlength="15" value="<?php echo ($data["name"]); ?>" title="限1-15字符 (必填)" /></td>
         </tr>
         <tr class="table_tr"><th class="table_th"><span class="table_star">*</span> 启　　用：</th>
             <td>
                 <span class="table_radio">
-                    <eq name="data.publish" value="1">
-                            <label><input type="radio" checked="checked" name="publish" value="1" />是</label>
+                    <?php if(($data["publish"]) == "1"): ?><label><input type="radio" checked="checked" name="publish" value="1" />是</label>
                             <label><input type="radio" name="publish" value="0" />否</label>
-                        <else/>
+                        <?php else: ?>
                             <label><input type="radio" name="publish" value="1" />是</label>
-                            <label><input type="radio" checked="checked" name="publish" value="0" />否</label>
-                    </eq>
+                            <label><input type="radio" checked="checked" name="publish" value="0" />否</label><?php endif; ?>
                 </span>
                 <span class="table_sort_span">
                      <span class="table_sort_title"><span class="table_star">*</span> 排　　序：</span>
-                    <input class="table_sort_input" title="值必须在0-255 (必填)" type="text" name="sort" value="<{$data.sort}>" maxlength="3" />
+                    <input class="table_sort_input" title="值必须在0-255 (必填)" type="text" name="sort" value="<?php echo ($data["sort"]); ?>" maxlength="3" />
                 </span>
             </td>
         </tr>
@@ -34,18 +32,18 @@
             </td>
         </tr>
 
-        <tr <empty name="data.image">style="display:none;"</empty> class="thumb_image_tr"><th class="table_th"></th>
+        <tr <?php if(empty($data["image"])): ?>style="display:none;"<?php endif; ?> class="thumb_image_tr"><th class="table_th"></th>
             <td>
                 <span class="positioning_image">
-                    <img class="thumb_image" src="__PUBLIC__/Content/SystemAnnouncement/thumb_<{$data.image}>">
+                    <img class="thumb_image" src="__PUBLIC__/Content/SystemAnnouncement/thumb_<?php echo ($data["image"]); ?>">
                     <img class="delete_image" src="../Public/images/bullet_cross.png" />
-                    <input type="hidden" name="image" value="<{$data.image}>" />
+                    <input type="hidden" name="image" value="<?php echo ($data["image"]); ?>" />
                 </span>
             </td>
         </tr> -->
 
-        <tr class="table_tr"><th class="table_th">链接地址：</th><td class="table_td"><input type="text" name="link" value="<{$data.link}>" title="必须以 http:// 开头 双击可显示 (可为空)" /></td></tr>
-        <tr><th class="table_th_top">描　　述：</th><td><textarea class="textarea" name="description" title="限1-255字符 (可为空)"><{$data.description}></textarea></td></tr>
+        <tr class="table_tr"><th class="table_th">链接地址：</th><td class="table_td"><input type="text" name="link" value="<?php echo ($data["link"]); ?>" title="必须以 http:// 开头 双击可显示 (可为空)" /></td></tr>
+        <tr><th class="table_th_top">描　　述：</th><td><textarea class="textarea" name="description" title="限1-255字符 (可为空)"><?php echo ($data["description"]); ?></textarea></td></tr>
     </table>
 </div>
 <script src="__PUBLIC__/js/ajaxupload.3.6.js" type="text/javascript"></script>

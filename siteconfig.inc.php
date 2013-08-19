@@ -8,6 +8,7 @@
 	'COMPANY_NAME'=>'要买家具网',
 	'SITE_COPYRIGHT'=>'Copyright© 2002-2013',
 	'SITE_FILING'=>'ICP备案号：鄂ICP备10207551号',
+	'CONF8'=>'此价格为配送至当地提货点的价格，上门安装另计费用：200',
 	'CONF6'=>'7',
 	'CONF7'=>'200',
 	'CONF1'=>'周一至周日<br />

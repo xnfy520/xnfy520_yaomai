@@ -86,9 +86,17 @@
                                     </eq>
                                 <else/>
                                     <eq name="vo.pay_type" value="0">
-                                        未付款
+                                        <neq name="vo.other_data.payment_model" value="1">
+                                            <span by="<{$vo.id}>" is_payment="<{$vo.pay_type}>" class="manual_payment" style="color:red;font-weight:bold;cursor:pointer">未付款</span>
+                                        <else/>
+                                            未付款
+                                        </neq>
                                     <else/>
-                                        已付款
+                                        <neq name="vo.other_data.payment_model" value="1">
+                                            <span by="<{$vo.id}>" is_payment="<{$vo.pay_type}>" class="manual_payment" style="color:blue;font-weight:bold;cursor:pointer">已付款</span>
+                                        <else/>
+                                            已付款
+                                        </neq>
                                     </eq>
                                 </eq>
                             </td>
@@ -170,8 +178,9 @@
                                     <tr>
                                         <td colspan="7" style="border: none;text-align:left;text-indent:20px">
                                             支付信息：
-                                            <strong>支付方式</strong>：在线支付　
+                                            <strong>支付方式</strong>：
                                             <eq name="Think.get.type" value="4">
+                                            在线支付　
                                                 <strong>支付平台</strong>：
                                                 <switch name="vo.pay_type">
                                                     <case value="1">

@@ -214,6 +214,8 @@ $(function(){
                 }else{
                     $("#xnfy520-function-index-content").load(define_app_url+'/'+define_module_name+'/ajax_page_index/page/'+v);
                 }
+            }else if(define_module_name=='OrderList'){
+                $("#xnfy520-function-index-content").load(define_app_url+'/'+define_module_name+'/ajax_page_index/page/'+v+((define_pid!=0 && define_pid!='' ? '/pid/'+define_pid : '')+(define_cid!=0 && define_cid!='' ? '/cid/'+define_cid : '')+(define_type!=0 && define_type!='' ? '/type/'+define_type : '')));
             }else{
                 $("#xnfy520-function-index-content").load(define_app_url+'/'+define_module_name+'/ajax_page_index/page/'+v+((define_pid!=0 && define_pid!='' ? '/pid/'+define_pid : '')+(define_cid!=0 && define_cid!='' ? '/cid/'+define_cid : '')+(define_sid!=0 && define_sid!='' ? '/sid/'+define_sid : '')+(define_rid!=0 && define_rid!='' ? '/rid/'+define_rid : '')));
             }

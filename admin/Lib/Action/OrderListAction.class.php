@@ -68,7 +68,7 @@ class OrderListAction extends CommonAction{
 
 			$count = $MemberOrder->where($datas)->count();
 
-			$page = new page($count,20);
+			$page = new page($count,15);
 
 			$MemberOrderinfo = $MemberOrder->where($datas)->order('create_date desc')->limit($page->setlimit())->select();
 
@@ -99,14 +99,10 @@ class OrderListAction extends CommonAction{
 	}
 
 	function ajax_page_index(){
-		if($Userinfo = $this->check_is_admin()){
+			if($Userinfo = $this->check_is_admin()){
 			import("ORG.Util.emit_ajax_page");
-
-			$CommodityList = D('CommodityList');
-			$CommodityListinfo = $CommodityList->field('id')->select();
-			$commoditys = array();
-			for($i=0; $i<count($CommodityListinfo); $i++){
-				$commoditys[] = $CommodityListinfo[$i]['id'];
+			if(!isset($_GET['type']) && empty($_GET['type'])){
+				$this->redirect('/Index');
 			}
 			$MemberOrder = M('MemberOrder');
 
@@ -142,9 +138,8 @@ class OrderListAction extends CommonAction{
 
 			if(isset($_GET['cid']) && !empty($_GET['cid'])){
 				switch($_GET['cid']){
-					case 1 : $datas['trade_status'] = array(array('eq',''),array('eq','WAIT_BUYER_PAY'),'or') ;break;
-					case 2 : $datas['trade_status'] = array('eq','WAIT_SELLER_SEND_GOODS');break;
-					case 3 : $datas['trade_status'] = array('eq','TRADE_FINISHED');break;
+					case 1 : $datas['pay_type'] = array('gt',0) ;break;
+					case 2 : $datas['pay_type'] = array('eq',0);break;
 				}
 			}
 
@@ -157,43 +152,39 @@ class OrderListAction extends CommonAction{
 						case 2:
 							$datas['out_trade_no'] = array("like","%{$_POST['key']}%");
 							break;
+						case 3:
+							$datas['username'] = array("like","%{$_POST['key']}%");
+							break;
 					}
 				}
 			}
 
-			$datas['id'] = array('neq',"0");
-			$MemberOrderinfo = $MemberOrder->where($datas)->order('create_date desc')->select();
-			$User = M('User');
-			$MerchantOrder = array();
-			foreach($MemberOrderinfo as $key=>$value){
-				$commodity_infos = json_decode($value['commodity_infos'],true);
-				$address_infos = json_decode($value['address_infos'],true);
-				$MerchantOrder[$key] = $MemberOrderinfo[$key];
-				$MerchantOrder[$key]['address_info'] =$address_infos;
-				$shippersinfo = $MemberOrder->where('out_trade_no='.$value['out_trade_no'])->getField('shippers');
-				$infos = explode(';',$shippersinfo);
-				foreach($commodity_infos as $k=>$v){
-					if(in_array($v['by_user'],$infos)){
-						$commodity_infos[$k]['deliver_goods_status'] = 1;
-					}else{
-						$commodity_infos[$k]['deliver_goods_status'] = 0;
-					}
-					$commodity_infos[$k]['merchant_name'] = $User->where('id='.$v['by_user'])->getField('username');
-					$MerchantOrder[$key]['commodify_list'][] = $commodity_infos[$k];
-				}
+			$datas['commodity_type'] = $_GET['type'];
+
+			$count = $MemberOrder->where($datas)->count();
+
+			$page = new page($count,15);
+
+			$MemberOrderinfo = $MemberOrder->where($datas)->order('create_date desc')->limit($page->setlimit())->select();
+
+			for($i=0;$i<count($MemberOrderinfo);$i++){
+				$ali = json_decode($MemberOrderinfo[$i]['alipay_data'],true);
+				$ebank = json_decode($MemberOrderinfo[$i]['ebank_data'],true);
+				$com = json_decode($MemberOrderinfo[$i]['commodity_data'],true);
+				$add = json_decode($MemberOrderinfo[$i]['address'],true);
+				$other = json_decode($MemberOrderinfo[$i]['other_data'],true);
+				$MemberOrderinfo[$i]['alipay_data'] = $ali;
+				$MemberOrderinfo[$i]['ebank_data'] = $ebank;
+				$MemberOrderinfo[$i]['commodity_data'] = $com;
+				$MemberOrderinfo[$i]['address'] = $add;
+				$MemberOrderinfo[$i]['other_data'] = $other;
 			}
 
-			$fpage = 15;
+		//	dump($MemberOrderinfo);
 
-			array_values($MerchantOrder);
+			$this->assign('list',$MemberOrderinfo);
 
-			$datas = array_chunk($MerchantOrder,$fpage,true);
-
-			$this->assign('list',isset($_GET['page']) ? $datas[$_GET['page']-1] : $datas[0]);
-
-			$page = new page(count($MerchantOrder),$fpage);
-
-			$this->assign('fpage',$page->fpage(array(1,2,4,5,6,7,8)));
+			$this->assign('fpage',$page->fpage());
 
 			$this->display();
 		}
@@ -258,6 +249,71 @@ class OrderListAction extends CommonAction{
 			}
 		}else{
 				$this->ajaxReturn(0,"异常操作",0);
+		}
+	}
+
+	function manual_payment(){
+		if($this->check_is_admin()){
+			if(isset($_GET['id']) && !empty($_GET['id'])){
+				$MemberOrder = M('MemberOrder');
+				$order = $MemberOrder->where($w)->find($_GET['id']);
+				if($order && ($order['pay_type']==0 || $order['pay_type']==3)){
+					$order['manual_data'] = json_decode($order['manual_data'],true);
+				//	dump($order);
+					$this->assign('data',$order);
+					$this->display();
+				}else{
+					$this->ajaxReturn(0,'异常操作',0);
+				}
+			}else{
+				$this->ajaxReturn(0,"异常操作",0);
+			}
+		}else{
+			$this->ajaxReturn(0,"异常操作",0);
+		}
+	}
+
+	function set_manual_payment(){
+		if($this->check_is_admin()){
+			if(!empty($_POST['id']) && isset($_POST['pay_type'])){
+				$MemberOrder = M('MemberOrder');
+				$order = $MemberOrder->find($_POST['id']);
+				if($_POST['pay_type']==3){
+					$t = 0;
+				}else{
+					$t = 3;
+				}
+				if($order && $order['pay_type']==$t){
+					$save['pay_type'] = $_POST['pay_type'];
+					$save['manual_data'] = json_encode(array('remarks'=>$_POST['remarks'],'update_date'=>time()));
+					if($MemberOrder->where('id='.$_POST['id'])->setField($save)){
+						$this->ajaxReturn(0,"修改付款状态成功",1);
+					}else{
+						$this->ajaxReturn(0,"修改付款状态失败",0);
+					}
+				}else{
+					$this->ajaxReturn(0,"异常操作",0);
+				}
+			}else{
+				$this->ajaxReturn(0,"异常操作",0);
+			}
+		}else{
+				$this->ajaxReturn(0,"异常操作",0);
+		}
+	}
+
+	function ajax_switch_payment(){
+		if($Userinfo = $this->check_is_admin()){
+			if(isset($_POST['by']) && isset($_POST['is_payment'])){
+				$MemberOrder = M('MemberOrder');
+				$w['pay_type'] = $_POST['is_payment'];
+				$order = $MemberOrder->where($w)->find($_POST['by']);
+				dump($order);
+			}else{
+				$this->ajaxReturn(0,'异常操作',0);
+			}
+		}else{
+			$this->ajaxReturn(0,'异常操作',0);
 		}
 	}
 

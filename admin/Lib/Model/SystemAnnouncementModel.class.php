@@ -6,9 +6,10 @@
 		array('name', 'require', "名称不能为空", 1, 'regex', 3),
 		array('name', '1,15', "名称过长", 1, 'length', 3),
 		array('name', 'name', '名称已经存在', 1, 'unique', 3),
-		array('image', 'require', "图片不能为空", 1, 'regex', 3),
-		array('link', 'require', "链接地址不能为空", 1, 'regex', 3),
+		// array('image', 'require', "图片不能为空", 1, 'regex', 3),
+	//	array('link', 'require', "链接地址不能为空", 1, 'regex', 3),
 		array('link', 'url', "链接地址格式错误", 2, 'regex', 3),
+	//	array('details', 'require', "描述不能为空", 2, 'regex', 3),
 
         array('sort', 'require', "排序值不能为空", 1, 'regex', 3),
         array('sort', 'number', "排序值必须为整数", 1, 'regex', 3),
