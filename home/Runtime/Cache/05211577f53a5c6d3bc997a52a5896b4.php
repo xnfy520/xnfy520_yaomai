@@ -166,6 +166,18 @@ src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="<?php ec
         </div><?php endforeach; endif; else: echo "" ;endif; ?>
         
   </div>
+    <?php if(!empty($sas)): ?><div id="mid-new">
+            <ul>
+                <li id="new">
+                    <?php if(is_array($sas)): $i = 0; $__LIST__ = $sas;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo_b): $mod = ($i % 2 );++$i;?><div><a <?php if(!empty($vo_b["link"])): ?>target="_blank" href="<?php echo ($vo_b["link"]); ?>"<?php endif; ?>  >
+                            <?php if(!empty($vo_b["description"])): echo ($vo_b["description"]); ?>
+                            <?php else: ?>
+                                <?php echo ($vo_b["name"]); endif; ?>
+                        </a></div><?php endforeach; endif; else: echo "" ;endif; ?>
+                </li>
+                <li id="close"><a href="javascript:void(0);"><img src="../Public/image/3.png" width="9" height="9" /></a></li>
+            </ul>
+        </div><?php endif; ?>
     <?php if(!empty($newest_buy)): ?><div id="mid-new">
             <ul>
                 <li id="new">
@@ -175,12 +187,11 @@ src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="<?php ec
             </ul>
         </div><?php endif; ?>
 
+ <div class="mid-xq">
+      <ul>
+          <li class="xq-weizhi">首页 >> <span style="color:#666;">个人中心</span> >> <span style="color:#666;">团购订单</span></li>
 
-    <div class="mid-xq">
-    	<ul>
-        	<li class="xq-weizhi">首页 >> <span style="color:#666;">个人中心</span></li>
-
-			            <li class="xq-grzx" style="height:auto;">
+                  <li class="xq-grzx" style="height:auto;">
             	<div>
                 	<ul id="check_menu_now">
 						<li class="grzx"><a>个人中心</a></li>
@@ -217,27 +228,114 @@ src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="<?php ec
                 });
             </script>
 
-            <li class="xq-dingpiao">
-            	<div class="wdyd">
-                	我的优惠券
+            <li id="xm-dingdan">
+              <div id="xm-dd1">
+                  团购订单
+              </div>
+              <div id="xm-dd2">
+                <div id="xm-wcdd1">
+                  <a class="xm-ds" href="__APP__/Member/grouponOrder">全部订单<span>（<?php echo (($numbers[0])?($numbers[0]):"0"); ?>个）</span></a>  
+                  <a class="xm-ds" href="__APP__/Member/grouponOrder/status/1">已付款订单<span>（<?php echo (($numbers[1])?($numbers[1]):"0"); ?>个）</span></a>  
+                    <a class="xm-df" href="__APP__/Member/grouponOrder/status/2">待付款订单<span>（<?php echo (($numbers[2])?($numbers[2]):"0"); ?>个</span>）</a> 
                 </div>
+              <?php if(!empty($orders)): if(is_array($orders)): $i = 0; $__LIST__ = $orders;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo_o): $mod = ($i % 2 );++$i;?><div class="xm-wcdd2" style="height:auto; overflow:hidden; border:1px solid #ccc; border-bottom:0px;">
+                          <table width="730" border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                              <td width="100" height="35" align="center"><span class="xm-wccd1"><?php echo ($vo_o["out_trade_no"]); ?></span></td>
+                              <td width="70" height="35" align="center"><span class="xm-wccd3"><?php echo ($vo_o["address"]["consignee"]); ?></span></td>
+                              <td width="150" height="35" align="center"><span class="xm-wccd4"><?php echo (date("Y-m-d H:i:s",$vo_o["create_date"])); ?></span></td>
+                              <td width="200" height="35" align="center">
+                                <span class="xm-wccd5">
+                                <?php echo ($vo_o["total_fee"]); ?>
+                                (
+                                物流:<?php echo ($vo_o["other_data"]["logistics"]); ?>
+                                <?php if(($vo_o["other_data"]["coupon"]) > "50"): ?>优惠:-<?php echo ($vo_o["other_data"]["coupon"]); endif; ?>
+                                )
+                                </span>
+                              </td>
+                              <td width="50" height="35" align="center"><span class="xm-wccd6">
+                                <?php if(($vo_o["pay_type"]) == "0"): ?><a target="_blank" href="__APP__/Pay/alipay_to_cart/out_trade_no/<?php echo ($vo_o["out_trade_no"]); ?>">未付款</a>
+                                <?php else: ?>
+                                  已付款<?php endif; ?>
+                              </span></td>
+                              <td width="50" height="35" align="center"><a class="xm-xindd9">展开</a></td>
+                            </tr>
+                          </table>
+                          <?php if(!empty($vo_o["commodity_data"])): ?><table class="dd-table" width="730" border="0" cellspacing="0" cellpadding="0">
+                                <?php if(is_array($vo_o["commodity_data"])): $i = 0; $__LIST__ = $vo_o["commodity_data"];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo_co): $mod = ($i % 2 );++$i;?><tr>
+                                      <td width="100" height="60" align="center"><a href="__APP__/<?php echo ($vo_co["URL"]); ?>/details/id/<?php echo ($vo_co["Commodity"]["id"]); ?>"><img src="__PUBLIC__/Content/<?php echo ($vo_co["CIDir"]); ?>/thumb_<?php echo ($vo_co["Commodity"]["image"]); ?>" alt="" width="75" height="49" /></a></td>
+                                      <td width="200" style="text-align:center"><a href="__APP__/<?php echo ($vo_co["URL"]); ?>/details/id/<?php echo ($vo_co["Commodity"]["id"]); ?>"><?php echo ($vo_co["Commodity"]["name"]); ?></a></td>
+                                      <td width="150" style="padding:0 10px;text-align:center">单价: <?php echo ($vo_co["Commodity"]["price"]); ?></td>
+                                      <td width="150" style="text-align:center">数量: <?php echo ($vo_co["quantity"]); ?></td>
+                                      <td style="text-align:center">小计: <?php echo ($vo_co["xiaoji"]); ?></td>
+                                    </tr><?php endforeach; endif; else: echo "" ;endif; ?>
+                                  <tr>
+                                      <td style="text-align:left;text-indent:14px;height:30px" colspan="3">
+                                      收货地址:<?php echo ($vo_o["address"]["where_text"]); ?> <?php echo ($vo_o["address"]["street"]); ?> (<?php echo ($vo_o["address"]["zip"]); ?>) <?php if(!empty($vo_o["address"]["cellphone"])): ?>手机号:<?php echo ($vo_o["address"]["cellphone"]); endif; ?> <?php if(!empty($vo_o["address"]["phone"])): ?>电话:<?php echo ($vo_o["address"]["phone"]); endif; ?> 收货人:<?php echo ($vo_o["address"]["consignee"]); ?>
+                                      </td>
+                                      <td style="text-align:right;padding-right:12px" colspan="2">
+                                        <?php if(($vo_o["pay_type"]) > "0"): ?>(
+                                          <?php if(!empty($vo_o["shipments_data"])): ?>已发货 <a style="color:blue" href="__APP__/Member/logistics_tracking/id/<?php echo ($vo_o["id"]); ?>">物流跟踪</a>
+                                          <?php else: ?>
+                                            未发货<?php endif; ?>
+                                          )<?php endif; ?>
+                                      </td>
+                                  </tr>
+                                </table><?php endif; ?>
+                        </div><?php endforeach; endif; else: echo "" ;endif; ?>
 
-                <div class="wd">
-                    <div id="dd-shpj">
-                    	<div id="dd-hb"><!-- 红包不能与其他优惠同时使用 --></div>
-                        <?php if(empty($coupons)): ?><div>无优惠劵</div>
-                        <?php else: ?>
-                            <ul>
-                            <?php if(is_array($coupons)): $i = 0; $__LIST__ = $coupons;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo_cou): $mod = ($i % 2 );++$i;?><li>
-                                    <img src="../Public/image/hb.jpg" width="137" height="110" />
-                                </li><?php endforeach; endif; else: echo "" ;endif; ?>
-                        </ul><?php endif; ?>
+                       <div class="fanye">
+                      <ul>
+                          <li style="width:390px; text-align:right">总计 <?php echo ($fpage["total"]); ?> 条记录</li>
+                            <li>共 <span class="se1"><?php echo ($fpage["tpage"]); ?></span> 页</li>
+                            <li>
+                              <?php if(($fpage["header"]["page"]) == "0"): ?><a>« 第一页</a>
+                              <?php else: ?>
+                                  <a class="se2" href="__APP__/Member/grouponOrder/page/<?php echo ($fpage["header"]["page"]); ?>">« 第一页</a><?php endif; ?>
+                            </li>
+                            <li>
+                              <?php if(($fpage["prev"]["page"]) == "0"): ?><a>‹上一页</a>
+                              <?php else: ?>
+                                  <a class="se2" href="__APP__/Member/grouponOrder/page/<?php echo ($fpage["prev"]["page"]); ?>">‹上一页</a><?php endif; ?>
+                            </li>
+                            <li>
+                              <?php if(($fpage["next"]["page"]) == "0"): ?><a>下一页›</a>
+                              <?php else: ?>
+                                  <a class="se2" href="__APP__/Member/grouponOrder/page/<?php echo ($fpage["next"]["page"]); ?>">下一页›</a><?php endif; ?>
+                            </li>
+                            <li>
+                              <?php if(($fpage["footer"]["page"]) == "0"): ?><a>最末页 »</a>
+                              <?php else: ?>
+                                    <a class="se2" href="__APP__/Member/grouponOrder/page/<?php echo ($fpage["footer"]["page"]); ?>">最末页 »</a><?php endif; ?>
+                            </li>
+                            <li class="op"><select id="change_page">
+                              <?php if(is_array($fpage["list"])): $i = 0; $__LIST__ = $fpage["list"];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo_flist): $mod = ($i % 2 );++$i; if(($vo_flist["page"]) == $_GET['page']): ?><option value="<?php echo ($vo_flist["page"]); ?>" selected="selected"><?php echo ($vo_flist["page"]); ?></option>
+                                <?php else: ?>
+                                  <option value="<?php echo ($vo_flist["page"]); ?>"><?php echo ($vo_flist["page"]); ?></option><?php endif; endforeach; endif; else: echo "" ;endif; ?>
+                          </select></li>
+                        </ul>
                     </div>
-                </div>   
-            </li>
-        </ul>
+               
+              <?php else: ?>
+                <div style="margin-left:23px">无内容</div><?php endif; ?>
+              </div>
+         </li>
+      </ul>
     </div>
-
+<script type="text/javascript">
+$(".xm-xindd9").click(function(){
+  
+  if($(this).attr("status")!="1"){
+    $(this).text("关闭");
+    $(this).attr("status","1");
+  }else{
+    $(this).text("展开");
+    $(this).attr("status","0");
+  }
+  var djg=$(".xm-xindd9").index(this);
+  $(".dd-table").eq(djg).toggle();
+})
+</script>
 
 
  <div class="bottom-guanyu">

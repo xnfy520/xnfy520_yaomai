@@ -166,6 +166,18 @@ src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="<?php ec
         </div><?php endforeach; endif; else: echo "" ;endif; ?>
         
   </div>
+    <?php if(!empty($sas)): ?><div id="mid-new">
+            <ul>
+                <li id="new">
+                    <?php if(is_array($sas)): $i = 0; $__LIST__ = $sas;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo_b): $mod = ($i % 2 );++$i;?><div><a <?php if(!empty($vo_b["link"])): ?>target="_blank" href="<?php echo ($vo_b["link"]); ?>"<?php endif; ?>  >
+                            <?php if(!empty($vo_b["description"])): echo ($vo_b["description"]); ?>
+                            <?php else: ?>
+                                <?php echo ($vo_b["name"]); endif; ?>
+                        </a></div><?php endforeach; endif; else: echo "" ;endif; ?>
+                </li>
+                <li id="close"><a href="javascript:void(0);"><img src="../Public/image/3.png" width="9" height="9" /></a></li>
+            </ul>
+        </div><?php endif; ?>
     <?php if(!empty($newest_buy)): ?><div id="mid-new">
             <ul>
                 <li id="new">
@@ -176,75 +188,57 @@ src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="<?php ec
         </div><?php endif; ?>
 
 
-<div class="mid-xq">
-    	<ul>
-          <li class="xq-weizhi">首页 >> <span style="color:#666;">个人中心</span> >> <span style="color:#666;">生产跟踪</span></li>
-
-                        <li class="xq-grzx" style="height:auto;">
-            	<div>
-                	<ul id="check_menu_now">
-						<li class="grzx"><a>个人中心</a></li>
-                        <li><a class="xq-nemu1 xq-bac1">订单中心</a></li>
-                        <li><a  class="xq-nemu" href="__APP__/Member/commodityOrder">商品订单</a></li>
-                        <li><a  class="xq-nemu" href="__APP__/Member/grouponOrder">团购订单</a></li>
-                        <li><a  class="xq-nemu" href="__APP__/Member/votesOrder">投票订单</a></li>
-                        <li><a  class="xq-nemu" href="__APP__/Member/voteOrder">预定订单</a></li>
-                        <li><a  class="xq-nemu1 xq-bac2">个人账户</a></li>
-                        <li><a  class="xq-nemu" href="__APP__/Cart">我的购物车</a></li>
-                        <li><a  class="xq-nemu" href="__APP__/Member/coupon">我的优惠劵</a></li>
-                        <li><a  class="xq-nemu" href="__APP__/Member/information">我的资料</a></li>
-                        <li><a  class="xq-nemu" href="__APP__/Member/address">收货地址</a></li>
-                        <li><a  class="xq-nemu" href="__APP__/Member/password">密码修改</a></li>
-                        <li><a  class="xq-nemu1 xq-bac3">客户服务</a></li>
-                        <li><a  class="xq-nemu" href="__APP__/Member/message">消息提醒</a></li>
-                        <li><a  class="xq-nemu" href="__APP__/Member/production_tracking">生产跟踪</a></li>
-                        <li><a  class="xq-nemu" href="__APP__/Member/suggest">网站评价建议</a></li>
-                    </ul>
-                </div>
-            </li>
-            <script>
-                $(function(){
-                    if(define_module_name=='Member'){
-                        var regx = new RegExp(define_action_name);
-                        $("#check_menu_now li a").each(function(){
-                            var self = $(this);
-                            if(regx.test(self.attr("href"))){
-                                $("#check_menu_now li a").removeClass('xq-now');
-                                self.addClass('xq-now');
-                            }
-                        });
-                    }
-                });
-            </script>
-
-            <li class="xq-dingpiao">
-            	<div class="wdyd">
-                	生产跟踪
-                </div>
-
-                <div class="wd">
-                    <div id="dd-ddgz-child">
+    <?php if(!empty($a1)): ?><div class="mid-banner">
+            <ul>
+                <li class="banner-shang"><a>&nbsp;</a></li>
+                <li class="banner">
+                    <div id="banner" class="xm-banner-dh">
                         <ul>
-                            <li>生产信息跟踪</li>
-                            <li><a href="__APP__/Member/suggest">网站评价建议</a></li>
+                            <?php if(is_array($a1)): $i = 0; $__LIST__ = $a1;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo_a): $mod = ($i % 2 );++$i; if(empty($vo_a["link"])): ?><li><img src="__PUBLIC__/Content/AdvertList/<?php echo ($vo_a["image"]); ?>" width="980" height="472" /></li>
+                                <?php else: ?>
+                                    <li><a target="_blank" href="<?php echo ($vo_a["link"]); ?>"><img src="__PUBLIC__/Content/AdvertList/<?php echo ($vo_a["image"]); ?>" width="980" height="472" /></a></li><?php endif; endforeach; endif; else: echo "" ;endif; ?>
                         </ul>
-                    </div>
-                    <?php if(empty($list)): ?><div style="padding:10px 15px">无内容</div>
-					<?php else: ?>
-						<div id="dd-scxxgz">
-	                    	<ul>
-	                    		<?php if(is_array($list)): $i = 0; $__LIST__ = $list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo_li): $mod = ($i % 2 );++$i;?><li>
-		                            	<a href="__APP__/Member/production_tracking_details/id/<?php echo ($vo_li["id"]); ?>"><img width="210" height="139" src="__PUBLIC__/Content/VoteCommodity/thumb_<?php echo ($vo_li["image"]); ?>" /></a>
-		                                <div class="dd-cpxx-info">
-		                                	<span><?php echo ($vo_li["name"]); ?></span>
-		                                    <span>本站价：<b>&#165;<?php echo ($vo_li["price"]); ?></b></span>
-		                                </div>
-		                            </li><?php endforeach; endif; else: echo "" ;endif; ?>
-	                        </ul>
-	                    </div><?php endif; ?>
-                 </div>   
-            </li>
-        </ul>
+                    </div> 
+              </li>
+                <li class="banner-xia"><a>&nbsp;</a></li>
+            </ul>
+        </div><?php endif; ?>
+    <div class="mid-sjs">
+        <div class="sjs1">
+            <ul>
+              <li class="sjs2">设计师设计的产品</li>
+              <li class="sjs3"></li>
+            </ul>
+        </div>
+        <?php if(!empty($a2)): ?><div class="sjs4">
+                <?php if(empty($a2["link"])): ?><img src="__PUBLIC__/Content/AdvertList/<?php echo ($a2["image"]); ?>" width="980" height="354" />
+                <?php else: ?>
+                    <a target="_blank" href="<?php echo ($a2["image"]); ?>"><img src="__PUBLIC__/Content/AdvertList/<?php echo ($a2["image"]); ?>" width="980" height="354" /></a><?php endif; ?>
+            </div><?php endif; ?>
+    </div>
+
+    <div class="mid-sjs">
+        <div class="sjs1">
+            <ul>
+              <li class="sjs5">团购产品</li>
+              <li class="sjs3"><a href="__APP__/Groupon">更多新品</a></li>
+            </ul>
+        </div>
+        <?php if(!empty($a3)): ?><div class="sjs6">
+                <ul>
+                <li class="sjs7">
+                    <?php if(empty($a3["0"]["link"])): ?><img src="__PUBLIC__/Content/AdvertList/<?php echo ($a3["0"]["image"]); ?>" width="490" height="482" />
+                    <?php else: ?>
+                        <a target="_blank" href="<?php echo ($a3["0"]["link"]); ?>"><img src="__PUBLIC__/Content/AdvertList/<?php echo ($a3["0"]["image"]); ?>" width="490" height="482" /></a><?php endif; ?>
+                </li>
+                <?php if(!empty($a3["1"])): ?><li class="xian">&nbsp;</li>
+                    <li class="sjs7">
+                        <?php if(empty($a3["1"]["link"])): ?><img src="__PUBLIC__/Content/AdvertList/<?php echo ($a3["1"]["image"]); ?>" width="490" height="482" />
+                        <?php else: ?>
+                            <a target="_blank" href="<?php echo ($a3["1"]["link"]); ?>"><img src="__PUBLIC__/Content/AdvertList/<?php echo ($a3["1"]["image"]); ?>" width="490" height="482" /></a><?php endif; ?>
+                    </li><?php endif; ?>
+                </ul>
+            </div><?php endif; ?>
     </div>
 
 

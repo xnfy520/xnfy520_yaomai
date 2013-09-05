@@ -187,45 +187,183 @@ src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="<?php ec
             </ul>
         </div><?php endif; ?>
 
-<div id="dd-bz">
-    	<div id="dd-bz-title">首页 >> <span style="color:#666;">我的购物车</span> >> <span style="color:#666;">订单提交成功</span></div>
-        <div id="dd-tjddcg-bz3"><img src="../Public/image/tjddcg.png" /></div>
-        <div id="dd-ddtjcg">
-        	<table width="905" height="240" border="0" cellspacing="0" cellpadding="0">
-              <tr>
-                <td width="190" height="80">&nbsp;</td>
-                <td width="715" height="80" align="left" valign="bottom"><span class="dd-jycg-font-22">交易成功！</span></td>
-              </tr>
-              <tr>
-                <td>&nbsp;</td>
-                <td height="40" align="left" valign="middle">恭喜您，您的订单已经保存成功。</td>
-              </tr>
-              <tr>
-                <td>&nbsp;</td>
-                <td height="30" align="left" valign="middle">◆您的订单已提交，我们会尽快审核您的订单与您联系确认订单。</td>
-              </tr>
-              <tr>
-                <td>&nbsp;</td>
-                <td height="30" align="left" valign="middle">◆您可以在“<a href="__APP__/Member/<?php echo ($type); ?>">我的订单</a>”中查看订单状态或打印您的订单</td>
-              </tr>
-              <tr>
-                <td>&nbsp;</td>
-                <td height="30" align="left" valign="middle">◆您也可以随时拨打“要买家具网”<a>027-1345678</a>进行咨询订单</td>
-              </tr>
-              <tr>
-                <td height="40">&nbsp;</td>
-                <td height="40" align="left" valign="middle">祝您购物愉快！</td>
-              </tr>
-              <tr>
-                <td height="50">&nbsp;</td>
-                <td height="50" align="left" valign="middle">亲，交易成功后，如果商品出现问题，您可以享受相应的今后服务哦。</td>
-              </tr>
-            </table>
-      </div>
-        
-        
-    </div>
+<div class="xm-xq">
+    	<div class="xm-weizhi">首页 >> <span style="color:#666;">登陆注册</span></div>
 
+        <div id="xm-denglu">
+        	<ul>
+           	  <li id="xm-dl-left">
+                <form action="javascript:;" name="login_check" id="login_check">
+                	<div id="xm-dl-left1">用户登录</div>
+                    <div id="xm-dl-left2">账号登录</div>
+                	<div class="xm-dl-left3">账&nbsp;&nbsp;号：<input type="text" name="login_name" /></div>
+                    <div class="xm-dl-left3">密&nbsp;&nbsp;码：<input type="password" name="password" /></div>
+                    <div id="xm-dl-left4">
+                    	<ul>
+                        	<li><input type="checkbox" name="remember_me" /></li>
+                            <li id="xm-jizhu">记住登录账号</li>
+                        </ul>
+                    </div>
+                	<div id="xm-dl-left5">
+                    	<ul>
+                        	<li><input type="image" src="../Public/image/12.jpg" width="102" height="37" /></li>
+                            <li id="xm-jz"><a href="__APP__/Index/forgot_password">忘记密码?</a></li>
+                        </ul>
+                    </div>
+                    <div id="xm-dl-left7">&nbsp;</div>
+                    <div id="xm-zh">使用合作网站账号登录要买家具：</div>
+                    <div id="xm-zuo">
+                    	<ul>
+                            <li id="xm-qq"><a href="javascript:;" class="qq-weibo-login">腾讯QQ</a></li>
+                        </ul>
+                    </div>
+                </form>
+              </li>
+                
+                <li id="xm-dl-line"></li>
+                
+              	<li id="xm-dl-right">
+                    <form action="javascript:;" name="signup_check" id="signup_check">
+                    	<div id="xm-dl-right1">注册新用户</div>
+                        <div class="xm-dl-right2">
+                        	<ul>
+                                <li class="xm-dl-right3"><span>*</span> 账&nbsp;&nbsp;&nbsp;&nbsp;号：</li>
+                                <li class="xm-dl-right4"><input type="text" name="username" /></li>
+                            </ul>
+                        </div>
+                        <div class="xm-dl-right2">
+                        	<ul>
+                                <li class="xm-dl-right3"><span>*</span> 电子邮箱：</li>
+                                <li class="xm-dl-right4"><input type="text" name="email" /></li>
+                            </ul>
+                        </div>
+                        <div class="xm-dl-right2">
+                        	<ul>
+                                <li class="xm-dl-right3"><span>*</span> 设置密码：</li>
+                                <li class="xm-dl-right4"><input type="password" name="password" /></li>
+                            </ul>
+                        </div>
+                        <div class="xm-dl-right2">
+                        	<ul>
+                                <li class="xm-dl-right3"><span>*</span> 确认密码：</li>
+                                <li class="xm-dl-right4"><input type="password" name="repassword" /></li>
+                            </ul>
+                        </div>
+                        <div class="xm-dl-right2">
+                        	<ul>
+                                <li class="xm-dl-right3"><span>*</span> 验&nbsp;证&nbsp;码：</li>
+                                <li class="xm-dl-right5"><input type="text" id="insertcode" name="verify" maxlength="4" style="position: absolute;" />
+                                    <img style="height:30px;margin-left:105px" id="click_captcha" src="__APP__/Public/verify" />
+                                </li>
+                            </ul>
+                        </div>
+                        <div id="xm-wyyd1">
+                        	<ul>
+                                <li><input type="checkbox" name="treaty" checked="checked" /></li>
+                                <li>&nbsp;<span>我已阅读并同意</span><a href="__APP__/SupportCenter/index/id/96">《要买家具用户注册协议》</a></li>
+                            </ul>
+                        </div>
+                        <div id="xm-tongy"><input type="image" src="../Public/image/29.jpg" width="140" height="37" /></div>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
+   <script>
+   $(function(){
+                //AJAX登录验证
+    $("[name=login_check]").live('submit',function(){
+        $("[name=login_check]").find("[type=submit]").attr('disabled','disabled');
+        var data = $(this).serializeArray();
+        var login_name = $("#login_check [name=login_name]");
+        var password = $("#login_check [name=password]");
+        if(login_name.val().length<6){
+            jBox.tip("帐号有误", 'error',{ timeout: 1000,closed: function () { $("[name=login_check]").find("[type=submit]").removeAttr('disabled'); }});
+            return false;
+        }else if(password.val().length<6 || password.val().length>12){
+            jBox.tip("密码不能小于6位，大于12位", 'error',{ timeout: 1000,closed: function () { $("[name=login_check]").find("[type=submit]").removeAttr('disabled'); }});
+            return false;
+        }
+        else{
+                jBox.tip("处理中...", 'loading');
+                window.setTimeout(function (){
+                    $("[name=login_check]").find("[type=submit]").removeAttr('disabled');
+                    $.ajax({
+                        url: define_app_url+'/Member/ajax_login_check',
+                        data: data,
+                        type:'POST',
+                        success: function(data){
+                            var msg = JSON.parse(data);
+                            if(msg.status==1){
+                                jBox.tip(msg.info, 'success',{ timeout: 1000,closed: function () { window.location=msg.data }});
+                            }else{
+                                jBox.tip(msg.info, 'error',{ timeout: 1000,closed: function () {password.val('');verify.val('');$("[name=login_check]").find("[type=submit]").removeAttr('disabled');$("#click_captcha").trigger('click'); }});
+                            }
+                        }
+                    });
+                },500);
+            }
+    });
+
+        //AJAX注册验证
+    $("[name=signup_check]").live('submit',function(){
+        $("[name=signup_check]").find("[type=submit]").attr('disabled','disabled');
+        var data = $(this).serializeArray();
+        var username = $("#signup_check [name=username]");
+        var password = $("#signup_check [name=password]");
+        var repassword = $("#signup_check [name=repassword]");
+        var email = $("#signup_check [name=email]");
+        var verify = $("#signup_check [name=verify]");
+        var treaty = $("#signup_check [name=treaty]");
+        if(username.val().length<6 || username.val().length>12){
+            jBox.tip("帐号不能小于6位，大于12位", 'error',{ timeout: 1000,closed: function () { $("[name=signup_check]").find("[type=submit]").removeAttr('disabled'); }});
+            return false;
+        }else if(!/^[a-zA-Z0-9_]{6,20}$/.test(username.val())){
+            jBox.tip("帐号不能包含符号", 'error',{ timeout: 1000,closed: function () { $("[name=signup_check]").find("[type=submit]").removeAttr('disabled'); }});
+            return false;
+        }else if(password.val().length<6 || password.val().length>12){
+            jBox.tip("密码不能小于6位，大于12位", 'error',{ timeout: 1000,closed: function () { $("[name=signup_check]").find("[type=submit]").removeAttr('disabled'); }});
+            return false;
+        }else if(password.val()!=repassword.val()){
+            jBox.tip("两次输入密码不一致", 'error',{ timeout: 1000,closed: function () { $("[name=signup_check]").find("[type=submit]").removeAttr('disabled'); }});
+            return false;
+        }else if(!/^[\w\d\-\.]+@[\w\d\-\.]+\.[\w]+$/.test(email.val())){
+            jBox.tip("邮件格式不正确", 'error',{ timeout: 1000,closed: function () { $("[name=signup_check]").find("[type=submit]").removeAttr('disabled'); }});
+            return false;
+        }else if(verify.val().length<4){
+            jBox.tip("请输入四位数字验证码", 'error',{ timeout: 1000,closed: function () { $("[name=signup_check]").find("[type=submit]").removeAttr('disabled'); }});
+            return false;
+        }else if(isNaN(verify.val())){
+            jBox.tip("验证码必须是数字", 'error',{ timeout: 1000,closed: function () { $("[name=signup_check]").find("[type=submit]").removeAttr('disabled'); }});
+            return false;
+        }else if(treaty.attr("checked")!='checked'){
+            jBox.tip("请先阅读注册协议", 'error',{ timeout: 1000,closed: function () { $("[type=submit]").removeAttr('disabled'); }});
+            return false;
+        }else{
+            jBox.tip("处理中...", 'loading');
+            window.setTimeout(function () {
+                $("[name=signup_check]").find("[type=submit]").removeAttr('disabled');
+                $.ajax({
+                    url: define_app_url+'/Member/ajax_signup_check',
+                    data: data,
+                    type:'POST',
+                    success: function(data){
+                        var msg = JSON.parse(data);
+                        if(msg.status==1){
+                            jBox.tip(msg.info, 'success',{ timeout: 1000,closed: function () { window.location=msg.data }});
+                        }else{
+                            jBox.tip(msg.info, 'error',{ timeout: 1000,closed: function () { $("[name=signup_check]").find("[type=submit]").removeAttr('disabled'); }});
+                            $("#insertcode").val('');
+                            $("#click_captcha").trigger('click');
+                        }
+                    }
+                });
+            },500);
+        }
+    });
+
+   });
+   </script>
 
 
  <div class="bottom-guanyu">

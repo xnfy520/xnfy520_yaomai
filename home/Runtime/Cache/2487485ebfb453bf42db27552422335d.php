@@ -187,45 +187,122 @@ src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="<?php ec
             </ul>
         </div><?php endif; ?>
 
-<div id="dd-bz">
-    	<div id="dd-bz-title">首页 >> <span style="color:#666;">我的购物车</span> >> <span style="color:#666;">订单提交成功</span></div>
-        <div id="dd-tjddcg-bz3"><img src="../Public/image/tjddcg.png" /></div>
-        <div id="dd-ddtjcg">
-        	<table width="905" height="240" border="0" cellspacing="0" cellpadding="0">
-              <tr>
-                <td width="190" height="80">&nbsp;</td>
-                <td width="715" height="80" align="left" valign="bottom"><span class="dd-jycg-font-22">交易成功！</span></td>
-              </tr>
-              <tr>
-                <td>&nbsp;</td>
-                <td height="40" align="left" valign="middle">恭喜您，您的订单已经保存成功。</td>
-              </tr>
-              <tr>
-                <td>&nbsp;</td>
-                <td height="30" align="left" valign="middle">◆您的订单已提交，我们会尽快审核您的订单与您联系确认订单。</td>
-              </tr>
-              <tr>
-                <td>&nbsp;</td>
-                <td height="30" align="left" valign="middle">◆您可以在“<a href="__APP__/Member/<?php echo ($type); ?>">我的订单</a>”中查看订单状态或打印您的订单</td>
-              </tr>
-              <tr>
-                <td>&nbsp;</td>
-                <td height="30" align="left" valign="middle">◆您也可以随时拨打“要买家具网”<a>027-1345678</a>进行咨询订单</td>
-              </tr>
-              <tr>
-                <td height="40">&nbsp;</td>
-                <td height="40" align="left" valign="middle">祝您购物愉快！</td>
-              </tr>
-              <tr>
-                <td height="50">&nbsp;</td>
-                <td height="50" align="left" valign="middle">亲，交易成功后，如果商品出现问题，您可以享受相应的今后服务哦。</td>
-              </tr>
-            </table>
-      </div>
-        
-        
-    </div>
 
+<div class="mid-xq">
+    	<ul>
+        	<li class="xq-weizhi">首页 >> <span style="color:#666;">个人中心</span></li>
+
+			            <li class="xq-grzx" style="height:auto;">
+            	<div>
+                	<ul id="check_menu_now">
+						<li class="grzx"><a>个人中心</a></li>
+                        <li><a class="xq-nemu1 xq-bac1">订单中心</a></li>
+                        <li><a  class="xq-nemu" href="__APP__/Member/commodityOrder">商品订单</a></li>
+                        <li><a  class="xq-nemu" href="__APP__/Member/grouponOrder">团购订单</a></li>
+                        <li><a  class="xq-nemu" href="__APP__/Member/votesOrder">投票订单</a></li>
+                        <li><a  class="xq-nemu" href="__APP__/Member/voteOrder">预定订单</a></li>
+                        <li><a  class="xq-nemu1 xq-bac2">个人账户</a></li>
+                        <li><a  class="xq-nemu" href="__APP__/Cart">我的购物车</a></li>
+                        <li><a  class="xq-nemu" href="__APP__/Member/coupon">我的优惠劵</a></li>
+                        <li><a  class="xq-nemu" href="__APP__/Member/information">我的资料</a></li>
+                        <li><a  class="xq-nemu" href="__APP__/Member/address">收货地址</a></li>
+                        <li><a  class="xq-nemu" href="__APP__/Member/password">密码修改</a></li>
+                        <li><a  class="xq-nemu1 xq-bac3">客户服务</a></li>
+                        <li><a  class="xq-nemu" href="__APP__/Member/message">消息提醒</a></li>
+                        <li><a  class="xq-nemu" href="__APP__/Member/production_tracking">生产跟踪</a></li>
+                        <li><a  class="xq-nemu" href="__APP__/Member/suggest">网站评价建议</a></li>
+                    </ul>
+                </div>
+            </li>
+            <script>
+                $(function(){
+                    if(define_module_name=='Member'){
+                        var regx = new RegExp(define_action_name);
+                        $("#check_menu_now li a").each(function(){
+                            var self = $(this);
+                            if(regx.test(self.attr("href"))){
+                                $("#check_menu_now li a").removeClass('xq-now');
+                                self.addClass('xq-now');
+                            }
+                        });
+                    }
+                });
+            </script>
+
+            <li class="xq-dingpiao">
+            	<div class="wdyd">
+               	  我的要买
+              	</div>
+                <div id="dd-grzx">
+                	<div id="dd-dlxx">
+                    	<strong><?php echo ($Userinfo["username"]); ?></strong>下午好！欢迎光临美乐乐家具网！<br />
+                        > 您的上一次登录时间是：<span><?php if(empty($Userinfo["last_login"])): ?>-<?php else: echo (date("Y-m-d H:i:s",$Userinfo["last_login"])); endif; ?></span>
+                    </div>
+                </div>
+                
+                <div id="dd-nknxh">
+                    <div id="dd-nknxh-title">你可能喜欢的商品</div>
+                    
+                    <div id="dd-nknx-pic-k">
+                        <ul>
+                            <li id="dd-nknxh-pre"><a id="prevBtn" href="javascript:prevss();"></a></li>
+                            <li id="dd-nknxh-pic">
+                                <div>
+                                    <div id="dd-pic">
+                                        <ul>
+                                            <?php if(is_array($cr)): $i = 0; $__LIST__ = $cr;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo_cr): $mod = ($i % 2 );++$i;?><li>
+                                                	<a href="__APP__/Commodity/details/id/<?php echo ($vo_cr["CommodityList"]["id"]); ?>">
+                                                    	<img src="__PUBLIC__/Content/CommodityList/thumb_<?php echo ($vo_cr["CommodityList"]["image"]); ?>" width="150" height="100" />
+                                                        <span>
+                                                            <?php if((mb_strlen($vo_cr["CommodityList"]["name"],'utf-8')) > "12"): ?><span title="<?php echo ($vo_cr["CommodityList"]["name"]); ?>"><?php echo (mb_substr($vo_cr["CommodityList"]["name"],0,12,"utf-8")); ?>...</span>
+                                                            <?php else: ?>
+                                                                <span><?php echo ($vo_cr["CommodityList"]["name"]); ?></span><?php endif; ?>
+                                                        </span><br />
+                                                        <span>商城价：<strong>&#165;<?php echo ($vo_cr["CommodityList"]["price"]); ?></strong></span>
+                                                    </a>
+                                                </li><?php endforeach; endif; else: echo "" ;endif; ?>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                            <li id="dd-nknxh-next"><a id="nextBtn" href="javascript:nextss();"></a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                
+                
+            </li>
+        </ul>
+    </div>
+    <script>
+
+    var zsl=Math.ceil($("#dd-pic ul li").length/4);
+var dqss=0;
+
+function picss(id){
+    $("#dd-pic").animate({left:-700*id},{queue:false,duration:500});
+}
+function prevss(){
+    if(dqss==0){
+        picss(dqss);
+    }else{
+        dqss--;
+        picss(dqss);
+    }
+};
+function nextss(){
+    if(dqss==zsl-1){
+        picss(dqss);
+    }else{
+        dqss++;
+        picss(dqss);
+    }
+};
+
+
+
+</script>
 
 
  <div class="bottom-guanyu">

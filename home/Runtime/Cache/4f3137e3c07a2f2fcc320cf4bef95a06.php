@@ -166,6 +166,18 @@ src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="<?php ec
         </div><?php endforeach; endif; else: echo "" ;endif; ?>
         
   </div>
+    <?php if(!empty($sas)): ?><div id="mid-new">
+            <ul>
+                <li id="new">
+                    <?php if(is_array($sas)): $i = 0; $__LIST__ = $sas;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo_b): $mod = ($i % 2 );++$i;?><div><a <?php if(!empty($vo_b["link"])): ?>target="_blank" href="<?php echo ($vo_b["link"]); ?>"<?php endif; ?>  >
+                            <?php if(!empty($vo_b["description"])): echo ($vo_b["description"]); ?>
+                            <?php else: ?>
+                                <?php echo ($vo_b["name"]); endif; ?>
+                        </a></div><?php endforeach; endif; else: echo "" ;endif; ?>
+                </li>
+                <li id="close"><a href="javascript:void(0);"><img src="../Public/image/3.png" width="9" height="9" /></a></li>
+            </ul>
+        </div><?php endif; ?>
     <?php if(!empty($newest_buy)): ?><div id="mid-new">
             <ul>
                 <li id="new">

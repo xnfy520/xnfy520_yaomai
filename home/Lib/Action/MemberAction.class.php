@@ -128,18 +128,28 @@ class MemberAction extends CommonAction {
                     $j_com = json_decode($orders[$i]['commodity_data'],true);
                     $commodity = $VoteCommodity->field('details',true)->find($j_com['id']);
                     $orders[$i]['commodity'] = $commodity;
+                    // echo $commodity['expiration_date'];
+                    // echo '<br />';
+                    // echo date('Y-m-d H:i:s',$commodity['expiration_date']);
+                    // echo '<br />';
+                    // echo date('Y-m-d H:i:s',time());
+                   // dump($orders[$i]);
                     if($commodity['enable']==0){
+                        // echo '1'.'<br />';
                         $orders[$i]['order_status'] = 0; //不允许支付定金   -
-                    }else if($orders[$i]['pay_type']==0 && $commodity['expiration_date']>time() && $commodity['subscribe_volume']<$commodity['subscribe'] && $orders[$i]['abolish']==0){//未支付&未过期&未满员&未取消
-
+                    }else if($orders[$i]['pay_type']==0 && $commodity['expiration_date']>time() && $orders[$i]['abolish']==0){//未支付&未过期&未满员&未取消
+                        // echo '2'.'<br />';
                         $orders[$i]['order_status'] = 1; //允许支付定金 支付订金
 
                     }else if($orders[$i]['pay_type']>0 && $commodity['expiration_date']>time() && $commodity['subscribe_volume']<$commodity['subscribe'] && $orders[$i]['abolish']==0){//已支付&未过期&未满员&未取消
+                        // echo '3'.'<br />';
                         $orders[$i]['order_status'] = 2; //允许取消定金  取消预订 
 
                     }else if($orders[$i]['pay_type']>0 && $orders[$i]['abolish']==0 && $commodity['expiration_date']<=time() && $commodity['subscribe_volume']>=$commodity['subscribe']){//已支付&未取消&已过期&已满员
+                        // echo '4'.'<br />';
                         $orders[$i]['order_status'] = 3; //允许购买  加入购物车
                     }else if($orders[$i]['pay_type']>0 || $commodity['expiration_date']<=time() || $commodity['subscribe_volume']>$commodity['subscribe'] || $orders[$i]['abolish']==1){  //已支付|已过期|已满员|已取消
+                        // echo '5'.'<br />';
                         $orders[$i]['order_status'] = 0; //不允许支付定金   -
                     }
                 }

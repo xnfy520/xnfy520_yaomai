@@ -187,45 +187,267 @@ src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="<?php ec
             </ul>
         </div><?php endif; ?>
 
-<div id="dd-bz">
-    	<div id="dd-bz-title">首页 >> <span style="color:#666;">我的购物车</span> >> <span style="color:#666;">订单提交成功</span></div>
-        <div id="dd-tjddcg-bz3"><img src="../Public/image/tjddcg.png" /></div>
-        <div id="dd-ddtjcg">
-        	<table width="905" height="240" border="0" cellspacing="0" cellpadding="0">
-              <tr>
-                <td width="190" height="80">&nbsp;</td>
-                <td width="715" height="80" align="left" valign="bottom"><span class="dd-jycg-font-22">交易成功！</span></td>
-              </tr>
-              <tr>
-                <td>&nbsp;</td>
-                <td height="40" align="left" valign="middle">恭喜您，您的订单已经保存成功。</td>
-              </tr>
-              <tr>
-                <td>&nbsp;</td>
-                <td height="30" align="left" valign="middle">◆您的订单已提交，我们会尽快审核您的订单与您联系确认订单。</td>
-              </tr>
-              <tr>
-                <td>&nbsp;</td>
-                <td height="30" align="left" valign="middle">◆您可以在“<a href="__APP__/Member/<?php echo ($type); ?>">我的订单</a>”中查看订单状态或打印您的订单</td>
-              </tr>
-              <tr>
-                <td>&nbsp;</td>
-                <td height="30" align="left" valign="middle">◆您也可以随时拨打“要买家具网”<a>027-1345678</a>进行咨询订单</td>
-              </tr>
-              <tr>
-                <td height="40">&nbsp;</td>
-                <td height="40" align="left" valign="middle">祝您购物愉快！</td>
-              </tr>
-              <tr>
-                <td height="50">&nbsp;</td>
-                <td height="50" align="left" valign="middle">亲，交易成功后，如果商品出现问题，您可以享受相应的今后服务哦。</td>
-              </tr>
-            </table>
-      </div>
-        
-        
+<script>
+  function lxfEndtime(){
+      $(".lxftime").each(function(){
+        var lxfday=$(this).attr("lxfday");//用来判断是否显示天数的变量
+        var endtime = $(this).attr("endtime");//取结束日期(毫秒值)
+
+        var nowtime = new Date().getTime();        //今天的日期(毫秒值)
+        var youtime = endtime-nowtime;//还有多久(毫秒值)
+        var seconds = youtime/1000;
+        var minutes = Math.floor(seconds/60);
+        var hours = Math.floor(minutes/60);
+        var days = Math.floor(hours/24);
+        var CDay= days ;
+        var CHour= hours % 24;
+        var CMinute= minutes % 60;
+        var CSecond= Math.floor(seconds%60);//"%"是取余运算，可以理解为60进一后取余数，然后只要余数。
+        if(endtime<=nowtime){
+                $(this).html("已结束")//如果结束日期小于当前日期就提示过期啦
+                }else{
+                        if($(this).attr("lxfday")=="no"){
+                                $(this).html("预售中：<span>"+CHour+"</span>时<span>"+CMinute+"</span>分<span>"+CSecond+"</span>秒");          //输出没有天数的数据
+                                }else{
+            //    $(this).html("<span>"+days+"</span>天<span>"+CHour+"</span>时<span>"+CMinute+"</span>分<span>"+CSecond+"</span>秒");          //输出有天数的数据
+                $(this).html("<span>"+days+"</span>天<span>"+CHour+"</span>时<span>");          //输出有天数的数据
+                        }
+                }
+      });
+   setTimeout("lxfEndtime()",1000);
+  };
+$(function(){
+      lxfEndtime();
+   });
+</script>
+<div class="mid-xq">
+    	<ul>
+          <li class="xq-weizhi">首页 >> <span style="color:#666;">个人中心</span> >> <span style="color:#666;">投票订单</span></li>
+                        <li class="xq-grzx" style="height:auto;">
+            	<div>
+                	<ul id="check_menu_now">
+						<li class="grzx"><a>个人中心</a></li>
+                        <li><a class="xq-nemu1 xq-bac1">订单中心</a></li>
+                        <li><a  class="xq-nemu" href="__APP__/Member/commodityOrder">商品订单</a></li>
+                        <li><a  class="xq-nemu" href="__APP__/Member/grouponOrder">团购订单</a></li>
+                        <li><a  class="xq-nemu" href="__APP__/Member/votesOrder">投票订单</a></li>
+                        <li><a  class="xq-nemu" href="__APP__/Member/voteOrder">预定订单</a></li>
+                        <li><a  class="xq-nemu1 xq-bac2">个人账户</a></li>
+                        <li><a  class="xq-nemu" href="__APP__/Cart">我的购物车</a></li>
+                        <li><a  class="xq-nemu" href="__APP__/Member/coupon">我的优惠劵</a></li>
+                        <li><a  class="xq-nemu" href="__APP__/Member/information">我的资料</a></li>
+                        <li><a  class="xq-nemu" href="__APP__/Member/address">收货地址</a></li>
+                        <li><a  class="xq-nemu" href="__APP__/Member/password">密码修改</a></li>
+                        <li><a  class="xq-nemu1 xq-bac3">客户服务</a></li>
+                        <li><a  class="xq-nemu" href="__APP__/Member/message">消息提醒</a></li>
+                        <li><a  class="xq-nemu" href="__APP__/Member/production_tracking">生产跟踪</a></li>
+                        <li><a  class="xq-nemu" href="__APP__/Member/suggest">网站评价建议</a></li>
+                    </ul>
+                </div>
+            </li>
+            <script>
+                $(function(){
+                    if(define_module_name=='Member'){
+                        var regx = new RegExp(define_action_name);
+                        $("#check_menu_now li a").each(function(){
+                            var self = $(this);
+                            if(regx.test(self.attr("href"))){
+                                $("#check_menu_now li a").removeClass('xq-now');
+                                self.addClass('xq-now');
+                            }
+                        });
+                    }
+                });
+            </script>
+
+            <li class="xq-dingpiao">
+
+            	<div class="wdyd">
+                	投票订单
+                </div>
+                
+                <?php if(empty($orders)): ?><div>无内容</di>
+
+                <?php else: ?>
+                    
+                    <div class="wd">
+
+                        <div class="ding">
+                            <ul>
+                                <li class="ding1">订单号</li>
+                                <li class="ding2">产品图片名称</li>
+                                <li class="ding3">投票</li>
+                                <li class="ding4">预订人数</li>
+                                <li class="ding5">倒计时</li>
+                                <li class="ding6">状态</li>
+                                <li class="ding7">操作</li>
+                            </ul>
+                        </div>
+
+                        <div class="de-yuding">
+                            <?php if(is_array($orders)): $i = 0; $__LIST__ = $orders;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo_o): $mod = ($i % 2 );++$i;?><div class="de1">
+                                    <ul>
+                                        <li class="de2"><?php echo ($vo_o["out_trade_no"]); ?></li>
+                                        <li class="de3">
+                                        <a href="__APP__/Vote/details/id/<?php echo ($vo_o["commodity"]["id"]); ?>">
+                                            <img src="__PUBLIC__/Content/VoteCommodity/thumb_<?php echo ($vo_o["commodity"]["image"]); ?>" width="75" height="49" />
+                                        </a>
+                                        </li>
+                                        <li class="de4"><a href="__APP__/Vote/details/id/<?php echo ($vo_o["commodity"]["id"]); ?>"><?php echo ($vo_o["commodity"]["name"]); ?></a></li>
+                                        <li class="de5"><?php echo ($vo_o["commodity"]["vote"]); ?></li>
+                                        <li class="de6"><?php echo ($vo_o["commodity"]["subscribe_volume"]); ?>/<?php echo ($vo_o["commodity"]["subscribe"]); ?></li>
+                                        <li class="de7 lxftime" endtime="<?php echo ($vo_o['commodity']['expiration_date']*1000); ?>"></li>
+                                        <li class="de8">
+                                            <?php if(($vo_o["pay_type"]) != "0"): if(($vo_o["abolish"]) == "1"): ?>已取消预定
+                                                <?php else: ?>
+                                                    已预定<?php endif; ?>
+                                            <?php else: ?>
+                                                未预订<?php endif; ?>
+                                        </li>
+                                        <li class="de9">
+                                          <?php switch($vo_o["order_status"]): case "0": ?>-<?php break;?>
+                                            <?php case "1": ?><a href="__APP__/Vote/schedule/id/<?php echo ($vo_o["commodity"]["id"]); ?>" >支付订金</a><?php break;?>
+                                            <?php case "2": ?><a class="cancel_yuding" subscribe_volume="<?php echo ($vo_o["commodity"]["subscribe_volume"]); ?>" subscribe="<?php echo ($vo_o["commodity"]["subscribe"]); ?>" endtime="<?php echo ($vo_o['commodity']['expiration_date']*1000); ?>" commodity_id="<?php echo ($vo_o["commodity"]["id"]); ?>" order_id="<?php echo ($vo_o["id"]); ?>" href="javascript:;">取消预订</a><?php break;?>
+                                            <?php case "3": ?><a href="javascript:;" order_id="<?php echo ($vo_o["id"]); ?>" class="add_to_cart">加入购物车</a><?php break;?>
+                                            <?php default: ?>
+                                            --<?php endswitch;?>
+                                          
+
+                                        </li>
+                                        
+                                    </ul>
+                                </div><?php endforeach; endif; else: echo "" ;endif; ?>
+                        </div>
+
+                        
+                        <div class="fanye">
+                      <ul>
+                          <li style="width:390px; text-align:right">总计 <?php echo ($fpage["total"]); ?> 条记录</li>
+                            <li>共 <span class="se1"><?php echo ($fpage["tpage"]); ?></span> 页</li>
+                            <li>
+                              <?php if(($fpage["header"]["page"]) == "0"): ?><a>« 第一页</a>
+                              <?php else: ?>
+                                  <a class="se2" href="__APP__/Member/voteOrder/page/<?php echo ($fpage["header"]["page"]); ?>">« 第一页</a><?php endif; ?>
+                            </li>
+                            <li>
+                              <?php if(($fpage["prev"]["page"]) == "0"): ?><a>‹上一页</a>
+                              <?php else: ?>
+                                  <a class="se2" href="__APP__/Member/voteOrder/page/<?php echo ($fpage["prev"]["page"]); ?>">‹上一页</a><?php endif; ?>
+                            </li>
+                            <li>
+                              <?php if(($fpage["next"]["page"]) == "0"): ?><a>下一页›</a>
+                              <?php else: ?>
+                                  <a class="se2" href="__APP__/Member/voteOrder/page/<?php echo ($fpage["next"]["page"]); ?>">下一页›</a><?php endif; ?>
+                            </li>
+                            <li>
+                              <?php if(($fpage["footer"]["page"]) == "0"): ?><a>最末页 »</a>
+                              <?php else: ?>
+                                    <a class="se2" href="__APP__/Member/voteOrder/page/<?php echo ($fpage["footer"]["page"]); ?>">最末页 »</a><?php endif; ?>
+                            </li>
+                            <li class="op"><select id="change_page">
+                              <?php if(is_array($fpage["list"])): $i = 0; $__LIST__ = $fpage["list"];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo_flist): $mod = ($i % 2 );++$i; if(($vo_flist["page"]) == $_GET['page']): ?><option value="<?php echo ($vo_flist["page"]); ?>" selected="selected"><?php echo ($vo_flist["page"]); ?></option>
+                                <?php else: ?>
+                                  <option value="<?php echo ($vo_flist["page"]); ?>"><?php echo ($vo_flist["page"]); ?></option><?php endif; endforeach; endif; else: echo "" ;endif; ?>
+                          </select></li>
+                        </ul>
+                    </div>
+                
+              </div><?php endif; ?>
+
+            </li>
+        </ul>
     </div>
 
+    <script>
+    $(function(){
+        $("#change_page").change(function(){
+          window.location = define_action_url+'/page/'+$(this).val();
+        });
+    });
+    </script>
+      <script>
+    $(function(){
+      $(".cancel_yuding").click(function(){
+          var id = $(this).attr('order_id');
+          var commodity_id = $(this).attr('commodity_id');
+          var subscribe_volume = $(this).attr('subscribe_volume');
+          var subscribe = $(this).attr('subscribe');
+          var times = $(this).attr('endtime');
+          var d = new Date;
+          if(parseInt(times)<=d.getTime()){
+            jBox.tip('此投票商品已经结束,不能取消定单1', 'success',{ timeout: 2000,closed: function () {  }});
+            return;
+          }
+          if(parseInt(subscribe_volume)>=parseInt(subscribe)){
+            jBox.tip('此投票商品已经开始生产,不能取消定单2', 'success',{ timeout: 2000,closed: function () {  }});
+            return;
+          }
+
+        var submit = function (v, h, f) {
+          if (v == 'ok'){
+
+              jBox.tip("正在处理...", 'loading');
+                window.setTimeout(function () {
+                    $.ajax({
+                        url: define_app_url+'/Member/cancelVoteOrder',
+                        data:{order_id:id,commodity_id:commodity_id},
+                        type:'POST',
+                        success: function(data){
+                            var msg = JSON.parse(data);
+                            if(msg.status==1){
+                                jBox.tip(msg.info, 'success',{ timeout: 1000,closed: function () {
+                                    window.location.reload();
+                                 }});
+                            }else{
+                                jBox.tip(msg.info, 'error',{ timeout: 1000,closed: function () { }});
+                            }
+                        }
+                    });
+                },500);
+
+          }
+          return true; //close
+      };
+
+      if(define_userid){
+          jBox.confirm("确认取消此预订商品?", "提示", submit,{top: '40%'});
+      }else{
+          jBox.tip('您还没有登录，请登录后再购买', 'success',{ timeout: 2000,closed: function () {  }});
+      }
+
+      });
+
+
+        $(".add_to_cart").live('click',function(){
+            if(!define_userid){
+                jBox.tip('您还没有登录，请登录后再购买', 'success',{ timeout: 2000,closed: function () {  }});
+                return false;
+            }
+           var order_id = $(this).attr('order_id');
+           jBox.tip("正在处理...", 'loading');
+              window.setTimeout(function () {
+                  $.ajax({
+                      url: define_app_url+'/Member/addVoteTOCart',
+                      data:{order_id:order_id},
+                      type:'POST',
+                      success: function(data){
+                          var msg = JSON.parse(data);
+                          if(msg.status==1){
+                            $("#header_carts").text(msg.data);
+                              jBox.tip(msg.info, 'success',{ timeout: 1000,closed: function () {
+                                
+                               }});
+                          }else{
+                              jBox.tip(msg.info, 'error',{ timeout: 1000,closed: function () { }});
+                          }
+                      }
+                  });
+              },500);
+        });
+
+
+    });
+  </script>
 
 
  <div class="bottom-guanyu">
