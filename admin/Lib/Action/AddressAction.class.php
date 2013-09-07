@@ -361,6 +361,11 @@ class AddressAction extends CommonAction{
 	function ajax_insert(){
 		$MODULE_NAME = D(MODULE_NAME);
 		if($datas = $MODULE_NAME->create()){
+			if($datas['dropin']==1){
+				$datas['dropin'] = 1;
+			}else{
+				$datas['dropin'] = 0;
+			}
 			if($id=$MODULE_NAME->add($datas)){
 				if($datas['start']==1){
 					$MODULE_NAME->where('id<>'.$id)->setField('start',0);
@@ -396,6 +401,11 @@ class AddressAction extends CommonAction{
 		if(isset($_POST['id'])){
 			$MODULE_NAME = D(MODULE_NAME);
 			if($data = $MODULE_NAME->create()){
+				if($data['dropin']==1){
+					$data['dropin'] = 1;
+				}else{
+					$data['dropin'] = 0;
+				}
 				$orginfo = $MODULE_NAME->find($_POST['id']);
 				if($this->checkData($orginfo,$data)){
 					if($data['start']==1){

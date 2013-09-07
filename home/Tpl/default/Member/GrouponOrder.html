@@ -11,9 +11,9 @@
               </div>
               <div id="xm-dd2">
                 <div id="xm-wcdd1">
-                  <a class="xm-ds" href="__APP__/Member/grouponOrder">全部订单<span>（<{$numbers[0]|default="0"}>个）</span></a>  
-                  <a class="xm-ds" href="__APP__/Member/grouponOrder/status/1">已付款订单<span>（<{$numbers[1]|default="0"}>个）</span></a>  
-                    <a class="xm-df" href="__APP__/Member/grouponOrder/status/2">待付款订单<span>（<{$numbers[2]|default="0"}>个</span>）</a> 
+                  <a style="width:auto" class="xm-ds" href="__APP__/Member/grouponOrder">全部订单<span>（<{$numbers[0]|default="0"}>个）</span></a>  
+                  <a style="width:auto" class="xm-ds" href="__APP__/Member/grouponOrder/status/1">已付款订单<span>（<{$numbers[1]|default="0"}>个）</span></a>  
+                    <a style="width:auto" class="xm-df" href="__APP__/Member/grouponOrder/status/2">待付款订单<span>（<{$numbers[2]|default="0"}>个</span>）</a> 
                 </div>
               <notempty name="orders">
 
@@ -27,11 +27,10 @@
                               <td width="150" height="35" align="center"><span class="xm-wccd4"><{$vo_o.create_date|date="Y-m-d H:i:s",###}></span></td>
                               <td width="200" height="35" align="center">
                                 <span class="xm-wccd5">
-                                <{$vo_o.total_fee}>
-                                (
-                                物流:<{$vo_o.other_data.logistics}>
-                                <gt name="vo_o.other_data.coupon" value="50">优惠:-<{$vo_o.other_data.coupon}></gt>
-                                )
+                                <span style="line-height:20px">&#165;<{$vo_o.total_fee}></span><br />
+                                <span style="line-height:20px">(含物流:&#165;<{$vo_o.other_data.logistics}>)</span>
+                                <gt name="vo_o.other_data.coupon" value="50"><br /><span style="line-height:20px">已优惠:-<{$vo_o.other_data.coupon}></span></gt>
+                                
                                 </span>
                               </td>
                               <td width="50" height="35" align="center"><span class="xm-wccd6">

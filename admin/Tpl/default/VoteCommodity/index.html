@@ -39,6 +39,7 @@
                     <th class="xnfy520-function-index-table-th-50">售价</th>
                     <th class="xnfy520-function-index-table-th-50">预订</th>
                     <th class="xnfy520-function-index-table-th-50">销量</th>
+                    <th class="xnfy520-function-index-table-th-50">投票数</th>
                     <th class="xnfy520-function-index-table-th-time">截止日期</th>
                     <th id="xnfy520-function-index-table-th-check-all">
                         <input type="button" value="全选" />
@@ -47,7 +48,7 @@
                 </thead>
                 <tbody>
                 <empty name="list">
-                    <tr><td colspan="11" style="height:50px;">暂无数据</td></tr>
+                    <tr><td colspan="12" style="height:50px;">暂无数据</td></tr>
                     <else/>
                     <volist name="list" id="vo">
                         <tr>
@@ -94,6 +95,9 @@
                             </td>
                             <td>
                                 <{$vo.sales_volume}>
+                            </td>
+                            <td>
+                                <{$vo.vote}>
                             </td>
                             <td><{$vo.expiration_date|date="Y-m-d",###}></td>
                             <td class="xnfy520-function-index-table-td-checkbox">

@@ -18,7 +18,8 @@
                           <li>
                             <strong><{$vo_ad.consignee}></strong> 
                             地址：
-                            <{$vo_ad.where_text}> 邮编：<{$vo_ad.zip}>
+                            <{$vo_ad.where_text}>
+                            <!-- 邮编：<{$vo_ad.zip}> -->
                             <notempty name="vo_ad.cellphone">手机：<{$vo_ad.cellphone}></notempty>
                             <notempty name="vo_ad.phone">电话：<{$vo_ad.phone}></notempty>
                             <a href="javascript:;" class="delete_address">  [删除]</a>
@@ -48,10 +49,10 @@
                 <li class="xm-txxdz2">
                   <input style="width:267px;" name="street" type="text" />
                 </li>
-                <li class="xm-txxdz1"><span>*</span> 邮编：</li>
+                <!-- <li class="xm-txxdz1"><span>*</span> 邮编：</li>
                 <li class="xm-txxdz2">
                   <input type="text" name="zip" />
-                </li>
+                </li> -->
                 <li class="xm-txxdz1"><span>*</span> 填写手机号：</li>
                 <li class="xm-txxdz2">
                 	<input type="text" name="cellphone" />
@@ -83,13 +84,16 @@
         <div class="xm-zffs1">
         	有其他时间要求请与客服联系
         </div>
+        <div class="xm-zffs1">
+          <a href="__APP__/SupportCenter/index/id/88">请阅读物流详细介绍</a>
+        </div>
 <!--         <div class="xm-txxdz3"><a href="#">确认配送方式</a></div> -->
     </div>
     
     <div class="xm-ddqr1">支付方式</div>
     <div class="xm-psfs3" style="height:auto;">
         	<ul>
-            	<li class="xm-psfs2">
+            	<li class="xm-psfs2" style="display:none">
                 	<div>
                     	<ul>
                         	<li><input name="payment_model" type="radio" value="3" /></li>
@@ -97,8 +101,8 @@
                         </ul>
                     </div>
                 </li>
-                <li class="xm-psfs1">快递可付现金、刷卡；</li>
-                <li class="xm-psfs2">
+                <li class="xm-psfs1" style="display:none">快递可付现金、刷卡；</li>
+                <li class="xm-psfs2" style="display:none">
                		 <div>
                     	<ul>
                         	<li><input name="payment_model" type="radio" value="2" /></li>
@@ -107,25 +111,25 @@
                         </ul>
                     </div>
                 </li>
-                <li class="xm-psfs1">通过银行转账或现金直接存入指定帐号，需注明订单号。</li>
-                <li class="xm-psfs2">
+                <li class="xm-psfs1" style="display:none">通过银行转账或现金直接存入指定帐号，需注明订单号。</li>
+                <li class="xm-psfs2" style="width:auto">
                		 <div>
                   <label>
                     	<ul>
-                        	<li><input name="payment_model" checked="checked" type="radio" value="1" /></li>
-                          <li class="xm-mg10">在线支付</li>
+                        	<li><input name="payment_model" checked="checked" type="radio" value="1" style="display:none" /></li>
+                          <li class="xm-mg10">通过网上银行或支付平台在线付款</li>
                         </ul>
                   </label>
                     </div>
                 </li>                
                 <li class="xm-psfs1">
-                通过网上银行或支付平台在线付款
-                  <ul style="margin-top:5px;display:none" id="child-payment">
-                    <li style="clear:both;">
-                      <input type="radio" name="payment" value="1" checked="checked" /> 支付宝支付
+                <!-- 通过网上银行或支付平台在线付款 -->
+                  <ul style="margin-top:5px;display:none;margin-left:65px" id="child-payment">
+                    <li style="clear:both;position:relative;top:-5px">
+                      <label><input type="radio" name="payment" value="1" checked="checked" /> 支付宝支付</label>
                     </li>
                     <li style="clear:both;margin-top:5px">
-                      <input type="radio" name="payment" value="2" /> 网上银行支付
+                      <label><input type="radio" name="payment" value="2" /> 网上银行支付</label>
                     </li>
                   </ul>
                 </li>
@@ -146,7 +150,7 @@
           });
         });
       </script>
-       <div class="xm-ddqr1">发票信息</div>
+<!--        <div class="xm-ddqr1">发票信息</div>
        <div class="xm-fpxn" style="height:auto;">
         	<ul>
             	<li class="xm-txxdz1"><span>*</span> 发票类型：</li>
@@ -162,12 +166,10 @@
                     </select>
                     <input name="invoice_info" class="xm-mg10" type="text" />
                 </li>
-            <!--     <li class="xm-fpxn1"><a href="#">保&nbsp; 存</a></li>
-                <li class="xm-fpxn2"><a href="#">取&nbsp; 消</a></li>
- -->            </ul>
-      </div>
+            </ul>
+      </div> -->
       
-      <div class="xm-ddqr1">
+      <div class="xm-ddqr1" style="margin-top:10px">
       	<ul>
         	<li>商品清单</li>
           <li class="xm-fhxg"><a href="__APP__/Cart">返回购物车修改</a></li>
@@ -229,9 +231,17 @@
       <input type="hidden" name="commodity_total" value="<{$commodity_total}>" />
       <input type="hidden" name="logistics" value="0" />
       <input type="hidden" name="price_total" value="<{$commodity_total}>" />
-
+    <style type="text/css">
+      .xm-ddqs-1{
+        height:auto;
+      }
+    </style>
     <div class="xm-ddqs-1">产品金额共计：<a>：&#165;<span class="commodity-total" data="<{$commodity_total}>"><{$commodity_total}></span></a></div>
     <div class="xm-ddqs-1"><strong>您共需为订单支付：<span>¥<span id="price_total"><{$commodity_total}></span></span></strong></div>
+    <div class="xm-ddqs-1"><strong>备注信息：</strong></div>
+    <div class="xm-ddqs-1">
+      <textarea name="remark" style="width:200px;height:50px;max-width:300px;max-height:100px;padding:2px;border:1px #dddddd solid"></textarea>
+    </div>
     <div class="xm-ddqs-1 xm-cohui">-------------------------------------------------------------</div>
   	<div id="xm-qrzz-1"><input type="image" id="order_confirm" style="cursor:pointer;" src="../Public/image/39.jpg" width="150" height="45" /></div>
   </div>
@@ -253,14 +263,15 @@
         var payment = $("[name=payment]:checked"); //平台类型
         var delivery = $("[name=delivery]:checked"); //配送类型
         var ask_for_date = $("[name=ask_for_date]"); //要求到货日期
-        var invoice_type = $("[name=invoice_type]"); //发票信息
-        var invoice_rise = $("[name=invoice_rise]"); //发票信息
-        var invoice_info = $("[name=invoice_info]"); //发票信息
+        // var invoice_type = $("[name=invoice_type]"); //发票信息
+        // var invoice_rise = $("[name=invoice_rise]"); //发票信息
+        // var invoice_info = $("[name=invoice_info]"); //发票信息
         var commodity_total = $("[name=commodity_total]"); //商品总价
         var price_total = $("[name=price_total]"); //订单总价
         var logistics = $("[name=logistics]"); //运费+服务费
         var delivery_price = $("[name=delivery_price]"); //服务费
         var coupon = $("[name=coupon]:checked"); //优惠金额
+        var remark = $("[name=remark]"); //备注信息
 
         if(s_a.size()<1 || !s_a.val()){
           jBox.tip('请添加或选择收货地址', 'error',{ timeout: 2000});
@@ -273,13 +284,14 @@
           payment:payment.val(),
           delivery:delivery.val(),
           ask_for_date:ask_for_date.val(),
-          invoice_type:invoice_type.val(),
-          invoice_rise:invoice_rise.val(),
-          invoice_info:invoice_info.val(),
+          //invoice_type:invoice_type.val(),
+          //invoice_rise:invoice_rise.val(),
+          //invoice_info:invoice_info.val(),
           commodity_total:commodity_total.val(),
           price_total:price_total.val(),
           logistics:logistics.val(),
           delivery_price:delivery_price.val(),
+          remark:remark.val(),
           coupon:parseInt(coupon.val() ? coupon.val() :0)
         };
 
@@ -517,7 +529,7 @@
         var consignee = $("[name=consignee]").val();
         var where_id = $("[name=where_id]").val();
         var street = $("[name=street]").val();
-        var zip = $("[name=zip]").val();
+        // var zip = $("[name=zip]").val();
         var phone = $("[name=phone]").val();
         var cellphone = $("[name=cellphone]").val();
         var where_text = $("[name=where_text]").val();
@@ -549,10 +561,10 @@
             jBox.tip('邮编不能为空', 'error',{ timeout: 1000});
             return false;
         }
-        if(zip=='' || isNaN(zip) || zip.length<6){
-            jBox.tip('请输入正确的邮编', 'error',{ timeout: 1000});
-            return false;
-        }
+        // if(zip=='' || isNaN(zip) || zip.length<6){
+        //     jBox.tip('请输入正确的邮编', 'error',{ timeout: 1000});
+        //     return false;
+        // }
 
         if(cellphone.length<11 || cellphone.length>11 || cellphone[0]!=1 || cellphone[1]==2){
             jBox.tip("请输入正确的手机号码", 'error',{ timeout: 1000,closed: function () {  }});
@@ -566,7 +578,8 @@
             }
         }
 
-        var ob = {consignee:consignee,where_id:where_id,street:street,zip:zip,cellphone:cellphone,phone:phone,where_text:where_text}
+        //var ob = {consignee:consignee,where_id:where_id,street:street,zip:zip,cellphone:cellphone,phone:phone,where_text:where_text}
+        var ob = {consignee:consignee,where_id:where_id,street:street,cellphone:cellphone,phone:phone,where_text:where_text}
         jBox.tip("正在处理...", 'loading');
         $.ajax({
             url: define_app_url+'/'+define_module_name+'/insert_address',
@@ -576,7 +589,8 @@
                 var msg = JSON.parse(data);
                 if(msg.status==1){
 
-                    var ht = '<div id="xm-xdz2" style="margin:0 0 10px"><ul><li style="margin-right:10px;"><input  index="'+$("[name=use_address]").size()+'" initiate_price="'+msg.data.initiate_price+'" average_price="'+msg.data.average_price+'" name="use_address" type="radio" value="'+msg.data.id+'" /></li><li><strong>'+consignee+'</strong> 地址：'+where_text+' 邮编：'+zip+' '+(cellphone ? '手机：'+cellphone : '')+' '+(phone ? '电话：'+phone : '')+'<a href="javascript:;" class="delete_address">  [删除]</a></li></ul></div>';
+                    // var ht = '<div id="xm-xdz2" style="margin:0 0 10px"><ul><li style="margin-right:10px;"><input  index="'+$("[name=use_address]").size()+'" initiate_price="'+msg.data.initiate_price+'" average_price="'+msg.data.average_price+'" name="use_address" type="radio" value="'+msg.data.id+'" /></li><li><strong>'+consignee+'</strong> 地址：'+where_text+' 邮编：'+zip+' '+(cellphone ? '手机：'+cellphone : '')+' '+(phone ? '电话：'+phone : '')+'<a href="javascript:;" class="delete_address">  [删除]</a></li></ul></div>';
+                     var ht = '<div id="xm-xdz2" style="margin:0 0 10px"><ul><li style="margin-right:10px;"><input  index="'+$("[name=use_address]").size()+'" initiate_price="'+msg.data.initiate_price+'" average_price="'+msg.data.average_price+'" name="use_address" type="radio" value="'+msg.data.id+'" /></li><li><strong>'+consignee+'</strong> 地址：'+where_text+' '+(cellphone ? '手机：'+cellphone : '')+' '+(phone ? '电话：'+phone : '')+'<a href="javascript:;" class="delete_address">  [删除]</a></li></ul></div>';
 
                     var ap = $(".new_address_insert");
                     ap.append(ht);
@@ -591,7 +605,7 @@
                         $("[name=consignee]").val('');
                         $("[name=where_id]").val('');
                         $("[name=street]").val('');
-                        $("[name=zip]").val('');
+                        // $("[name=zip]").val('');
                         $("[name=phone]").val('');
                         $("[name=cellphone]").val('');
                         $("[name=where_text]").val('');

@@ -26,7 +26,7 @@ function auto(){
 		var one=$("#new div").eq(0);
 		one.remove();
 		$("#new").append(one);
-	},2000);
+	},5000);
 }
 
 auto();

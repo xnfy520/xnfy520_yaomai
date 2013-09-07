@@ -32,7 +32,7 @@ $(function(){
    });
 </script>
 <div style="clear: both;height: 38px;line-height: 38px;width: 978px;margin: 13px auto 0 auto;" id="dd-bz-title">
-<a href="__APP__/Index">首页</a> &nbsp;>> <span style="color:#666;"><a href="__APP__/Vote">最新投票产品</a></span>
+<a href="__APP__/Index">首页</a> &nbsp;>> <span style="color:#666;"><a href="__APP__/Vote">设计师产品投票区</a></span>
 </div>
 <empty name="list">
     <div style="clear: both;height: 38px;line-height: 38px;width: 978px;margin: 13px auto 0 auto;">无商品</div>
@@ -104,7 +104,13 @@ $(function(){
             var commodity_id = self.attr('commodity_id');
             var count = self.parents('.vote-group').find('.vote-count');
             if(define_userid==''){
-                jBox.tip('请先登录再投票', 'success',{ timeout: 2000,closed: function () {  }});
+                 $.jBox.info('登录后才能预订', '', { top: '35%', buttons: { '马上登录': 'ok' , '关闭':'no' }, submit: function (v, h, f) {
+                    if(v=='ok'){
+                        window.location=define_app_url+'/Index/login';
+                    }else{
+                        return true;
+                    }
+                } });
             }else{
                 jBox.tip("正在处理...", 'loading');
                 window.setTimeout(function () {

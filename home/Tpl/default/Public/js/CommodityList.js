@@ -6,7 +6,13 @@ $(function(){
         console.log(commodity_id);
         console.log(quantity);
         if(define_userid==''){
-        	jBox.tip('请先登录再购买', 'success',{ timeout: 2000,closed: function () {  }});
+            $.jBox.info('请先登录再购买', '', { top: '35%', buttons: { '马上登录': 'ok' , '关闭':'no' }, submit: function (v, h, f) {
+                if(v=='ok'){
+                    window.location=define_app_url+'/Index/login';
+                }else{
+                    return true;
+                }
+             } });
         }else{
             jBox.tip("正在处理...", 'loading');
             window.setTimeout(function () {
@@ -34,7 +40,13 @@ $(function(){
         console.log(commodity_id);
         console.log(quantity);
         if(define_userid==''){
-        	jBox.tip('请先登录再购买', 'success',{ timeout: 2000,closed: function () {  }});
+            $.jBox.info('请先登录再购买', '', { top: '35%', buttons: { '马上登录': 'ok' , '关闭':'no' }, submit: function (v, h, f) {
+                if(v=='ok'){
+                    window.location=define_app_url+'/Index/login';
+                }else{
+                    return true;
+                }
+            } });
         }else{
             jBox.tip("正在处理...", 'loading');
             window.setTimeout(function () {

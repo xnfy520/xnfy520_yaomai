@@ -1,5 +1,5 @@
 {__NOLAYOUT__}
- <form action="javascript:;" method="post" name="OrderList-del" class="delete">
+        <form action="javascript:;" method="post" name="OrderList-del" class="delete">
             <table id="xnfy520-function-index-table">
                 <thead>
                 <tr>
@@ -89,9 +89,11 @@
                                 <input class="xnfy520-function-index-table-check-this" type="checkbox" name="deleteid[]" value="<{$vo.id}>" />
                             </td>
                         </tr>
+
                         <tr class="znxx01" style="display: none;border: none;">
                             <td colspan="8" style="padding:1px; border:none;" class="none-background-color">
                                 <table width="100%" cellpadding="0" cellspacing="0" class="tab0001">
+
                                     <eq name="Think.get.type" value="4">
                                         <tr style="line-height: 0;">
                                             <td colspan="7" style="padding-top:0; border:none">
@@ -112,12 +114,14 @@
                                         </tr>
                                     <else/>
                                         <volist name="vo.commodity_data" id="vo_mo_ci">
+
                                             <tr style="line-height: 0;">
                                                 <td colspan="7" style="padding-top:0; border:none">
                                                     <div class="znxx_m" style="width:100%; padding:0;">
-                                                        <table  width="100%" cellpadding="0" cellspacing="0" style="border-collapse: collapse;border:none">
+                                                        <table width="100%" cellpadding="0" cellspacing="0" style="border-collapse: collapse;border:none">
                                                             <tr style="border:none;">
-                                                                <td width="100" align="center" style="border: none;">
+                                                                <td width="200" align="left" style="border: none;">
+                                                                    <span style="margin-top:5px">#<{$vo_mo_ci.Commodity.id}></span>
                                                                     <img src="__PUBLIC__/Content/<{$vo_mo_ci.CIDir}>/thumb_<{$vo_mo_ci.Commodity.image}>" style="width:55px; height:30px; padding:3px; border:1px solid #ddd;position: relative;top: 4px;" />
                                                                 </td>
                                                                 <td style="color:#ec651a;border: none;text-align: left;">
@@ -162,7 +166,7 @@
                                                     <switch name="vo.other_data.payment">
                                                         <case value="1">
                                                         支付宝 ( 支付帐号 <{$vo.alipay_data.buyer_email|default="-"}> )　
-                                                        <strong>支付时间</strong>: <{$vo.alipay_data.pay_date|date="Y-m-d H:i:s",###}>
+                                                        <strong>支付时间</strong>: <empty name="vo.alipay_data.pay_date">-<else/><{$vo.alipay_data.pay_date|date="Y-m-d H:i:s",###}></empty>
                                                         </case>
                                                         <case value="2">网上银行</case>
                                                     </switch>
@@ -195,9 +199,7 @@
                                                 </switch>　
                                                 <notempty name="vo.other_data.ask_for_date">
                                                     <strong>要求到货时间</strong>：<{$vo.other_data.ask_for_date}>
-                                                </notempty>　
-                                                <strong>发票信息</strong>：
-                                                类型/<{$vo.other_data.invoice_type}>　抬头/<{$vo.other_data.invoice_rise}>　<{$vo.other_data.invoice_info}>
+                                                </notempty>
                                             </td>
                                         </tr>
                                     </neq>
@@ -224,22 +226,29 @@
             .none-background-color:hover{
                 background: white;
             }
-
         </style>
-        <script>
+        <script type="text/javascript">
+    $(function(){
+        $(".znxx_m td").css({'border':'none'});
+        $(".znxx_m td span").css({'position':'relative','top':'-8px','margin-left':'20px','font-weight':'bold','margin-right':'5px'});
+    });
+</script>
+<script>
             $(function(){
                 $(".znxx03").live('click',function(){
+                    var self = $(this);
                     $(".znxx01").hide();
-
-                    if($(this).text()=="展开"){
+                    console.log(self.text());
+                    if(self.text()=="关闭"){
                         $(".znxx03").text("展开");
                         $(this).parents(".znxx").next(".znxx01").show();
-                        $(this).html("关闭");
+                        $(this).text("关闭");
                     }else{
+                        console.log('gb');
                         $(this).parents(".znxx").next(".znxx01").hide();
-                        $(this).html("展开");
+                        $(this).text("展开");
                     }
 
                 })
             })
-        </script>
+        </script>   

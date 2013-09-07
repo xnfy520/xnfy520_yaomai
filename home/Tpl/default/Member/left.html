@@ -3,12 +3,15 @@
                 	<ul id="check_menu_now">
 						<li class="grzx"><a>个人中心</a></li>
                         <li><a class="xq-nemu1 xq-bac1">订单中心</a></li>
-                        <li><a  class="xq-nemu" href="__APP__/Member/commodityOrder">商品订单</a></li>
-                        <li><a  class="xq-nemu" href="__APP__/Member/grouponOrder">团购订单</a></li>
-                        <li><a  class="xq-nemu" href="__APP__/Member/votesOrder">投票订单</a></li>
-                        <li><a  class="xq-nemu" href="__APP__/Member/voteOrder">预定订单</a></li>
-                        <li><a  class="xq-nemu1 xq-bac2">个人账户</a></li>
+                        <li><a  class="xq-nemu" href="__APP__/Member/commodityOrder">我的订单</a></li>
+                        <li><a  class="xq-nemu votes" href="__APP__/Member/voteOrder">我的预订/投票</a></li>
+                        <li><a  class="xq-nemu" href="__APP__/Member/completeOrder">已完成订单</a></li>
+                        <!-- <li><a  class="xq-nemu" href="__APP__/Member/commodityOrder">商品订单</a></li> -->
+                        <!-- <li><a  class="xq-nemu" href="__APP__/Member/grouponOrder">团购订单</a></li> -->
+                        <!-- <li><a  class="xq-nemu" href="__APP__/Member/votesOrder">投票订单</a></li> -->
+                        <!-- <li><a  class="xq-nemu" href="__APP__/Member/voteOrder">预定订单</a></li> -->
                         <li><a  class="xq-nemu" href="__APP__/Cart">我的购物车</a></li>
+                        <li><a  class="xq-nemu1 xq-bac2">个人账户</a></li>
                         <li><a  class="xq-nemu" href="__APP__/Member/coupon">我的优惠劵</a></li>
                         <li><a  class="xq-nemu" href="__APP__/Member/information">我的资料</a></li>
                         <li><a  class="xq-nemu" href="__APP__/Member/address">收货地址</a></li>
@@ -29,6 +32,10 @@
                             if(regx.test(self.attr("href"))){
                                 $("#check_menu_now li a").removeClass('xq-now');
                                 self.addClass('xq-now');
+                            }
+                            if(define_action_name=='voteOrder' || define_action_name=='votesOrder'){
+                                $("#check_menu_now li a").removeClass('xq-now');
+                                $(".votes").addClass('xq-now');
                             }
                         });
                     }

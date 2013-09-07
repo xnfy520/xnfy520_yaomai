@@ -23,7 +23,12 @@
                             无内容
                         <else/>
                             <div style="margin-top:10px">
-                                <h3><{$data.logistics_company_name}>　<small>运单号: <{$data.express_number}></small></h3>
+                                <h3><neq name="data.logistics_company_id" value="3"><{$data.logistics_company_name}>　</neq><small>运单号: <{$data.express_number}></small></h3>
+                                <eq name="data.logistics_company_id" value="3">
+                                    <{$data.remarks}>
+                                <else/>
+                                    
+                                </eq>
                             </div>
                         </empty>
                   	</div>

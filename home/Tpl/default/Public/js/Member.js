@@ -201,14 +201,14 @@ $(function(){
                         jBox.tip('请填写街道地址', 'error',{ timeout: 1000});
                         return false;
                     }
-                    if(f.street==''){
-                        jBox.tip('邮编不能为空', 'error',{ timeout: 1000});
-                        return false;
-                    }
-                    if(f.zip=='' || isNaN(f.zip) || f.zip.length<6){
-                        jBox.tip('请输入正确的邮编', 'error',{ timeout: 1000});
-                        return false;
-                    }
+                    // if(f.street==''){
+                    //     jBox.tip('邮编不能为空', 'error',{ timeout: 1000});
+                    //     return false;
+                    // }
+                    // if(f.zip=='' || isNaN(f.zip) || f.zip.length<6){
+                    //     jBox.tip('请输入正确的邮编', 'error',{ timeout: 1000});
+                    //     return false;
+                    // }
                     if(f.phone=='' && f.cellphone==''){
                         jBox.tip('电话和手机必须填写一个', 'error',{ timeout: 1000});
                         return false;
@@ -297,14 +297,14 @@ $(".edit_address").click(function(){
                         jBox.tip('请填写街道地址', 'error',{ timeout: 1000});
                         return false;
                     }
-                    if(f.street==''){
-                        jBox.tip('邮编不能为空', 'error',{ timeout: 1000});
-                        return false;
-                    }
-                    if(f.zip=='' || isNaN(f.zip) || f.zip.length<6){
-                        jBox.tip('请输入正确的邮编', 'error',{ timeout: 1000});
-                        return false;
-                    }
+                    // if(f.street==''){
+                    //     jBox.tip('邮编不能为空', 'error',{ timeout: 1000});
+                    //     return false;
+                    // }
+                    // if(f.zip=='' || isNaN(f.zip) || f.zip.length<6){
+                    //     jBox.tip('请输入正确的邮编', 'error',{ timeout: 1000});
+                    //     return false;
+                    // }
                     if(f.phone=='' && f.cellphone==''){
                         jBox.tip('电话和手机必须填写一个', 'error',{ timeout: 1000});
                         return false;

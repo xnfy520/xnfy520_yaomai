@@ -66,14 +66,19 @@ class MemberAction extends CommonAction {
         }
     }
 
-    function getOrder($type,$status){
+    function getOrder($type,$status,$com){
         if(isset($type) && !empty($type)){
              if($Userinfo = $this->checkLogin()){
                 $return_data = array();
                 import("ORG.Util.ajax_page");
                 $MemberOrder = M('MemberOrder');
                 $w['uid'] = $Userinfo['id'];
-                $w['commodity_type'] = $type;
+                if($type==1){
+                    $w['commodity_type'] = array('lt',3);
+                }else{
+                    $w['commodity_type'] = $type;
+                }
+                
                 if(isset($_GET['status'])){
                     if($_GET['status']==1){
                         $w['pay_type'] = array('egt',1);
@@ -82,14 +87,31 @@ class MemberAction extends CommonAction {
                     }
                 }
 
+                if($status==1){
+                    $w['pay_type'] = array('egt',1);
+                }
+                if($com==1){
+                    $w['shipments_data'] = array('neq','');
+                }
+
                 $count = $MemberOrder->where($w)->count();
                 $page = new page($count,11);
                 $orders = $MemberOrder->where($w)->order('create_date desc')->limit($page->setlimit())->select();
-
                 $number = array();
-                $number[0] = $MemberOrder->where('uid='.$Userinfo['id'].' AND commodity_type='.$type)->count();
-                $number[1] = $MemberOrder->where('uid='.$Userinfo['id'].' AND pay_type>0 AND commodity_type='.$type)->count();
-                $number[2] = $MemberOrder->where('uid='.$Userinfo['id'].' AND pay_type=0 AND commodity_type='.$type)->count();
+                $wa['uid'] = $Userinfo['id'];
+                if($type==1){
+                    $wa['commodity_type'] = array('lt',3);
+                }else{
+                    $wa['commodity_type'] = $type;
+                }
+                $number[0] = $MemberOrder->where($wa)->count();
+                $wa['pay_type'] = array('gt',0);
+                $number[1] = $MemberOrder->where($wa)->count();
+                $wa['pay_type'] = 0;
+                $number[2] = $MemberOrder->where($wa)->count();
+                // $number[0] = $MemberOrder->where('uid='.$Userinfo['id'].' AND commodity_type='.$type)->count();
+                // $number[1] = $MemberOrder->where('uid='.$Userinfo['id'].' AND pay_type>0 AND commodity_type='.$type)->count();
+                // $number[2] = $MemberOrder->where('uid='.$Userinfo['id'].' AND pay_type=0 AND commodity_type='.$type)->count();
 
                 if($orders){
                     for($i=0;$i<count($orders);$i++){
@@ -112,6 +134,20 @@ class MemberAction extends CommonAction {
              }
         }else{
             return;
+        }
+    }
+
+    function completeOrder(){
+        if($Userinfo = $this->checkLogin()){
+            $data = $this->getOrder(1,1,1);
+            if($data){
+                $this->assign('numbers',$data['numbers']);
+                $this->assign('orders',$data['orders']);
+                $this->assign('fpage',$data['fpage']);
+            }
+            $this->display();
+        }else{
+            $this->redirect('/Index/login');
         }
     }
 

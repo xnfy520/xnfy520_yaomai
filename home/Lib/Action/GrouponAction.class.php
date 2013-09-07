@@ -32,11 +32,11 @@ class GrouponAction extends CommonAction {
 					$order = 'create_date';
 				break;
 				default:
-					$order = 'create_date';
+					$order = 'sort,create_date';
 				break;
 			}
 		}else{
-			$order = 'create_date';
+			$order = 'sort,create_date';
 		}
 		if(isset($_GET['by'])){
 			$order = $order.' '.$_GET['by'];

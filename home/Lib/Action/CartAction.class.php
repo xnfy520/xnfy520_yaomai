@@ -254,6 +254,7 @@ class CartAction extends CommonAction {
                 $order['commodity_type'] = $cart_data['commodity_type']; //预订商品
                 $order['commodity_data'] = json_encode($cart_data['commoditys']);
                 $order['address'] = json_encode($my_ad);
+                $order['remark'] = strip_tags($_POST['remark']);
                 if(!empty($_POST['logistics'])){
                     $_POST['logistics'] = number_format($_POST['logistics'],"2",".","");
                 }
@@ -305,7 +306,7 @@ class CartAction extends CommonAction {
                             $type='commodityOrder';
                             break;
                         case 2:
-                            $type='grouponOrder';
+                            $type='commodityOrder';
                             break;
                         case 3:
                             $type='votesOrder';

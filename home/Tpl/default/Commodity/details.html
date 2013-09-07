@@ -1,6 +1,17 @@
 <layout name='layout'/>
-
-    <div class="xm-mid-banner">
+    <div style="clear: both;height: 38px;line-height: 38px;width: 978px;margin: 13px auto 0 auto;" id="dd-bz-title">
+    <a href="__APP__/Index">首页</a> 
+    <notempty name="data.cc">
+    &nbsp;>> <span style="color:#666;"><a href="__APP__/Commodity/index/pid/<{$data.cc.id}>"><{$data.cc.name}></a></span>
+    </notempty>
+    <notempty name="data.cs">
+    &nbsp;>> <span style="color:#666;"><a href="__APP__/Commodity/index/pid/<{$data.cc.id}>/cid/<{$data.cs.id}>"><{$data.cs.name}></a></span>
+    </notempty>
+    </div>
+    <div class="xm-mid-banner" style="margin-top:5px;height:545px">
+        <div style="line-height:30px;font-size:20px;margin-left:27px;margin-bottom:5px;color:#666">
+            <a href="__APP__/Commodity/details/id/<{$data.id}>"><{$data.name}></a>
+        </div>
     	<div>
             <ul>
                 <li class="xm-banner-shang"><a href="javascript:prev();">&nbsp;</a></li>
@@ -152,15 +163,25 @@
         </div>
     <div id="xj-tanchu5">
         <div class="xj-faa xj-faassss"> 请选择要配送到的城市 </div>
-        <div id="show_logistics" style="display:none">
-            <div class="xj-faa"> 通过物流运输至物流提货点，自提货，自安装，物流价起步价<span id="x_qbj">0</span>元。</div>
-            <div class="xj-faa2">共<span id="x_j">1</span>件商品，<span>1</span>件安体积计算运费，包装体积约<span id="x_tj">0.00</span>立方米，参考费用如下：</div>
-            <div class="xj-faa1">
+        <div id="show_logistics" style="display:none;margin-bottom:30px">
+            <div class="xj-faa"> 该商品单套包装体积为<span id="x_tj">0.00</span>立方米，</div>
+            <div class="xj-faa" style="margin-top:0;"> 配送方式A，通过物流运输至当地物流提货点，用户自行到提货点提货，自安装。<br/>参考费用如下</div>
+            <div class="xj-faa" style="margin-top:10;width:auto">
                 <ul id="x_q_list">
                     <!-- <li class="xj-td1">武昌区&nbsp;444元</li> -->
                 </ul>
             </div>
-            <div class="m_left80">
+            <div style="clear:both"></div>
+            <div class="xj-faa" style="height:20px"> 配送方式B：送货上门并包安装，参考费用如下</div>
+            <div class="xj-faa" style="margin-top:0;width:auto">
+                <ul id="x_q_b_list">
+                    <!-- <li class="xj-td1">武昌区&nbsp;444元</li> -->
+                </ul>
+            </div>
+
+            <div class="xj-faa" style="display:none"> 通过物流运输至物流提货点，自提货，自安装，物流价起步价<span id="x_qbj">0</span>元。</div>
+            <div class="xj-faa2" style="display:none">共<span id="x_j">1</span>件商品，<span>1</span>件安体积计算运费，包装体积约<span id="x_tj">0.00</span>立方米，参考费用如下：</div>
+            <div class="m_left80" style="display:none">
                 <strong><{$Think.config.conf8}></strong>
             </div>
         </div>

@@ -30,7 +30,9 @@ $(function(){
       lxfEndtime();
    });
 </script>
-
+<div style="clear: both;height: 38px;line-height: 38px;width: 978px;margin: 13px auto 0 auto;" id="dd-bz-title">
+<a href="__APP__/Index">首页</a> &nbsp;>> <span style="color:#666;"><a href="__APP__/Groupon">团购</a></span>
+</div>
  <div id="xm-tg">
     	<ul>
         	<li id="xm-tgleft">
@@ -168,7 +170,13 @@ document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static
             var commodity_id = $("[name=commodity]").val();
             var quantity = $("[name=quantity]").val();
             if(define_userid==''){
-                jBox.tip('请先登录再购买', 'success',{ timeout: 2000,closed: function () {  }});
+                $.jBox.info('请先登录再购买', '', { top: '35%', buttons: { '马上登录': 'ok' , '关闭':'no' }, submit: function (v, h, f) {
+                    if(v=='ok'){
+                        window.location=define_app_url+'/Index/login';
+                    }else{
+                        return true;
+                    }
+                } });
             }else{
                 jBox.tip("正在处理...", 'loading');
                 window.setTimeout(function () {

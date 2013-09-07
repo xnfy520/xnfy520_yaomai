@@ -28,7 +28,7 @@ src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="<{$Think
         <li id="xj-cel">
             <a >在线客服</a>
         </li>
-        <li id="xj-der">
+        <li id="xj-der" style="display:none">
           <div id="xj-der1">
             <ul>
                 <li id="xj-1"><img src="../Public/image/25.png" width="22" height="33" /></li>
@@ -152,8 +152,8 @@ src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="<{$Think
                 <li><a class="normalMenu" href="__APP__/Commodity/index/pid/<{$vo_ccs.id}>"><{$vo_ccs.name}></a></li>
             </volist>
             <li><a style="padding: 10px 15px;" href="__APP__/Groupon">团购</a></li>
-            <li><a style="padding: 10px 15px;" href="__APP__/Vote">最新投票产品</a></li>
-            <li class="car"><div>购物车：&nbsp;<span id="header_carts"><{$Cart_counts|default="0"}></span>&nbsp;件</div></li>
+            <li><a style="padding: 10px 15px;" href="__APP__/Vote">设计师产品投票区</a></li>
+            <li class="car" style="margin-left: 99px;"><div><a href="__APP__/Cart">购物车：&nbsp;<span id="header_carts"><{$Cart_counts|default="0"}></span>&nbsp;件</a></div></li>
             <li class="shop"><div><a href="__APP__/Cart">去结算</a></div></li>
         </ul>
 

@@ -34,7 +34,7 @@
                         <option value="0" selected="selected">否</option>
                     </eq>
                 </select>　
-                <strong>推　　荐：</strong>
+                <!-- <strong>推　　荐：</strong>
                 <select name="recommend" style="width: 56px;padding: 2px">
                     <eq name="data.recommend" value="1">
                         <option value="1" selected="selected">是</option>
@@ -43,7 +43,9 @@
                         <option value="1">是</option>
                         <option value="0" selected="selected">否</option>
                     </eq>
-                </select>
+                </select> -->
+                <strong>销　　量：</strong>
+                <input type="text" name="sales_volume"  value="<{$data.sales_volume|default=0}>" style="width: 50px;text-align: center;height: 18px;" maxlength="10" />
             </li>
             <li class="xnfy520-function-index-add-edit-ul-li" style="margin-top: 3px;">
                 <strong>原　　价：</strong>

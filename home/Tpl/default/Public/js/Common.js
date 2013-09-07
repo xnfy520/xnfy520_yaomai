@@ -5,7 +5,9 @@ $(function(){
         var city = $("#logistics_city");
         city.html("");
         var x_q_list = $("#x_q_list");
+        var x_q_b_list = $("#x_q_b_list");
         x_q_list.html("");
+        x_q_b_list.html("");
         if(v==0){
             $(".xj-faassss").css("display","block");
             $("#show_logistics").css('display','none');
@@ -20,33 +22,46 @@ $(function(){
                     var obj = JSON.parse(datas);
                     if(obj.length>0){
                         if(v==1 || v==2 || v==3 || v==4){
+                            console.log('?');
                             $(".xj-faassss").css("display","none");
                             $("#show_logistics").css('display','block');
-                            cz();
-                            console.log(obj);
-                            $("#x_qbj").text(obj[0]['parent']['initiate_price']);
                             $("#x_j").text($("#buy_count").val());
                             $("#x_tj").text($("#p_infos").attr('measure'));
                             for(var i=0; i<obj.length; i++){
-                                console.log(obj[i].average_price+' '+($("#p_infos").attr('measure')*1)+' '+($("#buy_count").val()*1)+' '+(obj[i].average_price*($("#p_infos").attr('measure')*1)));
-                                console.log(obj[0]['parent']['initiate_price']*1);
-                                console.log((obj[i].average_price*$("#p_infos").attr('measure')+(obj[0]['parent']['initiate_price']*1))*($("#buy_count").val()*1)+($("#p_infos").attr('price')*1));
-                                var p = (obj[i].average_price*$("#p_infos").attr('measure')+(obj[0]['parent']['initiate_price']*1))*($("#buy_count").val()*1)+($("#p_infos").attr('price')*1);
+                                var p = (obj[i].average_price*$("#p_infos").attr('measure'));
                                 $('<li class="xj-td1">'+obj[i].name+'&nbsp;'+(p)+'元</li>').appendTo(x_q_list);
                             }
+                            var ss = 0;
+                            for(var s=0; s<obj.length; s++){
+                                console.log(obj[s]);
+                                if(obj[s].dropin==1){
+                                    ss++;
+                                    var sk = obj[s].dropin_average_price*$("#p_infos").attr('measure');
+                                    if(sk<obj[s].dropin_lowest_price){
+                                        sk = obj[s].dropin_lowest_price;
+                                    }
+                                    var k = (obj[s].average_price*$("#p_infos").attr('measure')+sk*1);
+                                    $('<li class="xj-td1">'+obj[s].name+'&nbsp;'+(k)+'元</li>').appendTo(x_q_b_list);
+                                }
+                            }
+                            if(ss<=0){
+                                $('<li style="margin-top:10px">该地区暂不支持送货上门，需要联系第三方配送服务商请联系客服</li>').appendTo(x_q_b_list);
+                            }
+                            cz();
                         }else{
                             $(".xj-faassss").css("display","block");
                             $("#show_logistics").css('display','none');
-                            cz();
                             city.html("");
                             $('<select name="logistics_city"><option value="0" style="background: #ccc;">--请选择--</option></select>').appendTo(city);
                             var citys = $("[name=logistics_city]");
                             for(var i=0; i<obj.length; i++){
                                 $('<option value="'+obj[i].id+'">'+obj[i].name+'</option>').appendTo(citys);
                             }
+                            cz();
                         }
                     }else{
                         if(v==1 || v==2 || v==3 || v==4){
+                            console.log('ha');
                              $.ajax({
                                 url: define_app_url+'/Member/return_current',
                                 data: {pid:v},
@@ -55,20 +70,29 @@ $(function(){
                                     var objs = JSON.parse(datass);
                                     $(".xj-faassss").css("display","none");
                                     $("#show_logistics").css('display','block');
-                                    cz();
-                                    console.log(objs);
                                     $("#x_qbj").text(objs['initiate_price']);
                                     $("#x_j").text($("#buy_count").val());
                                     $("#x_tj").text($("#p_infos").attr('measure'));
-                                    var p = (objs.average_price*$("#p_infos").attr('measure')+(objs['initiate_price']*1))*($("#buy_count").val()*1)+($("#p_infos").attr('price')*1);
-                                        $('<li class="xj-td1">'+objs.name+'&nbsp;'+(p)+'元</li>').appendTo(x_q_list);
+                                    var p = (objs.average_price*$("#p_infos").attr('measure'));
+                                    $('<li class="xj-td1">'+objs.name+'&nbsp;'+(p)+'元</li>').appendTo(x_q_list);
+                                    if(objs.dropin==1){
+                                        var sk = objs.dropin_average_price*$("#p_infos").attr('measure');
+                                        if(sk<objs.dropin_lowest_price){
+                                            sk = objs.dropin_lowest_price;
+                                        }
+                                        var k = (objs.average_price*$("#p_infos").attr('measure')+sk*1);
+                                        $('<li class="xj-td1">'+objs.name+'&nbsp;'+(k)+'元</li>').appendTo(x_q_b_list);
+                                    }else{
+                                        $('<li style="margin-top:10px">该地区暂不支持送货上门，需要联系第三方配送服务商请联系客服</li>').appendTo(x_q_b_list);
+                                    }
+                                    cz();
                                 }
                             });
                         }else{
                             $(".xj-faassss").css("display","block");
                             $("#show_logistics").css('display','none');
-                            cz();
                             city.html("");
+                            cz();
                         }
                     }
                 }
@@ -79,7 +103,9 @@ $(function(){
     $("[name=logistics_city]").live('change',function(){
         var v = $(this).val();
         var x_q_list = $("#x_q_list");
+        var x_q_b_list = $("#x_q_b_list");
         x_q_list.html("");
+        x_q_b_list.html("");
         if(v==0){
             $("#show_logistics").css('display','none');
             $(".xj-faassss").css("display","block");
@@ -97,20 +123,29 @@ $(function(){
                         $("#x_j").text($("#buy_count").val());
                         $("#x_tj").text($("#p_infos").attr('measure'));
                         for(var i=0; i<obj.length; i++){
-                            console.log(obj[i].average_price+' '+($("#p_infos").attr('measure')*1)+' '+($("#buy_count").val()*1)+' '+(obj[i].average_price*($("#p_infos").attr('measure')*1)));
-                            console.log(obj[0]['parent']['initiate_price']*1);
-                            console.log((obj[i].average_price*$("#p_infos").attr('measure')+(obj[0]['parent']['initiate_price']*1))*($("#buy_count").val()*1)+($("#p_infos").attr('price')*1));
-                            var p = (obj[i].average_price*$("#p_infos").attr('measure')+(obj[0]['parent']['initiate_price']*1))*($("#buy_count").val()*1)+($("#p_infos").attr('price')*1);
+                            var p = (obj[i].average_price*$("#p_infos").attr('measure'));
                             $('<li class="xj-td1">'+obj[i].name+'&nbsp;'+(p)+'元</li>').appendTo(x_q_list);
                         }
-
-                       $(".xj-faassss").css("display","none");
+                        var ss = 0;
+                        for(var s=0; s<obj.length; s++){
+                            console.log(obj[s]);
+                            if(obj[s].dropin==1){
+                                ss++;
+                                var sk = obj[s].dropin_average_price*$("#p_infos").attr('measure');
+                                if(sk<obj[s].dropin_lowest_price){
+                                    sk = obj[s].dropin_lowest_price;
+                                }
+                                var k = (obj[s].average_price*$("#p_infos").attr('measure')+sk*1);
+                                $('<li class="xj-td1">'+obj[s].name+'&nbsp;'+(k)+'元</li>').appendTo(x_q_b_list);
+                            }
+                        }
+                        if(ss<=0){
+                            $('<li style="margin-top:10px">该地区暂不支持送货上门，需要联系第三方配送服务商请联系客服</li>').appendTo(x_q_b_list);
+                        }
+                        $(".xj-faassss").css("display","none");
                         $("#show_logistics").css('display','block');
                         cz();
                     }else{
-                        // $("#show_logistics").css('display','none');
-                        // $(".xj-faassss").css("display","block");
-                        // cz();
                       $.ajax({
                             url: define_app_url+'/Member/return_current',
                             data: {pid:v},
@@ -119,13 +154,23 @@ $(function(){
                                 var objs = JSON.parse(datass);
                                 $(".xj-faassss").css("display","none");
                                 $("#show_logistics").css('display','block');
-                                cz();
                                 console.log(objs);
                                 $("#x_qbj").text(objs['initiate_price']);
                                 $("#x_j").text($("#buy_count").val());
                                 $("#x_tj").text($("#p_infos").attr('measure'));
-                                var p = (objs.average_price*$("#p_infos").attr('measure')+(objs['initiate_price']*1))*($("#buy_count").val()*1)+($("#p_infos").attr('price')*1);
-                                    $('<li class="xj-td1">'+objs.name+'&nbsp;'+(p)+'元</li>').appendTo(x_q_list);
+                                var p = (objs.average_price*$("#p_infos").attr('measure'));
+                                $('<li class="xj-td1">'+objs.name+'&nbsp;'+(p)+'元</li>').appendTo(x_q_list);
+                                if(objs.dropin==1){
+                                    var sk = objs.dropin_average_price*$("#p_infos").attr('measure');
+                                    if(sk<objs.dropin_lowest_price){
+                                        sk = objs.dropin_lowest_price;
+                                    }
+                                    var k = (objs.average_price*$("#p_infos").attr('measure')+sk*1);
+                                    $('<li class="xj-td1">'+objs.name+'&nbsp;'+(k)+'元</li>').appendTo(x_q_b_list);
+                                }else{
+                                    $('<li style="margin-top:10px">该地区暂不支持送货上门，需要联系第三方配送服务商请联系客服</li>').appendTo(x_q_b_list);
+                                }
+                                cz();
                             }
                         });
                     }

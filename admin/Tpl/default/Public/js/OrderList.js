@@ -93,6 +93,118 @@
         }
     });
 
+        $(".change_price").live('click',function(){
+        var self = $(this);
+        var value = $(this).attr('by');
+        if(value!='' && !isNaN(value)){
+            var edit_submit = function (v, h, f) {
+                if (v == 'ok') {
+                    if(isNaN(f.new_price) || f.new_price<0 || f.new_price===''){
+                        jBox.tip('所填价格有误', 'error',{ timeout: 1000});
+                         return false;
+                    }
+                   jBox.tip("正在处理...", 'loading');
+                    $.ajax({
+                        url: define_app_url+'/OrderList/set_change_price',
+                        data: f,
+                        type:'POST',
+                        success: function(data){
+                            var msg = JSON.parse(data);
+                            if(msg.status==1){
+                                jBox.close();
+                                jBox.tip('修改成功', 'success',{ timeout: 1000,closed:function(){
+                                    window.location = define_self_url;
+                                }});
+                            }else{
+                                jBox.tip(msg.info, 'error',{ timeout: 1000});
+                            }
+                        }
+                    });
+                    return false;
+                }
+            };
+
+            jBox("get:"+define_app_url+"/OrderList/change_price/id/"+value,{
+                width:420,
+                height: 'auto',
+                title: '',
+                top: '30%',
+                draggable: true,
+                opacity: 0.01,
+                persistent: true,
+                showIcon: false,
+                showSpeed: 'slow',
+                bottomText: '带 <span style="color: red;font-weight:bold;">*</span> 为必填',
+                buttons: { '修改': 'ok','取消':'cancel'},
+                loaded: function (h) {
+                    if($("[name=id]").val()==''){
+                        jBox.close();
+                        jBox.tip('程序异常', 'error',{ timeout: 1000});
+                    }
+                },
+                submit:edit_submit
+            });
+        }else{
+            jBox.tip('程序异常', 'error',{ timeout: 1000});
+        }
+    });
+
+    $(".edit_remark").live('click',function(){
+        var self = $(this);
+        var value = $(this).attr('by');
+        if(value!='' && !isNaN(value)){
+            var edit_submit = function (v, h, f) {
+                if (v == 'ok') {
+                    if(f.remark===''){
+                        jBox.tip('内容不能为空', 'error',{ timeout: 1000});
+                         return false;
+                    }
+                   jBox.tip("正在处理...", 'loading');
+                    $.ajax({
+                        url: define_app_url+'/OrderList/set_edit_remark',
+                        data: f,
+                        type:'POST',
+                        success: function(data){
+                            var msg = JSON.parse(data);
+                            if(msg.status==1){
+                                jBox.close();
+                                jBox.tip('修改成功', 'success',{ timeout: 1000,closed:function(){
+                                    window.location = define_self_url;
+                                }});
+                            }else{
+                                jBox.tip(msg.info, 'error',{ timeout: 1000});
+                            }
+                        }
+                    });
+                    return false;
+                }
+            };
+
+            jBox("get:"+define_app_url+"/OrderList/edit_remark/id/"+value,{
+                width:420,
+                height: 'auto',
+                title: '',
+                top: '30%',
+                draggable: true,
+                opacity: 0.01,
+                persistent: true,
+                showIcon: false,
+                showSpeed: 'slow',
+                bottomText: '带 <span style="color: red;font-weight:bold;">*</span> 为必填',
+                buttons: { '修改': 'ok','取消':'cancel'},
+                loaded: function (h) {
+                    if($("[name=id]").val()==''){
+                        jBox.close();
+                        jBox.tip('程序异常', 'error',{ timeout: 1000});
+                    }
+                },
+                submit:edit_submit
+            });
+        }else{
+            jBox.tip('程序异常', 'error',{ timeout: 1000});
+        }
+    });
+
         //修改数据
     $(".send_out").live('click',function(){
         var self = $(this);

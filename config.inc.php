@@ -100,8 +100,9 @@
 		),
 
 		'logistics_company'=>array(
-			array('id'=>1,'name'=>'顺风快递'),
-			array('id'=>2,'name'=>'圆通快递')
+			array('id'=>1,'name'=>'合众阳晟'),
+			array('id'=>2,'name'=>'e速家邦'),
+			array('id'=>3,'name'=>'其他')
 		),
 
 		/**送货方式配置**/

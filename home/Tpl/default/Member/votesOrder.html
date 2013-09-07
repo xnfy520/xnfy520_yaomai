@@ -1,19 +1,19 @@
 <layout name='layout'/>
  <div class="mid-xq">
       <ul>
-          <li class="xq-weizhi">首页 >> <span style="color:#666;">个人中心</span> >> <span style="color:#666;">投票订单</span></li>
+          <li class="xq-weizhi">首页 >> <span style="color:#666;">个人中心</span> >> <span style="color:#666;">我的投票</span></li>
 
       <include file="Member:left" />
 
             <li id="xm-dingdan">
-              <div id="xm-dd1">
-                  投票订单
+              <div class="wdyd">
+                  <a href="__APP__/Member/voteOrder">我的预订</a>/投票
               </div>
               <div id="xm-dd2">
                 <div id="xm-wcdd1">
-                  <a class="xm-ds" href="__APP__/Member/votesOrder">全部订单<span>（<{$numbers[0]|default="0"}>个）</span></a>  
-                  <a class="xm-ds" href="__APP__/Member/votesOrder/status/1">已付款订单<span>（<{$numbers[1]|default="0"}>个）</span></a>  
-                    <a class="xm-df" href="__APP__/Member/votesOrder/status/2">待付款订单<span>（<{$numbers[2]|default="0"}>个</span>）</a> 
+                  <a style="width:auto" class="xm-ds" href="__APP__/Member/votesOrder">全部订单<span>（<{$numbers[0]|default="0"}>个）</span></a>  
+                  <a style="width:auto" class="xm-ds" href="__APP__/Member/votesOrder/status/1">已付款订单<span>（<{$numbers[1]|default="0"}>个）</span></a>  
+                    <a style="width:auto" class="xm-df" href="__APP__/Member/votesOrder/status/2">待付款订单<span>（<{$numbers[2]|default="0"}>个</span>）</a> 
                 </div>
               <notempty name="orders">
 
@@ -27,18 +27,28 @@
                               <td width="150" height="35" align="center"><span class="xm-wccd4"><{$vo_o.create_date|date="Y-m-d H:i:s",###}></span></td>
                               <td width="200" height="35" align="center">
                                 <span class="xm-wccd5">
-                                <{$vo_o.total_fee}>
-                                (
-                                物流:<{$vo_o.other_data.logistics}>
-                                <gt name="vo_o.other_data.coupon" value="50">优惠:-<{$vo_o.other_data.coupon}></gt>
-                                )
+                                <span style="line-height:20px">
+                                  <gt name="vo_o.new_price" value="0">
+                                        <s>&#165;<{$vo_o.total_fee}></s> 
+                                        <span style="color:red">&#165;<{$vo_o.new_price}></span>
+                                    <else/>
+                                        &#165;<{$vo_o.total_fee}>
+                                    </gt>
+                                </span><br />
+                                <span style="line-height:20px">(物流:&#165;<{$vo_o.other_data.logistics}>)</span>
+                                <gt name="vo_o.other_data.coupon" value="50"><br /><span style="line-height:20px">优惠:-<{$vo_o.other_data.coupon}></span></gt>
+                                
                                 </span>
                               </td>
                               <td width="50" height="35" align="center"><span class="xm-wccd6">
                                 <eq name="vo_o.pay_type" value="0">
                                   <a target="_blank" href="__APP__/Pay/alipay_to_cart/out_trade_no/<{$vo_o.out_trade_no}>">未付款</a>
                                 <else/>
-                                  已付款
+                                  <empty name="vo_o.shipments_data">
+                                    已付款
+                                  <else/>
+                                    已完结
+                                  </empty>
                                 </eq>
                               </span></td>
                               <td width="50" height="35" align="center"><a class="xm-xindd9">展开</a></td>
@@ -72,6 +82,13 @@
                                         </gt>
                                       </td>
                                   </tr>
+                                  <notempty name="vo_o.remark">
+                                    <tr>
+                                      <td style="text-align:left;text-indent:14px;height:30px" colspan="4">
+                                        <storng>备注信息: <{$vo_o.remark}></storng>
+                                      </td>
+                                    </tr>
+                                  </notempty>
                                 </table>
                             </notempty>
                         </div>

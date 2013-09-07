@@ -39,6 +39,10 @@
                                 <label><input type="radio" name="start" value="1" />是</label>
                                 <label><input type="radio" checked="checked" name="start" value="0" />否</label>
                             </span>
+                            <span class="table_sort_span" style="font-weight: normal;">
+                                 <span class="table_sort_title"><span class="table_star"></span> 每立方米价格：</span>
+                                <input class="table_sort_input" type="text" name="average_price" value="0.00" maxlength="10" />
+                            </span>
                         </td>
                     </tr>
                     <tr class="en-show" style="display:none"><th class="table_th"><span class="table_star"></span></th>
@@ -56,14 +60,32 @@
                             </notempty>
                         </td>
                     </tr>
-                    <tr class="table_tr"><th class="table_th"><span class="table_star"></span> 起步价：</th>
+                    <tr class="table_tr"><th class="table_th"><span class="table_star"></span></th>
                         <td>
-                            <span class="table_radio">
+                            <span class="table_radio" style="visibility:hidden">
                                  <input class="table_sort_input" type="text" name="initiate_price" value="0.00" maxlength="10" />
                             </span>
                             <span class="table_sort_span" style="font-weight: normal;">
-                                 <span class="table_sort_title"><span class="table_star"></span> 每立方米价格：</span>
-                                <input class="table_sort_input" type="text" name="average_price" value="0.00" maxlength="10" />
+                                <span class="table_sort_title"><span class="table_star"></span> 送货上门：</span>
+                                <span class="table_radio">
+                                    <label><input type="checkbox" name="dropin" value="1" />提供</label>　
+                                </span>
+                            </span>
+                        </td>
+                    </tr>
+                    <tr class="table_tr"><th class="table_th"><span class="table_star"></span></th>
+                        <td>
+                            <span class="table_sort_span" style="font-weight: normal;">
+                                 <span class="table_sort_title"><span class="table_star"></span> 送货上门最低价：</span>
+                                <input class="table_sort_input" type="text" name="dropin_lowest_price" value="0.00" maxlength="10" />
+                            </span>
+                        </td>
+                    </tr>
+                    <tr class="table_tr"><th class="table_th"><span class="table_star"></span></th>
+                        <td>
+                            <span class="table_sort_span" style="font-weight: normal;">
+                                 <span class="table_sort_title"><span class="table_star"></span> 送货上门每立方价格：</span>
+                                <input class="table_sort_input" type="text" name="dropin_average_price" value="0.00" maxlength="10" />
                             </span>
                         </td>
                     </tr>

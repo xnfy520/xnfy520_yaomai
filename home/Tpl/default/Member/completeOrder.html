@@ -1,0 +1,165 @@
+<layout name='layout'/>
+ <div class="mid-xq">
+    	<ul>
+          <li class="xq-weizhi">首页 >> <span style="color:#666;">个人中心</span> >> <span style="color:#666;">已完成订单</span></li>
+
+      <include file="Member:left" />
+
+            <li id="xm-dingdan">
+           	  <div id="xm-dd1">
+                	已完成订单
+              </div>
+              <div id="xm-dd2">
+                <div id="xm-wcdd1" style="height:10px">
+                  <!-- <a style="width:auto" class="xm-ds" href="__APP__/Member/commodityOrder">全部订单<span>（<{$numbers[0]|default="0"}>个）</span></a>  
+                  <a style="width:auto" class="xm-ds" href="__APP__/Member/commodityOrder/status/1">已付款订单<span>（<{$numbers[1]|default="0"}>个）</span></a>  
+                    <a style="width:auto" class="xm-df" href="__APP__/Member/commodityOrder/status/2">待付款订单<span>（<{$numbers[2]|default="0"}>个</span>）</a>  -->
+                </div>
+              <notempty name="orders">
+
+
+                      <volist name="orders" id="vo_o">
+                        <div class="xm-wcdd2" style="height:auto; overflow:hidden; border:1px solid #ccc; border-bottom:0px;">
+                          <table width="730" border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                              <td width="100" height="35" align="left">
+                                <eq name="vo_o.commodity_type" value="2" >
+                                  <span style="position:relative;inline-block:display;background:red;color:white;padding:2px;float:right">聚</span>
+                                </eq>
+                                <span class="xm-wccd1" style="margin-left:25px"><{$vo_o.out_trade_no}></span>
+                              </td>
+                              <td width="70" height="35" align="center"><span class="xm-wccd3"><{$vo_o.address.consignee}></span></td>
+                              <td width="150" height="35" align="center"><span class="xm-wccd4"><{$vo_o.create_date|date="Y-m-d H:i:s",###}></span></td>
+                              <td width="200" height="35" align="center">
+                                <span class="xm-wccd5">
+                                <span style="line-height:20px">
+                                  <gt name="vo_o.new_price" value="0">
+                                        <s>&#165;<{$vo_o.total_fee}></s> 
+                                        <span style="color:red">&#165;<{$vo_o.new_price}></span>
+                                    <else/>
+                                        &#165;<{$vo_o.total_fee}>
+                                    </gt>
+                                </span><br />
+                                <span style="line-height:20px">(含物流:&#165;<{$vo_o.other_data.logistics}>)</span>
+                                <notempty name="vo_o.other_data.coupon" value="50"><br /><span style="line-height:20px">已优惠:-<{$vo_o.other_data.coupon}></span></notempty>
+                                
+                                </span>
+                              </td>
+                              <td width="50" height="35" align="center"><span class="xm-wccd6">
+                                <eq name="vo_o.pay_type" value="0">
+                                  <a target="_blank" href="__APP__/Pay/alipay_to_cart/out_trade_no/<{$vo_o.out_trade_no}>">未付款</a>
+                                <else/>
+                                  <empty name="vo_o.shipments_data">
+                                    已付款
+                                  <else/>
+                                    已完结
+                                  </empty>
+                                </eq>
+                              </span></td>
+                              <td width="50" height="35" align="center"><a class="xm-xindd9">展开</a></td>
+                            </tr>
+                          </table>
+                          <notempty name="vo_o.commodity_data">
+                              <table class="dd-table" width="730" border="0" cellspacing="0" cellpadding="0">
+                                <volist name="vo_o.commodity_data" id="vo_co">
+                                    <tr>
+                                      <td width="100" height="60" align="center"><a href="__APP__/<{$vo_co.URL}>/details/id/<{$vo_co.Commodity.id}>"><img src="__PUBLIC__/Content/<{$vo_co.CIDir}>/thumb_<{$vo_co.Commodity.image}>" alt="" width="75" height="49" /></a></td>
+                                      <td width="200" style="text-align:center"><a href="__APP__/<{$vo_co.URL}>/details/id/<{$vo_co.Commodity.id}>"><{$vo_co.Commodity.name}></a></td>
+                                      <td width="150" style="padding:0 10px;text-align:center">单价: <{$vo_co.Commodity.price}></td>
+                                      <td width="150" style="text-align:center">数量: <{$vo_co.quantity}></td>
+                                      <td style="text-align:center">小计: <{$vo_co.xiaoji}></td>
+                                    </tr>
+                                  </volist>
+                                  <tr>
+                                      <td style="text-align:left;text-indent:14px;height:30px" colspan="3">
+                                      收货地址:<{$vo_o.address.where_text}> <{$vo_o.address.street}> (<{$vo_o.address.zip}>) <notempty name="vo_o.address.cellphone">手机号:<{$vo_o.address.cellphone}></notempty> <notempty name="vo_o.address.phone">电话:<{$vo_o.address.phone}></notempty> 收货人:<{$vo_o.address.consignee}>
+                                      </td>
+                                      <td style="text-align:right;padding-right:12px" colspan="2">
+                                        <gt name="vo_o.pay_type" value="0">
+                                          (
+                                          <notempty name="vo_o.shipments_data">
+                                            已发货 <a style="color:blue" href="__APP__/Member/logistics_tracking/id/<{$vo_o.id}>">物流跟踪</a>
+                                          <else/>
+                                            未发货
+                                          </notempty>
+                                          )
+                                        </gt>
+                                      </td>
+                                      <notempty name="vo_o.remark">
+                                        <tr>
+                                          <td style="text-align:left;text-indent:14px;height:30px" colspan="4">
+                                            <storng>备注信息: <{$vo_o.remark}></storng>
+                                          </td>
+                                        </tr>
+                                      </notempty>
+                                  </tr>
+                                </table>
+                            </notempty>
+                        </div>
+                      </volist>
+
+                       <div class="fanye">
+                      <ul>
+                          <li style="width:390px; text-align:right">总计 <{$fpage.total}> 条记录</li>
+                            <li>共 <span class="se1"><{$fpage.tpage}></span> 页</li>
+                            <li>
+                              <eq name="fpage.header.page" value="0">
+                                  <a>« 第一页</a>
+                              <else/>
+                                  <a class="se2" href="__APP__/Member/commodityOrder/page/<{$fpage.header.page}>">« 第一页</a>
+                              </eq>
+                            </li>
+                            <li>
+                              <eq name="fpage.prev.page" value="0">
+                                  <a>‹上一页</a>
+                              <else/>
+                                  <a class="se2" href="__APP__/Member/commodityOrder/page/<{$fpage.prev.page}>">‹上一页</a>
+                              </eq>
+                            </li>
+                            <li>
+                              <eq name="fpage.next.page" value="0">
+                                  <a>下一页›</a>
+                              <else/>
+                                  <a class="se2" href="__APP__/Member/commodityOrder/page/<{$fpage.next.page}>">下一页›</a>
+                              </eq>
+                            </li>
+                            <li>
+                              <eq name="fpage.footer.page" value="0">
+                                    <a>最末页 »</a>
+                              <else/>
+                                    <a class="se2" href="__APP__/Member/commodityOrder/page/<{$fpage.footer.page}>">最末页 »</a>
+                              </eq>
+                            </li>
+                            <li class="op"><select id="change_page">
+                              <volist name="fpage.list" id="vo_flist">
+                                <eq name="vo_flist.page" value="$Think.get.page">
+                                  <option value="<{$vo_flist.page}>" selected="selected"><{$vo_flist.page}></option>
+                                <else/>
+                                  <option value="<{$vo_flist.page}>"><{$vo_flist.page}></option>
+                                </eq>
+                              </volist>
+                          </select></li>
+                        </ul>
+                    </div>
+               
+              <else/>
+                <div style="margin-left:23px">无内容</div>
+              </notempty>
+              </div>
+         </li>
+      </ul>
+    </div>
+<script type="text/javascript">
+$(".xm-xindd9").click(function(){
+  
+  if($(this).attr("status")!="1"){
+    $(this).text("关闭");
+    $(this).attr("status","1");
+  }else{
+    $(this).text("展开");
+    $(this).attr("status","0");
+  }
+  var djg=$(".xm-xindd9").index(this);
+  $(".dd-table").eq(djg).toggle();
+})
+</script>

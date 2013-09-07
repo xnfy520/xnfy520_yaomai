@@ -37,11 +37,11 @@ class CommodityAction extends CommonAction {
 						$order = 'create_date';
 					break;
 					default:
-						$order = 'create_date';
+						$order = 'sort,create_date';
 					break;
 				}
 			}else{
-				$order = 'create_date';
+				$order = 'sort,create_date';
 			}
 			if(isset($_GET['by'])){
 				$order = $order.' '.$_GET['by'];
@@ -67,6 +67,8 @@ class CommodityAction extends CommonAction {
 	function details(){
 		if(isset($_GET['id']) && !empty($_GET['id'])){
 			$CommodityList = D('CommodityList');
+			$CommodityCategory = D('CommodityCategory');
+			$CommoditySubclass = D('CommoditySubclass');
 			$data = $CommodityList->relation(true)->find($_GET['id']);
 			if(!$data){
 				$this->redirect('/Index');
@@ -80,8 +82,10 @@ class CommodityAction extends CommonAction {
 			if(!empty($data['p3'])){
 				$data['p3'] = json_decode($data['p3'],true);
 			}
+			$data['cc'] = $CommodityCategory->find($data['pid']);
+			$data['cs'] = $CommoditySubclass->find($data['cid']);
 			$this->assign('data',$data);
-//			dump($data);
+			//dump($data);
 			$CommodityList->where('id='.$_GET['id'])->setInc('views');
 			 $address_config = C('address_level');
             if(!empty($address_config) && !empty($address_config['province_level'])){

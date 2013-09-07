@@ -85,11 +85,18 @@ class OrderListAction extends CommonAction{
 				$MemberOrderinfo[$i]['other_data'] = $other;
 			}
 
-		//	dump($MemberOrderinfo);
-
+			//dump($MemberOrderinfo[0]);
 			$this->assign('list',$MemberOrderinfo);
 
 			$this->assign('fpage',$page->fpage());
+			$datass = $datas;
+			$datass['new_price'] = array('elt',0);
+			$t1 = $MemberOrder->where($datass)->sum('total_fee');
+			$t2 = $MemberOrder->where($datas)->sum('new_price');
+			$total_price = $t1+$t2;
+			//echo $total_price;
+			//echo $MemberOrder->getLastSql();
+			$this->assign('total_price',$total_price);
 
 			$this->display();
 		}else{
@@ -162,7 +169,9 @@ class OrderListAction extends CommonAction{
 			$datas['commodity_type'] = $_GET['type'];
 
 			$count = $MemberOrder->where($datas)->count();
-
+			$total_price = $MemberOrder->where($datas)->sum('total_fee');
+			dump($total_fee);
+			echo $MemberOrder->getLastSql();
 			$page = new page($count,15);
 
 			$MemberOrderinfo = $MemberOrder->where($datas)->order('create_date desc')->limit($page->setlimit())->select();
@@ -290,6 +299,107 @@ class OrderListAction extends CommonAction{
 						$this->ajaxReturn(0,"修改付款状态成功",1);
 					}else{
 						$this->ajaxReturn(0,"修改付款状态失败",0);
+					}
+				}else{
+					$this->ajaxReturn(0,"异常操作",0);
+				}
+			}else{
+				$this->ajaxReturn(0,"异常操作",0);
+			}
+		}else{
+				$this->ajaxReturn(0,"异常操作",0);
+		}
+	}
+
+	function change_price(){
+		if($this->check_is_admin()){
+			if(isset($_GET['id']) && !empty($_GET['id'])){
+				$MemberOrder = M('MemberOrder');
+				$order = $MemberOrder->where($w)->find($_GET['id']);
+				if($order){
+					$order['new_price_change_record'] = json_decode($order['new_price_change_record'],true);
+					$this->assign('data',$order);
+					$this->display();
+				}else{
+					$this->ajaxReturn(0,'异常操作',0);
+				}
+			}else{
+				$this->ajaxReturn(0,"异常操作",0);
+			}
+		}else{
+			$this->ajaxReturn(0,"异常操作",0);
+		}
+	}
+
+	function set_change_price(){
+		if($this->check_is_admin()){
+			if(!empty($_POST['id']) && isset($_POST['new_price'])){
+				$MemberOrder = M('MemberOrder');
+				$order = $MemberOrder->find($_POST['id']);
+				if($_POST['new_price']==$order['new_price']){
+					$this->ajaxReturn(0,"还没有修改价格",0);
+				}
+				if(!is_numeric($_POST['new_price']) || $_POST['new_price']<0){
+					$this->ajaxReturn(0,"所填价格有误",0);
+				}
+				if($order){
+					$save['new_price'] = $_POST['new_price'];
+					if(empty($order['new_price_change_record'])){
+						$save['new_price_change_record'] = json_encode(array(array('price'=>$_POST['new_price'],'update_date'=>time())));
+					}else{
+						$org = json_decode($order['new_price_change_record'],true);
+						$new = array(array('price'=>$_POST['new_price'],'update_date'=>time()));
+						$save['new_price_change_record'] = json_encode(array_merge($new,$org));
+					}
+					if($MemberOrder->where('id='.$_POST['id'])->setField($save)){
+						$this->ajaxReturn(0,"修改价格成功",1);
+					}else{
+						$this->ajaxReturn(0,"修改价格失败",0);
+					}
+				}else{
+					$this->ajaxReturn(0,"异常操作",0);
+				}
+			}else{
+				$this->ajaxReturn(0,"异常操作",0);
+			}
+		}else{
+				$this->ajaxReturn(0,"异常操作",0);
+		}
+	}
+
+	function edit_remark(){
+		if($this->check_is_admin()){
+			if(isset($_GET['id']) && !empty($_GET['id'])){
+				$MemberOrder = M('MemberOrder');
+				$order = $MemberOrder->find($_GET['id']);
+				if($order){
+					$this->assign('data',$order);
+					$this->display();
+				}else{
+					$this->ajaxReturn(0,'异常操作',0);
+				}
+			}else{
+				$this->ajaxReturn(0,"异常操作",0);
+			}
+		}else{
+			$this->ajaxReturn(0,"异常操作",0);
+		}
+	}
+
+	function set_edit_remark(){
+		if($this->check_is_admin()){
+			if(!empty($_POST['id']) && isset($_POST['remark'])){
+				$MemberOrder = M('MemberOrder');
+				$order = $MemberOrder->find($_POST['id']);
+				if($_POST['remark']==$order['remark']){
+					$this->ajaxReturn(0,"没有修改内容",0);
+				}
+				if($order){
+					$save['remark'] = strip_tags($_POST['remark']);
+					if($MemberOrder->where('id='.$_POST['id'])->setField($save)){
+						$this->ajaxReturn(0,"修改成功",1);
+					}else{
+						$this->ajaxReturn(0,"修改失败",0);
 					}
 				}else{
 					$this->ajaxReturn(0,"异常操作",0);
