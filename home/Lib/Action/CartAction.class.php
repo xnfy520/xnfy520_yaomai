@@ -219,6 +219,7 @@ class CartAction extends CommonAction {
                             $this->assign('youhui',number_format($youhui,"2",".",""));
                     }
                     $this->assign('Cartslist',$Cartslist);
+                //dump($Cartslist);
                     $this->assign('commodity_total',number_format($commodity_total,"2",".",""));
                     $this->assign('commodity_volume',$commodity_volume);
                     $this->display();
@@ -411,7 +412,7 @@ class CartAction extends CommonAction {
                 if($ids = $Addresss->add($data)){
                     $Address = M('Address');
                     $ads  =$Address->where('publish=1')->find($data['where_id']);
-                    $this->ajaxReturn(array('id'=>$ids,'initiate_price'=>$ads['initiate_price'],'average_price'=>$ads['average_price']),"新增成功！",1);
+                    $this->ajaxReturn(array('id'=>$ids,'dropin'=>$ads['dropin'],'dropin_lowest_price'=>$ads['dropin_lowest_price'],'dropin_average_price'=>$ads['dropin_average_price'],'average_price'=>$ads['average_price']),"新增成功！",1);
                 }else{
                     $this->ajaxReturn(0,"新增错误！",0);
                 }
