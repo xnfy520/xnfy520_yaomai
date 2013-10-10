@@ -233,6 +233,12 @@
                                     <neq name="Think.get.type" value="4">
                                         <tr>
                                             <td colspan="7" style="border: none;text-align:left;text-indent:20px">
+                                                <strong>客户姓名</strong>：<{$vo.truename|default="-"}>　
+                                                <strong>客户手机号</strong>：<{$vo.phone|default="-"}>　
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="7" style="border: none;text-align:left;text-indent:20px">
                                                 <strong>收货人姓名</strong>：<{$vo.address.consignee}>　
                                                 <strong>地址</strong>：<{$vo.address.where_text}>　<{$vo.address.street}>　
                                                 <!-- <strong>邮编</strong>：<{$vo.address.zip}>　 -->
@@ -249,7 +255,7 @@
                                                 <strong>配送方式</strong>：
                                                 <switch name="vo.other_data.delivery">
                                                     <case value="1"><span title="用户到相应提货点自提安装">提货点自提 ( 运费 <{$vo.other_data.logistics}> )</span></case>
-                                                    <case value="2"><span title="非电梯楼上楼费用由用户另付">送货上门安装 ( 运费 <{$vo.other_data.logistics}> + 服务费 <{$vo.other_data.delivery_price}> )</span></case>
+                                                    <case value="2"><span title="非电梯楼上楼费用由用户另付">送货上门安装 ( 运费 <{$vo.other_data.logistics}> )</span></case>
                                                 </switch>　
                                                 <notempty name="vo.other_data.ask_for_date">
                                                     <strong>要求到货时间</strong>：<{$vo.other_data.ask_for_date}>

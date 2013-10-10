@@ -230,10 +230,10 @@
         </div>
       </notempty>
     </eq>
-      <input type="text" name="delivery_price" value="<{$Think.config.conf7|default="20"}>" />
+      <input type="hidden" name="delivery_price" value="<{$Think.config.conf7|default="20"}>" />
       <input type="hidden" name="commodity_volume" value="<{$commodity_volume}>" />
       <input type="hidden" name="commodity_total" value="<{$commodity_total}>" />
-      <input type="text" name="logistics" value="0" />
+      <input type="hidden" name="logistics" value="0" />
       <input type="hidden" name="price_total" value="<{$commodity_total}>" />
     <style type="text/css">
       .xm-ddqs-1{
@@ -389,13 +389,14 @@
         $("[name=logistics]").val(data.price);
     }
 
-    $("[name=use_address]").change(function(){
+    $("[name=use_address]").live('change',function(){
         var i = $(this).attr('index'); 
         set_logistics(i);
     });
 
     function set_logistics(i){ //设置物流费用
         var data = get_logistics(i); //获取当前把选地区物流价格
+        console.log(data);
         if(data.dropin){
           $("#delivery_status1").css('display','block');
           $("#delivery_status2").css('display','none');
@@ -404,6 +405,7 @@
           $("#delivery_status1").css('display','none');
           $("#delivery_status2").css('display','block');
           $("[name=delivery][value=2]").attr('disabled','disabled');
+          $("[name=delivery][value=1]").attr('checked','checked');
         }
         var v = $("[name=delivery]:checked").val(); //获取当所选物流方法
         if(v==1){//提货点自提
@@ -412,12 +414,11 @@
         }else if(v==2){//送货上门安装
           $(".logistics").text(data.drop_price.toFixed(2));//更改物流价格用于显示
           $("[name=logistics]").val(data.drop_price);//更改物流价格发送表单
-          $("[name=delivery][value=1]").attr('checked','checked');
         }
         get_totals();
     }
 
-    $("[name=delivery]").change(function(){ //当物流方式更改
+    $("[name=delivery]").live('change',function(){ //当物流方式更改
         var v = $(this).val();
         var data = get_logistics($("[name=use_address]:checked").attr('index'));//运费数据
         if(v==1){//提货点自提
@@ -439,7 +440,7 @@
         get_totals();
     });
 
-    $("[name=coupon]").click(function(){
+    $("[name=coupon]").live('click',function(){
        get_totals();
     });
 
@@ -464,47 +465,37 @@
       var price = 0;//measure quantity
       var drop_price = 0;
       var t_measure = 0;
-        function dp(){
-          for(var i=0;i<commoditys.length;i++){
-            var measure = parseFloat(commoditys.eq(i).attr('measure'));
-            var quantity = parseInt(commoditys.eq(i).attr('quantity'));
-            console.log('商品'+i+' 体积:'+measure+'; 数量:'+quantity);
-            t_measure+=measure;
-            var p = measure*dropin_average_price;
-            if(p<dropin_lowest_price){
-              p = dropin_lowest_price;
-              console.log('此商品送货上门价格(体积'+measure+'*送货上门每平方均价'+dropin_average_price+')'+p+'小于送货上门起步价'+dropin_lowest_price+',送货上门价为起步价:'+dropin_lowest_price);
-            }else{
-              console.log('此商品送货上门价格(体积'+measure+'*送货上门每平方均价'+dropin_average_price+')'+p+'大于送货上门起步价'+dropin_lowest_price+',送货上门价为 (体积:'+measure+'*送货上门每平方均价:'+dropin_average_price+') :'+p);
-            }
-            var sum = (measure*average_price*quantity)+(p*quantity);
-            drop_price+=sum;
-            console.log('商品'+i+' 运费为:'+sum+' ( (体积'+measure+'*均价'+average_price+'*数量'+quantity+')+(送货上门价'+p+'*数量'+quantity+') )');
-            console.log('---------------');
-            console.log('总运费:'+drop_price);
-            console.log('++++++++++++++++++++++++++++++++++++++++++');
-            $('.logistics_text').text('该地区每立方单价'+average_price+'元*该订单商品总体积'+t_measure+'立方+商品A上门安装服务费200元*2件+商品B上门安装服务费180元');
+      var a_r = [];
+      for(var i=0;i<commoditys.length;i++){
+        var measure = parseFloat(commoditys.eq(i).attr('measure'));
+        var quantity = parseInt(commoditys.eq(i).attr('quantity'));
+        console.log('商品'+i+' 体积:'+measure+'; 数量:'+quantity);
+        t_measure=t_measure+measure*quantity;
+        var tmp = measure*dropin_average_price;
+        if(tmp<dropin_lowest_price){
+          tmp = dropin_lowest_price;
         }
       }
-       
-      function pp(){
-        for(var i=0;i<commoditys.length;i++){
-          var measure = parseFloat(commoditys.eq(i).attr('measure'));
-          var quantity = parseInt(commoditys.eq(i).attr('quantity'));
-          console.log('商品'+i+' 体积:'+measure+'; 数量:'+quantity);
-          var sum = measure*average_price*quantity;
-          price+=sum;
-          console.log('商品'+i+' 运费为:'+sum+' (体积'+measure+'*均价'+average_price+'*数量'+quantity+') ');
-          console.log('---------------');
-        }
-        console.log('总运费:'+price);
-        console.log('++++++++++++++++++++++++++++++++++++++++++');
+      console.log('商品总体积为:'+t_measure);
+      //物流费用
+      var tp = t_measure*average_price;
+      console.log('物流费用:'+tp);
+      //上门费用
+      var dp = t_measure*dropin_average_price;
+      console.log('上门费用:'+dp);
+      if(dp<dropin_lowest_price){
+        dp = dropin_lowest_price;
       }
+      var top = tp+dp;
+      console.log('上门总费用:'+top);
 
-      dp();
-      pp();
- 
-      var data = {price:price,drop_price:drop_price,dropin:dropin}
+      var data = {price:tp,drop_price:top,dropin:dropin}
+      var v = $("[name=delivery]:checked").val();
+      if(v==1){
+        $(".logistics_text").text('(该地区每立方单价'+average_price+'元*该订单商品总体积'+t_measure+'立方)');
+      }else{
+        $('.logistics_text').text('(该地区每立方单价'+average_price+'元*该订单商品总体积'+t_measure+'立方+上门安装服务费'+dp+'元)');
+      }
       if(data){
         console.log(data);
         return data;
@@ -671,7 +662,8 @@
                     ap.append(ht);
                     $("[name=use_address]").removeAttr('checked');
                     $("[name=use_address]").eq($("[name=use_address]").size()-1).attr('checked','checked');
-                    set_logistics($("[name=use_address]").size()-2);
+                    set_logistics($("[name=use_address]").size()-1);
+                    console.log($("[name=use_address]").eq($("[name=use_address]").size()-1).html());
                     jBox.close();
                     jBox.tip(msg.info, 'success',{ timeout: 1000,closed: function () {
                         $("[name=information_province]").val(0);

@@ -71,18 +71,22 @@ class OrderListAction extends CommonAction{
 			$page = new page($count,15);
 
 			$MemberOrderinfo = $MemberOrder->where($datas)->order('create_date desc')->limit($page->setlimit())->select();
-
+			$User = M('User');
 			for($i=0;$i<count($MemberOrderinfo);$i++){
 				$ali = json_decode($MemberOrderinfo[$i]['alipay_data'],true);
 				$ebank = json_decode($MemberOrderinfo[$i]['ebank_data'],true);
 				$com = json_decode($MemberOrderinfo[$i]['commodity_data'],true);
 				$add = json_decode($MemberOrderinfo[$i]['address'],true);
 				$other = json_decode($MemberOrderinfo[$i]['other_data'],true);
+				$users = $User->field('truename,phone')->where('id='.$MemberOrderinfo[$i]['uid'])->find();
 				$MemberOrderinfo[$i]['alipay_data'] = $ali;
 				$MemberOrderinfo[$i]['ebank_data'] = $ebank;
 				$MemberOrderinfo[$i]['commodity_data'] = $com;
 				$MemberOrderinfo[$i]['address'] = $add;
 				$MemberOrderinfo[$i]['other_data'] = $other;
+				$MemberOrderinfo[$i]['truename'] = $users['truename'];
+				$MemberOrderinfo[$i]['phone'] = $users['phone'];
+				
 			}
 
 			//dump($MemberOrderinfo[0]);
@@ -169,9 +173,7 @@ class OrderListAction extends CommonAction{
 			$datas['commodity_type'] = $_GET['type'];
 
 			$count = $MemberOrder->where($datas)->count();
-			$total_price = $MemberOrder->where($datas)->sum('total_fee');
-			dump($total_fee);
-			echo $MemberOrder->getLastSql();
+
 			$page = new page($count,15);
 
 			$MemberOrderinfo = $MemberOrder->where($datas)->order('create_date desc')->limit($page->setlimit())->select();
@@ -189,13 +191,22 @@ class OrderListAction extends CommonAction{
 				$MemberOrderinfo[$i]['other_data'] = $other;
 			}
 
-		//	dump($MemberOrderinfo);
-
+			//dump($MemberOrderinfo[0]);
 			$this->assign('list',$MemberOrderinfo);
 
 			$this->assign('fpage',$page->fpage());
+			$datass = $datas;
+			$datass['new_price'] = array('elt',0);
+			$t1 = $MemberOrder->where($datass)->sum('total_fee');
+			$t2 = $MemberOrder->where($datas)->sum('new_price');
+			$total_price = $t1+$t2;
+			//echo $total_price;
+			//echo $MemberOrder->getLastSql();
+			$this->assign('total_price',$total_price);
 
 			$this->display();
+		}else{
+			$this->redirect('Public/login');
 		}
 	}
 

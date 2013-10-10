@@ -23,12 +23,19 @@
                         <tr class="znxx">
                             <td><{$vo.out_trade_no}></td>
                             <td><{$vo.username}></td>
-                            <td style="text-indent:10px;<eq name='Think.get.type' value='4'>text-align:center;<else/>text-align:left;</eq>">
-                                <span style="min-width:80px;display:inline-block">&#165;<{$vo.total_fee}></span>
+                            <td style="text-indent:5px;<eq name='Think.get.type' value='4'>text-align:center;<else/>text-align:left;</eq>">
+                                <span style="min-width:80px;display:inline-block">
+                                    <gt name="vo.new_price" value="0">
+                                        <s>&#165;<{$vo.total_fee}></s>　
+                                        <span style="color:red">&#165;<{$vo.new_price}></span>　
+                                    <else/>
+                                        &#165;<{$vo.total_fee}>
+                                    </gt>
+                                </span>
                                 <neq name="Think.get.type" value="4">
                                 (
-                                物流:<{$vo.other_data.logistics}>
-                                <notempty name="vo.other_data.coupon" value="50">优惠:-<{$vo.other_data.coupon}></notempty>
+                                含物流:&#165;<{$vo.other_data.logistics}>
+                                <notempty name="vo.other_data.coupon" value="50">已优惠:-<{$vo.other_data.coupon}></notempty>
                                 )
                                 </neq>
                             </td>
@@ -70,11 +77,11 @@
                                         </eq>
                                         <span style="display: none;" data_on="确认已经处理？" data_off="确认设为未处理？"></span>
                                     <else/>
-                                        -
+                                        <span class="change_price" by="<{$vo.id}>" style="color:#999;font-weight:bold;cursor:pointer">改价</span>
                                     </eq> 
                                <else/>
                                     <eq name="vo.pay_type" value="0">
-                                        -
+                                        <span class="change_price" by="<{$vo.id}>" style="color:#999;font-weight:bold;cursor:pointer">改价</span>
                                     <else/>
                                         <empty name="vo.shipments_data">
                                             <span class="send_out" by="<{$vo.id}>" style="color:red;font-weight:bold;cursor:pointer">发货</span>
@@ -99,7 +106,7 @@
                                             <td colspan="7" style="padding-top:0; border:none">
                                                 <div class="znxx_m" style="width:100%; padding:0;">
                                                     <table  width="100%" cellpadding="0" cellspacing="0" style="border-collapse: collapse;border:none">
-                                                        <tr style="border:none;">
+                                                        <tr style="border:none">
                                                             <td width="100" align="center" style="border: none;">
                                                                 <img src="__PUBLIC__/Content/VoteCommodity/thumb_<{$vo.commodity_data.image}>" style="width:55px; height:30px; padding:3px; border:1px solid #ddd;position: relative;top: 4px;" />
                                                             </td>
@@ -140,7 +147,9 @@
 
                                     <tr>
                                         <td colspan="7" style="border: none;text-align:left;text-indent:20px">
-                                            支付信息：
+                                            <eq name="Think.get.type" value="4">
+                                                <strong>商品编号</strong>：#<{$vo.commodity_data.id}>　
+                                            </eq>
                                             <strong>支付方式</strong>：
                                             <eq name="Think.get.type" value="4">
                                             在线支付　
@@ -151,6 +160,7 @@
                                                     <strong>支付时间</strong>: <{$vo.alipay_data.pay_date|date="Y-m-d H:i:s",###}>
                                                     </case>
                                                     <case value="2">网上银行</case>
+                                                    <default/>-
                                                 </switch>　
                                                 <notempty name="vo.abolish_date">
                                                     <span style="color:blue">取消预订时间:<{$vo.abolish_date|date="Y-m-d H:i:s",###}></span>
@@ -177,10 +187,15 @@
                                     <neq name="Think.get.type" value="4">
                                         <tr>
                                             <td colspan="7" style="border: none;text-align:left;text-indent:20px">
-                                                收货人信息：
-                                                <strong>姓名</strong>：<{$vo.address.consignee}>　
+                                                <strong>客户姓名</strong>：<{$vo.truename|default="-"}>　
+                                                <strong>客户手机号</strong>：<{$vo.phone|default="-"}>　
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="7" style="border: none;text-align:left;text-indent:20px">
+                                                <strong>收货人姓名</strong>：<{$vo.address.consignee}>　
                                                 <strong>地址</strong>：<{$vo.address.where_text}>　<{$vo.address.street}>　
-                                                <strong>邮编</strong>：<{$vo.address.zip}>　
+                                                <!-- <strong>邮编</strong>：<{$vo.address.zip}>　 -->
                                                 <notempty name="vo.address.cellphone">
                                                     <strong>手机</strong>：<{$vo.address.cellphone}>　
                                                 </notempty>
@@ -191,11 +206,10 @@
                                         </tr>
                                         <tr>
                                             <td colspan="7" style="border: none;text-align:left;text-indent:20px">
-                                                订单备注：
                                                 <strong>配送方式</strong>：
                                                 <switch name="vo.other_data.delivery">
                                                     <case value="1"><span title="用户到相应提货点自提安装">提货点自提 ( 运费 <{$vo.other_data.logistics}> )</span></case>
-                                                    <case value="2"><span title="非电梯楼上楼费用由用户另付">送货上门安装 ( 运费 <{$vo.other_data.logistics}> + 服务费 <{$vo.other_data.delivery_price}> )</span></case>
+                                                    <case value="2"><span title="非电梯楼上楼费用由用户另付">送货上门安装 ( 运费 <{$vo.other_data.logistics}> )</span></case>
                                                 </switch>　
                                                 <notempty name="vo.other_data.ask_for_date">
                                                     <strong>要求到货时间</strong>：<{$vo.other_data.ask_for_date}>
@@ -203,6 +217,12 @@
                                             </td>
                                         </tr>
                                     </neq>
+                                    <tr>
+                                        <td colspan="7" style="border: none;text-align:left;text-indent:20px">
+                                            <strong>订单备注</strong>：
+                                            <empty name="vo.remark">-<else/><{$vo.remark}></empty>　<span class="edit_remark" by="<{$vo.id}>" style="color:red;font-weight:bold;cursor:pointer">编辑</span>
+                                        </td>
+                                    </tr>
                                 </table>
                             </td>
                         </tr>
@@ -213,8 +233,19 @@
             </table>
             <notempty name="list">
                 <div style="border:1px solid #ccc;height: 37px;">
-
+                    <div style="float:right;line-height:37px;margin-right:10px">
+                    <switch name="Think.get.pid">
+                        <case value="1">昨日</case>
+                        <case value="2">今日</case>
+                        <case value="3">本周</case>
+                        <case value="4">上周</case>
+                        <case value="5">本月</case>
+                        <case value="6">上月</case>
+                        <default/>
+                    </switch>总计:&#165;<span id="totals_prices" t="<{$total_price}>">-</span>
+                    </div>
                     <div class="emit-fanye-box">
+
                         <div class="emit-fanye-text">
                             <{$fpage}>
                         </div>
@@ -250,5 +281,6 @@
                     }
 
                 })
+                $("#totals_prices").html(parseFloat($("#totals_prices").attr('t')).toFixed(2));
             })
         </script>   
